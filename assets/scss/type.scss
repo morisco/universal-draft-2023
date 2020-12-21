@@ -1,0 +1,107 @@
+html{
+  color: #000;
+  font-size: 1em;
+  font-family: TTCommons;
+  font-weight: normal;
+  font-style: normal;
+  text-transform: none;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a{
+  text-decoration:none;
+  color:$black;
+}
+
+em{
+  font-style:normal;
+}
+
+h1,
+.headline{
+  font-family: TTLakes-Light;
+  font-weight: 400;
+  line-height: 1;
+  color: #fffefe;
+  text-transform: none;
+  text-align: left;
+  font-size:4vh;
+  @include non-mobile{
+    font-size: 14vw;
+  }
+  &--small{
+    line-height: 1;
+    font-weight: 100;
+    font-size:4vh;
+    @include non-mobile{
+      font-size: 3vw;
+    }
+  }
+  &--big{
+    font-family: Tabia-Black;
+    font-weight: 400;
+    letter-spacing: -.025em;
+    word-spacing: -.1em;
+    text-transform: none;
+    font-size:19vh;
+    line-height:.8;
+    @include non-mobile{
+      font-size: 15vw;
+      line-height: .85;
+    }
+  }
+  em {
+    display:block;
+    color:$highlight1;
+  }
+}
+
+h2{
+  font-weight: 100;
+  line-height: 100%;
+  letter-spacing: .05em;
+  text-transform: none;
+  color:$white;
+  font-size: 17px;
+  @include non-mobile{
+    font-size: 22px;
+  }
+}
+h3{
+  font-family: Tabia-Black;
+  font-weight: 400;
+  font-size: 52px;
+  line-height: .85;
+  text-transform: none;
+  letter-spacing: -.015em;
+  @include tablet-portrait-only{
+    font-size:46px;
+  }
+}
+
+p{
+  font-family: TTCommons;
+  font-weight:200;
+  list-style: none;
+  text-transform: none;
+  line-height:1.4;
+  font-size:18px;
+  margin-bottom:20px;
+  @include non-mobile{
+    margin-bottom:30px;
+    font-size:22px;
+  }
+  strong{
+    font-weight:normal;
+  }
+}
+
+.updated{
+  @include updated-text;
+}
+
+.nav-link{
+  @include header-nav-link;
+}

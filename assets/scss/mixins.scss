@@ -1,0 +1,188 @@
+@mixin updated-text{
+  font-family: TTCommons;
+  font-weight: 200;
+  font-style:normal;
+  line-height: 100%;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size:17px;
+  @include non-mobile{
+    font-size:21px;
+  }
+}
+
+@mixin header-nav-link{
+  font-family: TTCommons;
+  font-weight: 600;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-size: 10px;
+  line-height: .8;
+  @include non-mobile{
+    font-size: 12.5px;
+    line-height: 125%;
+  }
+}
+
+@mixin demibold-title{
+  font-family: TTCommons;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0;
+  text-transform: none;
+  @include single-column{
+    font-size:12px;
+  }
+}
+
+@mixin player-position {
+  font-family: TTLakes-DemiBold;
+  font-size: 18px;
+  line-height: 100%;
+}
+
+@mixin navigation-link-updated{
+  font-weight: 200;
+  font-size: 17px;
+  line-height: 100%;
+  letter-spacing: 0;
+  text-transform: none;
+  @include single-column{
+    font-size:12px;
+  }
+}
+
+@mixin filter-section-title{
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12.5px;
+  line-height: 1.15;
+}
+
+@mixin mobile-nav-label{
+  text-transform: uppercase;
+  font-size: 12.5px;
+  line-height: 1.15;
+  font-weight:700;
+  letter-spacing:.1em;
+}
+
+@mixin filter-option{
+  font-weight:normal;
+  font-size:16px;
+  line-height:100%;
+  letter-spacing:0;
+}
+
+@mixin stat-title{
+  font-weight:700;
+  font-size: 13px;
+  line-height: 100%;
+  letter-spacing: .1em;
+  text-transform:uppercase;
+}
+
+@mixin stat-value{
+  font-family: TTLakes-Light;
+  font-size: 20px;
+  line-height: .77;
+  @include medium-desktop {
+    font-size:18px;
+    letter-spacing:-1px;
+  }
+}
+
+@mixin meta-list-label{
+  font-weight:600;
+  font-size:12.5px;
+  line-height: 125%;
+  letter-spacing: .1em;
+}
+
+@mixin meta-list-value{
+  font-weight:normal;
+  font-size:16px;
+  line-height: 100%;
+  letter-spacing: 0;
+}
+
+@mixin player-headline{
+  font-weight:200;
+  font-size: 26px;
+  line-height: 1;
+  @include tablet-portrait-only{
+    font-size:22px;
+  }
+}
+
+@mixin expanded-label{
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 125%;
+  letter-spacing: .05em;
+}
+
+@mixin expanded-value{
+  line-height:1.4;
+  font-size:16px;
+  margin-bottom:15px;
+}
+
+@mixin tooltip {
+  line-height: 1;
+  font-weight:500;
+  font-size:13px;
+}
+
+@mixin rank {
+  font-family: TTLakes-DemiBold;
+  line-height: .55;
+  font-size: 23px;
+}
+
+@mixin info-bubble{
+  font-weight:normal;
+  line-height: 100%;
+  letter-spacing: 0;
+  font-size: 14px;
+  text-align:center;
+}
+
+@mixin tablet-portrait-only {
+  @media (min-width: #{$mobile-width+1}) and (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin non-mobile{
+  @media (min-width: #{$mobile-width + 1}) {
+    @content;
+  }
+}
+
+
+@mixin mobile{
+  @media (max-width: #{$mobile-width}) {
+    @content;
+  }
+}
+
+@mixin single-column{
+  @media (max-width: #{$small-desktop-width}) {
+    @content;
+  }
+}
+
+@mixin single-column-only{
+  @media (max-width: #{$small-desktop-width}) and (min-width: #{$mobile-width + 1}) {
+    @content;
+  }
+}
+
+@mixin medium-desktop {
+  @media (max-width: #{$medium-desktop-width}) {
+    @content;
+  }
+}
+
