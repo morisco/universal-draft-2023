@@ -127,7 +127,10 @@ export default {
         const maxTime = this.$mq === 'mobile' ? 375 : 875;
         const timing = Math.min(maxTime, Math.max(300, Math.round((difference/windowHeight) * maxTime)));
         const easing = this.expanded ? 'linear' : 'easeOutCubic';
-        if(this.expanded || !this.$mq === 'mobile'){
+        console.log('right here');
+        console.log(this.$mq);
+        if(this.$mq !== 'mobile' || this.expanded){
+          console.log('here');
           scrollIt(scrollDestination, timing, easing, cb);
         } else {
           cb();

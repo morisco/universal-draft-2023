@@ -88,12 +88,12 @@ export default {
       meta: [{
         hid: 'og:title',
         name: 'og:title',
-        content: this.configuration.facebook_page_share_title
+        content: this.configuration.facebook_page_share_title + 'Mock'
       },
       {
         hid: 'og:description',
         name: 'og:description',
-        content: this.configuration.facebook_page_share_description
+        content: this.configuration.facebook_page_share_description + 'Mock'
       }]
     }
   }

@@ -78,7 +78,13 @@ export default {
     },
     changeActive(event) {
       event.preventDefault();
-      scrollIt(this.$refs.navigation.offsetTop + 4, 500);
+      if(window.scrollY < this.$refs.navigation.offsetTop){
+        scrollIt(this.$refs.navigation.offsetTop + 4, 500);
+      } else {
+        setTimeout(() => {
+          scrollIt(this.$refs.navigation.offsetTop + 4, 0);
+        }, 375)
+      }
       // this.active = newActive;
     },
     handleInitialNavOptions() {
