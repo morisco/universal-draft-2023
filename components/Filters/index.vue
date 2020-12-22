@@ -185,7 +185,7 @@ export default {
       var distanceFromTopWhenSticky = ['tablet', 'small_desktop'].indexOf(this.$mq) >= 0 ? 50 : 110;
       if(window.scrollY > this.$refs.filters.offsetParent.offsetTop - distanceFromTopWhenSticky){
         this.fixed = true;
-        this.showInfoBubble = this.$route.name === 'team-needs' || this.bubbleDismissed ? false : true;
+        this.showInfoBubble = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) < 0 && this.$route.name === 'team-needs' || this.bubbleDismissed ? false : true;
         this.left = this.$refs.filters.offsetParent.offsetLeft;
       } else {
         this.fixed = false;
@@ -238,7 +238,7 @@ export default {
     },
     $route (newRoute) {
       this.disabled = newRoute.name === 'team-needs'
-      this.showInfoBubble = !this.bubbleDismissed && newRoute.name !== 'team-needs'
+      this.showInfoBubble = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) < 0 && !this.bubbleDismissed && newRoute.name !== 'team-needs'
     }
   }
 }
