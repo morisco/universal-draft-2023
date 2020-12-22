@@ -1,5 +1,12 @@
 <template>
-<div class="filters" :class="{'filters--fixed': fixed}" ref="filters">
+<div 
+  class="filters" 
+  :class="{
+    'filters--fixed': fixed,
+    'filters--disabled': disabled
+  }" 
+  ref="filters"
+>
   <div class="filters__sticky" v-bind:style="{width: width + 'px', left: left + 'px'}">
     <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
       <transition name="info-bubble--animated">
@@ -154,7 +161,8 @@ export default {
       width: null,
       left: null,
       bubbleDismissed: false,
-      showInfoBubble: false
+      showInfoBubble: false,
+      disabled: this.$route.name === 'team-needs'
     }
   },
   computed: {
@@ -177,7 +185,7 @@ export default {
       var distanceFromTopWhenSticky = ['tablet', 'small_desktop'].indexOf(this.$mq) >= 0 ? 50 : 110;
       if(window.scrollY > this.$refs.filters.offsetParent.offsetTop - distanceFromTopWhenSticky){
         this.fixed = true;
-        this.showInfoBubble = this.bubbleDismissed ? false : true;
+        this.showInfoBubble = this.$route.name === 'team-needs' || this.bubbleDismissed ? false : true;
         this.left = this.$refs.filters.offsetParent.offsetLeft;
       } else {
         this.fixed = false;
@@ -216,6 +224,7 @@ export default {
     window.addEventListener('resize', this.handleScroll);
   },
   mounted () {
+    console.log(this.$route);
     this.width = this.$mq === 'mobile' ?  null : this.$refs.filters.offsetWidth;
   },
   destroyed () {
@@ -226,6 +235,10 @@ export default {
     activeDepth () {
       this.bubbleDismissed = true;
       this.showInfoBubble = false
+    },
+    $route (newRoute) {
+      this.disabled = newRoute.name === 'team-needs'
+      this.showInfoBubble = !this.bubbleDismissed && newRoute.name !== 'team-needs'
     }
   }
 }
@@ -239,7 +252,11 @@ export default {
   width: 16.25%;
   max-width: 180px;
   z-index:55555;
-  
+  transition:opacity 0.25s linear;
+  &--disabled{
+    opacity:0.5;
+    pointer-events:none;
+  }
   &--fixed{
     .filters__sticky{
       position:fixed;

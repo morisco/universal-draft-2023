@@ -20,12 +20,13 @@ export default {
     right:25px;
     left:25px;
     padding: 15px 10px 10px;
-    transition: all 0.375s linear 0.125s, opacity 0.25s linear 0s;
+    transition: all 0.375s linear 0.125s, opacity 0.25s linear 0s, visibility 0s linear 0.25s;
     transform:translateY(-30px);
     opacity:0;
     z-index:0;
     color:$white;
     border:2px solid $white;
+    visibility:hidden;
     @include mobile{
       display:none;
     }
@@ -52,6 +53,7 @@ export default {
     }
 
     .player-card--open & {
+      visibility:visible;
       opacity:1;
       transition: opacity 0.125s linear 0.375s;
     }

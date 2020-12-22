@@ -20,7 +20,6 @@ export default {
     playerMeta() {
       let playerData = this.player
           playerData.position = this.$store.getters['content/playerPosition'](playerData.player_position_stats.position)
-          playerData.offenseDefense = this.$store.getters['content/playerType'](playerData.player_position_stats.position)
       return {
         firstName: playerData.first_name,
         lastName: playerData.last_name,

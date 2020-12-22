@@ -33,7 +33,8 @@ export default {
     left:20px;
     top:222.5px;
     transform:translateY(calc(-100% - 20px));
-    z-index:1;
+    z-index:3;
+    cursor:default;
 
     @include mobile{
       max-width:35px;
@@ -71,6 +72,7 @@ export default {
       transition:opacity 0.25s linear 0s;
       text-transform:uppercase;
       margin-top:3px;
+      pointer-events:none;
     }
 
     .player-card--collapsed & {

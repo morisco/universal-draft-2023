@@ -141,6 +141,25 @@
   font-size: 23px;
 }
 
+@mixin team-player-name {
+  font-family: TTLakes-DemiBold;
+  line-height: .9;
+  font-size: 22px;
+  text-transform:uppercase;
+  @include tablet-portrait-only{
+    font-size:16px;
+    line-height:1;
+  }
+}
+@mixin team-player-meta{
+  font-family: TTLakes-Light;
+  font-size:14px;
+  line-height:1.2;
+  @include tablet-portrait-only{
+    font-size:11px;
+  }
+}
+
 @mixin info-bubble{
   font-weight:normal;
   line-height: 100%;
@@ -182,6 +201,11 @@
 
 @mixin medium-desktop {
   @media (max-width: #{$medium-desktop-width}) {
+    @content;
+  }
+}
+@mixin tablet{
+  @media (max-width: #{$tablet-width}) {
     @content;
   }
 }

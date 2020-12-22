@@ -1,7 +1,7 @@
 <template>
   <article class="player-card" :class="{
-    'player-card--offense': offenseDefense === 'offense', 
-    'player-card--defense': offenseDefense === 'defense', 
+    'player-card--offense': player.offenseDefense === 'offense', 
+    'player-card--defense': player.offenseDefense === 'defense', 
     'player-card--open': expanded, 
     'player-card--collapsed': collapsed && !expanded,
     'player-card--transitioning': transitioning
@@ -28,7 +28,7 @@
       v-on:set-info-height="setInfoHeight"
     />
     <ToggleCard 
-      :offenseDefense="offenseDefense" 
+      :offenseDefense="player.offenseDefense" 
       :expanded="expanded" 
       :cardExpanded="cardExpanded"
       v-on:toggle-card="toggleCard"
@@ -83,9 +83,6 @@ export default {
         default:
           return 200 - this.rank;
       }
-    },
-    offenseDefense () {
-      return this.$store.getters['content/playerType'](this.player.player_position_stats.position)
     },
   },
   destroyed() {
@@ -168,13 +165,13 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .player-card{
     position:relative;
     display:flex;
     background:$lightgray;
     border-radius: .625rem;
-    border: .00875rem solid #ccc;
+    border: .00875rem solid $mediumgray;
     margin-bottom:30px;
     overflow-x:visible;
     transition:max-height 0.5s ease-in-out, margin-bottom 0.25s linear 0.125s;

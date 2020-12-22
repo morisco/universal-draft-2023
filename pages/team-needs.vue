@@ -2,13 +2,10 @@ T<template>
   <section class="main-section mock-draft">
     <MainSectionIntro type="mock_draft" />
     <transition-group name="player-card" class="mock-draft__inner" tag="div">
-      <PlayerCard 
-        v-for="playerId in mockDraftIds" 
-        :playerId="playerId" 
-        :key="playerId" 
-        rankKey="mock_rank" 
-        v-on:card-expanded="setCardExpanded" 
-        :cardExpanded="cardExpanded" 
+      <TeamCard 
+        v-for="teamId in teamNeedsIds" 
+        :teamId="teamId" 
+        :key="teamId" 
       />
     </transition-group>
   </section>
@@ -16,17 +13,17 @@ T<template>
 
 <script>
 import { mapActions } from 'vuex'
-import PlayerCard from '~/components/PlayerCard'
+import TeamCard from '~/components/TeamCard'
 import MainSectionIntro from '~/components/MainSectionIntro'
 export default {
-  name: 'MockDraft',
+  name: 'TeamNeeds',
   transition: {
     name:"main-section",
     mode:"out-in",
     duration: 750
   },
   scrollToTop: false,
-  components: { MainSectionIntro, PlayerCard },
+  components: { MainSectionIntro, TeamCard },
   data() {
     return {
       initTimeout: null,
@@ -40,28 +37,14 @@ export default {
     clearTimeout(this.initTimeout);
   },
   computed: {
-    cardExpanded () {
-      return this.$store.getters['page/cardExpanded']
-    },
-    viewDepth () {
-      return this.$store.getters['viewOptions/depth']
-    },
-    viewPosition () {
-      return this.$store.getters['viewOptions/position']
-    },
-    mockDraftIds () {
+    teamNeedsIds () {
       if(this.showMain){
-        return this.$store.getters['content/mockDraft'](this.viewPosition)
+        return this.$store.getters['content/teamNeeds']
       } else {
-        const itemCount = this.viewDepth === 'compact' ? 10 : 4;
-        return this.$store.getters['content/mockDraft'](this.viewPosition).slice(0,itemCount)
+        const itemCount = 4;
+        return this.$store.getters['content/teamNeeds'].slice(0,itemCount)
       }
     }
-  },
-   methods: {
-   ...mapActions({
-      'setCardExpanded': 'page/setCardExpanded',
-    }),
   },
   async asyncData({$axios, store, commit}) {
     let configuration = store.getters['page/configuration'];
