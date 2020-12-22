@@ -100,6 +100,8 @@ export default {
         @include team-player-name;
         margin-bottom:2px;
         padding-right:10px;
+        color:$black;
+        transition:color 0.25s linear;
       }
       &-school-position{
         @include team-player-meta;
@@ -125,15 +127,29 @@ export default {
         }
 
       }
-      &:hover{
-       .team-card__player-image{
-          .team-card__player--offense & {
-            background-color:$offense;
+      &--offense  {
+        &:hover{
+          .team-card__player{
+            &-image{
+              background-color:$offense;
+            }
+            &-title{
+              color:$offense;
+            }
           }
-          .team-card__player--defense & {
-            background-color:$defense;
+        }
+      }
+      &--defense  {
+        &:hover{
+          .team-card__player{
+            &-image{
+              background-color:$defense;
+            }
+            &-title{
+              color:$defense;
+            }
           }
-       } 
+        }
       }
     }
   }
