@@ -16,13 +16,21 @@ const getters = {
 // actions
 const actions = {
   getPageSettings ({ commit, state }) {
-    axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/config.json.gz")
+    axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/config.json.gz",  {
+      headers: {
+         'Content-Encoding': 'gzip'
+      }
+    })
     .then(response => {
       const page = response.data[0].data;
       commit('setPage', page)
     })
     .catch(err => console.log(err));
-    axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/page.json.gz")
+    axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/page.json.gz",  {
+      headers: {
+         'Content-Encoding': 'gzip'
+      }
+    })
     .then(response => { 
       const config = response.data[0];
       commit('setConfig', config)

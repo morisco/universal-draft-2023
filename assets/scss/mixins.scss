@@ -136,13 +136,13 @@
 }
 
 @mixin rank {
-  font-family: TTLakes-DemiBold;
+  font-family: TTLakes-DemiBold, Arial, sans-serif;
   line-height: .55;
   font-size: 23px;
 }
 
 @mixin team-player-name {
-  font-family: TTLakes-DemiBold;
+  font-family: TTLakes-DemiBold, Arial, sans-serif;
   line-height: .9;
   font-size: 22px;
   text-transform:uppercase;
@@ -152,7 +152,7 @@
   }
 }
 @mixin team-player-meta{
-  font-family: TTLakes-Light;
+  font-family: TTLakes-Light, Arial, sans-serif;
   font-size:14px;
   line-height:1.2;
   @include tablet-portrait-only{

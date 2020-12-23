@@ -66,7 +66,11 @@ export default {
   async asyncData({$axios, store, commit}) {
     let configuration = store.getters['page/configuration'];
     if(!configuration){
-      configuration = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/config.json.gz")
+      configuration = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/config.json.gz",  {
+        headers: {
+          'Content-Encoding': 'gzip'
+        }
+      })
         .then(response => { 
           store.commit('page/setConfig', response.data[0]);
           return response.data[0];
@@ -74,7 +78,11 @@ export default {
     }
     let pageSettings = store.getters['page/settings'];
     if(!pageSettings){
-      pageSettings = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/page.json.gz")
+      pageSettings = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/page.json.gz",  {
+        headers: {
+          'Content-Encoding': 'gzip'
+        }
+      })
         .then(response => {
           store.commit('page/setPage', response.data[0].data);
           return response.data[0].data;
