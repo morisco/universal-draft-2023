@@ -16,13 +16,13 @@ const getters = {
 // actions
 const actions = {
   getPageSettings ({ commit, state }) {
-    axios.get("https://s3.amazonaws.com/heddek/pages/ringernfl2020/production/ringernfl2020.json")
+    axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/config.json")
     .then(response => {
       const page = response.data[0].data;
       commit('setPage', page)
     })
     .catch(err => console.log(err));
-    axios.get("https://s3.amazonaws.com/heddek/config/ringernfl2020/production/ringernfl2020.json")
+    axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/page.json")
     .then(response => { 
       const config = response.data[0];
       commit('setConfig', config)

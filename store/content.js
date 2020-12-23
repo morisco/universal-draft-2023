@@ -55,7 +55,7 @@ const getters = {
 // actions
 const actions = {
   getContents ({commit}) {
-    axios.get("https://s3.amazonaws.com/heddek/contents/ringernfl2020/production/ringernfl2020.json")
+    axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/content.json")
     .then(response => {
       const contents = response.data.contents;
       const processedPlayers = processPlayers(contents.players.content);
