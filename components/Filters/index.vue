@@ -224,7 +224,6 @@ export default {
     window.addEventListener('resize', this.handleScroll);
   },
   mounted () {
-    console.log(this.$route);
     this.width = this.$mq === 'mobile' ?  null : this.$refs.filters.offsetWidth;
   },
   destroyed () {

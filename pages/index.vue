@@ -1,5 +1,5 @@
 <template>
-  <section class="main-section big-board">
+  <section class="main-section big-board" ref="bigBoard">
     <MainSectionIntro type="big_board" />
     <transition-group name="player-card" class="big-board__inner" tag="div">
       <PlayerCard v-for="playerId in bigBoardIds" :playerId="playerId" :key="playerId" rankKey="order" v-on:card-expanded="setCardExpanded" :cardExpanded="cardExpanded" />
@@ -25,14 +25,18 @@ export default {
   data() {
     return {
       initTimeout: null,
-      showMain: false
+      showAll: false
     }
   },
-  mounted() {
-    this.initTimeout = setTimeout(() => this.showMain = true, 1000);
+  created() {
+    if(process.client){
+      window.addEventListener('scroll', this.handleScroll);
+    }
   },
   destroyed() {
-    clearTimeout(this.initTimeout);
+    if(process.client){
+      window.removeEventListener('scroll', this.handleScroll);
+    }
   },
   computed: {
     viewDepth () {
@@ -45,18 +49,19 @@ export default {
       return this.$store.getters['page/cardExpanded']
     },
     bigBoardIds () {
-       if(this.showMain){
-        return this.$store.getters['content/bigBoard'](this.viewPosition)
-      } else {
-        const itemCount = this.viewDepth === 'compact' ? 10 : 4;
-        return this.$store.getters['content/bigBoard'](this.viewPosition).slice(0,itemCount)
-      }
+      const itemCount = this.viewDepth === 'compact' ? 10 : 4;
+      return this.showAll ? this.$store.getters['content/bigBoard'](this.viewPosition) : this.$store.getters['content/bigBoard'](this.viewPosition).slice(0,itemCount)
     }
   },
   methods: {
    ...mapActions({
       'setCardExpanded': 'page/setCardExpanded',
     }),
+    handleScroll() {
+      if(window.scrollY > this.$refs.bigBoard.offsetParent.offsetTop + this.$refs.bigBoard.offsetTop) {
+        this.showAll = true;
+      }
+    }
   },
   async asyncData({$axios, store, commit}) {
     let configuration = store.getters['page/configuration'];
