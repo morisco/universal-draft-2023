@@ -55,8 +55,13 @@ const getters = {
 // actions
 const actions = {
   getContents ({commit}) {
-    axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/content.json")
+    axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/content.json.gz",  {
+      headers: {
+         'Content-Encoding': 'gzip'
+      }
+    })
     .then(response => {
+      console.log('resszy', response);
       const contents = response.data.contents;
       const processedPlayers = processPlayers(contents.players.content);
       const processedTeams = processTeams(contents.teams.content, processedPlayers.teamPlayers);
