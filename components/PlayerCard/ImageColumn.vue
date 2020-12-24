@@ -51,7 +51,7 @@ export default {
       @include mobile {
         width:100%;
         max-width:100%;
-        height:220px;
+        min-height:220px;
       }
       .player-card--collapsed & {
         transition:max-width 0.25s ease-in-out 0s;
