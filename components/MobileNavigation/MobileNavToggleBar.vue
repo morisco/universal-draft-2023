@@ -1,5 +1,5 @@
 <template>
-<button class="mobile-navigation__toggle-bar">
+<button class="mobile-navigation__toggle-bar" v-on:click="toggleNavigation">
   <a href="https://theringer.com" target="_blank" class="mobile-navigation__ringer-logo">
     <img src="@/assets/img/logo-square.png" alt="The Ringer 'R' Logo" />
   </a>
@@ -15,6 +15,7 @@
 </template>
 <script>
 export default {
+  props: ['toggleNavigation'],
   data() {
     return {
       currentLabel: null,

@@ -154,15 +154,16 @@ export default {
           max-width:84.5%;
           transition:all 0.25s ease-in-out 0.125s, max-height 0.25s ease-in-out 0.125s;
         }
-      }
-      .player-card--transitioning & {
-        transition:all 0.5s ease-in-out 0.125s, max-height 0.2s ease-in-out 0s;
-        .player-card__top-data,
-        .player-card__bottom-data{
-          -webkit-animation: infoColumn-collapse 0.75s 1 linear;
-            animation: infoColumn-collapse 0.75s 1 linear;
+        .player-card--transitioning & {
+          transition:all 0.5s ease-in-out 0.125s, max-height 0.2s ease-in-out 0s;
+          .player-card__top-data,
+          .player-card__bottom-data{
+            -webkit-animation: infoColumn-collapse 0.75s 1 linear;
+              animation: infoColumn-collapse 0.75s 1 linear;
+          }
         }
       }
+      
     }
     &__meta-column{
       display:flex;

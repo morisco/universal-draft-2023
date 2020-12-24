@@ -5,10 +5,9 @@
       'mobile-navigation--sticky': fixed,
       'mobile-navigation--expanded': open
     }" 
-    v-on:click="toggleNavigation"
   >
     <div class="mobile-navigation__sticky">
-      <MobileNavToggleBar />
+      <MobileNavToggleBar :toggleNavigation="toggleNavigation" />
       <div class="mobile-navigation__sticky-content">
         <MobileNavLists v-on:toggle-navigation="toggleNavigation" v-on:reset-list="$emit('reset-list')" />
         <Filters />
