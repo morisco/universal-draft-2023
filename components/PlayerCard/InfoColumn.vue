@@ -143,7 +143,7 @@ export default {
         max-width:100%;
         .player-card--collapsed &{
           padding-bottom:15px;
-          .player-card--open & {
+          .player-card--expanded & {
             padding-bottom:0;
           }
         }

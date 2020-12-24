@@ -38,7 +38,7 @@ export default {
           display:none;
           margin:0 15px;
         }
-        .player-card--open & {
+        .player-card--expanded & {
           display:block;
 
         }

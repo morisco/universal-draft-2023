@@ -96,7 +96,7 @@ export default {
           margin:-45px 15px 0;
           padding:0 0 15px;
         }
-        .player-card--open & {
+        .player-card--expanded & {
           opacity:1;
           transition:opacity 0.25s linear 0.5s;
         }

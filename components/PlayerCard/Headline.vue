@@ -26,7 +26,7 @@ export default {
           display:none;
           margin: 15px 15px 30px;
         }
-        .player-card--open & {
+        .player-card--expanded & {
           display:block;
         }
       }

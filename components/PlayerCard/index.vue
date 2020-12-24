@@ -2,7 +2,7 @@
   <article class="player-card" :class="{
     'player-card--offense': player.offenseDefense === 'offense', 
     'player-card--defense': player.offenseDefense === 'defense', 
-    'player-card--open': expanded, 
+    'player-card--expanded': expanded, 
     'player-card--collapsed': collapsed,
     'player-card--transitioning': transitioning,
     'player-card--loaded': maxHeight

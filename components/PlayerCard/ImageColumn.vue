@@ -75,7 +75,7 @@ export default {
         .player-card--collapsed &{
           max-width: 15.5%;
         }
-        .player-card--open & {
+        .player-card--expanded & {
           max-width: calc(100% - 800px);
         }
       }

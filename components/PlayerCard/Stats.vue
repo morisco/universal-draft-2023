@@ -65,7 +65,7 @@ export default {
           margin:0 5px 20px;
           &:nth-child(n+5) {
             opacity:0;
-            .player-card--open &{
+            .player-card--expanded &{
               opacity:1;
             }
           }

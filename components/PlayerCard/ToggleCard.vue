@@ -78,7 +78,7 @@ export default {
           right:-100%;
         }
       }
-      .player-card--open & {
+      .player-card--expanded & {
         bottom:10px;
         transition:bottom 0.25s linear 0.125s;
         .mock-draft & {
@@ -129,7 +129,7 @@ export default {
           fill: $black;
           transition:fill 0.25s ease-in-out;
         }
-        .player-card--open & {
+        .player-card--expanded & {
           transform:rotate(180deg);
         }
       }

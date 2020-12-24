@@ -3,7 +3,7 @@
     ref="nav" 
     :class="{
       'mobile-navigation--sticky': fixed,
-      'mobile-navigation--open': open
+      'mobile-navigation--expanded': open
     }" 
     v-on:click="toggleNavigation"
   >
@@ -113,7 +113,7 @@ export default {
     max-height:0;
     opacity:0;
     transition: max-height 0s linear 0.25s, opacity 0.25s linear 0s;
-    .mobile-navigation--open & {
+    .mobile-navigation--expanded & {
       opacity:1;
       max-height:100%;
       transition: max-height 0s linear 0s, opacity 0.25s linear 0.5s;
@@ -135,7 +135,7 @@ export default {
       transition:all 0.125s linear 0.125s, left 0.25s linear 0s, right 0.25s linear 0s, bottom 0.5s ease-in-out, border-radius 0.25s linear;
     }
   }
-  &--open{
+  &--expanded{
     .mobile-navigation{
       &__sticky{
         bottom:0;

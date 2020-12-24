@@ -52,16 +52,16 @@ export default {
       transition: opacity 0.125s linear 0s;
     }
 
-    .player-card--open & {
+    .player-card--expanded & {
       visibility:visible;
       opacity:1;
       transition: opacity 0.125s linear 0.375s;
     }
 
-    .player-card--open.player-card--collapsed & {
+    .player-card--expanded.player-card--collapsed & {
       transition: opacity 0.125s linear 1s;
     }
-    // .player-card--collapsed.player-card--open & {
+    // .player-card--collapsed.player-card--expanded & {
     //     transition: opacity 0.125s linear 1s;
     //   }
   }

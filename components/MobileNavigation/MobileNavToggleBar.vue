@@ -119,7 +119,7 @@ export default {
     background-repeat:no-repeat;
     transform:rotate(0deg);
     transition: transform 0.25s ease-in-out;
-    .mobile-navigation--open & {
+    .mobile-navigation--expanded & {
       transform:rotate(-180deg);
     }
   }
@@ -134,7 +134,7 @@ export default {
     img{
       width:100%;
     }
-    .mobile-navigation--open & {
+    .mobile-navigation--expanded & {
       margin-left:-40px;
       opacity:0;
       transition:margin-left 0.375s ease-in-out 0s, opacity 0.125s linear;
