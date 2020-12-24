@@ -63,7 +63,7 @@ export default {
     }),
     handleScroll() {
       if(window.scrollY > this.$refs.bigBoard.offsetParent.offsetTop + this.$refs.bigBoard.offsetTop - window.innerHeight) {
-        // this.showAll = true;
+        this.showAll = true;
       }
     }
   },

@@ -1,5 +1,5 @@
 T<template>
-  <section class="main-section mock-draft">
+  <section class="main-section team-needs" ref="teamNeeds">
     <MainSectionIntro type="mock_draft" />
     <transition-group name="player-card" class="mock-draft__inner" tag="div">
       <TeamCard 
@@ -27,22 +27,32 @@ export default {
   data() {
     return {
       initTimeout: null,
-      showMain: false
+      showAll: false
     }
   },
-  mounted() {
-    this.initTimeout = setTimeout(() => this.showMain = true, 1000);
+  created() {
+    if(process.client){
+      window.addEventListener('scroll', this.handleScroll);
+    }
+  },
+  destroyed() {
+    if(process.client){
+      window.removeEventListener('scroll', this.handleScroll);
+    }
   },
   destroyed() {
     clearTimeout(this.initTimeout);
   },
   computed: {
     teamNeedsIds () {
-      if(this.showMain){
-        return this.$store.getters['content/teamNeeds']
-      } else {
-        const itemCount = 4;
-        return this.$store.getters['content/teamNeeds'].slice(0,itemCount)
+      const itemCount = 4;
+      return this.showAll ? this.$store.getters['content/teamNeeds'] : this.$store.getters['content/teamNeeds'].slice(0,itemCount)
+    }
+  },
+  methods: {
+    handleScroll() {
+      if(window.scrollY > this.$refs.teamNeeds.offsetParent.offsetTop + this.$refs.teamNeeds.offsetTop - window.innerHeight) {
+        this.showAll = true;
       }
     }
   },
@@ -92,7 +102,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.mock-draft{
+.team-needs{
    min-height:calc(100vh + 4px);
 }
 </style>

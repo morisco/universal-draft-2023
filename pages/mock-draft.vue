@@ -1,5 +1,5 @@
 <template>
-  <section class="main-section mock-draft">
+  <section class="main-section mock-draft" ref="mockDraft">
     <MainSectionIntro type="mock_draft" />
     <transition-group name="player-card" class="mock-draft__inner" tag="div">
       <PlayerCard 
@@ -30,11 +30,18 @@ export default {
   data() {
     return {
       initTimeout: null,
-      showMain: false
+      showAll: false
     }
   },
-  mounted() {
-    this.initTimeout = setTimeout(() => this.showMain = true, 1000);
+  created() {
+    if(process.client){
+      window.addEventListener('scroll', this.handleScroll);
+    }
+  },
+  destroyed() {
+    if(process.client){
+      window.removeEventListener('scroll', this.handleScroll);
+    }
   },
   destroyed() {
     clearTimeout(this.initTimeout);
@@ -50,18 +57,19 @@ export default {
       return this.$store.getters['viewOptions/position']
     },
     mockDraftIds () {
-      if(this.showMain){
-        return this.$store.getters['content/mockDraft'](this.viewPosition)
-      } else {
-        const itemCount = this.viewDepth === 'compact' ? 10 : 4;
-        return this.$store.getters['content/mockDraft'](this.viewPosition).slice(0,itemCount)
-      }
+      const itemCount = this.viewDepth === 'compact' ? 10 : 4;
+      return this.showAll ? this.$store.getters['content/mockDraft'](this.viewPosition) : this.$store.getters['content/mockDraft'](this.viewPosition).slice(0,itemCount)
     }
   },
    methods: {
    ...mapActions({
       'setCardExpanded': 'page/setCardExpanded',
     }),
+    handleScroll() {
+      if(window.scrollY > this.$refs.mockDraft.offsetParent.offsetTop + this.$refs.mockDraft.offsetTop - window.innerHeight) {
+        this.showAll = true;
+      }
+    }
   },
   async asyncData({$axios, store, commit}) {
     let configuration = store.getters['page/configuration'];

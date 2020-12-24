@@ -30,6 +30,10 @@ export default {
     border-radius: .625rem;
     background:$lightgray;
     border:1px solid $mediumgray;
+    max-height:100%;
+    @include single-column{
+      padding:30px 25px;
+    }
     @include mobile{
       padding:25px;
     }

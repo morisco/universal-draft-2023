@@ -125,10 +125,6 @@ export default {
   max-width:1270px;
   margin:0 auto;
   z-index:555555;
-  @include medium-desktop {
-    width: calc(100% - 75px);
-  }
- 
   &__sticky{
     display:flex;
     position:absolute;
@@ -261,7 +257,7 @@ export default {
       transition:all 0.25s ease-in-out;
     }
   }
-   @include single-column {
+  @include single-column {
     width:calc(100% - 75px);
     &__sticky,
     &__links-inner,
@@ -278,6 +274,12 @@ export default {
         max-height:50px;
       }
     }
+  }
+  @include medium-desktop {
+    width: calc(100% - 75px);
+  }
+   @include tablet-portrait-only{
+    width: calc(100% - 45px);
   }
 }
 @keyframes advance-1 {

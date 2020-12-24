@@ -253,7 +253,11 @@ export default {
   z-index:55555;
   transition:opacity 0.25s linear;
   &--disabled{
-    opacity:0.5;
+    .filters{
+      &__section{
+        opacity:0.5;
+      }
+    }
     pointer-events:none;
   }
   &--fixed{
@@ -463,6 +467,16 @@ export default {
       transition:color 0.25s linear;
     }
   }
+  @include tablet-portrait-only{
+    margin-left:-22.5px;
+    &__sticky{
+      &:before,
+      &:after{
+        width:22.5px;
+      }
+    }
+  }
+
   @include mobile {
     position:relative;
     width:100% !important;
