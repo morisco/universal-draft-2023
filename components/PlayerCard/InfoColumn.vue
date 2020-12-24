@@ -88,7 +88,7 @@ export default {
     },
     setHeights() {
       if(!this.mounted) return
-      if(this.expanded){
+      if(this.expanded || this.viewDepth === 'deep'){
         this.maxHeight = this.topHeight + this.$refs.bottomData.offsetHeight
       } else if(this.collapsed){
         this.maxHeight = this.$mq === 'mobile' ? this.topHeight : 125
@@ -102,6 +102,9 @@ export default {
     }
   },
   watch : {
+    viewDepth(newDepth) {
+      this.setHeights();
+    },
     collapsed(newCollapsed) {
       this.topHeight = this.$refs.topData.offsetHeight
       this.setHeights();
@@ -147,7 +150,6 @@ export default {
             padding-bottom:0;
           }
         }
-
       }
       @include non-mobile{
         .player-card--collapsed &{
@@ -163,7 +165,6 @@ export default {
           }
         }
       }
-      
     }
     &__meta-column{
       display:flex;
