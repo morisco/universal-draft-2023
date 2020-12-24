@@ -24,6 +24,7 @@ export default {
         // padding-right:0;
         .player-card--collapsed & { 
           display:none;
+          margin: 15px 15px 30px;
         }
         .player-card--open & {
           display:block;

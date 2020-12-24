@@ -2,13 +2,13 @@
   <div class="player-card__image-column">
     <div class="player-card__image-column-inner">  
       <img :src="player.image" :alt="player.imageAlt" />
-      <CombineResults :results="player.combineResults" />
+      <CombineResults :results="player.combineResults" :topHeight="topHeight" v-if="$route.name !== 'mock-draft' && $mq !== 'mobile'" />
     </div>
     <div class="player-card__rank">
       <span>{{rank}}</span>
     </div>
-    <DraftTeam :teamNameLogo="teamNameLogo" v-if="teamNameLogo && rankKey === 'mock_rank'" :infoHeight="infoHeight" />
-    <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo && rankKey === 'mock_rank'" :infoHeight="infoHeight" />
+    <DraftTeam :teamNameLogo="teamNameLogo" v-if="teamNameLogo && rankKey === 'mock_rank'" :infoHeight="topHeight" />
+    <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo && rankKey === 'mock_rank'" :infoHeight="topHeight" />
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import CombineResults from './CombineResults'
 import DraftTeam from './DraftTeam'
 import DraftInfo from './DraftInfo'
 export default {
-  props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey'],
+  props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight'],
   components: {CombineResults, DraftTeam, DraftInfo},
   computed: {
     player () {
@@ -74,6 +74,9 @@ export default {
       @include non-mobile{
         .player-card--collapsed &{
           max-width: 15.5%;
+        }
+        .player-card--open & {
+          max-width: calc(100% - 800px);
         }
       }
       img{

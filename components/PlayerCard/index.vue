@@ -3,8 +3,9 @@
     'player-card--offense': player.offenseDefense === 'offense', 
     'player-card--defense': player.offenseDefense === 'defense', 
     'player-card--open': expanded, 
-    'player-card--collapsed': collapsed && !expanded,
-    'player-card--transitioning': transitioning
+    'player-card--collapsed': collapsed,
+    'player-card--transitioning': transitioning,
+    'player-card--loaded': maxHeight
   }" 
   v-bind:style="
     [maxHeight] ? {
@@ -17,6 +18,7 @@
       :collapsed="collapsed" 
       :rank="rank"
       :infoHeight="infoHeight"
+      :topHeight="topHeight"
       :rankKey="rankKey"
       ref="imageColumn"
     />
@@ -26,6 +28,7 @@
       :collapsed="collapsed" 
       :setMaxHeight="setMaxHeight" 
       v-on:set-info-height="setInfoHeight"
+      v-on:set-top-height="setTopHeight"
     />
     <ToggleCard 
       :offenseDefense="player.offenseDefense" 
@@ -54,7 +57,8 @@ export default {
       maxHeight:      null,
       scrollTimeout:        null,
       transitioningTimeout: null,
-      infoHeight: null
+      infoHeight: null,
+      topHeight:null
     }
   },
   created () {
@@ -143,6 +147,9 @@ export default {
     setInfoHeight (height) {
       this.infoHeight = height;
     },
+    setTopHeight(topHeight) {
+      this.topHeight = topHeight;
+    },
     toggleCard (event) {
       event.stopPropagation();
       const self = this;
@@ -174,6 +181,7 @@ export default {
     border: .00875rem solid $mediumgray;
     margin-bottom:30px;
     overflow-x:visible;
+    max-height:315px;
     transition:max-height 0.5s ease-in-out, margin-bottom 0.25s linear 0.125s;
     @include single-column{
       margin-bottom:15px;

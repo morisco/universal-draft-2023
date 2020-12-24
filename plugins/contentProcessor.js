@@ -101,3 +101,13 @@ export function processTeams(teams, teamPlayers) {
     teamNameLogo: [...teamNameLogo, ...teamNameLogo]
   }
 }
+
+export function processRelated(related) {
+  related.sort((relatedA, relatedB) => parseInt(relatedA.order,10) > parseInt(relatedB.order,10) ? 1 : -1);
+  const processedRelated = related.map((related) => {
+    related = decodeContent(related);
+    related.image = processImages(related.image);
+    return related;
+  });
+  return processedRelated;
+}

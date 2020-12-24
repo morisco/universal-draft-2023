@@ -11,6 +11,19 @@
   }
 }
 
+@mixin combine-title {
+  font-family: TTLakes-DemiBold;
+  font-size:18px;
+  letter-spacing:0.01em;
+  font-weight:400;
+}
+
+@mixin combine-value {
+  font-size:13px;
+  line-height:120%;
+}
+
+
 @mixin header-nav-link{
   font-family: TTCommons;
   font-weight: 600;

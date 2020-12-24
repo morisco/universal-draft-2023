@@ -1,7 +1,10 @@
 <template>
   <div 
     class="player-card__info-column" 
-    :class="{'player-card__info-column--expanded': expanded}" 
+    :class="{
+      'player-card__info-column--expanded': expanded,
+      'player-card__info-column--mounted': mounted
+    }"
     v-bind:style="[maxHeight] ? {maxHeight: maxHeight + 'px'}: []"
   >
     
@@ -12,13 +15,16 @@
         </div>
         <div class="player-card__meta-column">
           <Stats :player="player" />
-          <MetaList :playerMeta="player.player_meta" />
+          <MetaList :playerMeta="player.player_meta" v-if="$mq !== 'mobile' || !this.collapsed " />
         </div>
       </div>
-      <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" />
+      <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile' || !this.collapsed " />
     </div>
     <div class="player-card__bottom-data" ref="bottomData">
+      <MetaList :playerMeta="player.player_meta" v-if="$mq === 'mobile' && this.collapsed " />
+      <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile' && this.collapsed" />
       <ExpandedMeta :player="player" />
+      <CombineResults :results="player.combine_results" :topHeight="topHeight" v-if="$route.name === 'mock-draft' || $mq === 'mobile'" />
     </div>
   </div>
 </template>
@@ -34,12 +40,16 @@ export default {
   data () {
     return {
       mounted: false,
-      windowSize: null
+      windowSize: null,
+      topHeight: null,
+      maxHeight: null
     }
   },
   mounted() {
-    this.mounted = true;
-    this.$emit('set-info-height', this.$refs.topData.offsetHeight);
+    const self = this;
+    setTimeout(() => {
+      self.mounted = true;
+    }, 500);
     window.addEventListener('resize', this.windowResized);
   },
   destroyed(){
@@ -53,28 +63,61 @@ export default {
     viewDepth () {
       return this.$store.getters['viewOptions/depth'];
     },
-    maxHeight() {
-      if(!this.mounted){ 
-        return false 
-      }
-      if(this.expanded){
-        return this.$refs.topData.offsetHeight + this.$refs.bottomData.offsetHeight + 200
-      } else if(this.collapsed){
-        return this.$mq === 'mobile' ? 212 : 125;
-      } else {
-        return  this.$refs.topData.offsetHeight;
-      }
-    }
+    // topDataHeight() {  
+    //   if(!this.mounted) return
+    //   return this.$refs.topData.offsetHeight;
+    // },
+    // maxHeight() {
+    //   if(!this.mounted){ 
+    //     return false 
+    //   }
+    //   if(this.expanded){
+    //     console.log(this.topHeight);
+    //     return this.topHeight + this.$refs.bottomData.offsetHeight
+    //   } else if(this.collapsed){
+    //     console.log(this.topHeight);
+    //     return this.$mq === 'mobile' ? this.topHeight : 125;
+    //   } else {
+    //     return  this.$refs.topData.offsetHeight;
+    //   }
+    // }
   },
   methods: {
     windowResized () {
-
-      // this.windowSize = window.innerWidth;
+      this.setHeights();
+    },
+    setHeights() {
+      if(!this.mounted) return
+      if(this.expanded){
+        this.maxHeight = this.topHeight + this.$refs.bottomData.offsetHeight
+      } else if(this.collapsed){
+        this.maxHeight = this.$mq === 'mobile' ? this.topHeight : 125
+      } else {
+        console.log('tth', this.topHeight);
+        this.maxHeight = this.topHeight
+      }
+      this.setMaxHeight(this.maxHeight);
+      this.$emit('set-top-height', this.topHeight)
+      this.$emit('set-info-height', this.maxHeight);
     }
   },
   watch : {
-    maxHeight(newMax) {
-      this.setMaxHeight(newMax);
+    collapsed(newCollapsed) {
+      this.topHeight = this.$refs.topData.offsetHeight
+      this.setHeights();
+    },
+    expanded(newExpanded) {
+      this.setHeights();
+    },
+    topHeight(newTopHeight, oldTopHeight) {
+      if(newTopHeight !== this.maxHeight){
+        this.setHeights();
+      }
+    },
+    mounted(newMounted) {
+      this.topHeight = this.$refs.topData.offsetHeight
+      console.log(this.$refs.topData.offsetHeight);
+      this.setHeights();
     }
   }
 }
@@ -82,7 +125,7 @@ export default {
 
 <style scoped lang="scss">
   .player-card{
-    max-height:313px;
+    // max-height:313px;
     &__info-column{
       position:relative;
       width:100%;
@@ -91,7 +134,7 @@ export default {
       transition:max-height 0.5s ease-out, max-width 0s linear 0.125s;
       overflow-x:visible;
       overflow-y:hidden;
-      max-height:313px;
+      // max-height:313px;
       @include tablet-portrait-only{
         max-width:87.5%;
       }

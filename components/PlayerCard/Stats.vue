@@ -62,6 +62,7 @@ export default {
         margin: 0 5px 15px;
         transition:opacity 0.25s linear;
         .player-card--collapsed & {
+          margin:0 5px 20px;
           &:nth-child(n+5) {
             opacity:0;
             .player-card--open &{
@@ -81,6 +82,10 @@ export default {
     @include medium-desktop {
       margin-left:-2px;
       margin-right:-2px;
+    }
+    @include mobile {
+      margin-left:-5px;
+      margin-right:-5px;
     }
   }
   &__stat{

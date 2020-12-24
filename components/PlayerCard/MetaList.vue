@@ -36,9 +36,11 @@ export default {
       @include mobile{
         .player-card--collapsed & {
           display:none;
+          margin:0 15px;
         }
         .player-card--open & {
           display:block;
+
         }
       }
     }

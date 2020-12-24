@@ -50,6 +50,9 @@ export default {
       @include mobile{
         bottom:25px;
         right:15px;
+        .player-card--collapsed & {
+          bottom:20px;
+        }
       }
       .info-bubble{
         position:absolute;
@@ -78,6 +81,15 @@ export default {
       .player-card--open & {
         bottom:10px;
         transition:bottom 0.25s linear 0.125s;
+        .mock-draft & {
+          bottom:27.5px;
+        }
+        @include mobile{
+          bottom:22.5px;
+          .mock-draft & {
+            bottom:22.5px;
+          }
+        }
       }
       @include non-mobile{
         .player-card--collapsed &{

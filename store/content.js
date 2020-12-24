@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { processPlayers, processTeams } from '~/plugins/contentProcessor';  
+import { processPlayers, processTeams, processRelated } from '~/plugins/contentProcessor';  
 import { positionMap, positionLabelMap, offensePositions } from '~/plugins/playerPositionMap';
 // initial state
 const state = () => ({
@@ -9,7 +9,8 @@ const state = () => ({
   teamNeeds: [],
   draftResults: [],
   teamData: {},
-  teamNameLogo: []
+  teamNameLogo: [],
+  relatedData: []
 })
 
 // getters
@@ -50,23 +51,25 @@ const getters = {
   teamNeeds: (state) => state.teamNeeds,
   team: (state) => (teamId) => state.teamData[teamId],
   teamNameLogo: (state) => (index) => state.teamNameLogo && state.teamNameLogo[index],
+  relatedArticles: (state) => state.relatedData
 }
 
 // actions
 const actions = {
   getContents ({commit}) {
-    axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/content.json.gz",  {
+    axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/content.json.gz?ignoreCache=1",  {
       headers: {
          'Content-Encoding': 'gzip'
       }
     })
     .then(response => {
-      console.log('resszy', response);
       const contents = response.data.contents;
       const processedPlayers = processPlayers(contents.players.content);
       const processedTeams = processTeams(contents.teams.content, processedPlayers.teamPlayers);
+      const processedRelated = processRelated(contents.coverage.content);
       commit('setPlayerData', processedPlayers)
       commit('setTeamData', processedTeams)
+      commit('setRelatedData', processedRelated)
     })
     .catch(err => console.log(err));
    
@@ -85,6 +88,10 @@ const mutations = {
     state.teamData = processedTeams.teamData;
     state.teamNeeds = processedTeams.teamNeeds;
     state.teamNameLogo = processedTeams.teamNameLogo;
+  },
+
+  setRelatedData(state, processedRelated) {
+    state.relatedData = processedRelated;
   },
 
   decrementProductInventory (state, { id }) {
