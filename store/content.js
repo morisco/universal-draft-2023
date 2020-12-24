@@ -57,7 +57,7 @@ const getters = {
 // actions
 const actions = {
   getContents ({commit}) {
-    axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/content.json.gz?ignoreCache=1",  {
+    axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/content.production.json.gz?ignoreCache=3",  {
       headers: {
          'Content-Encoding': 'gzip'
       }
