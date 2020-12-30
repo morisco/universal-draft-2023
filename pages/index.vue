@@ -2,7 +2,21 @@
   <section class="main-section big-board" ref="bigBoard">
     <MainSectionIntro type="big_board" />
     <transition-group name="player-card" class="big-board__inner" tag="div">
-      <PlayerCard v-for="playerId in bigBoardIds" :playerId="playerId" :key="playerId" rankKey="order" v-on:card-expanded="setCardExpanded" :cardExpanded="cardExpanded" />
+      <template v-for="(playerId, index) in bigBoardIds">
+        <PlayerCard 
+          :playerId="playerId" 
+          :key="playerId" 
+          rankKey="order" 
+          v-on:card-expanded="setCardExpanded" 
+          :cardExpanded="cardExpanded" 
+        />
+        <Interstitial 
+          v-if="interstitials[index+1]" 
+          :key="'interstitial-' + (index+1)" 
+          :list="'bigBoard'" 
+          :interKey="index+1" 
+        />
+      </template>
     </transition-group>
     <RelatedArticles :articles="relatedArticles" v-if="showAll" />
   </section>
@@ -11,16 +25,16 @@
 <script>
 import RelatedArticles from '~/components/RelatedArticles';
 import PlayerCard from '~/components/PlayerCard';
+import Interstitial from '~/components/Interstitial';
 import MainSectionIntro from '~/components/MainSectionIntro';
 import { mapActions } from 'vuex'
 
 export default {
   name: 'BigBoard',
-  components: { MainSectionIntro, PlayerCard, RelatedArticles },
+  components: { MainSectionIntro, PlayerCard, RelatedArticles, Interstitial },
   transition: {
     name:"main-section",
     mode:"out-in",
-    duration: 750
   },
   scrollToTop: false,
   data() {
@@ -40,6 +54,9 @@ export default {
     }
   },
   computed: {
+    interstitials() {
+      return this.$store.getters['content/interstitials']('bigBoard')
+    },
     viewDepth () {
       return this.$store.getters['viewOptions/depth']
     },
@@ -70,7 +87,7 @@ export default {
   async asyncData({$axios, store, commit}) {
     let configuration = store.getters['page/configuration'];
     if(!configuration){
-      configuration = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/config.production.json.gz?ignoreCache=3",  {
+      configuration = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/config.production.json.gz?ignoreCache=4",  {
         headers: {
           'Content-Encoding': 'gzip'
         }
@@ -82,7 +99,7 @@ export default {
     }
     let pageSettings = store.getters['page/settings'];
     if(!pageSettings){
-      pageSettings = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/page.production.json.gz?ignoreCache=3",  {
+      pageSettings = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/page.production.json.gz?ignoreCache=4",  {
         })
         .then(response => {
           store.commit('page/setPage', response.data[0].data);

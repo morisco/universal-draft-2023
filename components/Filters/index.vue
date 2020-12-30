@@ -144,6 +144,7 @@
         </button>
       </div>
     </div>
+    <PodcastController />
   </div>
   <div class="filters__ghost"></div>
 </div>
@@ -153,8 +154,9 @@
 import { mapActions } from 'vuex'
 import { scrollIt } from '~/plugins/scroller'
 import InfoBubble     from '~/components/InfoBubble'
+import PodcastController     from '~/components/Podcast/GlobalController.vue'
 export default {
-  components: { InfoBubble },
+  components: { InfoBubble, PodcastController },
   data() {
     return {
       fixed: false,
@@ -264,6 +266,8 @@ export default {
     .filters__sticky{
       position:fixed;
       top:110px;
+      bottom:0;
+      height:auto;
     }
   }
   &__sticky{

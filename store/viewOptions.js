@@ -14,7 +14,7 @@ const getters = {
 // actions
 const actions = {
   setViewDepth ({ commit }, depth) {
-  commit('setDepth', depth)
+    commit('setDepth', depth)
   },
   setViewPosition ({ commit }, position) {
     commit('setPosition', position)

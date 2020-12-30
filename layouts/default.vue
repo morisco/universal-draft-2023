@@ -9,7 +9,13 @@
       <mq-layout mq="mobile">
         <MobileNavigation v-on:lock-scroll="lockScroll" v-on:unlock-scroll="unlockScroll" v-on:reset-list="resetList" />
       </mq-layout>
-      <div class="app__content" id="app__content">
+      <div 
+        class="app__content" 
+        id="app__content"
+        :class="{
+          'app__content--collapsed': collapsed
+        }"
+      >
         <mq-layout mq="tablet+">
           <Filters />
         </mq-layout>
@@ -17,6 +23,7 @@
       </div>
     </main>
   </div>
+
 </template>
 
 <script>
@@ -29,6 +36,9 @@ export default {
   computed: {
     pageSettings () {
       return this.$store.getters['page/settings']
+    },
+    collapsed() {
+      return this.$store.getters['viewOptions/depth'] === 'compact';
     }
   },
   created () {

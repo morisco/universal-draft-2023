@@ -3,11 +3,11 @@
     class="player-card__info-column" 
     :class="{
       'player-card__info-column--expanded': expanded,
-      'player-card__info-column--mounted': mounted
+      'player-card__info-column--mounted':  mounted,
+      'player-card__info-column--animate':  animateHeight
     }"
     v-bind:style="[maxHeight] ? {maxHeight: maxHeight + 'px'}: []"
   >
-    
     <div class="player-card__top-data" ref="topData">
       <div class="player-card__meta-stats">
         <div class="player-card__meta-column">
@@ -24,7 +24,7 @@
       <MetaList :playerMeta="player.player_meta" v-if="$mq === 'mobile' && this.collapsed " />
       <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile' && this.collapsed" />
       <ExpandedMeta :player="player" />
-      <CombineResults :results="player.combine_results" :topHeight="topHeight" v-if="$route.name === 'mock-draft' || $mq === 'mobile'" />
+      <CombineResults :results="player.combine_results" :topHeight="topHeight" v-if="['mock-draft', 'draft-results'].indexOf($route.name) >= 0 || $mq === 'mobile'" />
     </div>
   </div>
 </template>
@@ -36,13 +36,14 @@ import MetaList from './MetaList';
 import Headline from './Headline';
 import ExpandedMeta from './ExpandedMeta';
 export default {
-  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight'],
+  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight'],
   data () {
     return {
       mounted: false,
       windowSize: null,
       topHeight: null,
-      maxHeight: null
+      maxHeight: null,
+      animateHeight: false
     }
   },
   mounted() {
@@ -62,43 +63,29 @@ export default {
     },
     viewDepth () {
       return this.$store.getters['viewOptions/depth'];
-    },
-    // topDataHeight() {  
-    //   if(!this.mounted) return
-    //   return this.$refs.topData.offsetHeight;
-    // },
-    // maxHeight() {
-    //   if(!this.mounted){ 
-    //     return false 
-    //   }
-    //   if(this.expanded){
-    //     console.log(this.topHeight);
-    //     return this.topHeight + this.$refs.bottomData.offsetHeight
-    //   } else if(this.collapsed){
-    //     console.log(this.topHeight);
-    //     return this.$mq === 'mobile' ? this.topHeight : 125;
-    //   } else {
-    //     return  this.$refs.topData.offsetHeight;
-    //   }
-    // }
+    }
   },
   methods: {
     windowResized () {
       this.setHeights();
     },
     setHeights() {
+      const self = this;
       if(!this.mounted) return
       if(this.expanded || this.viewDepth === 'deep'){
         this.maxHeight = this.topHeight + this.$refs.bottomData.offsetHeight
       } else if(this.collapsed){
         this.maxHeight = this.$mq === 'mobile' ? this.topHeight : 125
       } else {
-        console.log('tth', this.topHeight);
         this.maxHeight = this.topHeight
       }
       this.setMaxHeight(this.maxHeight);
       this.$emit('set-top-height', this.topHeight)
       this.$emit('set-info-height', this.maxHeight);
+      setTimeout(() => {
+        this.setAnimateHeight(true);
+        self.animateHeight = true;
+      }, 500);
     }
   },
   watch : {
@@ -119,14 +106,13 @@ export default {
     },
     mounted(newMounted) {
       this.topHeight = this.$refs.topData.offsetHeight
-      console.log(this.$refs.topData.offsetHeight);
       this.setHeights();
     }
   }
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .player-card{
     // max-height:313px;
     &__info-column{
@@ -134,9 +120,11 @@ export default {
       width:100%;
       max-width:800px;
       opacity:1;
-      transition:max-height 0.5s ease-out, max-width 0s linear 0.125s;
       overflow-x:visible;
       overflow-y:hidden;
+      &--animate{
+        transition:max-height 0.5s ease-out, max-width 0s linear 0.125s;
+      }
       // max-height:313px;
       @include tablet-portrait-only{
         max-width:87.5%;

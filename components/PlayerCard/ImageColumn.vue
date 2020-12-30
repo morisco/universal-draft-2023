@@ -2,13 +2,14 @@
   <div class="player-card__image-column">
     <div class="player-card__image-column-inner">  
       <img :src="player.image" :alt="player.imageAlt" />
-      <CombineResults :results="player.combineResults" :topHeight="topHeight" v-if="$route.name !== 'mock-draft' && $mq !== 'mobile'" />
+      <CombineResults :results="player.combineResults" :topHeight="topHeight" v-if="['mock-draft', 'draft-results'].indexOf($route.name) < 0 && $mq !== 'mobile'" />
     </div>
     <div class="player-card__rank">
-      <span>{{rank}}</span>
+      <span>{{rank+1}}</span>
     </div>
-    <DraftTeam :teamNameLogo="teamNameLogo" v-if="teamNameLogo && rankKey === 'mock_rank'" :infoHeight="topHeight" />
-    <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo && rankKey === 'mock_rank'" :infoHeight="topHeight" />
+    <DraftTeam :teamNameLogo="teamNameLogo" v-if="teamNameLogo && ['order_mockdraft', 'order_draftresults'].indexOf(rankKey) >= 0" :infoHeight="topHeight" />
+    <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo && ['order_mockdraft', 'order_draftresults'].indexOf(rankKey) >= 0" :infoHeight="topHeight" />
+    <PodcastCardPlayer v-if="player.player_podcast" :playerId="playerId" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
   </div>
 </template>
 
@@ -16,9 +17,10 @@
 import CombineResults from './CombineResults'
 import DraftTeam from './DraftTeam'
 import DraftInfo from './DraftInfo'
+import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
 export default {
   props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight'],
-  components: {CombineResults, DraftTeam, DraftInfo},
+  components: {CombineResults, DraftTeam, DraftInfo, PodcastCardPlayer},
   computed: {
     player () {
       const playerData = this.$store.getters['content/player'](this.playerId);
@@ -26,16 +28,17 @@ export default {
         image: playerData.image_data.image.small,
         imageAlt: playerData.title,
         combineResults: playerData.combine_results,
+        player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false
       }
     },
     teamNameLogo () {
-      return this.$store.getters['content/teamNameLogo'](this.rank - 1);
+      return this.$store.getters['content/teamNameLogo'](this.rank);
     }
   }
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .player-card{
     &__image-column{
       display:flex;

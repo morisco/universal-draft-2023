@@ -1,5 +1,6 @@
 .main-section{
   width: 82.75%;
+  // opacity:0;
   @include single-column {
     width:100%;
   }
@@ -7,10 +8,12 @@
     max-width:100vw;
     overflow-x:hidden;
   }
-  &-enter{
+  &-enter,
+  &.appear{
     opacity:0;
   }
-  &-enter-to{
+  &-enter-to,
+  &.appear-to{
     opacity:1
   }
 
@@ -23,7 +26,7 @@
   }
 
   &-enter-active{
-    transition:opacity 0.25s linear;
+    transition:opacity 0.25s linear 0.5s;
   }
   
   &-leave-active{

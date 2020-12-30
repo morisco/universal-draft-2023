@@ -5,11 +5,13 @@
     'player-card--expanded': expanded, 
     'player-card--collapsed': collapsed,
     'player-card--transitioning': transitioning,
-    'player-card--loaded': maxHeight
+    'player-card--animated': animateHeight,
+    'player-card--loaded': maxHeight > 0
   }" 
   v-bind:style="
     [maxHeight] ? {
-      maxHeight: maxHeight + 'px', zIndex: zIndex
+      maxHeight: maxHeight + 'px', 
+      zIndex: zIndex
     } : { zIndex: zIndex }"
   v-on:click="openCard"
   ref="card">
@@ -26,7 +28,8 @@
       :playerId="playerId" 
       :expanded="expanded" 
       :collapsed="collapsed" 
-      :setMaxHeight="setMaxHeight" 
+      :setMaxHeight="setMaxHeight"
+      :setAnimateHeight="setAnimateHeight"
       v-on:set-info-height="setInfoHeight"
       v-on:set-top-height="setTopHeight"
     />
@@ -46,7 +49,7 @@ import ToggleCard from './ToggleCard.vue'
 import { scrollIt } from '~/plugins/scroller'
 
 export default {
-  props: ['playerId', 'rankKey', 'cardExpanded'],
+  props: ['playerId', 'rankKey', 'cardExpanded', 'playerId'],
   components: { ImageColumn, InfoColumn, ToggleCard },
   data() {
     return {
@@ -55,10 +58,11 @@ export default {
       collapsed:      false,
       transitioning:  false,
       maxHeight:      null,
-      scrollTimeout:        null,
+      topHeight:      null,
+      infoHeight:     null,
+      scrollTimeout:  null,
       transitioningTimeout: null,
-      infoHeight: null,
-      topHeight:null
+      animateHeight: false
     }
   },
   created () {
@@ -128,10 +132,7 @@ export default {
         const maxTime = this.$mq === 'mobile' ? 375 : 875;
         const timing = Math.min(maxTime, Math.max(300, Math.round((difference/windowHeight) * maxTime)));
         const easing = this.expanded ? 'linear' : 'easeOutCubic';
-        console.log('right here');
-        console.log(this.$mq);
         if(this.$mq !== 'mobile' || this.expanded){
-          console.log('here');
           scrollIt(scrollDestination, timing, easing, cb);
         } else {
           cb();
@@ -146,6 +147,9 @@ export default {
     },
     setInfoHeight (height) {
       this.infoHeight = height;
+    },
+    setAnimateHeight() {
+      this.animateHeight = true;
     },
     setTopHeight(topHeight) {
       this.topHeight = topHeight;
@@ -181,19 +185,20 @@ export default {
     border: .00875rem solid $mediumgray;
     margin-bottom:30px;
     overflow-x:visible;
-    max-height:315px;
-    transition:max-height 0.5s ease-in-out, margin-bottom 0.25s linear 0.125s;
     @include single-column{
       margin-bottom:15px;
     }
     @include mobile {
       flex-direction:column;
     }
-    &.player-card--collapsed{
-        margin-bottom:15px;
-      }
+    .app__content--collapsed & {
+      margin-bottom:15px;
+    }
+    &--animate{
+      transition:max-height 0.5s ease-in-out, margin-bottom 0.25s linear 0.125s;
+    }
     &--transitioning{
-    transition:max-height 0.5s ease-in-out 0.125s, margin-bottom 0.25s linear 0.125s;
+      transition:max-height 0.5s ease-in-out 0.125s, margin-bottom 0.25s linear 0.125s;
     }
     &-enter{
       max-height:0 !important;

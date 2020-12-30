@@ -31,13 +31,16 @@ function processImages(image) {
 }
 
 function processOrders(players) {
-  const orderIds = players.map((player) => { return {id: parseInt(player.id,10), bigBoard: parseInt(player.order,10), mockDraft: parseInt(player.mock_rank,10) } });
+  const orderIds = players.map((player) => { return {id: parseInt(player.id,10), bigBoard: parseInt(player.order,10), mockDraft: parseInt(player.order_mockdraft,10), draftResults: parseInt(player.order_draftresults,10) } });
   const bigBoardSorted = orderIds.sort((playerA, playerB) => (playerA.bigBoard > playerB.bigBoard) ? 1 : -1);
-  const mockIds = orderIds.filter(player => player.mockDraft > 0);
+  const mockIds = orderIds.filter(player => player.mockDraft <= 64);
+  const draftResultIds = orderIds.filter(player => player.draftResults <= 64);
   const mockDraftSorted = mockIds.sort((playerA, playerB) => (playerA.mockDraft > playerB.mockDraft) ? 1 : -1);
+  const draftResultsSorted = draftResultIds.sort((playerA, playerB) => (playerA.draftResults > playerB.draftResults) ? 1 : -1);
   return {
     bigBoard: bigBoardSorted.map(player => player.id),
-    mockDraft: mockDraftSorted.map(player => player.id)
+    mockDraft: mockDraftSorted.map(player => player.id),
+    draftResults: draftResultsSorted.map(player => player.id)
   };
 }
 export function processPlayers(players) {
@@ -110,4 +113,52 @@ export function processRelated(related) {
     return related;
   });
   return processedRelated;
+}
+
+export function processInterstitials(contents) {
+  let processedInterstitials = {
+    bigBoard: {},
+    mockDraft: {},
+    draftResults: {},
+    teamNeeds: {},
+  };
+  const listInters = contents.list_inter.content;
+  const videoInters = contents.video_inter.content;
+
+  listInters.forEach((list_inter) => {
+    list_inter = decodeContent(list_inter);
+    list_inter.data.category = list_inter.category;
+    list_inter.data.image = processImages(list_inter.data.image);
+    const listPositions = list_inter.list_positions;
+    if(listPositions.big_board_position) {
+      processedInterstitials.bigBoard[listPositions.big_board_position] = list_inter.data;
+    }
+    if(listPositions.mock_draft_position) {
+      processedInterstitials.mockDraft[listPositions.mock_draft_position] = list_inter.data;
+    }
+    if(listPositions.team_needs_position) {
+      processedInterstitials.teamNeeds[listPositions.team_needs_position] = list_inter.data;
+    }
+    if(listPositions.draft_results_position) {
+      processedInterstitials.draftResults[listPositions.draft_results_position] = list_inter.data;
+    }
+  });
+  videoInters.forEach((video_inter) => {
+    video_inter = decodeContent(video_inter);
+    const listPositions = video_inter.list_positions;
+    video_inter.image = processImages(video_inter.image);
+    if(listPositions.big_board_position) {
+      processedInterstitials.bigBoard[listPositions.big_board_position] = video_inter;
+    }
+    if(listPositions.mock_draft_position) {
+      processedInterstitials.mockDraft[listPositions.mock_draft_position] = video_inter;
+    }
+    if(listPositions.team_needs_position) {
+      processedInterstitials.teamNeeds[listPositions.team_needs_position] = video_inter;
+    }
+    if(listPositions.draft_results_position) {
+      processedInterstitials.draftResults[listPositions.draft_results_position] = video_inter;
+    }
+  })
+  return processedInterstitials
 }

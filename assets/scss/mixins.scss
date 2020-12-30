@@ -23,6 +23,11 @@
   line-height:120%;
 }
 
+@mixin inter-title{
+  font-size:40px;
+  font-weight:200;
+  line-height:0.9;
+}
 
 @mixin header-nav-link{
   font-family: TTCommons;

@@ -1,5 +1,12 @@
 <template>
-  <div class="info-bubble draft-team" :style="{top: infoHeight + 'px'}" :class="{'draft-team--animated': animate}">
+  <div 
+    class="info-bubble draft-team" 
+    :class="{
+      'draft-team--animated': animate,
+      'draft-team--loaded': infoHeight > 0
+    }"
+    :style="{top: infoHeight + 'px'}" 
+  >
     <img :src="teamNameLogo.logo.small" />
     <span class="draft-team__name">{{teamNameLogo.teamName}}</span>
   </div>
@@ -35,6 +42,8 @@ export default {
     transform:translateY(calc(-100% - 20px));
     z-index:3;
     cursor:default;
+    opacity:0;
+    transition:opacity 0.25s linear;
 
     @include mobile{
       max-width:35px;
@@ -47,6 +56,9 @@ export default {
     }
     &--animated{
       // transition: all 0.375s linear 0.125s, background-color 0.25s linear 0s;
+    }
+    &--loaded{
+      opacity:1;
     }
     .player-card--collapsed & {
       background:$lightgray !important;

@@ -1,19 +1,19 @@
 <template>
-  <section class="main-section mock-draft" ref="mockDraft">
-    <MainSectionIntro type="mock_draft" />
-    <transition-group name="player-card" class="mock-draft__inner" tag="div">
-      <template v-for="(playerId, index) in mockDraftIds">
+  <section class="main-section draft-results" ref="draftResults">
+    <!-- <MainSectionIntro type="mock_draft" /> -->
+    <transition-group name="player-card" class="draft-results__inner" tag="div">
+      <template v-for="(playerId, index) in draftResultsIds">
         <PlayerCard 
           :playerId="playerId" 
           :key="playerId" 
-          rankKey="order_mockdraft" 
+          rankKey="order_draftresults" 
           v-on:card-expanded="setCardExpanded" 
           :cardExpanded="cardExpanded" 
         />
         <Interstitial 
           v-if="interstitials[index+1]" 
           :key="'interstitial-' + (index+1)" 
-          :list="'mockDraft'" 
+          :list="'draftResults'" 
           :interKey="index+1" 
         />
       </template>
@@ -27,7 +27,7 @@ import PlayerCard from '~/components/PlayerCard'
 import MainSectionIntro from '~/components/MainSectionIntro'
 import Interstitial from '~/components/Interstitial';
 export default {
-  name: 'MockDraft',
+  name: 'DraftResults',
   transition: {
     name:"main-section",
     mode:"out-in",
@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     interstitials() {
-      return this.$store.getters['content/interstitials']('mockDraft')
+      return this.$store.getters['content/interstitials']('draftResults')
     },
     cardExpanded () {
       return this.$store.getters['page/cardExpanded']
@@ -63,17 +63,17 @@ export default {
     viewPosition () {
       return this.$store.getters['viewOptions/position']
     },
-    mockDraftIds () {
+    draftResultsIds () {
       const itemCount = this.viewDepth === 'compact' ? 10 : 4;
-      return this.showAll ? this.$store.getters['content/mockDraft'](this.viewPosition) : this.$store.getters['content/mockDraft'](this.viewPosition).slice(0,itemCount)
-    }
+      return this.showAll ? this.$store.getters['content/draftResults'](this.viewPosition) : this.$store.getters['content/draftResults'](this.viewPosition).slice(0,itemCount)
+    },
   },
    methods: {
    ...mapActions({
       'setCardExpanded': 'page/setCardExpanded',
     }),
     handleScroll() {
-      if(window.scrollY > this.$refs.mockDraft.offsetParent.offsetTop + this.$refs.mockDraft.offsetTop - window.innerHeight) {
+      if(this.$refs.draftResults && window.scrollY > this.$refs.draftResults.offsetParent.offsetTop + this.$refs.draftResults.offsetTop - window.innerHeight) {
         this.showAll = true;
       }
     }
@@ -111,12 +111,12 @@ export default {
       meta: [{
         hid: 'og:title',
         name: 'og:title',
-        content: this.configuration.facebook_page_share_title + 'Mock'
+        content: this.configuration.facebook_page_share_title + 'Draft Results'
       },
       {
         hid: 'og:description',
         name: 'og:description',
-        content: this.configuration.facebook_page_share_description + 'Mock'
+        content: this.configuration.facebook_page_share_description + 'Draft Results'
       }]
     }
   }
@@ -124,7 +124,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.mock-draft{
+.draft-results{
    min-height:calc(100vh + 4px);
 }
 </style>

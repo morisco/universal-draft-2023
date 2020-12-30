@@ -19,9 +19,6 @@
 <script>
 export default {
   props: ['results', 'topHeight'],
-  mounted() {
-    console.log(this.results);
-  }
 }
 </script>
 

@@ -2,11 +2,18 @@ T<template>
   <section class="main-section team-needs" ref="teamNeeds">
     <MainSectionIntro type="mock_draft" />
     <transition-group name="player-card" class="mock-draft__inner" tag="div">
-      <TeamCard 
-        v-for="teamId in teamNeedsIds" 
-        :teamId="teamId" 
-        :key="teamId" 
-      />
+      <template v-for="(teamId, index) in teamNeedsIds">
+        <TeamCard 
+          :teamId="teamId" 
+          :key="teamId" 
+        />
+        <Interstitial 
+          v-if="interstitials[index+1]" 
+          :key="'interstitial-' + (index+1)" 
+          :list="'teamNeeds'" 
+          :interKey="index+1" 
+        />
+      </template>
     </transition-group>
   </section>
 </template>
@@ -15,15 +22,15 @@ T<template>
 import { mapActions } from 'vuex'
 import TeamCard from '~/components/TeamCard'
 import MainSectionIntro from '~/components/MainSectionIntro'
+import Interstitial from '~/components/Interstitial'
 export default {
   name: 'TeamNeeds',
   transition: {
     name:"main-section",
     mode:"out-in",
-    duration: 750
   },
   scrollToTop: false,
-  components: { MainSectionIntro, TeamCard },
+  components: { MainSectionIntro, TeamCard, Interstitial },
   data() {
     return {
       initTimeout: null,
@@ -47,7 +54,10 @@ export default {
     teamNeedsIds () {
       const itemCount = 4;
       return this.showAll ? this.$store.getters['content/teamNeeds'] : this.$store.getters['content/teamNeeds'].slice(0,itemCount)
-    }
+    },
+    interstitials() {
+      return this.$store.getters['content/interstitials']('teamNeeds')
+    },
   },
   methods: {
     handleScroll() {
@@ -59,7 +69,7 @@ export default {
   async asyncData({$axios, store, commit}) {
     let configuration = store.getters['page/configuration'];
     if(!configuration){
-      configuration = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/config.production.json.gz?ignoreCache=3",  {
+      configuration = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/config.production.json.gz?ignoreCache=4",  {
       headers: {
          'Content-Encoding': 'gzip'
       }
@@ -71,7 +81,7 @@ export default {
     }
     let pageSettings = store.getters['page/settings'];
     if(!pageSettings){
-      pageSettings = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/page.production.json.gz?ignoreCache=3",  {
+      pageSettings = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/page.production.json.gz?ignoreCache=4",  {
       headers: {
          'Content-Encoding': 'gzip'
       }

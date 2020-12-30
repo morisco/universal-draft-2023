@@ -17,8 +17,8 @@ export default {
   .draft-info{
     position:absolute;
     background:rgba(0,0,0,0.875);
-    right:25px;
-    left:25px;
+    right:10px;
+    left:10px;
     padding: 15px 10px 10px;
     transition: all 0.375s linear 0.125s, opacity 0.25s linear 0s, visibility 0s linear 0.25s;
     transform:translateY(-30px);
