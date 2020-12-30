@@ -59,7 +59,7 @@ export default {
     mentionTime() {
       this.startSeconds = getSeconds(this.playerPodcast.podcast_start)
       this.endSeconds = getSeconds(this.playerPodcast.podcast_end)
-      return this.remainingTime ? getFormattedTime(null, null, this.remainingTime) : getFormattedTime(this.startSeconds, this.endSeconds);
+      return this.activePodcast && this.remainingTime ? getFormattedTime(null, null, this.remainingTime) : getFormattedTime(this.startSeconds, this.endSeconds);
     },
     activePodcast(){
       const activePlayer = this.$store.getters['podcast/activePlayer'];
