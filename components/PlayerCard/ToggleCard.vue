@@ -11,7 +11,7 @@
       <span class="player-card__toggle-span" v-else key="more">MORE</span>
     </transition>
     <transition name="info-bubble">
-      <InfoBubble v-if="!cardExpanded">
+      <InfoBubble v-if="!cardExpanded && $mq !== 'mobile'">
         Read our full<br/>
         scouting report
       </InfoBubble>

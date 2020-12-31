@@ -4,17 +4,19 @@
     :style="{top: infoHeight + 'px'}"
     :class="{
       'podcast-player--playing': playing,
+      'podcast-player--loading': loading,
       'podcast-player--loaded': infoHeight
     }"
     v-on:click="togglePodcast($event)"
   >
     <div class="podcast-player__play-pause">
+      <div class="podcast-player__loader"></div>
       <svg width="10px" height="12px" viewBox="0 0 10 12">
         <path d="M5.5 0L11 9L0 9L5.5 0Z" transform="matrix(0.01745238 0.9998477 -0.9998477 0.01745238 8.998657 0)" fill="#166856" stroke="none" />
       </svg>
     </div>
     <span class="podcast-player__time">{{mentionTime}}</span>
-    <div class="podcast-player__progress" v-if="percentComplete > 0" :style="{animationDuration: duration + 's', animationPlayState: playing ? 'running' : 'paused'}"></div>
+    <div class="podcast-player__progress" v-if="percentComplete > 0" :style="{'maxWidth': percentComplete + '%'}"></div>
   </div>
 </template>
 
@@ -52,7 +54,8 @@ export default {
       startSeconds: null,
       endSeconds: null,
       percentComplete: 0,
-      duration: null
+      duration: null,
+      loading: false,
     }
   },
   computed: {
@@ -81,6 +84,7 @@ export default {
   },
   mounted() {
     this.playing = this.playingState === 2 && this.activePodcast;
+    this.loading = this.playingState === 1 && this.activePodcast;
     this.duration = this.remainingTime ? this.remainingTime : this.endSeconds - this.startSeconds
   },
   methods: {
@@ -105,6 +109,8 @@ export default {
   watch: {
     playingState() {
       this.playing = this.activePodcast && this.playingState === 2;
+      this.loading = this.activePodcast && this.playingState === 1;
+
     },
     currentCompletionPercentage() {
       this.percentComplete = this.activePodcast ? this.currentCompletionPercentage : 0;
@@ -157,6 +163,13 @@ export default {
       position:relative;
       justify-content:space-between;
       align-items:center;
+      svg{
+        opacity:1;
+        transition:opacity 0.125s linear;
+        .podcast-player--loading & {
+          opacity:0;
+        }
+      }
     }
     &--loaded{
       opacity:1;
@@ -178,6 +191,7 @@ export default {
         }
       }
     }
+
     &__time{
       margin-left:10px;
       line-height:1;
@@ -198,8 +212,42 @@ export default {
       bottom:0;
       opacity:0.25;
       background:$gray;
-      animation: progress 1.25s 1 ease-in-out;
-      animation-fill-mode: forwards;
+      transition:max-width 0.25s linear 0s;
+      // animation: progress 1.25s 1 ease-in-out;
+      // animation-fill-mode: forwards;
+      .player-card--defense & {
+        background:$defense;
+      }
+      .player-card--offense & {
+        background:$defense;
+      }
+    }
+
+    
+    &__loader {
+      border: 2px solid $mediumgray; /* Light grey */
+      border-top: 2px solid $gray; /* Blue */
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      animation: spin 2s linear infinite;
+      position:absolute;
+      opacity:0;
+      transition:opacity 0.125s linear;
+      .podcast-player--loading & {
+        opacity:1;
+      }
+      .player-card--offense & {
+        border-top-color: $offense; /* Blue */
+      }
+      .player-card--defense & {
+        border-top-color: $defense; /* Blue */
+      }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
   }

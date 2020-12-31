@@ -44,6 +44,8 @@ export default {
     '@nuxtjs/device',
     'nuxt-mq',
     ['nuxt-lazy-load', {
+      images: true,
+      audios: false,
       observerConfig: {
         'rootMargin': '1000px'
       }
