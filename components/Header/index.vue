@@ -4,7 +4,7 @@
     <div class="header__inner">
       <h1 class="headline">
         <span class="headline--small">The Ringer's</span>
-        <span class="headline--big"><em>2021 NFL</em> Draft Guide</span>
+        <span class="headline--big"><em>2021 NFL</em> <span>Draft Guide</span></span>
       </h1>
       <h2 class="subheadline">With scouting reports by Danny Kelly</h2>
       <transition name="updated" appear :duration="50000">
@@ -69,11 +69,17 @@ export default {
     }
   }
   .subheadline{
-    margin:30px 0 5px;
+    margin:10px 0 5px;
+    @include non-mobile{
+      margin:30px 0 5px;
+    }
   }
   .updated{
     color:$white;
     opacity:0;
+    @include mobile{
+      margin-bottom:15px;
+    }
     &-enter-to{
       opacity:1;
     }

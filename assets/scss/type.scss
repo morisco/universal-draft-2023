@@ -33,10 +33,11 @@ h1,
     font-size: 14vw;
   }
   &--small{
-    line-height: 1;
+    line-height: 1.75;
     font-size:4vh;
     @include non-mobile{
       font-size: 3vw;
+      line-height: 1;
 
     }
   }
@@ -47,10 +48,17 @@ h1,
     word-spacing: -.1em;
     text-transform: none;
     font-size:19vh;
-    line-height:.8;
+    line-height:0.8;
+ 
     @include non-mobile{
       font-size: 15vw;
       line-height: .85;
+      > span, 
+      em{
+        display:block;
+        line-height: .925;
+        height: 18.875vh;
+      }
     }
   }
   em {
