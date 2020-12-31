@@ -71,7 +71,7 @@ export default {
   .subheadline{
     margin:10px 0 5px;
     @include non-mobile{
-      margin:30px 0 5px;
+      margin:0.9vw 0 0.125vw;
     }
   }
   .updated{
