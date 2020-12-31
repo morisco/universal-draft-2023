@@ -12,10 +12,10 @@
 }
 
 @mixin combine-title {
-  font-family: TTLakes-DemiBold;
+  font-family: TTLakes;
   font-size:18px;
   letter-spacing:0.01em;
-  font-weight:400;
+  font-weight:600;
 }
 
 @mixin combine-value {
@@ -55,9 +55,10 @@
 }
 
 @mixin player-position {
-  font-family: TTLakes-DemiBold;
+  font-family: TTLakes;
   font-size: 18px;
   line-height: 100%;
+  font-weight:600;
 }
 
 @mixin navigation-link-updated{
@@ -102,9 +103,10 @@
 }
 
 @mixin stat-value{
-  font-family: TTLakes-Light;
+  font-family: TTLakes;
   font-size: 20px;
   line-height: .77;
+  font-weight:300;
   @include medium-desktop {
     font-size:18px;
     letter-spacing:-1px;
@@ -154,15 +156,17 @@
 }
 
 @mixin rank {
-  font-family: TTLakes-DemiBold, Arial, sans-serif;
+  font-family: TTLakes, Arial, sans-serif;
   line-height: .55;
   font-size: 23px;
+  font-weight:600;
 }
 
 @mixin team-player-name {
-  font-family: TTLakes-DemiBold, Arial, sans-serif;
+  font-family: TTLakes, Arial, sans-serif;
   line-height: .9;
   font-size: 22px;
+  font-weight:600;
   text-transform:uppercase;
   @include tablet-portrait-only{
     font-size:16px;
@@ -170,9 +174,10 @@
   }
 }
 @mixin team-player-meta{
-  font-family: TTLakes-Light, Arial, sans-serif;
+  font-family: TTLakes, Arial, sans-serif;
   font-size:14px;
   line-height:1.2;
+  font-weight:300;
   @include tablet-portrait-only{
     font-size:11px;
   }

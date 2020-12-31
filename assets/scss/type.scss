@@ -22,8 +22,8 @@ em{
 
 h1,
 .headline{
-  font-family: TTLakes-Light, Arial, sans-serif;
-  font-weight: 400;
+  font-family: TTLakes, Arial, sans-serif;
+  font-weight: 300;
   line-height: 1;
   color: #fffefe;
   text-transform: none;
@@ -33,11 +33,12 @@ h1,
     font-size: 14vw;
   }
   &--small{
-    line-height: 1;
+    line-height: 0.7;
     font-weight: 100;
     font-size:4vh;
     @include non-mobile{
       font-size: 3vw;
+      line-height:1;
     }
   }
   &--big{
