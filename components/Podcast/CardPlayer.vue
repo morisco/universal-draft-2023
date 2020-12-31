@@ -132,8 +132,11 @@ export default {
       right:10px;
       transform:translateY(calc(-100% - 27px));
     }
-    @include tablet{
-      padding: 5px 2px 5px 8px;
+    @include tablet-portrait-only{
+      .mock-draft &,
+      .draft-results & {
+        padding: 5px 2px 5px 8px;
+      }
       right:5px;
     }
     @include mobile {
@@ -172,7 +175,6 @@ export default {
           width:4px;
           border-radius:2px;
           background:$gray;
-          
         }
       }
     }
@@ -182,6 +184,7 @@ export default {
       margin-right:-1px;
       @include mobile-nav-label;
       width:32px;
+      text-align: right;
       @include tablet-landscape-and-below{
         margin-left:5px;
       }
