@@ -116,6 +116,10 @@ export default {
       align-items:center;
       border-radius:100%;
       transition:top 0.5s linear 0.125s;
+      span{
+        display:block;
+        margin-top:5px;
+      }
       @include non-mobile{
         .player-card--collapsed & {
           top:35px;
@@ -126,9 +130,8 @@ export default {
         top:15px;
         left:15px;
         right:auto;
-        line-height:18px;
         span{
-          height:20px;
+          margin-top:3px;
         }
       }
     }
