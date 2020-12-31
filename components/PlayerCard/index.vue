@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import ImageColumn from './ImageColumn.vue'
-import InfoColumn from './InfoColumn.vue'
-import ToggleCard from './ToggleCard.vue'
+import ImageColumn  from './ImageColumn.vue'
+import InfoColumn   from './InfoColumn.vue'
+import ToggleCard   from './ToggleCard.vue'
 import { scrollIt } from '~/plugins/scroller'
 
 export default {
@@ -53,16 +53,16 @@ export default {
   components: { ImageColumn, InfoColumn, ToggleCard },
   data() {
     return {
-      openTimeout:    null,
-      expanded:       false,
-      collapsed:      false,
-      transitioning:  false,
-      maxHeight:      null,
-      topHeight:      null,
-      infoHeight:     null,
-      scrollTimeout:  null,
+      openTimeout:          null,
+      expanded:             false,
+      collapsed:            false,
+      transitioning:        false,
+      maxHeight:            null,
+      topHeight:            null,
+      infoHeight:           null,
+      scrollTimeout:        null,
       transitioningTimeout: null,
-      animateHeight: false
+      animateHeight:        false
     }
   },
   created () {
@@ -125,14 +125,14 @@ export default {
       this.$emit('card-expanded');
       var self = this;
       this.openTimeout = setTimeout(() => {
-        const scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop - (this.collapsed ? 75 : 85);
+        const scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop - (this.$mq === 'mobile' ? 60 : this.collapsed ? 75 : 85);
         const currentScroll = window.scrollY;
         const windowHeight = window.innerHeight;
         const difference = Math.abs(scrollDestination - currentScroll);
         const maxTime = this.$mq === 'mobile' ? 375 : 875;
         const timing = Math.min(maxTime, Math.max(300, Math.round((difference/windowHeight) * maxTime)));
         const easing = this.expanded ? 'linear' : 'easeOutCubic';
-        if(this.$mq !== 'mobile' || this.expanded){
+        if(this.$mq !== 'mobile' || this.expanded || currentScroll < scrollDestination){
           scrollIt(scrollDestination, timing, easing, cb);
         } else {
           cb();
@@ -194,7 +194,7 @@ export default {
     .app__content--collapsed & {
       margin-bottom:15px;
     }
-    &--animate{
+    &--animated{
       transition:max-height 0.5s ease-in-out, margin-bottom 0.25s linear 0.125s;
     }
     &--transitioning{

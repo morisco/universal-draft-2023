@@ -128,6 +128,14 @@ export default {
     cursor:pointer;
     opacity:0;
     transition:opacity 0.125s linear;
+    @include tablet-landscape-and-below{
+      right:10px;
+      transform:translateY(calc(-100% - 27px));
+    }
+    @include tablet{
+      padding: 5px 2px 5px 8px;
+      right:5px;
+    }
     @include mobile {
       top:auto !important;
       bottom:15px;
@@ -174,6 +182,9 @@ export default {
       margin-right:-1px;
       @include mobile-nav-label;
       width:32px;
+      @include tablet-landscape-and-below{
+        margin-left:5px;
+      }
     }
     &__progress{
       position:absolute;

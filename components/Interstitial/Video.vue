@@ -21,7 +21,7 @@
       <img :src="interstitial.image.medium" alt="Video thumbnail" class="video-inter__thumbnail" /> 
       <img src="@/assets/img/icons/inter-play.svg" class="video-inter__play-button" alt="Play button" />
       <div class="video-inter__iframe-wrapper">
-        <iframe v-if="open" :src="'https://www.youtube.com/embed/' + interstitial.video + '?autoplay=1&rel=0&playsinline=1'" data-not-lazy frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe v-if="open" :src="'https://www.youtube.com/embed/' + interstitial.video + '?autoplay=1&rel=0'" data-not-lazy frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -69,9 +69,13 @@ export default {
       min-height:300px;
       transition:max-width 0.5s ease-in-out 0.375s;
       flex: 0 0 auto;
+      @include tablet{
+        padding:25px 20px;
+      }
       @include mobile {
         max-width:100%;
         width:100%;
+        padding:30px 20px;
       }
       .video-inter--open & {
         max-width:27%;
@@ -93,17 +97,20 @@ export default {
       }
       animation-play-state: paused;
       animation-fill-mode: forwards;
-      @include mobile {
+      @include tablet {
         font-size:32px;
       }
       .video-inter--open & {
         font-size:24px;
         animation-play-state: running;
+        @include tablet {
+          font-size:22px;
+        }
+
         @include mobile {
           font-size:32px;
         }
       }
-
     }
     &__dek{
       p{
@@ -136,14 +143,13 @@ export default {
         border-bottom:1px solid $gray;
       }
       iframe{
-        position:absolute;
+        position:relative;
         width:100%;
         height:100%;
         object-fit:contain;
-        left:50%;
-        top:50%;
-        transform:translate(-50%, -50%);
-     
+        .video-inter--open & {
+          z-index:3;
+        }     
       }
     }
     &__thumbnail{
@@ -153,6 +159,7 @@ export default {
       object-fit:cover;
       object-position:center center;
       opacity:1;
+      vertical-align:bottom;
       .video-inter--open & {
         opacity:0;
         transition:opacity 0.25s linear 0s;

@@ -16,7 +16,7 @@ const getters = {
 // actions
 const actions = {
   getPageSettings ({ commit, state }) {
-    axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/config.production.json.gz?ignoreCache=4",  {
+    axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/" + process.env.HEDDEK_PROJECT_ID + "/config." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=4",  {
       headers: {
          'Content-Encoding': 'gzip'
       }
@@ -26,7 +26,7 @@ const actions = {
       commit('setPage', page)
     })
     .catch(err => console.log(err));
-    axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/page.production.json.gz?ignoreCache=4",  {
+    axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/" + process.env.HEDDEK_PROJECT_ID + "/page." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=4",  {
       headers: {
          'Content-Encoding': 'gzip'
       }

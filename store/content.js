@@ -75,7 +75,7 @@ const actions = {
   getContents ({commit}) {
     var d = new Date();
     var t = d.getTime();
-    axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/content.production.json.gz?ignoreCache=" + t,  {
+    axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
       headers: {
         'Content-Encoding': 'gzip'
       }

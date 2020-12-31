@@ -26,7 +26,16 @@ export default {
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
+    ['@nuxtjs/dotenv', { 
+      filename: '.env.staging',
+      // filename: '.env' 
+    }],
+    '@nuxtjs/google-analytics',
   ],
+
+  googleAnalytics: {
+    id: 'UA-132999529-1',
+  },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [

@@ -82,6 +82,16 @@ export default {
           max-width: calc(100% - 800px);
         }
       }
+      @include tablet{
+        .player-card--expanded & {
+          max-width:17.5%;
+        }
+      }
+      @include mobile {
+        .player-card--expanded & {
+          max-width:100%;
+        }
+      }
       img{
         position:absolute;
         top:0;

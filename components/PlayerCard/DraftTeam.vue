@@ -45,14 +45,26 @@ export default {
     opacity:0;
     transition:opacity 0.25s linear;
 
+    @include tablet-landscape-and-below{
+      max-width:45px;
+      max-height:45px;
+      left:10px;
+      
+    }
+
     @include mobile{
       max-width:35px;
       max-height:35px;
       left:auto;
       right:15px;
-      top:25px !important;
+      top:20px !important;
       transform:none;
-      border:1px solid $highlight1;
+      .player-card--offense & {
+        border:1px solid $offense;
+      }
+      .player-card--defense & {
+        border:1px solid $defense;
+      }
     }
     &--animated{
       // transition: all 0.375s linear 0.125s, background-color 0.25s linear 0s;
@@ -69,6 +81,8 @@ export default {
       max-height:75%;
       opacity:0;
       transition:opacity 0.25s linear;
+      position:relative;
+      top:auto;
     }
     img.isLoaded {
       opacity:1;
@@ -101,8 +115,6 @@ export default {
       opacity:0;
       transition: all 0.375s linear 0.125s, opacity 0.125s linear 0s;
     }
-
-    
   
     &:hover{
       .player-card--offense &{

@@ -27,6 +27,7 @@ export default {
     color:$white;
     border:2px solid $white;
     visibility:hidden;
+    
     @include mobile{
       display:none;
     }
@@ -38,9 +39,15 @@ export default {
       margin-bottom:10px;
       display:block;
       font-size:14px;
+      @include tablet-landscape-and-below{
+        font-size:12px;
+      }
     }
     &__content{
       font-size:12px;
+      @include tablet-landscape-and-below{
+        font-size:10px;
+      }
     }
 
     .player-card--collapsed & {

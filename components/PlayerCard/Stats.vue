@@ -37,7 +37,11 @@ export default {
     transition: transform 0s linear 0.125s;
     @include mobile {
       justify-content:flex-start;
-
+    }
+    @include tablet-portrait-only{
+      width:calc(100% + 4px);
+      margin-left:-2px;
+      margin-right:-2px;
     }
     @include non-mobile{
       .player-card--collapsed & {
@@ -55,7 +59,7 @@ export default {
         margin:0 2px 24px;
       }
       @include tablet-portrait-only{
-        margin:0 5px 15px;
+        margin:0 2px 15px;
       }
 
       @include mobile {
