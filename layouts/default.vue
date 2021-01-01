@@ -19,6 +19,7 @@
         <mq-layout mq="tablet+">
           <Filters />
         </mq-layout>
+        <PodcastController v-if="$mq === 'mobile'" />
         <Nuxt />
       </div>
     </main>
@@ -30,9 +31,10 @@
 import Header from '~/components/Header'
 import Filters from '~/components/Filters'
 import MobileNavigation from '~/components/MobileNavigation'
+import PodcastController from '~/components/Podcast/GlobalController'
 import Navigation from '~/components/Navigation'
 export default {
-  components: { Header, Filters, MobileNavigation, Navigation },
+  components: { Header, Filters, MobileNavigation, Navigation, PodcastController },
   computed: {
     pageSettings () {
       return this.$store.getters['page/settings']

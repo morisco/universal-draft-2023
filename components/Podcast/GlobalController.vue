@@ -6,11 +6,12 @@
     <transition name="podcast-controller__content">
       <div class="podcast-controller__content" v-if="player && playingState === 2" v-on:click="stopAudio">
         <div>
-          <span v-if="['mobile', 'tablet', 'small_desktop'].indexOf($mq) < 0">Player:</span>
+          <span v-if="['tablet', 'small_desktop'].indexOf($mq) < 0">Player:</span>
           <span>{{player.title}}</span>
         </div>
-        <a href="https://open.spotify.com/show/3sYLdv261f5jLvEgDLU9PD" v-if="['mobile', 'tablet', 'small_desktop'].indexOf($mq) < 0" target="_blank" class="podcast-controller__content-more" v-on:click="seeMore">
-          More from the ringer
+        <a href="https://open.spotify.com/show/3sYLdv261f5jLvEgDLU9PD" v-if="['tablet', 'small_desktop'].indexOf($mq) < 0" target="_blank" class="podcast-controller__content-more" v-on:click="seeMore">
+          <!-- <span v-if="$mq !== 'mobile'">More from the ringer</span> -->
+          <img src="~/assets/img/spotify-logo.png" alt="Spotify logo" />
         </a>
       </div>
     </transition>
@@ -115,6 +116,11 @@ export default {
     left:0;
     right:0;
     overflow:hidden;
+    @include mobile{
+      position:fixed;
+      bottom:0;
+      
+    }
     audio{
       // position:absolute;
       // left:-55555px;
@@ -126,7 +132,7 @@ export default {
       background:$lightgray;
       padding:10px 15px;
       border-radius:0.625em;
-      cursor:pointer;
+      cursor:pointer;     
       flex-wrap:wrap;
       &-enter{
         opacity:0;
@@ -153,11 +159,24 @@ export default {
         background:$gray;
         margin-right:10px;
         margin-bottom:1px;
+        flex: 0 0 auto;
       }
       span{
         display:block;
         @include mobile-nav-label;
         line-height:1;
+        &:first-of-type{
+          flex: 0 0 auto;
+        }
+        &:last-of-type{
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          
+        }
+      }
+      > div{
+        max-width:calc(100% - 25px);
       }
     }
     &__content-more{
@@ -167,7 +186,23 @@ export default {
       @include mobile-nav-label;
       opacity:0.5;
       font-size:11px;
-      text-align:center;
+      text-align:left;
+      padding-left:25px;
+      justify-content:flex-end;
+      img{
+        height:17px;
+        justify-self:flex-end;
+        vertical-align:bottom;
+      }
+      @include mobile{
+        min-width:0;
+        flex:0 0 auto;
+        justify-self:flex-end;
+        padding-left:0;
+        img{
+          margin-top:-4px;
+        }
+      }
 
     }
     @include single-column{
@@ -186,6 +221,32 @@ export default {
         border:2px solid $black;
         border-right:0;
         border-top:0;
+      }
+    }
+    @include mobile{
+      position:fixed;
+      opacity:1;
+      top:auto;
+      bottom:-1px;
+      z-index:5555555;
+      left:0;
+      &__content{
+        border:0px;
+        border-top:2px solid $gray;
+        border-bottom-left-radius:0;
+        left:0;
+        > div{
+          display:flex;
+          flex-wrap:nowrap;
+          flex:1;
+          max-width:calc(100% - 82px);
+          span:first-of-type{
+            margin-right:5px;
+          }
+          span:last-of-type{
+            padding-right:10px;
+          }
+        }
       }
     }
   }

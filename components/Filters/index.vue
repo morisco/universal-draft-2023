@@ -144,7 +144,7 @@
         </button>
       </div>
     </div>
-    <PodcastController />
+    <PodcastController v-if="$mq !== 'mobile'" />
   </div>
   <div class="filters__ghost"></div>
 </div>
