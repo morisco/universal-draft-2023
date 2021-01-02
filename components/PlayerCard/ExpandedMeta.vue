@@ -32,6 +32,9 @@ export default {
       opacity:0;
       transition:opacity 0.25s linear 0s;
       @include mobile {
+        transition:opacity 1s linear 0s;
+      }
+      @include mobile {
         margin: 0 15px;
       }
       .player-card__info-column--expanded & {

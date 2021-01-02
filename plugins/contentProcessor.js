@@ -49,20 +49,25 @@ export function processPlayers(players) {
   let teamPlayers = {};
   players.forEach((player) => {
     player = decodeContent(player);
-    player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
-    if(playerPositions.indexOf(player.player_position_stats.position) === -1){
-      playerPositions.push(player.player_position_stats.position);
+    if(process.env.PROJECT_LEAGUE === 'NBA'){
+      console.log(player);
+      player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
+    } else {
+      player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
+      if(playerPositions.indexOf(player.player_position_stats.position) === -1){
+        playerPositions.push(player.player_position_stats.position);
+      }
+      player.image_data.image = processImages(player.image_data.image);
+      player.offenseDefense = offensePositions.indexOf(player.player_position_stats.position) >= 0 ? 'offense' : 'defense' 
+      teamPlayers[player.id_string] = {
+        title: player.title,
+        image: player.image_data.image,
+        school: player.player_meta.school,
+        position: positionLabelMap[player.player_position_stats.position],
+        offenseDefense: player.offenseDefense
+      }
+      processedPlayers[player.id] = player;
     }
-    player.image_data.image = processImages(player.image_data.image);
-    player.offenseDefense = offensePositions.indexOf(player.player_position_stats.position) >= 0 ? 'offense' : 'defense' 
-    teamPlayers[player.id_string] = {
-      title: player.title,
-      image: player.image_data.image,
-      school: player.player_meta.school,
-      position: positionLabelMap[player.player_position_stats.position],
-      offenseDefense: player.offenseDefense
-    }
-    processedPlayers[player.id] = player;
   });
   const orderedIds = processOrders(players);
   return {

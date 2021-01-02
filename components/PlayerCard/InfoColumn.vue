@@ -124,6 +124,12 @@ export default {
       overflow-y:hidden;
       &--animate{
         transition:max-height 0.5s ease-out, max-width 0s linear 0.125s;
+        @include mobile { 
+          transition:max-height 1s ease-out, max-width 0s linear 0.125s;
+          .player-card--expanded & {
+            transition:max-height 0.5s ease-out, max-width 0s linear 0.125s;
+          }
+        }
       }
       // max-height:313px;
       @include tablet-portrait-only{

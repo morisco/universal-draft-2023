@@ -125,14 +125,26 @@ export default {
       this.$emit('card-expanded');
       var self = this;
       this.openTimeout = setTimeout(() => {
-        const scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop - (this.$mq === 'mobile' ? 60 : this.collapsed ? 75 : 85);
+        let scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop - (this.$mq === 'mobile' ? 60 : this.collapsed ? 75 : 85);
+        
         const currentScroll = window.scrollY;
         const windowHeight = window.innerHeight;
         const difference = Math.abs(scrollDestination - currentScroll);
         const maxTime = this.$mq === 'mobile' ? 375 : 875;
-        const timing = Math.min(maxTime, Math.max(300, Math.round((difference/windowHeight) * maxTime)));
-        const easing = this.expanded ? 'linear' : 'easeOutCubic';
-        if(this.$mq !== 'mobile' || this.expanded || currentScroll < scrollDestination){
+        let timing = Math.min(maxTime, Math.max(300, Math.round((difference/windowHeight) * maxTime)));
+        let easing = this.expanded ? 'linear' : 'easeOutCubic';
+        
+        if(this.$mq === 'mobile' && this.expanded){
+          scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop + this.topHeight+ 220 - window.innerHeight + 15;
+          console.log('in here');
+          timing = 875;
+          easing = 'easeInOutCubic';
+          cb();
+          // setTimeout(( )=> {
+            scrollIt(scrollDestination, timing, easing);
+          // }, 125);
+
+        } else if(this.$mq !== 'mobile' || this.expanded || currentScroll < scrollDestination){
           scrollIt(scrollDestination, timing, easing, cb);
         } else {
           cb();
