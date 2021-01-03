@@ -125,7 +125,7 @@ export default {
       &--animate{
         transition:max-height 0.5s ease-out, max-width 0s linear 0.125s;
         @include mobile { 
-          transition:max-height 1s ease-out, max-width 0s linear 0.125s;
+          transition:max-height 0.5s linear, max-width 0s linear 0.125s;
           .player-card--expanded & {
             transition:max-height 0.5s ease-out, max-width 0s linear 0.125s;
           }

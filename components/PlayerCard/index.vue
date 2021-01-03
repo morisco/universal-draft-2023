@@ -135,10 +135,10 @@ export default {
         let easing = this.expanded ? 'linear' : 'easeOutCubic';
         
         if(this.$mq === 'mobile' && this.expanded){
-          scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop + this.topHeight+ 220 - window.innerHeight + 15;
+          scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop + this.topHeight+ 220 - window.innerHeight - (this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop + this.$refs.card.offsetHeight - currentScroll - window.innerHeight);
           console.log('in here');
-          timing = 875;
-          easing = 'easeInOutCubic';
+          timing = 500;
+          easing = 'linear';
           cb();
           // setTimeout(( )=> {
             scrollIt(scrollDestination, timing, easing);
@@ -207,7 +207,7 @@ export default {
       margin-bottom:15px;
     }
     &--animated{
-      transition:max-height 0.5s ease-in-out, margin-bottom 0.25s linear 0.125s;
+      transition:max-height 0.5s linear, margin-bottom 0.25s linear 0.125s;
     }
     &--transitioning{
       transition:max-height 0.5s ease-in-out 0.125s, margin-bottom 0.25s linear 0.125s;
