@@ -129,6 +129,25 @@
 //    src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_12_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_12_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_12_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_12_0.ttf') format('truetype');
 // }
 
+@font-face {
+  font-family: 'GT America';
+  src: url('~assets/webfonts/GTAmerica-Light.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica-Light.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT America';
+  src: url('~assets/webfonts/GTAmerica-LightItalic.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica-LightItalic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+
 
 
 @font-face {
@@ -144,6 +163,24 @@
   font-family: 'TTLakes';
   src: url('~assets/webfonts/TTLakes-Light-adjusted.woff2') format('woff2'),
       url('~assets/webfonts/TTLakes-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Decima';
+  src: url('~assets/webfonts/Decima.woff2') format('woff2'),
+      url('~assets/webfonts/Decima.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Decima';
+  src: url('~assets/webfonts/DecimaLight.woff2') format('woff2'),
+      url('~assets/webfonts/DecimaLight.woff') format('woff');
   font-weight: 300;
   font-style: normal;
   font-display: swap;

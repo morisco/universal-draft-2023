@@ -31,6 +31,8 @@ export default {
   .list-inter{
     background:$black;
     overflow:hidden;
+    flex-direction:row;
+    border-radius:0.625rem;
     .app__content--collapsed & {
       margin-bottom:15px;
     }
@@ -42,6 +44,7 @@ export default {
     &__info{
       color:$white;
       padding:30px;
+      background:transparent;
       @include mobile{
         width:100%;
         padding:25px 20px 20px;

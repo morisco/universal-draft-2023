@@ -75,6 +75,8 @@ export default {
     }
     &-updated{
       @include tooltip;
+      font-family: 'Decima';
+      font-weight:normal;
       color:$gray;
       transition:color 0.25s linear;
     }

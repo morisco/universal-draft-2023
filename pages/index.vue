@@ -11,7 +11,7 @@
           :cardExpanded="cardExpanded" 
         />
         <Interstitial 
-          v-if="interstitials[index+1]" 
+          v-if="interstitials[index+1] && viewPosition === 'all'" 
           :key="'interstitial-' + (index+1)" 
           :list="'bigBoard'" 
           :interKey="index+1" 
@@ -28,7 +28,7 @@ import PlayerCard from '~/components/PlayerCard';
 import Interstitial from '~/components/Interstitial';
 import MainSectionIntro from '~/components/MainSectionIntro';
 import { mapActions } from 'vuex'
-
+import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 export default {
   name: 'BigBoard',
   components: { MainSectionIntro, PlayerCard, RelatedArticles, Interstitial },
@@ -40,16 +40,20 @@ export default {
   data() {
     return {
       initTimeout: null,
-      showAll: false
+      showAll: false,
+      scrollDelay: null
     }
   },
   created() {
     if(process.client){
-      window.addEventListener('scroll', this.handleScroll);
+      this.scrollDelay = setTimeout(() => {
+        window.addEventListener('scroll', this.handleScroll);
+      }, 1000);
     }
   },
   destroyed() {
     if(process.client){
+      clearTimeout(this.scrollDelay);
       window.removeEventListener('scroll', this.handleScroll);
     }
   },
@@ -79,35 +83,13 @@ export default {
       'setCardExpanded': 'page/setCardExpanded',
     }),
     handleScroll() {
-      if(window.scrollY > this.$refs.bigBoard.offsetParent.offsetTop + this.$refs.bigBoard.offsetTop - window.innerHeight) {
+      if(this.bigBoardIds && window.scrollY > this.$refs.bigBoard.offsetParent.offsetTop + this.$refs.bigBoard.offsetTop - window.innerHeight) {
         this.showAll = true;
       }
     }
   },
-  async asyncData({$axios, store, commit}) {
-    let configuration = store.getters['page/configuration'];
-    if(!configuration){
-      configuration = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/" + process.env.HEDDEK_PROJECT_ID + "/config." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=4",  {
-        headers: {
-          'Content-Encoding': 'gzip'
-        }
-      })
-        .then(response => { 
-          store.commit('page/setConfig', response.data[0]);
-          return response.data[0];
-        }).catch(err => console.log(err));
-    }
-    let pageSettings = store.getters['page/settings'];
-    if(!pageSettings){
-      pageSettings = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/" + process.env.HEDDEK_PROJECT_ID + "/page." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=4",  {
-        })
-        .then(response => {
-          store.commit('page/setPage', response.data[0].data);
-          return response.data;
-        })
-        .catch(err => console.log(err));
-    }
-    return { configuration: configuration, settings: pageSettings }
+  asyncData({$axios, store, commit}) {
+    return asyncDataProcessor({$axios, store, commit});
   },
   head()  {
     return {

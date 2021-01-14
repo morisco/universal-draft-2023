@@ -19,7 +19,7 @@ const getters = {
   bigBoard: (state) => (selectedPosition) => {
     const activePositionArray = positionMap[selectedPosition];
     return state.bigBoard.filter((playerId) => {
-      const position = state.playerData[playerId].player_position_stats.position;
+      const position = state.playerData[playerId].position;
       if(selectedPosition === 'all'){
         return playerId;
       } else {
@@ -32,7 +32,7 @@ const getters = {
   mockDraft: (state) => (selectedPosition) => {
     const activePositionArray = positionMap[selectedPosition];
     return state.mockDraft.filter((playerId) => {
-      const position = state.playerData[playerId].player_position_stats.position;
+      const position = state.playerData[playerId].position;
       if(selectedPosition === 'all'){
         return playerId;
       } else {
@@ -45,7 +45,7 @@ const getters = {
   draftResults: (state) => (selectedPosition) => {
     const activePositionArray = positionMap[selectedPosition];
     return state.draftResults.filter((playerId) => {
-      const position = state.playerData[playerId].player_position_stats.position;
+      const position = state.playerData[playerId].position;
       if(selectedPosition === 'all'){
         return playerId;
       } else {

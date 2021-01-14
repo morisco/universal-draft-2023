@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app">
+  <div id="app" class="app" :class="{'app--supports-hover': !($device.isMobile || $device.isTablet)}">
     <Header />
      <main v-if="pageSettings" id="main">
       <Intro />

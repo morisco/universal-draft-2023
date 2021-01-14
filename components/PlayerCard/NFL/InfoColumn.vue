@@ -9,22 +9,21 @@
     v-bind:style="[maxHeight] ? {maxHeight: maxHeight + 'px'}: []"
   >
     <div class="player-card__top-data" ref="topData">
-      <div class="player-card__meta-stats">
-        <div class="player-card__meta-column">
-          <BasicMeta :player="player" />
-        </div>
-        <div class="player-card__meta-column">
-          <Stats :player="player" />
-          <MetaList :playerMeta="player.player_meta" v-if="$mq !== 'mobile' || !this.collapsed " />
-        </div>
-      </div>
-      <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile' || !this.collapsed " />
+      <MetaBar :player="player" :rankKey="null" ref="metaBar" v-if="$mq === 'mobile'" />
+      <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile' && !this.collapsed" />
+      <Badges :player="player" v-if="player.badges.length > 0" />
+      <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile' && !this.collapsed" />
+
     </div>
     <div class="player-card__bottom-data" ref="bottomData">
+      <Stats :player="player" />
       <MetaList :playerMeta="player.player_meta" v-if="$mq === 'mobile' && this.collapsed " />
-      <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile' && this.collapsed" />
+      <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" />
       <ExpandedMeta :player="player" />
       <CombineResults :results="player.combine_results" :topHeight="topHeight" v-if="['mock-draft', 'draft-results'].indexOf($route.name) >= 0 || $mq === 'mobile'" />
+      <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile'">
+        <PodcastCardPlayer v-if="player.player_podcast" :playerId="player.id" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
+      </div>
     </div>
   </div>
 </template>
@@ -32,11 +31,15 @@
 <script>
 import BasicMeta from './BasicMeta';
 import Stats from './Stats';
+import Badges from './Badges';
 import MetaList from './MetaList';
 import Headline from './Headline';
 import ExpandedMeta from './ExpandedMeta';
+import MetaBar from './MetaBar';
+import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
 export default {
   props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight'],
+  components: { BasicMeta, Stats, MetaList, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer },
   data () {
     return {
       mounted: false,
@@ -56,7 +59,6 @@ export default {
   destroyed(){
     window.removeEventListener('resize', this.windowResized);
   },
-  components: { BasicMeta, Stats, MetaList, Headline, ExpandedMeta },
   computed: {
     player () {
       return this.$store.getters['content/player'](this.playerId);
@@ -71,13 +73,16 @@ export default {
     },
     setHeights() {
       const self = this;
+      console.log('here');
       if(!this.mounted) return
+      console.log('and here');
       if(this.expanded || this.viewDepth === 'deep'){
         this.maxHeight = this.topHeight + this.$refs.bottomData.offsetHeight
       } else if(this.collapsed){
         this.maxHeight = this.$mq === 'mobile' ? this.topHeight : 125
       } else {
         this.maxHeight = this.topHeight
+        console.log(this.topHeight);
       }
       this.setMaxHeight(this.maxHeight);
       this.$emit('set-top-height', this.topHeight)
@@ -117,8 +122,7 @@ export default {
     // max-height:313px;
     &__info-column{
       position:relative;
-      width:100%;
-      max-width:800px;
+      flex:1;
       opacity:1;
       overflow-x:visible;
       overflow-y:hidden;
@@ -133,11 +137,12 @@ export default {
       }
       // max-height:313px;
       @include tablet-portrait-only{
-        max-width:87.5%;
+        // max-width:87.5%;
       }
       @include mobile {
         width:100%;
         max-width:100%;
+        background:white;
         .player-card--collapsed &{
           padding-bottom:15px;
           .player-card--expanded & {
@@ -169,9 +174,14 @@ export default {
       display:flex;
       flex-direction:column;
       padding:30px;
+      min-height:255px;
+      .player-card--collapsed & {
+        min-height:0;
+      }
       @include mobile {
-        padding:20px 15px 0;
+        padding:0;
         flex-direction:column;
+        border-radius: 0 0 0.625rem 0.625rem;
       }
     }
     &__meta-stats{
@@ -180,6 +190,36 @@ export default {
       width:100%;
       @include mobile {
         flex-direction:column;
+      }
+    }
+    &__bottom-data{
+      > *{
+        opacity:0;
+        transition:opacity 0.25s linear 0s;
+      }
+      @include mobile{
+        background:$lightgray;
+        padding-bottom:20px;
+        border-radius:0 0 0.625rem 0.625rem;
+        margin-top:0.75rem;
+        &-extended{
+          padding:0 20px;
+          &:before{
+            content:'';
+            display:block;
+            width:100%;
+            height:1px;
+            background:$darkmediumgray;
+            margin-bottom:20px;
+          }
+        }
+      }
+      .player-card--expanded & {
+        margin-top:0;
+        > *{
+          opacity:1;
+          transition:opacity 0.25s linear 0.5s;
+        }
       }
     }
   }

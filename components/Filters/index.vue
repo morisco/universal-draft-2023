@@ -59,88 +59,8 @@
         <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
           <img src="@/assets/img/emoji/point-right.png" alt="Right Pointer" class="filters__sticky-emoji" v-bind:style="{top: positionArrowTop + 'px'}" />
         </mq-layout>
-        <button class="filters__option" :class="{active: activePosition === 'all'}" v-on:click="handlePositionFilter($event,'all')">
-          <span>All</span>
-        </button>
-        <button class="filters__option" :class="{active: activePosition === 'all-offense'}" v-on:click="handlePositionFilter($event,'all-offense')">
-          <mq-layout :mq="['tablet', 'small_desktop']">
-            <span>Offense</span>
-          </mq-layout>
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <span>All Offense</span>
-          </mq-layout>
-        </button>
-        <button class="filters__option" :class="{active: activePosition === 'all-defense'}" v-on:click="handlePositionFilter($event,'all-defense')">
-          <mq-layout :mq="['tablet', 'small_desktop']">
-            <span>Defense</span>
-          </mq-layout>
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <span>All Defense</span>
-          </mq-layout>
-        </button>
-        <button class="filters__option" :class="{active: activePosition === 'qb'}" v-on:click="handlePositionFilter($event,'qb')">
-          <mq-layout :mq="['tablet', 'small_desktop']">
-            <span>QB</span>
-          </mq-layout>
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <span>Quarterbacks</span>
-          </mq-layout>
-        </button>
-        <button class="filters__option" :class="{active: activePosition === 'rb'}" v-on:click="handlePositionFilter($event,'rb')">
-          <mq-layout :mq="['tablet', 'small_desktop']">
-            <span>RB</span>
-          </mq-layout>
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <span>Running Backs</span>
-          </mq-layout>
-        </button>
-        <button class="filters__option" :class="{active: activePosition === 'pc'}" v-on:click="handlePositionFilter($event,'pc')">
-          <mq-layout :mq="['tablet', 'small_desktop']">
-            <span>WR/TE</span>
-          </mq-layout>
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <span>Pass Catchers</span>
-          </mq-layout>
-        </button>
-        <button class="filters__option" :class="{active: activePosition === 'ol'}" v-on:click="handlePositionFilter($event,'ol')">
-          <mq-layout :mq="['tablet', 'small_desktop']">
-            <span>OL</span>
-          </mq-layout>
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <span>Offensive Linemen</span>
-          </mq-layout>
-        </button>
-        <button class="filters__option" :class="{active: activePosition === 'de'}" v-on:click="handlePositionFilter($event,'de')">
-          <mq-layout :mq="['tablet', 'small_desktop']">
-            <span>DE</span>
-          </mq-layout>
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <span>Edge Rushers</span>
-          </mq-layout>
-        </button>
-        <button class="filters__option" :class="{active: activePosition === 'idl'}" v-on:click="handlePositionFilter($event,'idl')">
-          <mq-layout :mq="['tablet', 'small_desktop']">
-            <span>IDL</span>
-          </mq-layout>
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <span>Int. Defensive Linemen</span>
-          </mq-layout>
-        </button>
-        <button class="filters__option" :class="{active: activePosition === 'lb'}" v-on:click="handlePositionFilter($event,'lb')">
-          <mq-layout :mq="['tablet', 'small_desktop']">
-            <span>LB</span>
-          </mq-layout>
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <span>Linebackers</span>
-          </mq-layout>
-        </button>
-        <button class="filters__option" :class="{active: activePosition === 'db'}" v-on:click="handlePositionFilter($event,'db')">
-          <mq-layout :mq="['tablet', 'small_desktop']">
-            <span>DB</span>
-          </mq-layout>
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <span>Defensive Backs</span>
-          </mq-layout>
+        <button v-for="position in positionMap" :key="position.positionKey" class="filters__option" :class="{active: activePosition === position.positionKey}" v-on:click="handlePositionFilter($event, position.positionKey)">
+          <span>{{['mobile', 'medium_desktop', 'large_desktop'].indexOf($mq) === -1 ? position.shortLabel : position.fullLabel}}</span>
         </button>
       </div>
     </div>
@@ -155,6 +75,7 @@ import { mapActions } from 'vuex'
 import { scrollIt } from '~/plugins/scroller'
 import InfoBubble     from '~/components/InfoBubble'
 import PodcastController     from '~/components/Podcast/GlobalController.vue'
+import PositionMap from '~/plugins/positionMap';
 export default {
   components: { InfoBubble, PodcastController },
   data() {
@@ -175,9 +96,12 @@ export default {
       return this.$store.getters['viewOptions/position']
     },
     positionArrowTop () {
-      const positions = ['all', 'all-offense', 'all-defense', 'qb', 'rb', 'pc', 'ol', 'de', 'idl', 'lb', 'db'];
+      const positions = this.positionMap.map(position => position.positionKey);
       const positionIndex = positions.indexOf(this.$store.getters['viewOptions/position']);
       return 21 * positionIndex;
+    },
+    positionMap() {
+      return PositionMap;
     }
   },
   methods: {
@@ -284,7 +208,7 @@ export default {
   }
   &__section-title{
     @include filter-section-title;
-    margin-bottom:5px;
+    margin-bottom:10px;
     span{
       display:block;  
     }
@@ -292,7 +216,7 @@ export default {
   &__option{
     position:relative;
     margin-bottom:5px;
-    color:$gray;
+    color:$darkmediumgray;
     @include filter-option;
     transition:color 0.25s linear;
     &.active,

@@ -54,16 +54,18 @@ export function processPlayers(players) {
       player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
     } else {
       player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
-      if(playerPositions.indexOf(player.player_position_stats.position) === -1){
-        playerPositions.push(player.player_position_stats.position);
+      console.log('hiiii', player.player_position_stats.position);
+      player.position = player.player_position_stats.position;
+      if(playerPositions.indexOf(player.position) === -1){
+        playerPositions.push(player.position);
       }
       player.image_data.image = processImages(player.image_data.image);
-      player.offenseDefense = offensePositions.indexOf(player.player_position_stats.position) >= 0 ? 'offense' : 'defense' 
+      player.offenseDefense = offensePositions.indexOf(player.position) >= 0 ? 'offense' : 'defense' 
       teamPlayers[player.id_string] = {
         title: player.title,
         image: player.image_data.image,
         school: player.player_meta.school,
-        position: positionLabelMap[player.player_position_stats.position],
+        position: positionLabelMap[player.position],
         offenseDefense: player.offenseDefense
       }
       processedPlayers[player.id] = player;

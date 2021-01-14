@@ -27,45 +27,37 @@ export default {
       display:flex;
       flex-direction:column;
       margin: 0 30px;
-      padding:30px   0 45px;
-      border-top:1px solid $gray;
-      opacity:0;
-      transition:opacity 0.25s linear 0s;
+      padding:30px 0 45px;
       @include mobile {
         transition:opacity 1s linear 0s;
+        margin:0;
+        padding:0 20px;
+        background:$lightgray;
+        &:before{
+          content:'';
+          display:block;
+          width:100%;
+          height:1px;
+          background:$darkmediumgray;
+          margin-bottom:20px;
+        }
       }
-      @include mobile {
-        margin: 0 15px;
-      }
-      .player-card__info-column--expanded & {
-        opacity:1;
-        transition:opacity 0.25s linear 0.5s;
-      }
-      &:before{
-        content:'';
-        position:absolute;
-        left:0;
-        right:0;
-        top: -7px;
-        height:1px;
-        background:$gray;
-      }
-      &:after{
-        content:'';
-        position:absolute;
-        left:0;
-        right:0;
-        top: 4px;
-        height:1px;
-        background:$gray;
+      &-section{
+        @include mobile{
+          margin-bottom:20px;
+        }
       }
     }
     &__expanded-label{
       @include expanded-label;
+      margin-bottom:12px;
+      @include mobile{
+        margin-bottom:5px;
+      }
     }
     &__expanded-value{
       > p {
-        @include expanded-value;
+        @include player-card-body;
         a{
           text-decoration:underline;
         }

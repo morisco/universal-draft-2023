@@ -52,7 +52,9 @@ export default {
   .video-inter{
     background-color:$black;
     display:flex;
+    flex-direction:row;
     overflow:hidden;
+    border-radius:0.625rem;
     @include mobile {
       flex-direction:column-reverse;
     }

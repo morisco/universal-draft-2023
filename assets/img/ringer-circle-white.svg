@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="35px" height="36px" viewbox="0 0 35 36" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L34.9844 0L34.9844 34.9844L0 34.9844L0 0Z" transform="translate(5.6E-05 0.015614667)" id="path_1" />
+    <path d="M0 35L35 35L35 0L0 0L0 35Z" id="path_2" />
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+    <clipPath id="mask_2">
+      <use xlink:href="#path_2" />
+    </clipPath>
+  </defs>
+  <g id="Group-6">
+    <g id="Group-3">
+      <path d="M0 0L34.9844 0L34.9844 34.9844L0 34.9844L0 0Z" transform="translate(5.6E-05 0.015614667)" id="Clip-2" fill="none" fill-rule="evenodd" stroke="none" />
+      <g clip-path="url(#mask_1)">
+        <path d="M34.9844 17.4922C34.9844 7.83151 27.1529 0 17.4922 0C7.83141 0 0 7.83151 0 17.4922C0 27.1529 7.83141 34.9844 17.4922 34.9844C27.1529 34.9844 34.9844 27.1529 34.9844 17.4922" transform="translate(5.6E-05 0.015614667)" id="Fill-1" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+      </g>
+    </g>
+    <path d="M0 35L35 35L35 0L0 0L0 35Z" id="Clip-5" fill="none" fill-rule="evenodd" stroke="none" />
+    <g clip-path="url(#mask_2)">
+      <path d="M7 9L11 9L11 6L7 6L7 9ZM14.9234 15.0534L17.38 12.9477L17.38 3.68326L13.3852 0L0 0L0 20L6.65813 20L6.65813 15.802L9.3673 20L18 20L14.9234 15.0534Z" transform="translate(9 7)" id="Fill-4" fill="#166856" fill-rule="evenodd" stroke="none" />
+    </g>
+  </g>
+</svg>

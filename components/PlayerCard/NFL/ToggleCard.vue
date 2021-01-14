@@ -2,13 +2,14 @@
   <div class="player-card__toggle" v-on:click="$emit('toggle-card', $event)">
     <svg viewBox="0 0 39.5 39.5">
       <path d="M19.75,39.5A19.75,19.75,0,1,1,39.5,19.75,19.75,19.75,0,0,1,19.75,39.5Zm0-38A18.25,18.25,0,1,0,38,19.75,18.25,18.25,0,0,0,19.75,1.5Z"></path>
+      <circle cx="19.75" cy="19.75" r="19.75"></circle>
       <rect x="19" y="11.75" width="1.5" height="15"></rect>
       <rect x="18.77" y="22.59" width="8.15" height="1.5" transform="translate(-9.81 22.99) rotate(-45)"></rect>
       <rect x="15.89" y="19.26" width="1.5" height="8.15" transform="translate(-11.63 18.6) rotate(-45)"></rect>
     </svg>
     <transition name="player-card__toggle-span" mode="out-in">
-      <span class="player-card__toggle-span" v-if="expanded" key="less">LESS</span>
-      <span class="player-card__toggle-span" v-else key="more">MORE</span>
+      <span class="player-card__toggle-span" v-if="expanded" key="less">{{lessText}}</span>
+      <span class="player-card__toggle-span" v-else key="more">{{moreText}}</span>
     </transition>
     <transition name="info-bubble">
       <InfoBubble v-if="!cardExpanded && $mq !== 'mobile'">
@@ -23,17 +24,27 @@
 import InfoBubble from '~/components/InfoBubble'
 export default {
   components: { InfoBubble },
-  props: ['offenseDefense', 'toggleCard', 'expanded', 'cardExpanded']
+  props: ['offenseDefense', 'toggleCard', 'expanded', 'cardExpanded'],
+  computed: {
+    moreText() {
+      return this.$mq === 'mobile' ? 'Click to expand report.' : 'More';
+    },
+    lessText() {
+      return this.$mq === 'mobile' ? 'Click to collapse report.' : 'Less';
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
   .player-card{
-    &:hover{
-      .player-card__toggle{
-        .info-bubble{
-          opacity:1;
-          transition:opacity 0.25s linear 0.375s;
+    .app--supports-hover & {
+      &:hover{
+        .player-card__toggle{
+          .info-bubble{
+            opacity:1;
+            transition:opacity 0.25s linear 0.375s;
+          }
         }
       }
     }
@@ -48,8 +59,12 @@ export default {
       cursor:pointer;
       transition:bottom 0.25s linear 0.125s;
       @include mobile{
-        bottom:25px;
-        right:15px;
+        width:auto;
+        right:20px;
+        flex-direction:row;
+        bottom:-25px;
+        right:auto;
+        left:20px;
         .player-card--collapsed & {
           bottom:20px;
         }
@@ -85,9 +100,9 @@ export default {
           bottom:27.5px;
         }
         @include mobile{
-          bottom:22.5px;
+          bottom:-25px;
           .mock-draft & {
-            bottom:22.5px;
+            bottom:-25px;
           }
         }
       }
@@ -100,24 +115,27 @@ export default {
       .player-card--transitioning & {
         transition:bottom 0.5s linear 0.125s;
       }
-      &:hover{
-        span{
-          .player-card--offense & {
-            color:$offense;
-          }
-          .player-card--defense & {
-            color:$defense;
-          }
-        }
-        svg{
-          path, rect{
+      .app--supports-hover & {
+
+        &:hover{
+          span{
             .player-card--offense & {
-              fill:$offense;
+              color:$offense;
             }
             .player-card--defense & {
-              fill:$defense;
+              color:$defense;
             }
-            transition:fill 0.25s ease-in-out;
+          }
+          svg{
+            path, rect{
+              .player-card--offense & {
+                fill:$offense;
+              }
+              .player-card--defense & {
+                fill:$defense;
+              }
+              transition:fill 0.25s ease-in-out;
+            }
           }
         }
       }
@@ -125,12 +143,26 @@ export default {
         width:35px;
         transform:rotate(0deg);
         transition:transform 0.25s ease-in-out;
+
         path, rect{
           fill: $black;
           transition:fill 0.25s ease-in-out;
         }
+        circle{
+          fill:none;
+        }
         .player-card--expanded & {
           transform:rotate(180deg);
+        }
+        @include mobile{
+          circle{
+            fill: $highlight2-light;
+          }
+          rect{
+            fill:$white;
+          }
+          width:40px;
+          margin-right:5px;
         }
       }
       span{
@@ -141,8 +173,14 @@ export default {
         line-height:1;
         color:$black;
         transition:color 0.25s ease-in-out;
+         @include mobile{
+          margin-top:10px;
+          display:block;
+          @include mobile-expand-label;
+        }
       }
       &-span{
+       
         &-enter{
           opacity:0;
           transform:translateY(5px);

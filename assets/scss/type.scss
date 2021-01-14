@@ -29,14 +29,17 @@ h1,
   text-transform: none;
   text-align: left;
   font-size:4vh;
+  text-align:center;
+
   @include non-mobile{
     font-size: 14vw;
   }
   &--small{
     line-height: 1.75;
     font-size:4vh;
+    text-align:center;
     @include non-mobile{
-      font-size: 3vw;
+      font-size: 80px;
       line-height: 1;
 
     }
@@ -47,11 +50,11 @@ h1,
     letter-spacing: -.025em;
     word-spacing: -.1em;
     text-transform: none;
-    font-size:19vh;
+    font-size:25vw;
     line-height:0.8;
  
     @include non-mobile{
-      font-size: 15vw;
+      font-size: 12vw;
       line-height: .85;
       > span, 
       em{
@@ -78,21 +81,22 @@ h2{
     font-size: 22px;
   }
 }
-h3{
-  font-family: Tabia-Black, Arial, sans-serif;
-  font-weight: 400;
-  font-size: 52px;
-  line-height: .85;
-  text-transform: none;
-  letter-spacing: -.015em;
-  @include tablet-portrait-only{
-    font-size:46px;
-  }
-}
+// h3{
+//   font-family: Tabia-Black, Arial, sans-serif;
+//   font-weight: 400;
+//   font-size: 52px;
+//   line-height: .85;
+//   text-transform: none;
+//   letter-spacing: -.015em;
+//   @include tablet-portrait-only{
+//     font-size:46px;
+//   }
+// }
 
 p{
-  font-family: TTCommons, Arial, sans-serif;
-  font-weight:200;
+  // font-family: TTCommons, Arial, sans-serif;
+  font-family: 'GT America';
+  font-weight:normal;
   list-style: none;
   text-transform: none;
   line-height:1.4;

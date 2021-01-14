@@ -1,6 +1,6 @@
 <template>
   <div class="player-card__basic-meta">
-    <h3>
+    <h3 :class="{'badge-adjustment': this.player.badges.length > 0}">
       <span>{{playerMeta.firstName}}</span> <span>{{playerMeta.lastName}}</span>
     </h3>
     <div class="player-card__position-school">
@@ -19,12 +19,11 @@ export default {
   computed: {
     playerMeta() {
       let playerData = this.player
-          playerData.position = this.$store.getters['content/playerPosition'](playerData.player_position_stats.position)
       return {
         firstName: playerData.first_name,
         lastName: playerData.last_name,
         school: playerData.player_meta.school,
-        position: playerData.position
+        position: this.$store.getters['content/playerPosition'](playerData.position)
       };
     }
   }
@@ -36,7 +35,7 @@ export default {
     &__basic-meta{
       display:flex;
       flex-direction:column;
-      justify-content: center;
+      justify-content: flex-start;
       flex:1;
       transition:all 0s linear 0.125s;
       max-height:300px;
@@ -53,6 +52,11 @@ export default {
         flex:1;
         margin-bottom:5px;
         transition:all 0s linear 0.125s;
+        &.badge-adjustment{
+          flex: 0 0 auto;
+          min-height:102px;
+
+        }
         span{
           display:inline-block;
           min-width:100%;

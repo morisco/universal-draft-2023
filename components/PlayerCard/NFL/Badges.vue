@@ -1,23 +1,27 @@
 <template>
-  <ul class="player-card__stats">
-    <li v-for="stat in statArray" :key="stat.key">
-      <div class="player-card__stat-tooltip">{{stat.tooltip}}</div>
-      <div class="player-card__stat">
-        <span class="player-card__stat-title">{{stat.label}}</span>
-        <span class="player-card__stat-value">{{stat.value}}</span>
+  <ul class="player-card__badges">
+    <li v-for="badge in badgeArray" :key="player.title + badge.id">
+      <div class="player-card__badge-image">
+        <img :src="badge.image" :alt="badge.label + 'badge'" />
       </div>
+      <span class="player-card__badge-label">
+        {{badge.label}}
+      </span>
     </li>
   </ul>
 </template>
 
 <script>
-import { parseStats } from '~/plugins/contentProcessor'
 export default {
   props: ['player'],
   computed: {
-    statArray() {
-      const parsedStats = parseStats(this.player.player_position_stats);
-      return parsedStats;
+    badgeArray() {
+      const badgeSettings = this.$store.getters['page/badges'];
+      let badgeArray;
+      if(this.player.badges){
+        badgeArray = this.player.badges.map((badge) => { return badgeSettings[badge.badge]});
+      } 
+      return badgeArray
     }
   }  
 }
@@ -25,19 +29,24 @@ export default {
 
 <style lang="scss" scoped>
 .player-card{
-  &__stats{
+  &:hover {
+    .player-card__badges{
+      filter: grayscale(0);  
+    }
+  }
+  &__badges{
     display:flex;
-    justify-content:flex-end;
-    flex:1;
-    width:calc(100% + 10px);
+    filter: grayscale(1);
+    justify-content:flex-start;
+    // flex:1;
+    // min-width:calc(20% + 10px);
     margin-right:-5px;
     margin-left:-5px;
     list-style:none;
     transform:translateX(0);
-    transition: transform 0s linear 0.125s;
-    @include mobile {
-      justify-content:flex-start;
-    }
+    transition: transform 0s linear 0.125s, filter 0.375s linear;
+    margin-top:30px;
+   
     @include tablet-portrait-only{
       width:calc(100% + 4px);
       margin-left:-2px;
@@ -49,22 +58,83 @@ export default {
         transform:translateX(-50px);
       }
     }
+    @include medium-desktop {
+      margin-left:-2px;
+      margin-right:-2px;
+    }
+     @include mobile {
+      justify-content:flex-start;
+      filter:grayscale(0);
+      padding:0 15px;
+      margin-left:0;
+      margin-right:0;
+      flex-wrap:wrap;
+      background:$lightgray;
+      margin-top:0;
+    }
+    .player-card__badge{
+      &-label{
+        line-height:0.9;
+        margin-top:3px;
+        font-size:15px;
+        @include medium-desktop {
+          font-size:14px;
+        }
+        @include mobile{
+          font-size:13px;
+        }
+      }
+      &-image{
+        position:relative;
+        width:100%;
+        // padding-top:100%;
+        border-radius:4px;
+        background:$gray;
+        width:50px;
+        height:50px;
+        flex: 0 0 auto;
+        margin-right:7.5px;
+        img{
+          width:100%;
+          opacity:0;
+          transition:opacity 0.25s linear;
+          vertical-align:bottom;
+          &.isLoaded{
+            opacity:1;
+          }
+        }
+      }
+    }
     li{
       position:relative;
       display: flex;
-      margin: 0 5px 24px;
-      flex: 1;
-      max-width: 70px;
+      flex-direction:row;
+      align-items:center;
+      margin: 0 5px 0;
+      // flex: 1;
+      // max-width: 70px;
+      width:calc(25% - 15px);
+      @include mobile {
+        min-width:calc(50% - 15px);
+      }
+
+      img{
+        width:50px;
+      }
       @include medium-desktop {
         margin:0 2px 24px;
+        width:calc(20% - 4px);
+
       }
       @include tablet-portrait-only{
         margin:0 2px 15px;
+        width:calc(20% - 4px);
       }
 
       @include mobile {
         margin: 0 5px 15px;
         transition:opacity 0.25s linear;
+        width:calc(20% - 10px);
         .player-card--collapsed & {
           margin:0 5px 20px;
           &:nth-child(n+5) {
@@ -83,14 +153,7 @@ export default {
         }
       }
     }
-    @include medium-desktop {
-      margin-left:-2px;
-      margin-right:-2px;
-    }
-    @include mobile {
-      margin-left:-5px;
-      margin-right:-5px;
-    }
+    
   }
   &__stat{
     background:$white;

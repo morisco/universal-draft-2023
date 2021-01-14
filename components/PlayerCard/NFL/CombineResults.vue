@@ -1,7 +1,6 @@
 <template>
   <div 
     class="player-card__combine-results" 
-    :style="{top: topHeight + 'px'}"
     :class="{'player-card__combine-results--ready': topHeight}"
   >
     <div class="player-card__combine-results-title">
@@ -25,37 +24,39 @@ export default {
 <style lang="scss">
   .player-card{
     &__combine-results{
-      position:absolute;
-      background:$black;
+      position:relative;
+      background:$mediumgray;
       left:0;
       right:0;
       bottom:0;
       opacity:0;
       transition:opacity 0.25s linear;
       padding:15px;
+      
       &--ready{
         opacity:1;
       }
       &-title{
-        @include combine-title;
-        color:$white;
+        @include expanded-label;
+        text-transform:uppercase;
+        color:$black;
       }
       &-list{
         list-style:none;
-        color:$white;
+        color:$black;
         margin-top:20px;
         li{
           position:relative;
           display:flex;
           justify-content:space-between;
-          background-color:$black;
+          background-color:$mediumgray;
           margin: 8px 0;
           span{
             display:block;
             position:relative;
             z-index:2;
             // padding:2px 0;
-                      background-color:$black;
+                      background-color:$mediumgray;
 
             &:first-of-type{
               padding-right:3px;
@@ -90,8 +91,17 @@ export default {
         opacity:0;
         transition:opacity 0.25s linear;
         @include mobile {
-          margin:-45px 15px 0;
-          padding:0 0 15px;
+          margin:-20px 0 0;
+          padding:15px 20px;
+          background:$lightgray;
+          &:before{
+            content:'';
+            display:block;
+            width:100%;
+            height:1px;
+            background:$darkmediumgray;
+            margin-bottom:20px;
+          }
         }
         .player-card--expanded & {
           opacity:1;

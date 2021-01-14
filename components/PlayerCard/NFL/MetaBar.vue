@@ -1,0 +1,213 @@
+<template>
+<div class="player-card__meta-bar">
+  <div class="player-card__meta-bar-rank" v-if="rank">
+    <span>{{rank}}</span>
+  </div>
+  <div class="player-card__meta-bar-name-school player-card__image-column">
+    <h3>
+      <span>{{playerMeta.firstName}}</span>
+      <span>{{playerMeta.lastName}}</span>
+    </h3>
+    <div class="player-card__meta-bar-position-school">
+      <span class="position">{{playerMeta.position}}</span>
+      <span class="school">{{playerMeta.school}}</span>
+    </div>
+  </div>
+  <div class="player-card__meta-bar-details">
+    <div class="player-card__meta-bar-details-column">
+      <div class="player-card__meta-bar-details-row">
+        <span class="label">Year</span> {{playerMeta.year}}
+      </div>
+      <div class="player-card__meta-bar-details-row">
+        <span class="label">Age</span> {{playerMeta.age}}
+      </div>
+    </div>
+    <div class="player-card__meta-bar-details-column">
+      <div class="player-card__meta-bar-details-row">
+        <span class="label">Height</span> {{playerMeta.height}}
+      </div>
+      <div class="player-card__meta-bar-details-row">
+        <span class="label">Weight</span> {{playerMeta.weight}}
+      </div>
+    </div>
+     <div class="player-card__meta-bar-details-column player-card__meta-bar-details-column--shades">
+      <div class="player-card__meta-bar-details-row">
+        <span class="label">Shades Of:</span>
+      </div>
+      <div class="player-card__meta-bar-details-row">
+        {{playerMeta.shadesOf}}
+      </div>
+    </div>
+  </div>
+</div>  
+</template>
+
+<script>
+export default {
+  name: 'MetaBar',
+  props: ['player', 'rankKey'],
+  computed: {
+    rank() {
+      return this.rankKey ? this.player[this.rankKey] + 1 : null;
+    },
+    playerMeta() {
+      let playerData = this.player
+      return {
+        firstName: playerData.first_name,
+        lastName: playerData.last_name,
+        school: playerData.player_meta.school,
+        position: this.$store.getters['content/playerPosition'](playerData.position),
+        year: playerData.player_meta.year,
+        age: playerData.player_meta.age,
+        height: playerData.player_meta.height,
+        weight: playerData.player_meta.weight,
+        shadesOf: playerData.player_meta.shades_of
+      };
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  .player-card{
+    &__meta-bar{
+      position:relative;
+      width:100%;
+      background:$mediumgray;
+      padding:12px 0;
+      border-radius:0.625rem 0.625rem 0 0;
+      border-bottom:1px solid $darkmediumgray;
+      font-family: 'Decima';
+      display: flex;
+      text-transform:uppercase;
+      @include mobile{
+        background:transparent;
+        border-radius:0;
+        flex-direction:column;
+        padding:0;
+        border-bottom:0;
+      }
+      h3{
+        font-family: 'Decima';
+        font-size:30px;
+        line-height:1.125;
+      }
+      &-rank{
+        position:absolute;
+        left:-26px;
+        top:50%;
+        transform:translateY(-50%);
+        background:$black;
+        color:$white;
+        height:52px;
+        width:52px;
+        border-radius:100%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        @include card-rank;
+        span{
+          color:$white;
+        }
+      }
+      &-name-school{
+        padding:0 0 0 40px;
+        @include mobile{
+          background-color:$mediumgray;
+          color:$black;
+          transition:all 0.5s linear 0s;
+          border-radius:0.625rem 0.625rem 0 0;
+          padding:15px 20px;
+          min-height:0;
+          .player-card--active &{
+            color:$white;
+            background-color:$darkgray;
+          }
+        }
+  
+      }
+      &-position-school{
+        .school{
+          font-weight:300;
+        }
+        @include mobile{
+          font-size:18px;
+        }
+
+      }
+      &-details{
+        flex:1;
+        padding: 0 15px;
+        display:flex;
+        align-items:center;
+        font-size:15px;
+        @include mobile{
+          background:$lightgray;
+          padding:15px 20px;
+          flex-wrap:wrap;
+          font-size:14px;
+          &:after{
+            content:'';
+            display:block;
+            width:100%;
+            height:1px;
+            background:$darkmediumgray;
+          }
+        }
+        &-column{
+          position:relative;
+          min-width:130px;
+          padding:0 15px;
+          display:flex;
+          flex-direction:column;
+          justify-content:center;
+          @include mobile{
+            min-width:50%;
+            padding:0;
+          }
+
+          &:after{
+            content:'';
+            position:absolute;
+            right:0;
+            top:50%;
+            transform:translateY(-50%);
+            display:block;
+            width:1px;
+            height:40px;
+            background:$darkmediumgray;
+            @include mobile{
+              display:none;
+            }
+          }
+          &--shades{
+            font-size:18px;
+            line-height:1;
+            @include mobile{
+              font-size:14px;
+              min-width:100%;
+              flex-direction:row;
+              justify-content:flex-start;
+              line-height:20px;
+              margin:10px 0;
+              > div{
+                flex: 0 0 auto;
+                display:inline-block;
+                margin-right:3px;
+              }
+            }
+            &:after{
+              display:none;
+            }
+          }
+        }
+        &-row{
+          font-weight:300;
+          .label{
+            font-weight:normal;
+          }
+        }
+      }
+    }
+  }
+</style>

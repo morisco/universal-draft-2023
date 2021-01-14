@@ -16,11 +16,14 @@ export default {
 <style lang="scss">
   .player-card{
     &__headline-selling{
-      padding-right:40px;
-      margin:30px 0 0;
+      // padding-right:40px;
+      margin:0 0 0;
       max-width:800px;
       @include mobile{
-        margin:20px 0 30px;
+        margin:0;
+        padding: 10px 20px 40px;
+        background:$lightgray;
+        border-radius: 0 0 0.625rem 0.625rem;
         // padding-right:0;
         .player-card--collapsed & { 
           display:none;
@@ -33,6 +36,10 @@ export default {
     }
     &__headline{
       margin-bottom:-9px;
+      font-weight:300;
+      strong{
+        font-weight:normal;
+      }
       p{
         margin-bottom:15px;
         @include player-headline;

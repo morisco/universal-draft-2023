@@ -1,7 +1,6 @@
 <template>
   <div 
     class="podcast-player" 
-    :style="{top: infoHeight + 'px'}"
     :class="{
       'podcast-player--playing': playing,
       'podcast-player--loading': loading,
@@ -11,8 +10,8 @@
   >
     <div class="podcast-player__play-pause">
       <div class="podcast-player__loader"></div>
-      <svg width="10px" height="12px" viewBox="0 0 10 12">
-        <path d="M5.5 0L11 9L0 9L5.5 0Z" transform="matrix(0.01745238 0.9998477 -0.9998477 0.01745238 8.998657 0)" fill="#166856" stroke="none" />
+      <svg viewBox="0 0 10 12">
+        <path d="M5.5 0L11 9L0 9L5.5 0Z" class="play-button-path" transform="matrix(0.01745238 0.9998477 -0.9998477 0.01745238 8.998657 0)" stroke="none" />
       </svg>
     </div>
     <span class="podcast-player__time">{{mentionTime}}</span>
@@ -122,18 +121,21 @@ export default {
 <style lang="scss" scoped>
   .podcast-player{
     display:flex;
-    position:absolute;
-    transform:translateY(calc(-100% - 50px));
+    position:relative;
+    // transform:translateY(calc(-100% - 50px));
     z-index:5;
     align-items:center;
-    background:$lightgray;
-    right:15px;
-    border:2px solid $black;
-    border-radius:0.625em;
+    background:$mediumgray;
+    // right:15px;
+    height:40px;
+    border-radius:4px;
     padding:5px 10px;
     cursor:pointer;
     opacity:0;
     transition:opacity 0.125s linear;
+    margin-top:15px;
+    margin-bottom:15px;
+    
     @include tablet-landscape-and-below{
       right:10px;
       transform:translateY(calc(-100% - 27px));
@@ -147,15 +149,17 @@ export default {
     }
     @include mobile {
       top:auto !important;
-      bottom:15px;
-      left:15px;
+      bottom:auto;
+      left:auto;
       right:auto;
+      margin:20px auto;
       transform:none !important;
     }
     .big-board & {
-      transform:translateY(calc(-100% - 20px));
-      left:15px;
-      right:auto;
+      // transform:translateY(calc(-100% - 20px));
+      // left:15px;
+      // right:auto;
+      margin-top:0;
     }
     
     &__play-pause{
@@ -163,9 +167,16 @@ export default {
       position:relative;
       justify-content:space-between;
       align-items:center;
+      width:14px;
+      z-index:2;
       svg{
         opacity:1;
         transition:opacity 0.125s linear;
+        width:100%;
+        height:auto;
+        .play-button-path{
+          fill:$darkmediumgray;
+        }
         .podcast-player--loading & {
           opacity:0;
         }
@@ -176,29 +187,33 @@ export default {
     }
     &--playing{
       .podcast-player__play-pause{
-        height:12px;
-        width:10px;
+        height:14px;
+        width:14px;
         svg{
           display:none;
         }
         &:before,
         &:after{
           content: '';
-          height:10px;
-          width:4px;
-          border-radius:2px;
+          height:14px;
+          width:5px;
+          // border-radius:2px;
           background:$gray;
         }
       }
     }
 
     &__time{
+      position:relative;
       margin-left:10px;
       line-height:1;
       margin-right:-1px;
-      @include mobile-nav-label;
-      width:32px;
-      text-align: right;
+      @include player-card-body;
+      margin-bottom:2px;
+      width:40px;
+      text-align: left;
+      color:$darkmediumgray;
+      z-index:1;
       @include tablet-landscape-and-below{
         margin-left:5px;
       }
@@ -213,6 +228,7 @@ export default {
       opacity:0.25;
       background:$gray;
       transition:max-width 0.25s linear 0s;
+      z-index:0;
       // animation: progress 1.25s 1 ease-in-out;
       // animation-fill-mode: forwards;
       .player-card--defense & {

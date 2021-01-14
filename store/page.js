@@ -10,7 +10,8 @@ const state = () => ({
 const getters = {
   settings: (state) => state.settings,
   configuration: (state) => state.configuration,
-  cardExpanded: (state) => state.cardExpanded
+  cardExpanded: (state) => state.cardExpanded,
+  badges: (state) => state.settings.badges
 }
 
 // actions
@@ -44,6 +45,7 @@ const actions = {
 // mutations
 const mutations = {
   setPage (state, page) {
+    page.badges = page.badges.reduce((obj, item) => Object.assign(obj, { [item.id]: item}));
     state.settings = page
   },
   setConfig (state, config) {

@@ -5,7 +5,6 @@
       'draft-team--animated': animate,
       'draft-team--loaded': infoHeight > 0
     }"
-    :style="{top: infoHeight + 'px'}" 
   >
     <img :src="teamNameLogo.logo.small" />
     <span class="draft-team__name">{{teamNameLogo.teamName}}</span>
@@ -37,34 +36,29 @@ export default {
     background:$lightgray;
     max-height:100px;
     max-width:100px;
-    left:20px;
-    top:222.5px;
-    transform:translateY(calc(-100% - 20px));
+    left:15px;
+    top:0;
+    transform:translateY(calc(-100% - 15px));
     z-index:3;
     cursor:default;
     opacity:0;
     transition:opacity 0.25s linear;
+    box-shadow:0px 2px 4px rgba(0,0,0,0.22);
 
     @include tablet-landscape-and-below{
       max-width:45px;
       max-height:45px;
       left:10px;
-      
+      box-shadow:none;
     }
 
     @include mobile{
-      max-width:35px;
-      max-height:35px;
+      max-width:80px;
+      max-height:80px;
+      top:0 !important;
       left:auto;
-      right:15px;
-      top:20px !important;
+      right:-30px;
       transform:none;
-      .player-card--offense & {
-        border:1px solid $offense;
-      }
-      .player-card--defense & {
-        border:1px solid $defense;
-      }
     }
     &--animated{
       // transition: all 0.375s linear 0.125s, background-color 0.25s linear 0s;
@@ -77,8 +71,11 @@ export default {
     }
 
     img{
-      max-width:75%;
-      max-height:75%;
+      max-width:75% !important;
+      max-height:75% !important;
+      top:auto !important;
+      left:auto !important;
+      transform:translateX(0) !important;
       opacity:0;
       transition:opacity 0.25s linear;
       position:relative;

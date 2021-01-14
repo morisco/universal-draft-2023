@@ -43,10 +43,10 @@
 }
 
 @mixin demibold-title{
-  font-family: TTCommons;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 100%;
+  font-family: 'Decima';
+  font-weight: normal;
+  font-size: 22px;
+  line-height:18px;
   letter-spacing: 0;
   text-transform: none;
   @include single-column{
@@ -62,9 +62,10 @@
 }
 
 @mixin navigation-link-updated{
-  font-weight: 200;
-  font-size: 17px;
-  line-height: 100%;
+  font-family: 'Decima';
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 13px;
   letter-spacing: 0;
   text-transform: none;
   @include single-column{
@@ -73,17 +74,20 @@
 }
 
 @mixin filter-section-title{
-  font-weight: 600;
+  font-family: 'Decima';
+  color:$darkgray;
+  font-weight: normal;
   text-transform: uppercase;
-  font-size: 12.5px;
-  line-height: 1.15;
+  font-size: 14px;
+  line-height: 13px;
 }
 
 @mixin mobile-nav-label{
+  font-family: 'Decima';
   text-transform: uppercase;
   font-size: 12.5px;
   line-height: 1.15;
-  font-weight:700;
+  font-weight:normal;
   letter-spacing:.1em;
 }
 
@@ -135,11 +139,30 @@
     font-size:22px;
   }
 }
+@mixin mobile-expand-label{
+  font-family: 'GT America';
+  color:$darkmediumgray;
+  letter-spacing:0;
+  text-transform:none;
+  font-size:11px;
+  font-weight:normal;
+}
+@mixin header-sponsored-by{
+  font-size:22px;
+  color:$white;
+  text-transform:uppercase;
+  @include mobile{
+    font-size:14px;
+    margin-bottom:5px;
+    display:block;
+  }
+}
 
 @mixin expanded-label{
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 125%;
+  font-family: 'Decima';
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 13px;
   letter-spacing: .05em;
 }
 
@@ -183,11 +206,24 @@
   }
 }
 
+@mixin player-card-body{
+  font-size:14px;
+  line-height:21px;
+  margin-bottom:20px;
+}
+
+@mixin card-rank{
+  font-family: 'Decima';
+  font-size:30px;
+  color:$lightestgray;
+  font-weight:300;
+}
+
 @mixin info-bubble{
   font-weight:normal;
   line-height: 100%;
   letter-spacing: 0;
-  font-size: 14px;
+  font-size: 12px;
   text-align:center;
 }
 

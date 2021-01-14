@@ -2,17 +2,17 @@
 <div class="navigation" id="navigation" :class="[advanceClass, ...{'navigation--fixed': fixed}]" ref="navigation">
   <div class="navigation__sticky" v-bind:style="[fixed ? {width: width + 'px', maxWidth: maxWidth + 'px'} : {width: width, maxWidth: maxWidth}]">
     <a href="https://theringer.com" target="_blank" class="navigation__ringer-home">
-      <img src="@/assets/img/logo-square.png" alt="The Ringer 'R' Logo" />
+      <img src="@/assets/img/ringer-circle-white.svg" alt="The Ringer 'R' Logo" />
     </a>
     <div class="navigation__links">
       <div class="navigation__links-inner">
         <NuxtLink  v-for="option in sortedNavOptions" :to="option.to" :exact="option.to === '/'" v-on:click.native="changeActive" :disabled="!option.enabled" class="navigation__button" :key="option.to">
-          <span class="navigation__button-title">{{option.title}}</span>
-          <span class="navigation__button-updated">{{option.subtitle}}</span>
+          <span class="navigation__button-title">{{option.title}} <span class="navigation__button-subtitle">{{option.subtitle}}</span></span>
+          <span class="navigation__button-updated">{{option.updated}}</span>
         </NuxtLink >
         <NuxtLink  v-for="option in sortedNavOptions" :to="option.to" :exact="option.to === '/'" v-on:click.native="changeActive" :disabled="!option.enabled" class="navigation__button navigation__button--duplicate" :key="'dupe' + option.to">
           <span class="navigation__button-title">{{option.title}}</span>
-          <span class="navigation__button-updated">{{option.subtitle}}</span>
+          <span class="navigation__button-updated">{{option.updated}}</span>
         </NuxtLink>
       </div>
     </div>
@@ -42,10 +42,10 @@ export default {
     },
     navOptions() { 
       return this.pageSettings ? [
-        {to: '/', title: 'Big Board by Danny Kelly', enabled: true, subtitle: this.pageSettings.players_to_watch_updated},
-        {to: '/mock-draft', title: 'Mock Draft', enabled: this.pageSettings.enable_mock, subtitle: this.pageSettings.danny_updated},
-        {to: '/team-needs', title: 'Team Needs', enabled: this.pageSettings.breakdown_by_team, subtitle: this.pageSettings.breakdown_updated},
-        {to: '/draft-results', title: 'Draft Results', enabled: this.pageSettings.enable_results, subtitle: this.pageSettings.results_updated}
+        {to: '/', title: 'Big Board', subtitle:'by Danny Kelly', enabled: true, updated: this.pageSettings.players_to_watch_updated},
+        {to: '/mock-draft', title: 'Mock Draft', subtitle:'by Ringer Staff', enabled: this.pageSettings.enable_mock, updated: this.pageSettings.danny_updated},
+        {to: '/team-needs', title: 'Team Needs', subtitle:'by Robert Mays', enabled: this.pageSettings.breakdown_by_team, updated: this.pageSettings.breakdown_updated},
+        {to: '/draft-results', title: 'Draft Results', enabled: this.pageSettings.enable_results, updated: this.pageSettings.results_updated}
       ] : null;
     }
   },
@@ -125,6 +125,7 @@ export default {
   max-width:1270px;
   margin:0 auto;
   z-index:555555;
+
   &__sticky{
     display:flex;
     position:absolute;
@@ -135,15 +136,17 @@ export default {
     height:65px;
     transform:translateX(-50%);
     background:$white;
-    border: 2px solid $black;
+    // border: 2px solid $black;
     border-radius: 9px;
+    overflow:hidden;
     transition:all 0.125s linear;
+    background:$highlight2-light;
   }
   &__links{
     display:flex;
     flex:1;
     overflow:hidden;
-    height:61px;
+    height:65px;
     &-inner{
       display:flex;
       min-width:200%;
@@ -159,7 +162,7 @@ export default {
         animation-fill-mode: forwards;
       }
       .navigation__button:nth-child(4){
-        border-right:2px solid $black;
+        border-right:1px solid $white;
         transition:all 0s linear;
       }
     }
@@ -169,7 +172,7 @@ export default {
         animation-fill-mode: forwards;
       }
       .navigation__button:nth-child(4){
-        border-right:2px solid $black;
+        border-right:1px solid $white;
         transition:all 0s linear;
       }
     }
@@ -179,7 +182,7 @@ export default {
         animation-fill-mode: forwards;
       }
       .navigation__button:nth-child(4){
-        border-right:2px solid $black;
+        border-right:1px solid $white;
         transition:all 0s linear;
       }
     }
@@ -189,7 +192,7 @@ export default {
         animation-fill-mode: forwards;
       }
       .navigation__button:nth-child(4){
-        border-right:2px solid $black;
+        border-right:1px solid $white;
         transition:all 0s linear;
       }
     }
@@ -202,30 +205,43 @@ export default {
     padding:0 20px;
     justify-content:center;
     height:65px;
-    border-right:2px solid $black;
-    color:$black;
-    transition:all 0.25s linear 0.5s;
+    border-right:1px solid $white;
+    color:$white;
+    transition:all 0.25s linear 0.5s, border-right 0.25s linear 0s;
+    background:$highlight2;
+    
     &:nth-child(4),
     &:last-of-type{
       border-right:0;
     }
     span{
       display:block;
+      text-transform:uppercase;
     }
     &:not(.navigation__button--duplicate){
       &.nuxt-link-exact-active{
-        background:$highlight2;
+        background:$highlight2-light;
         color:$white;
-        transition:all 0.25s linear 0.5s;
+        transition:all 0.25s linear 0s;
+        .navigation__button-updated{
+          color:$highlight1;
+        }
       }
     }
   }
   &__button-title{
     @include demibold-title;
   }
+  &__button-subtitle{
+    display:inline-block !important;
+    @include demibold-title;
+    font-weight:300;
+    color:$mediumgray;
+  }
   &__button-updated{
     @include navigation-link-updated;
-    min-height:17px;
+    color:$mediumgray;
+    min-height:13px;
   }
   &__ghost{
     height:65px;
@@ -233,15 +249,34 @@ export default {
   }
 
   &__ringer-home{
+    position:relative;
     display:flex;
-    justify-content:center;
+    justify-content:flex-end;
     align-items:center;
     width:4%;
-    height:61px;
-    background:$black;
+    height:65px;
+    max-width:55px;
+    background:$highlight2-light;
     flex: 0 0 auto;
+    z-index:2;
     img{
-      width:70%;
+      position:relative;
+      z-index:1;
+    }
+    &:after{
+      content:'';
+      display:block;
+      position:absolute;
+      right:-5px;
+      width:10px;
+      top:0;
+      bottom:0;
+      background:$highlight2-light;
+      z-index:0;
+
+    }
+    img{
+      width:calc(100% - 20px);
     }
   }
   &--fixed{
