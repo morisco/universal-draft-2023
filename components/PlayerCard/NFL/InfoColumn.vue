@@ -9,20 +9,28 @@
     v-bind:style="[maxHeight] ? {maxHeight: maxHeight + 'px'}: []"
   >
     <div class="player-card__top-data" ref="topData">
-      <MetaBar :player="player" :rankKey="null" ref="metaBar" v-if="$mq === 'mobile'" />
-      <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile' && !this.collapsed" />
-      <Badges :player="player" v-if="player.badges.length > 0" />
-      <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile' && !this.collapsed" />
+      <template v-if="$route.name === 'mock-draft'">
+        <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo" />
+      </template>
+      <template v-if="$route.name !== 'mock-draft'">
+        <MetaBar :player="player" :rankKey="null" ref="metaBar" v-if="$mq === 'mobile'" />
+        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile' && !this.collapsed" />
+        <Badges :player="player" v-if="player.badges.length > 0" />
+        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile' && !this.collapsed" />
+      </template>
 
     </div>
     <div class="player-card__bottom-data" ref="bottomData">
-      <Stats :player="player" />
+      <Stats :player="player" v-if="$mq === 'mobile'" />
+      <CombineResults :results="player.combine_results" :topHeight="topHeight" v-if="$mq === 'mobile'" />
       <MetaList :playerMeta="player.player_meta" v-if="$mq === 'mobile' && this.collapsed " />
       <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" />
       <ExpandedMeta :player="player" />
-      <CombineResults :results="player.combine_results" :topHeight="topHeight" v-if="['mock-draft', 'draft-results'].indexOf($route.name) >= 0 || $mq === 'mobile'" />
+
       <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile'">
+        <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" :expanded="expanded" :activeCard="activeCard" v-if="playerVideo" />
         <PodcastCardPlayer v-if="player.player_podcast" :playerId="player.id" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
+        <RelatedArticles />
       </div>
     </div>
   </div>
@@ -36,10 +44,13 @@ import MetaList from './MetaList';
 import Headline from './Headline';
 import ExpandedMeta from './ExpandedMeta';
 import MetaBar from './MetaBar';
+import DraftInfo from './DraftInfo';
+import VideoThumb from './VideoThumb'
+import RelatedArticles from './RelatedArticles'
 import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
 export default {
-  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight'],
-  components: { BasicMeta, Stats, MetaList, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer },
+  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rank', 'playVideo', 'activeCard'],
+  components: { BasicMeta, Stats, MetaList, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles },
   data () {
     return {
       mounted: false,
@@ -63,6 +74,12 @@ export default {
     player () {
       return this.$store.getters['content/player'](this.playerId);
     },
+    playerVideo() {
+      return this.player.player_video && this.player.player_video.video_id ? this.player.player_video : false
+    },
+    teamNameLogo () {
+      return this.$store.getters['content/teamNameLogo'](this.rank);
+    },
     viewDepth () {
       return this.$store.getters['viewOptions/depth'];
     }
@@ -73,16 +90,14 @@ export default {
     },
     setHeights() {
       const self = this;
-      console.log('here');
       if(!this.mounted) return
-      console.log('and here');
+
       if(this.expanded || this.viewDepth === 'deep'){
         this.maxHeight = this.topHeight + this.$refs.bottomData.offsetHeight
       } else if(this.collapsed){
         this.maxHeight = this.$mq === 'mobile' ? this.topHeight : 125
       } else {
         this.maxHeight = this.topHeight
-        console.log(this.topHeight);
       }
       this.setMaxHeight(this.maxHeight);
       this.$emit('set-top-height', this.topHeight)
@@ -143,6 +158,7 @@ export default {
         width:100%;
         max-width:100%;
         background:white;
+        padding-bottom:30px;
         .player-card--collapsed &{
           padding-bottom:15px;
           .player-card--expanded & {

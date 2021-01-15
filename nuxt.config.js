@@ -9,7 +9,13 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    ],
+    script: [
+      {
+        src:
+          'https://polyfill.io/v3/polyfill.min.js?features=Promise%2CArray.prototype.forEach%2CSymbol.iterator'
+      }
+    ],
   },
   // Global page headers (https://go.nuxtjs.dev/config-head)
 
@@ -19,6 +25,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    {src: '~/plugins/VueYoutube', mode: 'client'}
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

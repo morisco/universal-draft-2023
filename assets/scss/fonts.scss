@@ -9,80 +9,80 @@
   font-display: swap;
 }
 // Regular
-@font-face {
-   font-family: 'TTCommons';
-   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_1_0.eot');
-   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_1_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_1_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_1_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_1_0.ttf') format('truetype');
-   font-weight:normal;
-   font-style:normal;
-}
-// Regular Italic
-@font-face {
-  font-family: 'TTCommons-Italic';
-  src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_6_0.eot');
-  src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_6_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_6_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_6_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_6_0.ttf') format('truetype');
-  font-weight:normal;
-  font-style:italic;
-}
-// Light Italic
-@font-face {
-   font-family: 'TTCommons';
-   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_2_0.eot');
-   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_2_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_2_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_2_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_2_0.ttf') format('truetype');
-   font-weight:200;
-   font-style:italic;
-}
-// Light
-@font-face {
-   font-family: 'TTCommons';
-   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_3_0.eot');
-   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_3_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_3_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_3_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_3_0.ttf') format('truetype');
-   font-weight:200;
-   font-style:normal;
-}
-// Demi Bold
-@font-face {
-  font-family: 'TTCommons';
-  src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_E_0.eot');
-  src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_E_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_E_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_E_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_E_0.ttf') format('truetype');
-  font-weight:600;
-  font-style:normal;
-}
-// Demi Bold Italic
-@font-face {
-  font-family: 'TTCommons';
-  src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_D_0.eot');
-  src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_D_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_D_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_D_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_D_0.ttf') format('truetype');
-  font-weight:600;
-  font-style:italic;
-}
+// @font-face {
+//    font-family: 'TTCommons';
+//    src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_1_0.eot');
+//    src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_1_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_1_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_1_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_1_0.ttf') format('truetype');
+//    font-weight:normal;
+//    font-style:normal;
+// }
+// // Regular Italic
+// @font-face {
+//   font-family: 'TTCommons-Italic';
+//   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_6_0.eot');
+//   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_6_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_6_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_6_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_6_0.ttf') format('truetype');
+//   font-weight:normal;
+//   font-style:italic;
+// }
+// // Light Italic
+// @font-face {
+//    font-family: 'TTCommons';
+//    src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_2_0.eot');
+//    src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_2_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_2_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_2_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_2_0.ttf') format('truetype');
+//    font-weight:200;
+//    font-style:italic;
+// }
+// // Light
+// @font-face {
+//    font-family: 'TTCommons';
+//    src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_3_0.eot');
+//    src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_3_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_3_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_3_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_3_0.ttf') format('truetype');
+//    font-weight:200;
+//    font-style:normal;
+// }
+// // Demi Bold
+// @font-face {
+//   font-family: 'TTCommons';
+//   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_E_0.eot');
+//   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_E_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_E_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_E_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_E_0.ttf') format('truetype');
+//   font-weight:600;
+//   font-style:normal;
+// }
+// // Demi Bold Italic
+// @font-face {
+//   font-family: 'TTCommons';
+//   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_D_0.eot');
+//   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_D_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_D_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_D_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_D_0.ttf') format('truetype');
+//   font-weight:600;
+//   font-style:italic;
+// }
 
-// Bold
-@font-face {
-  font-family: 'TTCommons';
-  src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_C_0.eot');
-  src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_C_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_C_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_C_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_C_0.ttf') format('truetype');
-  font-weight:700;
-  font-style:normal;
-}
+// // Bold
+// @font-face {
+//   font-family: 'TTCommons';
+//   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_C_0.eot');
+//   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_C_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_C_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_C_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_C_0.ttf') format('truetype');
+//   font-weight:700;
+//   font-style:normal;
+// }
 
-// Medium
-@font-face {
-  font-family: 'TTCommons';
-  src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_4_0.eot');
-  src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_4_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_4_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_4_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_4_0.ttf') format('truetype');
-  font-weight:500;
-  font-style:normal;
-}
+// // Medium
+// @font-face {
+//   font-family: 'TTCommons';
+//   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_4_0.eot');
+//   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_4_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_4_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_4_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_4_0.ttf') format('truetype');
+//   font-weight:500;
+//   font-style:normal;
+// }
 
-// Medium Italic
-@font-face {
-   font-family: 'TTCommons';
-   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_5_0.eot');
-   src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_5_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_5_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_5_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_5_0.ttf') format('truetype');
-   font-weight:500;
-  font-style:italic;
-}
+// // Medium Italic
+// @font-face {
+//    font-family: 'TTCommons';
+//    src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_5_0.eot');
+//    src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_5_0.eot?#iefix') format('embedded-opentype'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_5_0.woff2') format('woff2'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_5_0.woff') format('woff'),url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_5_0.ttf') format('truetype');
+//    font-weight:500;
+//   font-style:italic;
+// }
 // @font-face {
 //    font-family: 'TTCommons-ThinItalic';
 //    src: url('https://hardrefreshcdn.com/public/webfonts/nfl2018/3878B6_7_0.eot');
@@ -131,8 +131,26 @@
 
 @font-face {
   font-family: 'GT America';
-  src: url('~assets/webfonts/GTAmerica-Light.woff2') format('woff2'),
-      url('~assets/webfonts/GTAmerica-Light.woff') format('woff');
+  src: url('~assets/webfonts/GTAmerica/GTAmerica-LightItalic.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica/GTAmerica-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT America';
+  src: url('~assets/webfonts/GTAmerica/GTAmerica-Light.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica/GTAmerica-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT America';
+  src: url('~assets/webfonts/GTAmerica/GTAmerica-Regular.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica/GTAmerica-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -140,15 +158,30 @@
 
 @font-face {
   font-family: 'GT America';
-  src: url('~assets/webfonts/GTAmerica-LightItalic.woff2') format('woff2'),
-      url('~assets/webfonts/GTAmerica-LightItalic.woff') format('woff');
+  src: url('~assets/webfonts/GTAmerica/GTAmerica-RegularItalic.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica/GTAmerica-RegularItalic.woff') format('woff');
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'GT America';
+  src: url('~assets/webfonts/GTAmerica/GTAmerica-Medium.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica/GTAmerica-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
 
-
+@font-face {
+  font-family: 'GT America';
+  src: url('~assets/webfonts/GTAmerica/GTAmerica-MediumItalic.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica/GTAmerica-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'TTLakes';

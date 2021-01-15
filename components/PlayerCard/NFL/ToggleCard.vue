@@ -12,7 +12,7 @@
       <span class="player-card__toggle-span" v-else key="more">{{moreText}}</span>
     </transition>
     <transition name="info-bubble">
-      <InfoBubble v-if="!cardExpanded && $mq !== 'mobile'">
+      <InfoBubble v-if="false && !cardExpanded && $mq !== 'mobile'">
         Read our full<br/>
         scouting report
       </InfoBubble>
@@ -27,10 +27,10 @@ export default {
   props: ['offenseDefense', 'toggleCard', 'expanded', 'cardExpanded'],
   computed: {
     moreText() {
-      return this.$mq === 'mobile' ? 'Click to expand report.' : 'More';
+      return this.$mq === 'mobile' ? 'Click to expand report.' : 'Click to expand report.';
     },
     lessText() {
-      return this.$mq === 'mobile' ? 'Click to collapse report.' : 'Less';
+      return this.$mq === 'mobile' ? 'Click to collapse report.' : 'Click to collapse report.';
     }
   }
 }
@@ -57,18 +57,22 @@ export default {
       bottom:30px;
       right:20px;
       cursor:pointer;
+      z-index:8;
       transition:bottom 0.25s linear 0.125s;
-      @include mobile{
+      // @include mobile{
         width:auto;
         right:20px;
         flex-direction:row;
         bottom:-25px;
-        right:auto;
-        left:20px;
+        right:30px;
+        left:330px;
         .player-card--collapsed & {
           bottom:20px;
         }
-      }
+        @include mobile{
+          left:20px;
+        }
+      // }
       .info-bubble{
         position:absolute;
         left:calc(100% + 5px);
@@ -86,7 +90,7 @@ export default {
           background-color:$defense;
         }
         .player-card--offense & {
-          background-color:$offense;
+          background-color:$highlight2;
         }
         @include medium-desktop {
           left:auto;
@@ -94,17 +98,17 @@ export default {
         }
       }
       .player-card--expanded & {
-        bottom:10px;
+        // bottom:10px;
         transition:bottom 0.25s linear 0.125s;
         .mock-draft & {
-          bottom:27.5px;
+          // bottom:27.5px;
         }
-        @include mobile{
+        // @include mobile{
           bottom:-25px;
           .mock-draft & {
             bottom:-25px;
           }
-        }
+        // }
       }
       @include non-mobile{
         .player-card--collapsed &{
@@ -145,11 +149,12 @@ export default {
         transition:transform 0.25s ease-in-out;
 
         path, rect{
-          fill: $black;
-          transition:fill 0.25s ease-in-out;
+          fill: $darkmediumgray;
+          transition:fill 0.25s ease-in-out 0.5s;
         }
         circle{
-          fill:none;
+          fill:$mediumgray;
+          transition:fill 0.25s ease-in-out 0.5s;
         }
         .player-card--expanded & {
           transform:rotate(180deg);
@@ -161,8 +166,34 @@ export default {
           rect{
             fill:$white;
           }
+        }
           width:40px;
           margin-right:5px;
+        // }
+      }
+
+      .player-card:hover &{
+        .app--supports-hover & {
+          &:hover{
+            svg{
+              circle{
+                fill: $highlight2-light;
+                transition:fill 0.25s ease-in-out;
+              }
+              rect{
+                fill:$white;
+                transition:fill 0.25s ease-in-out;
+              }
+            }
+          }
+          svg{
+            circle{
+              fill: $highlight2-light;
+            }
+            rect{
+              fill:$white;
+            }
+          }
         }
       }
       span{
@@ -173,11 +204,11 @@ export default {
         line-height:1;
         color:$black;
         transition:color 0.25s ease-in-out;
-         @include mobile{
+        //  @include mobile{
           margin-top:10px;
           display:block;
           @include mobile-expand-label;
-        }
+        // }
       }
       &-span{
        

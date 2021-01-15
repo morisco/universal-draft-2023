@@ -37,6 +37,10 @@ export default {
       margin-bottom:15px;
     }
     &__image{
+      img{
+        object-fit:contain;
+        object-position: center top;
+      }
       @include mobile{
         display:none;
       }

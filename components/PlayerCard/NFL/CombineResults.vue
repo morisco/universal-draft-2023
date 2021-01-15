@@ -25,14 +25,15 @@ export default {
   .player-card{
     &__combine-results{
       position:relative;
-      background:$mediumgray;
       left:0;
       right:0;
       bottom:0;
       opacity:0;
       transition:opacity 0.25s linear;
-      padding:15px;
       
+      .player-card__image-column &{
+        margin-bottom:30px;
+      }
       &--ready{
         opacity:1;
       }
@@ -44,19 +45,19 @@ export default {
       &-list{
         list-style:none;
         color:$black;
-        margin-top:20px;
+        margin-top:15px;
         li{
           position:relative;
           display:flex;
           justify-content:space-between;
-          background-color:$mediumgray;
+          background-color:$lightgray;
           margin: 8px 0;
           span{
             display:block;
             position:relative;
             z-index:2;
             // padding:2px 0;
-                      background-color:$mediumgray;
+                      background-color:$lightgray;
 
             &:first-of-type{
               padding-right:3px;
@@ -110,14 +111,13 @@ export default {
         &-title{
           color:$black;
           @include expanded-label;
-          font-family: TTCommons;
           text-transform:uppercase;
         }
         &-list{
           max-width:calc(100% - 50px);
           margin-top:5px;
           @include mobile {
-            max-width:calc(100% - 55px);
+            max-width:100%;
           }
 
           li{

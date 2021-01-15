@@ -16,11 +16,9 @@ export default {
 <style lang="scss" scoped>
   .draft-info{
     // position:absolute;
-    background:$mediumgray;
     // border:1px solid $darkmediumgray;
     // right:0;
     // left:0;
-    padding: 20px;
     transition: all 0.375s linear 0.125s, opacity 0.25s linear 0s, visibility 0s linear 0.25s, margin-top 0.5s ease-in-out 0.25s;
     margin-top:0;
     // opacity:0;
@@ -62,9 +60,9 @@ export default {
     }
 
     .player-card--expanded & {
-      visibility:visible;
-      opacity:1;
-      margin-top:-25px;
+      // visibility:visible;
+      // opacity:1;
+      // margin-top:-25px;
       transition: opacity 0.125s linear 0.375s, margin-top 0.5s ease-in-out;
     }
 

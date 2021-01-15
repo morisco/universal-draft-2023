@@ -20,7 +20,8 @@
     "nuxt-lazy-load": "^1.2.4",
     "nuxt-mq": "^2.0.2",
     "sass": "^1.30.0",
-    "sass-loader": "^10.1.0"
+    "sass-loader": "^10.1.0",
+    "vue-youtube": "^1.4.0"
   },
   "devDependencies": {
     "@nuxtjs/dotenv": "^1.4.1"

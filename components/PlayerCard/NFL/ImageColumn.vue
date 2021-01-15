@@ -1,16 +1,20 @@
 <template>
-  <div class="player-card__image-column">
-    <div class="player-card__image-column-inner"> 
-      <div class="player-card__image-column-img-wrapper"> 
+  <div class="player-card__image-column"  :style="{'maxHeight': maxHeight + 'px'}">
+    <div class="player-card__image-column-inner" ref="imageColumn"> 
+      <div class="player-card__image-column-img-wrapper" :style="{'maxHeight': topHeight + 'px'}"> 
         <img :src="player.image" :alt="player.imageAlt" />
         <img src="@/assets/img/icons/offense-o-2021.svg" v-if="player.offenseDefense === 'offense'" class="player-x-o" />
         <img src="@/assets/img/icons/defense-x-2021.svg" v-if="player.offenseDefense === 'defense'" class="player-x-o" />
       </div>
-      <div class="player-card__image-column-content" :style="{top: topHeight + 'px'}">
+      <div class="player-card__image-column-content">
         <DraftTeam :teamNameLogo="teamNameLogo" v-if="teamNameLogo && ['order_mockdraft', 'order_draftresults'].indexOf(rankKey) >= 0" :infoHeight="infoHeight" />
-        <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo && ['order_mockdraft', 'order_draftresults'].indexOf(rankKey) >= 0" />
-        <PodcastCardPlayer v-if="player.player_podcast && $mq !== 'mobile'" :playerId="playerId" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
-        <CombineResults :results="player.combineResults" :topHeight="topHeight" v-if="['mock-draft', 'draft-results'].indexOf($route.name) < 0 && $mq !== 'mobile'" />
+        <div v-if="$mq !== 'mobile'">
+          <Stats :player="fullPlayer" />
+          <CombineResults :results="player.combineResults" :topHeight="topHeight" v-if="$mq !== 'mobile'" />
+          <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" v-if="playerVideo" />
+          <PodcastCardPlayer v-if="player.player_podcast && $mq !== 'mobile'" :playerId="playerId" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
+          <RelatedArticles />
+        </div>
       </div>
     </div>
     <div class="player-card__rank" v-if="$mq === 'mobile'">
@@ -20,14 +24,24 @@
 </template>
 
 <script>
+import Stats from './Stats';
 import CombineResults from './CombineResults'
 import DraftTeam from './DraftTeam'
-import DraftInfo from './DraftInfo'
 import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
+import VideoThumb from './VideoThumb'
+import RelatedArticles from './RelatedArticles'
 export default {
-  props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight'],
-  components: {CombineResults, DraftTeam, DraftInfo, PodcastCardPlayer},
+  props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight', 'playVideo', 'setImageColHeight', 'expanded'],
+  components: {CombineResults, DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles},
+  data() {
+    return {
+      maxHeight: false
+    }
+  },
   computed: {
+    fullPlayer() {
+      return  this.$store.getters['content/player'](this.playerId);
+    },
     player () {
       const playerData = this.$store.getters['content/player'](this.playerId);
       return {
@@ -40,6 +54,29 @@ export default {
     },
     teamNameLogo () {
       return this.$store.getters['content/teamNameLogo'](this.rank);
+    },
+    playerVideo() {
+      return this.fullPlayer.player_video && this.fullPlayer.player_video.video_id ? this.fullPlayer.player_video : false
+    }
+  },
+  watch:{
+    expanded() {
+      if(!this.$refs.imageColumn) return;
+      if(this.expanded) {
+        let interiorHeight = 30;
+        this.$refs.imageColumn.children.forEach((child) => interiorHeight += child.offsetHeight);
+        this.setImageColHeight(interiorHeight);
+        this.maxHeight = this.$mq === 'mobile' ? 250 : interiorHeight;
+      } else {
+        this.maxHeight = this.$mq === 'mobile' ? 250 : this.topHeight;
+      }
+    },
+    topHeight() {
+      if(!this.$refs.imageColumn) return;
+      if(!this.expanded) {
+        this.maxHeight = this.$mq === 'mobile' ? 250 : this.topHeight;
+      }
+      this.setImageColHeight(this.$refs.imageColumn.offsetHeight);
     }
   }
 }
@@ -73,9 +110,12 @@ export default {
         transition:max-width 0.25s ease-in-out 0s;
       }
       &-content{
-        position:absolute;
-        left:30px;
-        right:30px;
+        // display:none;
+        // .player-card--expanded & {
+        //   display:block;
+        // }
+        position:relative;
+        
         @include mobile{
           top: 150px !important;
           transform:translateY(-100%);
@@ -87,19 +127,26 @@ export default {
         width:100%;
         // width:calc(100% - 40px); 
         // border-right:1px solid $darkmediumgray;
-        padding:30px 30px 0;
+        padding:0 30px 0;
         // background:$black;  
         // background-size: 20px;
         // background-position: center top;
         border-radius: .625rem  0 0 .625rem;
         overflow:hidden;
+        transition:padding-bottom 0.125s linear 0.25s;
+        @include mobile{
+          padding:0;
+        }
+        .player-card--expanded & {
+          padding-bottom:30px;
+        }
         .player-x-o{
           margin: 0 auto;
           z-index: -1;
           right: auto;
           width: auto;
           height: 100%;
-          top: 15px;
+          top: 30px;
           left: 50%;
           transform: translate(-50%,0);
           max-height:220px;
@@ -111,33 +158,7 @@ export default {
             max-height: 100%;
           }
         }
-        img:not(.player-x-o){
-          top:20px;
-          @include mobile{
-            max-width:300px;
-            top:0;
-            left:50%;
-            transform:translateX(-50%);
-          }
-        }
-         &:after{
-          content:'';
-          display:block;
-          position:absolute;
-          right:0;
-          top:0;
-          bottom:30px;
-          width:1px;
-          background:$darkmediumgray;
-          opacity:0;
-          transition:opacity 0.25s linear 0.25s;
-          .player-card--expanded & {
-            opacity:1;
-          }
-          @include mobile{
-            display:none;
-          }
-        }
+      
         // .player-card--offense &{
         //   background-image: url('~@/assets/img/icons/offense-o.svg');
         // }
@@ -163,15 +184,33 @@ export default {
           max-width:100%;
         }
       }
+      &-img-wrapper{
+        position:relative;
+        height:500px;
+        width:100%;
+        overflow:hidden;
+        box-sizing:content-box;
+        border-bottom:1px solid $mediumgray;
+        @include mobile {
+          max-height:250px !important;
+          border-bottom:0;
+        }
+      }
       &-img-wrapper img{
         position:absolute;
         top:0;
         width:100%;
-        left:20px;
-        right:20px;
-        width:calc(100% - 40px);
         opacity:0;
         transition:opacity 0.25s linear 0.1s;
+        &:not(.player-x-o){
+          top:20px;
+          @include mobile{
+            max-width:300px;
+            top:0;
+            left:50%;
+            transform:translateX(-50%);
+          }
+        }
       }
       &-img-wrapper img.isLoaded {
         opacity:1;

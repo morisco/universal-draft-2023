@@ -49,7 +49,7 @@
         <span>Deep Dive</span>
       </button>
     </div>
-    <div class="filters__section">
+    <div class="filters__section filters__section--position">
       <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
         <div class="filters__section-title">
           <span v-html="$mq === 'mobile' ? 'Sort By<br/>Position' : 'Sort By Position'"></span>
@@ -420,7 +420,10 @@ export default {
 
     }
     &__section{
-      width:50%;
+      width:40%;
+      &--position{
+        width:60%;
+      }
     }
     &__section-title{
       height:30px;

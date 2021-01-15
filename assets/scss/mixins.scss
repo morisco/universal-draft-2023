@@ -1,11 +1,11 @@
 @mixin updated-text{
-  font-family: TTCommons;
-  font-weight: 200;
+  font-family: 'Decima';
+  font-weight: normal;
   font-style:normal;
   line-height: 100%;
   letter-spacing: 0;
-  text-transform: none;
-  font-size:17px;
+  text-transform: uppercase;
+  font-size:29px;
   @include non-mobile{
     font-size:21px;
   }
@@ -30,8 +30,8 @@
 }
 
 @mixin header-nav-link{
-  font-family: TTCommons;
-  font-weight: 600;
+  font-family: 'GTAmerica';
+  font-weight: normal;
   letter-spacing: .15em;
   text-transform: uppercase;
   font-size: 10px;
@@ -99,22 +99,21 @@
 }
 
 @mixin stat-title{
-  font-weight:700;
-  font-size: 13px;
-  line-height: 100%;
+  font-size: 14px;
   letter-spacing: .1em;
   text-transform:uppercase;
+  line-height:17px;
 }
 
 @mixin stat-value{
-  font-family: TTLakes;
-  font-size: 20px;
+  font-family: 'Decima';
+  font-size: 30px;
   line-height: .77;
   font-weight:300;
-  @include medium-desktop {
-    font-size:18px;
-    letter-spacing:-1px;
-  }
+  // @include medium-desktop {
+  //   font-size:18px;
+  //   letter-spacing:-1px;
+  // }
 }
 
 @mixin meta-list-label{
@@ -148,6 +147,7 @@
   font-weight:normal;
 }
 @mixin header-sponsored-by{
+  font-weight:500;
   font-size:22px;
   color:$white;
   text-transform:uppercase;

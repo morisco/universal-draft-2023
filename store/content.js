@@ -77,8 +77,9 @@ const actions = {
     var t = d.getTime();
     axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
       headers: {
-        'Content-Encoding': 'gzip'
-      }
+        'Content-Encoding': 'gzip',
+        'Content-Type': 'json'
+      },
     })
     .then(response => {
       const contents = response.data.contents;

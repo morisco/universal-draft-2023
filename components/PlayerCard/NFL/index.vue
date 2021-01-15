@@ -20,29 +20,35 @@
     <div class="player-card__image-info">
       <ImageColumn 
         :playerId="playerId" 
+        :expanded="expanded"
         :collapsed="collapsed" 
         :rank="rank"
         :infoHeight="infoHeight"
         :topHeight="topHeight"
         :rankKey="rankKey"
-        ref="imageColumn"
+        :playVideo="playVideo"
+        :setImageColHeight="setImageColHeight"
       />
       <InfoColumn 
         :playerId="playerId" 
         :expanded="expanded" 
         :collapsed="collapsed" 
+        :rank="rank"
         :setMaxHeight="setMaxHeight"
         :setAnimateHeight="setAnimateHeight"
+        :playVideo="playVideo"
+        :activeCard="activeCard"
         v-on:set-info-height="setInfoHeight"
         v-on:set-top-height="setTopHeight"
       />
+    </div>
       <ToggleCard 
         :offenseDefense="player.offenseDefense" 
         :expanded="expanded" 
         :cardExpanded="cardExpanded"
         v-on:toggle-card="toggleCard"
       />
-    </div>
+    <VideoViewer :displayVideo="displayVideo" :closeVideo="closeVideo" :player="player" :playerVideo="playerVideo" :expanded="expanded" v-if="playerVideo" />
   </article>
 </template>
 
@@ -50,12 +56,13 @@
 import ImageColumn  from './ImageColumn.vue'
 import InfoColumn   from './InfoColumn.vue'
 import MetaBar      from './MetaBar.vue'
-import ToggleCard   from './ToggleCard.vue'
+import VideoViewer  from './VideoViewer.vue'
+import ToggleCard  from './ToggleCard.vue'
 import { scrollIt } from '~/plugins/scroller'
 
 export default {
   props: ['playerId', 'rankKey', 'cardExpanded', 'playerId'],
-  components: { ImageColumn, InfoColumn, ToggleCard, MetaBar },
+  components: { ImageColumn, InfoColumn, ToggleCard, MetaBar, VideoViewer },
   data() {
     return {
       openTimeout:          null,
@@ -68,7 +75,9 @@ export default {
       scrollTimeout:        null,
       transitioningTimeout: null,
       animateHeight:        false,
-      activeCard:           false
+      activeCard:           false,
+      displayVideo:         false,
+      imageHeight:          false,
     }
   },
   created () {
@@ -84,6 +93,9 @@ export default {
     },
     viewDepth () {
       return this.$store.getters['viewOptions/depth']
+    },
+    playerVideo() {
+      return this.player.player_video && this.player.player_video.video_id ? this.player.player_video : false
     },
     viewPosition () {
       return this.$store.getters['viewOptions/position']
@@ -132,6 +144,15 @@ export default {
     this.watchScroll();
   },
   methods: {
+    playVideo() {
+      this.displayVideo = true;
+    },
+    closeVideo() {
+      this.displayVideo = false;
+    },
+    setImageColHeight(height) {
+      this.imageHeight = height;
+    },
     watchScroll() {
       const cardOffset = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop;
       const cardHeight = this.$refs.card.offsetHeight;
@@ -195,7 +216,8 @@ export default {
       });
     },
     setMaxHeight (maxHeight) {
-      this.maxHeight = this.$mq === 'mobile' ? maxHeight + 250 : maxHeight + this.$refs.metaBar.offsetHeight;
+      const heightToUse = this.expanded ? Math.max(this.imageHeight, maxHeight) : maxHeight;
+      this.maxHeight = this.$mq === 'mobile' ? maxHeight + 250 : heightToUse + 80;
     },
     openCard () {
       if(!this.expanded){
@@ -217,7 +239,7 @@ export default {
     background:$lightgray;
     border-radius: .625rem;
     border: .00875rem solid $mediumgray;
-    margin-bottom:30px;
+    margin-bottom:45px;
     overflow-x:visible;
     
     
@@ -233,9 +255,28 @@ export default {
     &__image-info{
       position:relative;
       display:flex;
+      overflow:hidden;
       @include mobile {
         flex-direction:column;
       }
+      &:after{
+          content:'';
+          display:block;
+          position:absolute;
+          left:300px;
+          top:30px;
+          bottom:30px;
+          width:1px;
+          background:$darkmediumgray;
+          opacity:0;
+          transition:opacity 0.25s linear 0.25s;
+          .player-card--expanded & {
+            opacity:1;
+          }
+          @include mobile{
+            display:none;
+          }
+        }
     }
     .app__content--collapsed & {
       margin-bottom:15px;

@@ -10,7 +10,7 @@
     </div>
     <div class="player-card__expanded-meta-section">
       <div class="player-card__expanded-label">WHY HE COULD FALL</div>
-      <div class="player-card__expanded-value" v-html="player.deep_dives.why_fall"></div>
+      <div class="player-card__expanded-value player-card__expanded-value--last" v-html="player.deep_dives.why_fall"></div>
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
       display:flex;
       flex-direction:column;
       margin: 0 30px;
-      padding:30px 0 45px;
+      padding:20px 0 30px;
       @include mobile {
         transition:opacity 1s linear 0s;
         margin:0;
@@ -60,6 +60,13 @@ export default {
         @include player-card-body;
         a{
           text-decoration:underline;
+        }
+      }
+      &--last{
+        > p{
+          &:last-of-type{
+            margin-bottom:0;
+          }
         }
       }
     }

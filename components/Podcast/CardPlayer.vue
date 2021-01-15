@@ -15,6 +15,7 @@
       </svg>
     </div>
     <span class="podcast-player__time">{{mentionTime}}</span>
+    <span class="podcast-player__label">{{playerPodcast.label}}</span>
     <div class="podcast-player__progress" v-if="percentComplete > 0" :style="{'maxWidth': percentComplete + '%'}"></div>
   </div>
 </template>
@@ -129,13 +130,13 @@ export default {
     // right:15px;
     height:40px;
     border-radius:4px;
-    padding:5px 10px;
+    padding:5px 0 5px 10px;
     cursor:pointer;
     opacity:0;
     transition:opacity 0.125s linear;
     margin-top:15px;
     margin-bottom:15px;
-    
+    overflow:hidden;
     @include tablet-landscape-and-below{
       right:10px;
       transform:translateY(calc(-100% - 27px));
@@ -205,18 +206,22 @@ export default {
 
     &__time{
       position:relative;
-      margin-left:10px;
+      margin-left:5px;
       line-height:1;
       margin-right:-1px;
       @include player-card-body;
       margin-bottom:2px;
-      width:40px;
+      width:35px;
       text-align: left;
       color:$darkmediumgray;
       z-index:1;
       @include tablet-landscape-and-below{
         margin-left:5px;
       }
+    }
+    &__label{
+      @include player-card-body;
+      margin-bottom:3px;
     }
     &__progress{
       position:absolute;

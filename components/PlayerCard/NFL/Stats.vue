@@ -4,7 +4,7 @@
       <div class="player-card__stat-tooltip">{{stat.tooltip}}</div>
       <div class="player-card__stat">
         <span class="player-card__stat-title">{{stat.label}}</span>
-        <span class="player-card__stat-value">{{stat.value}}</span>
+        <span class="player-card__stat-value"><span>{{stat.value}}</span></span>
       </div>
     </li>
   </ul>
@@ -35,6 +35,13 @@ export default {
     list-style:none;
     transform:translateX(0);
     transition: transform 0s linear 0.125s, opacity 0.25s linear 0s;
+    .player-card__image-column &{
+      padding:0;
+      flex-wrap:wrap;
+      padding-top:20px;
+      width:calc(100% + 40px);
+      margin-bottom:15px;
+    }
     @include medium-desktop {
       margin-left:-2px;
       margin-right:-2px;
@@ -66,6 +73,11 @@ export default {
       margin: 0 5px 0;
       flex: 1;
       max-width: 70px;
+      .player-card__image-column &{
+        flex: 0 0 auto;
+        margin:0 15px 0 0;
+        width:calc(33.333% - 5px);
+      }
       &:first-of-type{
         margin-left:0;
       }
@@ -88,7 +100,6 @@ export default {
             }
           }
         }
-        
       }
       &:hover{
         .player-card__stat-tooltip{
@@ -100,28 +111,40 @@ export default {
     
   }
   &__stat{
-    background:$white;
+    // background:$white;
     border-radius: 10px;
     background-clip: padding-box;
     width:100%;
+    margin-bottom:10px;
+    .player-card__image-column &{
+      background:transparent !important;
+    }
   }
   &__stat-title{
     display:block;
     border-bottom: 2px solid $lightgray;
     text-align: center;
-    padding: 8px 0 4px;
     box-sizing:content-box;
     line-height:1;
     @include stat-title;
   }
   &__stat-value{
+    position:relative;
     display:block;
-    margin: 10px 0;
+    margin: 0;
     text-align: center;
     padding-top: 1px;
     text-align:center;
     @include stat-value;
-    
+    padding-top:100%;
+    background:$mediumgray;
+    border-radius:4px;
+    span{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+    }
   }
   &__stat-tooltip{
     position:absolute;
@@ -139,12 +162,13 @@ export default {
     border-radius: 2px;
     background-clip: padding-box;
     @include tooltip;
-    .player-card--offense & {
-      background-color: $offense;
-    }
-    .player-card--defense & {
-      background-color: $defense;
-    }
+    background-color:$highlight2;
+    // .player-card--offense & {
+    //   background-color: $offense;
+    // }
+    // .player-card--defense & {
+    //   background-color: $defense;
+    // }
     &:after{
       content: '';
       display: block;
@@ -155,12 +179,13 @@ export default {
       height: 10px;
       width: 10px;
       z-index: -1;
-      .player-card--offense & {
-        background-color: $offense;
-      }
-      .player-card--defense & {
-        background-color: $defense;
-      }
+      background-color:$highlight2;
+      // .player-card--offense & {
+      //   background-color: $offense;
+      // }
+      // .player-card--defense & {
+      //   background-color: $defense;
+      // }
     }
   }
 

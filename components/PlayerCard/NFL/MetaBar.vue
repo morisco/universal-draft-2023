@@ -31,6 +31,10 @@
       </div>
     </div>
      <div class="player-card__meta-bar-details-column player-card__meta-bar-details-column--shades">
+      <div class="shades-of-icon">
+        <img src="@/assets/img/icons/shades-of.svg" alt="Venn Diagaram Icon" data-not-lazy class="hover" />
+        <img src="@/assets/img/icons/shades-of-icon-black.svg" alt="Venn Diagaram Icon" data-not-lazy class="non-hover" />
+      </div>
       <div class="player-card__meta-bar-details-row">
         <span class="label">Shades Of:</span>
       </div>
@@ -80,8 +84,16 @@ export default {
       font-family: 'Decima';
       display: flex;
       text-transform:uppercase;
+      transition:all 0.25s linear 0.5s;
+      @include non-mobile{
+        .player-card:hover &,
+        .player-card--expanded & {
+          background:$highlight2;
+          color:$white;
+        }
+      }
       @include mobile{
-        background:transparent;
+        background:transparent !important;
         border-radius:0;
         flex-direction:column;
         padding:0;
@@ -89,6 +101,7 @@ export default {
       }
       h3{
         font-family: 'Decima';
+        font-weight:normal;
         font-size:30px;
         line-height:1.125;
       }
@@ -183,6 +196,37 @@ export default {
           &--shades{
             font-size:18px;
             line-height:1;
+            padding-left:50px;
+            .shades-of-icon{
+              position:absolute;
+              top:0;
+              left:15px;
+              width:30px;
+              img{
+                position:absolute;
+                left:0;
+                top:0;
+                transition:opacity 0.5s linear 0.5s;
+                &.hover{
+                  opacity:0;
+                }
+                &.non-hover{
+                  opacity:1;
+                }
+                @include non-mobile{
+                  .player-card:hover &,
+                  .player-card--expanded & {
+                    &.hover{
+                      opacity:1;
+                    }
+                    &.non-hover{
+                      opacity:0;
+                    } 
+                  }
+                }
+              }
+            }
+
             @include mobile{
               font-size:14px;
               min-width:100%;
@@ -190,6 +234,10 @@ export default {
               justify-content:flex-start;
               line-height:20px;
               margin:10px 0;
+              padding-left:35px;
+              .shades-of-icon{
+                left:0;
+              }
               > div{
                 flex: 0 0 auto;
                 display:inline-block;

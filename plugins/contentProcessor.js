@@ -54,10 +54,12 @@ export function processPlayers(players) {
       player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
     } else {
       player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
-      console.log('hiiii', player.player_position_stats.position);
       player.position = player.player_position_stats.position;
       if(playerPositions.indexOf(player.position) === -1){
         playerPositions.push(player.position);
+      }
+      if(player.player_video){
+        player.player_video.poster = processImages(player.player_video.poster);
       }
       player.image_data.image = processImages(player.image_data.image);
       player.offenseDefense = offensePositions.indexOf(player.position) >= 0 ? 'offense' : 'defense' 
