@@ -12,7 +12,7 @@
       <div class="header__footer-inner">
         <div class="header__footer-sponsor">
           <span>Presented By</span>
-          <img src="@/assets/img/state-farm-red.png" alt="State Farm Logo" />
+          <img src="@/assets/img/state-farm-red.png" alt="State Farm Logo" data-not-lazy />
 
         </div>
         <div>

@@ -6,7 +6,7 @@
     </a>
     <div class="navigation__links">
       <div class="navigation__links-inner">
-        <NuxtLink  v-for="option in sortedNavOptions" :to="option.to" :exact="option.to === '/'" v-on:click.native="changeActive" :disabled="!option.enabled" class="navigation__button" :key="option.to">
+        <NuxtLink  v-for="option in sortedNavOptions" :to="option.to" :exact="option.to === '/'" v-on:click.native="changeActive" :disabled="!option.enabled" class="navigation__button" :key="option.to" :class="{'navigation__button--active': active === option.to}">
           <span class="navigation__button-title">{{option.title}} <span class="navigation__button-subtitle">{{option.subtitle}}</span></span>
           <span class="navigation__button-updated">{{option.updated}}</span>
         </NuxtLink >
@@ -32,8 +32,8 @@ export default {
       maxWidth: null,
       sortedNavOptions: null,
       advanceClass: null,
-      resortTimeout:null
-      // active: 'bigboard'
+      resortTimeout:null,
+      active: this.getActive()
     }
   },
   computed: {
@@ -64,6 +64,17 @@ export default {
     clearTimeout(this.resortTimeout);
   },
   methods: {
+    getActive() {
+      if(['index', 'big_board_player_share'].indexOf(this.$route.name) >= 0){
+        return '/';
+      } else if(['mock-draft', 'mock_draft_player_share'].indexOf(this.$route.name) >= 0){
+        return '/mock-draft';
+      } else if(['team-needs', 'team_needs_player_share'].indexOf(this.$route.name) >= 0){
+        return '/team-needs';
+      } else if(['draft-results', 'team_needs_player_share'].indexOf(this.$route.name) >= 0){
+        return '/draft-results';
+      }
+    },
     handleScroll () {
       var distanceFromTopWhenSticky = -2;
       if(window.scrollY > this.$refs.navigation.offsetTop - distanceFromTopWhenSticky){
@@ -101,6 +112,7 @@ export default {
       if(to.path !== from.path){
         const newActiveIndex = this.sortedNavOptions.findIndex((option) => option.to === to.path);
         this.advanceClass = 'navigation--advance-' + newActiveIndex;
+        this.active = this.getActive();
         this.resortTimeout = setTimeout(() => {
           let existingSorted = [...this.sortedNavOptions];
           for(var i=0; i<newActiveIndex; i++){
@@ -218,14 +230,12 @@ export default {
       display:block;
       text-transform:uppercase;
     }
-    &:not(.navigation__button--duplicate){
-      &.nuxt-link-exact-active{
-        background:$highlight2-light;
-        color:$white;
-        transition:all 0.25s linear 0s;
-        .navigation__button-updated{
-          color:$highlight1;
-        }
+    &--active{
+      background:$highlight2-light;
+      color:$white;
+      transition:all 0.25s linear 0s;
+      .navigation__button-updated{
+        color:$highlight1;
       }
     }
   }

@@ -31,6 +31,21 @@ export default {
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
 
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'big_board_player_share',
+        path: '/:player_id',
+        component: resolve(__dirname, 'pages/index.vue')
+      });
+      routes.push({
+        name: 'mock_draft_player_share',
+        path: '/mock-draft/:player_id',
+        component: resolve(__dirname, 'pages/mock-draft.vue')
+      });
+    }
+  },
+
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     ['@nuxtjs/dotenv', { 

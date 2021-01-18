@@ -11,11 +11,16 @@ const state = () => ({
   teamData: {},
   teamNameLogo: [],
   relatedData: [],
-  interstitials: {}
+  interstitials: {},
+  contentLoaded: false,
+  cardsReady: 0,
+  allCardsSet: false
 })
 
 // getters
 const getters = {
+  contentLoaded: (state => state.contentLoaded),
+  allCardsSet: (state) => state.allCardsSet,
   bigBoard: (state) => (selectedPosition) => {
     const activePositionArray = positionMap[selectedPosition];
     return state.bigBoard.filter((playerId) => {
@@ -54,6 +59,12 @@ const getters = {
         }
       }
     })
+  },
+  playerByShare: (state) => (shareId) => {
+    var sharedPlayerId = Object.keys(state.playerData).find((id) => {
+      return shareId === state.playerData[id].id_string
+    });
+    return state.playerData[sharedPlayerId];
   },
   player: (state) => (playerId) => state.playerData[playerId],
   playerType: () => (position) => {
@@ -104,6 +115,7 @@ const mutations = {
     state.bigBoard = processedPlayers.bigBoard;
     state.mockDraft = processedPlayers.mockDraft;
     state.draftResults = processedPlayers.draftResults;
+    state.contentLoaded = true
   },
 
   setTeamData (state, processedTeams) {
@@ -123,6 +135,13 @@ const mutations = {
   decrementProductInventory (state, { id }) {
     const product = state.all.find(product => product.id === id)
     product.inventory--
+  },
+  cardReady(state) {
+    state.cardsReady += 1;
+    if(state.cardsReady === 100){
+      state.allCardsSet = true;
+    }
+    
   }
 }
 

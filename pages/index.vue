@@ -40,8 +40,8 @@ export default {
   data() {
     return {
       initTimeout: null,
-      showAll: false,
-      scrollDelay: null
+      scrollDelay: null,
+      showAll: this.$route.params.player_id ? true : false
     }
   },
   created() {
@@ -88,10 +88,11 @@ export default {
       }
     }
   },
-  asyncData({$axios, store, commit}) {
-    return asyncDataProcessor({$axios, store, commit});
+  asyncData({$axios, store, route}) {
+    return asyncDataProcessor({$axios, store, route});
   },
   head()  {
+    const metaDescription = this.sharedPlayer ? 'See where ' + this.sharedPlayer.first_name.trim() + ' ' + this.sharedPlayer.last_name.trim() + ' ranks on our Big Board' : this.configuration.facebook_page_share_description;
     return {
       meta: [{
         hid: 'og:title',
@@ -101,7 +102,7 @@ export default {
       {
         hid: 'og:description',
         name: 'og:description',
-        content: this.configuration.facebook_page_share_description
+        content: metaDescription
       }]
     }
   }

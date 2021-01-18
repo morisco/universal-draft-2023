@@ -67,8 +67,8 @@ export default {
       }
     }
   },
-  asyncData({$axios, store, commit}) {
-    return asyncDataProcessor({$axios, store, commit});
+  asyncData({$axios, store, route}) {
+    return asyncDataProcessor({$axios, store, route});
   },
   head()  {
     return {

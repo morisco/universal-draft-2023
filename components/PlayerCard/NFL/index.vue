@@ -1,5 +1,5 @@
 <template>
-  <article class="player-card" :class="{
+  <article class="player-card" :data-player="player.id_string" :class="{
     'player-card--offense': player.offenseDefense === 'offense', 
     'player-card--defense': player.offenseDefense === 'defense', 
     'player-card--expanded': expanded, 
@@ -7,7 +7,8 @@
     'player-card--transitioning': transitioning,
     'player-card--animated': animateHeight,
     'player-card--loaded': maxHeight > 0,
-    'player-card--active': activeCard
+    'player-card--active': activeCard,
+    'player-card--all-cards-set': this.infoHeight
   }" 
   v-bind:style="
     [maxHeight] ? {
@@ -100,6 +101,9 @@ export default {
     viewPosition () {
       return this.$store.getters['viewOptions/position']
     },
+    allCardsSet () {
+      return this.$store.getters['content/allCardsSet']
+    },
     zIndex () {
       switch(this.$route.path){
         case '/':
@@ -118,6 +122,16 @@ export default {
     window.removeEventListener('scroll', this.watchScroll);
   },
   watch: {
+    allCardsSet() {
+      if(this.allCardsSet){
+        const featuredPlayer = this.$route.params.player_id === this.player.id_string;
+        if(featuredPlayer){
+          this.expanded = true;
+          let scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop - (this.$mq === 'mobile' ? 60 : this.collapsed ? 75 : 85);
+          window.scrollTo(0, scrollDestination);
+        }
+      }
+    },
     viewDepth (newDepth, oldDepth) {
       if(oldDepth === 'compact' || newDepth === 'compact'){
         const self = this;
@@ -152,6 +166,9 @@ export default {
     },
     setImageColHeight(height) {
       this.imageHeight = height;
+      if(this.infoHeight){
+        this.$store.commit('content/cardReady');
+      }
     },
     watchScroll() {
       const cardOffset = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop;
@@ -201,6 +218,9 @@ export default {
     },
     setInfoHeight (height) {
       this.infoHeight = height;
+      if(this.imageHeight){
+        this.$store.commit('content/cardReady');
+      }
     },
     setAnimateHeight() {
       this.animateHeight = true;
@@ -241,8 +261,11 @@ export default {
     border: .00875rem solid $mediumgray;
     margin-bottom:45px;
     overflow-x:visible;
+    opacity:0;
     
-    
+    &--all-cards-set{
+      opacity:1;
+    }
     @include single-column{
       margin-bottom:15px;
     }
@@ -282,13 +305,13 @@ export default {
       margin-bottom:15px;
     }
     &--animated{
-      transition:max-height 0.375s ease-in-out, margin-bottom 0.25s linear 0.125s;
+      transition:max-height 0.375s ease-in-out, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
       @include mobile{
-        transition:max-height 0.5s linear, margin-bottom 0.25s linear 0.125s;
+        transition:max-height 0.5s linear, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
       }
     }
     &--transitioning{
-      transition:max-height 0.5s ease-in-out 0.125s, margin-bottom 0.25s linear 0.125s;
+      transition:max-height 0.5s ease-in-out 0.125s, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
     }
     &-enter{
       max-height:0 !important;

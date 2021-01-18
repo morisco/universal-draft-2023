@@ -33,6 +33,7 @@ export default {
     overflow:hidden;
     flex-direction:row;
     border-radius:0.625rem;
+    opacity:1;
     .app__content--collapsed & {
       margin-bottom:15px;
     }
@@ -40,6 +41,8 @@ export default {
       img{
         object-fit:contain;
         object-position: center top;
+        width:100%;
+        position:absolute;
       }
       @include mobile{
         display:none;

@@ -55,6 +55,7 @@ export default {
     flex-direction:row;
     overflow:hidden;
     border-radius:0.625rem;
+    opacity:1;
     @include mobile {
       flex-direction:column-reverse;
     }

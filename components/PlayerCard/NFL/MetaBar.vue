@@ -104,6 +104,16 @@ export default {
         font-weight:normal;
         font-size:30px;
         line-height:1.125;
+        .player-card[data-player="antonio-gandy-golden"] &,
+        .player-card[data-player="lloyd-cushenberry-iii"] &,
+        .player-card[data-player="prince-tega-wanogho"] &,
+        .player-card[data-player="akeem-davis-gaither"] &,
+        .player-card[data-player="laviska-shenault-jr"] & {
+          font-size:27px;
+        }
+        .player-card[data-player="clyde-edwards-helaire"] &{
+          font-size:25px;
+        }
       }
       &-rank{
         position:absolute;
@@ -146,7 +156,6 @@ export default {
         @include mobile{
           font-size:18px;
         }
-
       }
       &-details{
         flex:1;
