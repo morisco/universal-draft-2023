@@ -92,10 +92,12 @@ const actions = {
   getContents ({commit}) {
     var d = new Date();
     var t = d.getTime();
-    axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
+
+    axios.get("https://storage.googleapis.com/nfldraft-theringer-com-cms/public/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
       headers: {
         'Content-Encoding': 'gzip',
-        'Content-Type': 'json'
+        'Content-Type': 'json',
+        'Access-Control-Allow-Origin': 'http://localhost:3333',
       },
     })
     .then(response => {
