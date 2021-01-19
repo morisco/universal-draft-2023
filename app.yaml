@@ -21,3 +21,7 @@ handlers:
 
 env_variables:
   HOST: '0.0.0.0'
+  HEDDEK_LOCATION:"production"
+  HEDDEK_PROJECT_ID:"ringernfl2021"
+  GCS_BUCKET:"nfldraft-theringer-com-cms"
+  PROJECT_LEAGUE:"NFL"

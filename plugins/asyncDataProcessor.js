@@ -3,7 +3,7 @@ import { processPlayers, processTeams, processRelated, processInterstitials } fr
 const asyncDataProcessor = async function asyncData({$axios, store, route}) {
   let configuration = store.getters['page/configuration'];
   if(!configuration){
-    configuration = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/" + process.env.HEDDEK_PROJECT_ID + "/config." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=4",  {
+    configuration = await $axios.get("https://storage.googleapis.com/" +  process.env.GCS_BUCKET + "/public/data/" + process.env.HEDDEK_PROJECT_ID + "/config." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=4",  {
       headers: {
         'Content-Encoding': 'gzip'
       }
@@ -15,7 +15,7 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
   }
   let pageSettings = store.getters['page/settings'];
   if(!pageSettings){
-    pageSettings = await $axios.get("https://storage.googleapis.com/draft-nuxt-storage/public/data/" + process.env.HEDDEK_PROJECT_ID + "/page." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=4",  {
+    pageSettings = await $axios.get("https://storage.googleapis.com/" +  process.env.GCS_BUCKET + "/public/data/" + process.env.HEDDEK_PROJECT_ID + "/page." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=4",  {
       headers: {
         'Content-Encoding': 'gzip'
       }
@@ -33,7 +33,7 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
   if(!contentLoaded && shareId){
     var d = new Date();
     var t = d.getTime();
-    await $axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
+    await $axios.get("https://storage.googleapis.com/" +  process.env.GCS_BUCKET + "/public/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
       headers: {
         'Content-Encoding': 'gzip',
         'Content-Type': 'json'
