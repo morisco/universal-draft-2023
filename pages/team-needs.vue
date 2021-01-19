@@ -1,6 +1,6 @@
 T<template>
   <section class="main-section team-needs" ref="teamNeeds">
-    <MainSectionIntro type="mock_draft" />
+    <MainSectionIntro type="team_needs" />
     <transition-group name="player-card" class="mock-draft__inner" tag="div">
       <template v-for="(teamId, index) in teamNeedsIds">
         <TeamCard 

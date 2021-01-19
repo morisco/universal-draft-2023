@@ -1,6 +1,6 @@
 <template>
   <section class="main-section draft-results" ref="draftResults">
-    <!-- <MainSectionIntro type="mock_draft" /> -->
+    <MainSectionIntro type="draft_results" />
     <transition-group name="player-card" class="draft-results__inner" tag="div">
       <template v-for="(playerId, index) in draftResultsIds">
         <PlayerCard 

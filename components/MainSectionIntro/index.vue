@@ -29,6 +29,13 @@ export default {
             link: '/',
             linkText: 'See the Big Board by Danny Kelly instead'
           }
+        case 'team_needs':
+          return {
+            headline: '<strong>Team Needs</strong>',
+            content: this.$store.getters['page/settings'].big_board_intro,
+            link: '/',
+            linkText: 'See the Big Board by Danny Kelly instead'
+          }
         case 'draft_results':
           return {
             headline: '<strong>Draft Results</strong>',

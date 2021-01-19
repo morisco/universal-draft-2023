@@ -237,7 +237,7 @@ export default {
     },
     setMaxHeight (maxHeight) {
       const heightToUse = this.expanded ? Math.max(this.imageHeight, maxHeight) : maxHeight;
-      this.maxHeight = this.$mq === 'mobile' ? maxHeight + 250 : heightToUse + 80;
+      this.maxHeight = this.$mq === 'mobile' ? maxHeight + 250 : heightToUse + this.$refs.metaBar.$el.offsetHeight;
     },
     openCard () {
       if(!this.expanded){

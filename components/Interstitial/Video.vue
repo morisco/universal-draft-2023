@@ -55,7 +55,10 @@ export default {
     flex-direction:row;
     overflow:hidden;
     border-radius:0.625rem;
-    opacity:1;
+    &.player-card{
+      opacity:1;
+      flex-direction:row;
+    }
     @include mobile {
       flex-direction:column-reverse;
     }

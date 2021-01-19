@@ -3,7 +3,10 @@
   <figure class="player-card__video-viewer" v-if="displayVideo">
     <div class="player-card__video-viewer-viewable" ref="viewable">
       <VideoPlayer :videoWidth="videoWidth" :closeVideo="closeVideo" :playerVideo="playerVideo" />
-      <button class="player-card__video-viewer-close" v-on:click="closeVideo">Close Video</button>
+      <div class="player-card__video-viewer-actions">
+        <button class="player-card__video-viewer-close" v-on:click="closeVideo">Close Video</button>
+        <button class="player-card__video-viewer-close" v-on:click="closeVideo">Collapse Video</button>
+      </div>
     </div>
   </figure>
 </transition>
@@ -96,6 +99,13 @@ export default {
           transition:opacity 0.5s ease-out 0.5s;
         }
       }
+
+      &-close{
+        position:relative;
+        z-index:5;
+        margin:10px 0 0 10px
+      }
+      
       &-viewable{
         position:absolute;
         top:30px;
@@ -106,6 +116,26 @@ export default {
         flex-direction:column;
         align-items:center;
         justify-content:center;
+      }
+      &-actions{
+        display:flex;
+        justify-content:flex-end;
+        opacity:1 ;
+        width:100%;
+        .player-card__video-viewer-enter &,
+        .player-card__video-viewer-leave-to &{
+          opacity:0;
+        }
+        .player-card__video-viewer-enter-to,
+        .player-card__video-viewer-leave &{
+          opacity:1;
+        }
+        .player-card__video-viewer-enter-active &{
+          transition:opacity 0.25s linear 0.25s;
+        }
+        .player-card__video-viewer-elave-active &{
+          transition:opacity 0.25s linear 0s;
+        }
       }
     }
   }

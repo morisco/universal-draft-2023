@@ -3,8 +3,8 @@
     <div class="player-card__image-column-inner" ref="imageColumn"> 
       <div class="player-card__image-column-img-wrapper" :style="{'maxHeight': topHeight + 'px'}"> 
         <img :src="player.image" :alt="player.imageAlt" />
-        <img src="@/assets/img/icons/offense-o-2021.svg" v-if="player.offenseDefense === 'offense'" class="player-x-o" />
-        <img src="@/assets/img/icons/defense-x-2021.svg" v-if="player.offenseDefense === 'defense'" class="player-x-o" />
+        <img src="@/assets/img/icons/offense-o-2021.svg" v-if="player.offenseDefense === 'offense'" class="player-x-o" data-not-lazy />
+        <img src="@/assets/img/icons/defense-x-2021.svg" v-if="player.offenseDefense === 'defense'" class="player-x-o" data-not-lazy />
       </div>
       <div class="player-card__image-column-content">
         <DraftTeam :teamNameLogo="teamNameLogo" v-if="teamNameLogo && ['order_mockdraft', 'order_draftresults'].indexOf(rankKey) >= 0" :infoHeight="infoHeight" />
@@ -150,6 +150,7 @@ export default {
           left: 50%;
           transform: translate(-50%,0);
           max-height:220px;
+          opacity:1;
           @include mobile {
             top: 50%;
             left: 50%;
