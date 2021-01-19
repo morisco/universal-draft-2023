@@ -1,7 +1,4 @@
-import axios from 'axios';
 import { processPlayers, processTeams, processRelated, processInterstitials } from '~/plugins/contentProcessor';  
-
-
 
 const asyncDataProcessor = async function asyncData({$axios, store, route}) {
   let configuration = store.getters['page/configuration'];
@@ -29,13 +26,10 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
       })
       .catch(err => console.log(err));
   }
-  console.log('rp', route.params);
   const shareId = route.params ? (route.params.player_id ? route.params.player_id : route.params.team_id) : false;
   let contentLoaded = store.getters['content/contentLoaded'];
   let sharedPlayer = contentLoaded ? store.getters['content/playerByShare'](shareId) : false;
   let sharedTeam = contentLoaded ? store.getters['content/teamByShare'](shareId) : false;
-  console.log('ssss', sharedTeam);
-  console.log('st', shareId);
   if(!contentLoaded && shareId){
     var d = new Date();
     var t = d.getTime();
@@ -56,7 +50,6 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
       store.commit('content/setTeamData', processedTeams)
       store.commit('content/setRelatedData', processedRelated)
       sharedPlayer = store.getters['content/playerByShare'](shareId);
-      console.log('hiii', store.getters['content/teamByShare'](shareId));
       sharedTeam = store.getters['content/teamByShare'](shareId);
     })
     .catch(err => console.log(err));

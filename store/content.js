@@ -144,7 +144,6 @@ const mutations = {
   },
   cardReady(state, route) {
     state.cardsReady += 1;
-    console.log(state.cardsReady);
     if(['index', 'big_board_player_share'].indexOf(route.name) >=0 && state.cardsReady === 100){
       state.allCardsSet = true;
     } else if(['mock-draft', 'mock_draft_player_share'].indexOf(route.name) >=0 && state.cardsReady === 64){

@@ -71,7 +71,7 @@ export default {
     return asyncDataProcessor({$axios, store, route});
   },
   head()  {
-    console.log('sharedTeam', this.sharedTeam);
+    const metaDescription = this.sharedTeam ? 'See what the ' + this.sharedTeam.title.trim() + ' need to address in the draft.' : this.configuration.facebook_page_share_description;
     return {
       meta: [{
         hid: 'og:title',
@@ -81,7 +81,7 @@ export default {
       {
         hid: 'og:description',
         name: 'og:description',
-        content: this.configuration.facebook_page_share_description
+        content: metaDescription
       }]
     }
   }
