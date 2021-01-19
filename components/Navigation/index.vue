@@ -42,10 +42,10 @@ export default {
     },
     navOptions() { 
       return this.pageSettings ? [
-        {to: '/', title: 'Big Board', subtitle:'by Danny Kelly', enabled: true, updated: this.pageSettings.players_to_watch_updated},
-        {to: '/mock-draft', title: 'Mock Draft', subtitle:'by Ringer Staff', enabled: this.pageSettings.enable_mock, updated: this.pageSettings.danny_updated},
-        {to: '/team-needs', title: 'Team Needs', subtitle:'by Robert Mays', enabled: this.pageSettings.breakdown_by_team, updated: this.pageSettings.breakdown_updated},
-        {to: '/draft-results', title: 'Draft Results', enabled: this.pageSettings.enable_results, updated: this.pageSettings.results_updated}
+        {to: '/', title: 'Big Board', subtitle:'by Danny Kelly', enabled: true, updated: this.pageSettings.players_to_watch_updated, routeNames: ['index', 'big_board_player_share']},
+        {to: '/mock-draft', title: 'Mock Draft', subtitle:'by Ringer Staff', enabled: this.pageSettings.enable_mock, updated: this.pageSettings.danny_updated, routeNames: ['mock-draft', 'mock_draft_player_share']},
+        {to: '/team-needs', title: 'Team Needs', subtitle:'by Robert Mays', enabled: this.pageSettings.breakdown_by_team, updated: this.pageSettings.breakdown_updated, routeNames: ['team-needs', 'team_needs_team_share']},
+        {to: '/draft-results', title: 'Draft Results', enabled: this.pageSettings.enable_results, updated: this.pageSettings.results_updated, routeNames: ['draft-results', 'draft_results_player_share']}
       ] : null;
     }
   },
@@ -69,9 +69,9 @@ export default {
         return '/';
       } else if(['mock-draft', 'mock_draft_player_share'].indexOf(this.$route.name) >= 0){
         return '/mock-draft';
-      } else if(['team-needs', 'team_needs_player_share'].indexOf(this.$route.name) >= 0){
+      } else if(['team-needs', 'team_needs_team_share'].indexOf(this.$route.name) >= 0){
         return '/team-needs';
-      } else if(['draft-results', 'team_needs_player_share'].indexOf(this.$route.name) >= 0){
+      } else if(['draft-results', 'draft_results_player_share'].indexOf(this.$route.name) >= 0){
         return '/draft-results';
       }
     },
@@ -103,12 +103,13 @@ export default {
       if(existingSorted || !this.navOptions) return;
       let reorderedOptions = [...this.navOptions];
       const currentRoute = this.$route;
-      reorderedOptions.sort((x,y) => currentRoute.path === x.to ? -1 : currentRoute.path === y.to ? 1 : 0);
+      reorderedOptions.sort((x,y) => currentRoute.path.indexOf(x.to) >= 0  ? -1 : currentRoute.path.indexOf(y.to) >= 0 ? 1 : 0);
       this.sortedNavOptions = reorderedOptions;
     }
   },
   watch: {
     $route(to, from) {
+      this.$store.commit('content/resetReady');
       if(to.path !== from.path){
         const newActiveIndex = this.sortedNavOptions.findIndex((option) => option.to === to.path);
         this.advanceClass = 'navigation--advance-' + newActiveIndex;

@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       initTimeout: null,
-      showAll: false
+      showAll: this.$route.params.team_id ? true : false
     }
   },
   created() {
@@ -71,6 +71,7 @@ export default {
     return asyncDataProcessor({$axios, store, route});
   },
   head()  {
+    console.log('sharedTeam', this.sharedTeam);
     return {
       meta: [{
         hid: 'og:title',

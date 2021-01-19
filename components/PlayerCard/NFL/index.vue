@@ -167,7 +167,7 @@ export default {
     setImageColHeight(height) {
       this.imageHeight = height;
       if(this.infoHeight){
-        this.$store.commit('content/cardReady');
+        this.$store.commit('content/cardReady', this.$route);
       }
     },
     watchScroll() {
@@ -219,7 +219,7 @@ export default {
     setInfoHeight (height) {
       this.infoHeight = height;
       if(this.imageHeight){
-        this.$store.commit('content/cardReady');
+        this.$store.commit('content/cardReady', this.$route);
       }
     },
     setAnimateHeight() {
@@ -262,6 +262,7 @@ export default {
     margin-bottom:45px;
     overflow-x:visible;
     opacity:0;
+    transition:max-height 0.375s ease-in-out, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
     
     &--all-cards-set{
       opacity:1;
@@ -273,7 +274,6 @@ export default {
       border:0px;
       margin-bottom:45px;
       border-radius: 0 0 .625rem .625rem;
-
     }
     &__image-info{
       position:relative;

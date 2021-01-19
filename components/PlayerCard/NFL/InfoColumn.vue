@@ -9,10 +9,10 @@
     v-bind:style="[maxHeight] ? {maxHeight: maxHeight + 'px'}: []"
   >
     <div class="player-card__top-data" ref="topData">
-      <template v-if="$route.name === 'mock-draft'">
+      <template v-if="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) >= 0">
         <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo" />
       </template>
-      <template v-if="$route.name !== 'mock-draft'">
+      <template v-if="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) === -1">
         <MetaBar :player="player" :rankKey="null" ref="metaBar" v-if="$mq === 'mobile'" />
         <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile' && !this.collapsed" />
         <Badges :player="player" v-if="player.badges.length > 0" />

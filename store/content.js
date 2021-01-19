@@ -75,6 +75,12 @@ const getters = {
   },
   teamNeeds: (state) => state.teamNeeds,
   team: (state) => (teamId) => state.teamData[teamId],
+  teamByShare: (state) => (shareId) => {
+    var sharedPlayerId = Object.keys(state.teamData).find((id) => {
+      return shareId === state.teamData[id].id_string
+    });
+    return state.teamData[sharedPlayerId];
+  },
   teamNameLogo: (state) => (index) => state.teamNameLogo && state.teamNameLogo[index],
   relatedArticles: (state) => state.relatedData,
   interstitials: (state) => (list)  => state.interstitials[list],
@@ -136,12 +142,21 @@ const mutations = {
     const product = state.all.find(product => product.id === id)
     product.inventory--
   },
-  cardReady(state) {
+  cardReady(state, route) {
     state.cardsReady += 1;
-    if(state.cardsReady === 100){
+    console.log(state.cardsReady);
+    if(['index', 'big_board_player_share'].indexOf(route.name) >=0 && state.cardsReady === 100){
+      state.allCardsSet = true;
+    } else if(['mock-draft', 'mock_draft_player_share'].indexOf(route.name) >=0 && state.cardsReady === 64){
+      state.allCardsSet = true;
+    } else if(['team-needs', 'team_needs_team_share'].indexOf(route.name) >=0 && state.cardsReady === 32){
+      state.allCardsSet = true;
+    } else if(['draft-results', 'draft_results_player_share'].indexOf(route.name) >=0 && state.cardsReady === 32){
       state.allCardsSet = true;
     }
-    
+  },
+  resetReady(state) {
+    state.cardsReady = 0;
   }
 }
 

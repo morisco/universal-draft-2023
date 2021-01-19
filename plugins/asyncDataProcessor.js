@@ -29,10 +29,14 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
       })
       .catch(err => console.log(err));
   }
-  const shareId = route.params && route.params.player_id;
+  console.log('rp', route.params);
+  const shareId = route.params ? (route.params.player_id ? route.params.player_id : route.params.team_id) : false;
   let contentLoaded = store.getters['content/contentLoaded'];
   let sharedPlayer = contentLoaded ? store.getters['content/playerByShare'](shareId) : false;
-  if(!contentLoaded && shareId ){
+  let sharedTeam = contentLoaded ? store.getters['content/teamByShare'](shareId) : false;
+  console.log('ssss', sharedTeam);
+  console.log('st', shareId);
+  if(!contentLoaded && shareId){
     var d = new Date();
     var t = d.getTime();
     await $axios.get("https://draft-nuxt-storage.storage.googleapis.com/public/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
@@ -52,10 +56,12 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
       store.commit('content/setTeamData', processedTeams)
       store.commit('content/setRelatedData', processedRelated)
       sharedPlayer = store.getters['content/playerByShare'](shareId);
+      console.log('hiii', store.getters['content/teamByShare'](shareId));
+      sharedTeam = store.getters['content/teamByShare'](shareId);
     })
     .catch(err => console.log(err));
   }
-  return { configuration: configuration, settings: pageSettings, sharedPlayer: sharedPlayer }
+  return { configuration: configuration, settings: pageSettings, sharedPlayer: sharedPlayer, sharedTeam: sharedTeam }
 }
 
 export default asyncDataProcessor

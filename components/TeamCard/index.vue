@@ -1,5 +1,5 @@
 <template>
-  <article class="player-card team-card">
+  <article class="player-card team-card" ref="card">
     <TeamMeta :team="team" />
     <TeamPlayers :teamId="teamId" />
     <TeamConsiderations :teamId="teamId" />
@@ -17,6 +17,22 @@ export default {
   computed: {
     team() {
       return this.$store.getters['content/team'](this.teamId)
+    },
+    allCardsSet () {
+      return this.$store.getters['content/allCardsSet']
+    },
+  },
+  mounted() {
+    this.$store.commit('content/cardReady', this.$route);
+  },
+  watch:{
+    allCardsSet() {
+      if(this.allCardsSet){
+      if(this.$route.params.team_id === this.team.id_string){
+          let scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop - (this.$mq === 'mobile' ? 60 : 85);
+          window.scrollTo(0, scrollDestination);
+        }    
+      }
     }
   }
 }
@@ -31,6 +47,7 @@ export default {
     background:$lightgray;
     border:1px solid $mediumgray;
     max-height:100%;
+    opacity:1;
     @include single-column{
       padding:30px 25px;
     }

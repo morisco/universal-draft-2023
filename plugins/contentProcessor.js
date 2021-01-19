@@ -33,8 +33,8 @@ function processImages(image) {
 function processOrders(players) {
   const orderIds = players.map((player) => { return {id: parseInt(player.id,10), bigBoard: parseInt(player.order,10), mockDraft: parseInt(player.order_mockdraft,10), draftResults: parseInt(player.order_draftresults,10) } });
   const bigBoardSorted = orderIds.sort((playerA, playerB) => (playerA.bigBoard > playerB.bigBoard) ? 1 : -1);
-  const mockIds = orderIds.filter(player => player.mockDraft <= 64);
-  const draftResultIds = orderIds.filter(player => player.draftResults <= 64);
+  const mockIds = orderIds.filter(player => player.mockDraft <= 63);
+  const draftResultIds = orderIds.filter(player => player.draftResults <= 31);
   const mockDraftSorted = mockIds.sort((playerA, playerB) => (playerA.mockDraft > playerB.mockDraft) ? 1 : -1);
   const draftResultsSorted = draftResultIds.sort((playerA, playerB) => (playerA.draftResults > playerB.draftResults) ? 1 : -1);
   return {
@@ -95,6 +95,7 @@ export function processTeams(teams, teamPlayers) {
   teams.sort((teamA, teamB) => parseInt(teamA.order,10) > parseInt(teamB.order,10) ? 1 : -1);
   teams.forEach((team) => {
     team = decodeContent(team);
+    team.id_string = team.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
     teamIds.push(team.id);
     team.image = processImages(team.image);
     team.players = team.players.map((player) => {

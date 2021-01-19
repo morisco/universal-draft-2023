@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       initTimeout: null,
-      showAll: false
+      showAll: this.$route.params.player_id ? true : false
     }
   },
   created() {
@@ -79,8 +79,8 @@ export default {
       }
     }
   },
-  asyncData({$axios, store, commit}) {
-    return asyncDataProcessor({$axios, store, commit});
+  asyncData({$axios, store, route}) {
+    return asyncDataProcessor({$axios, store, route});
   },
   head()  {
     return {

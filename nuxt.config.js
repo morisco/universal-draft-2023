@@ -43,6 +43,16 @@ export default {
         path: '/mock-draft/:player_id',
         component: resolve(__dirname, 'pages/mock-draft.vue')
       });
+      routes.push({
+        name: 'team_needs_team_share',
+        path: '/team-needs/:team_id',
+        component: resolve(__dirname, 'pages/team-needs.vue')
+      });
+      routes.push({
+        name: 'draft_results_player_share',
+        path: '/draft-results/:player_id',
+        component: resolve(__dirname, 'pages/draft-results.vue')
+      });
     }
   },
 
