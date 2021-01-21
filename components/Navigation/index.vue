@@ -215,7 +215,7 @@ export default {
     flex:1;
     display:flex;
     flex-direction:column;
-    padding:0 20px;
+    padding:4px 20px 0;
     justify-content:center;
     height:65px;
     border-right:1px solid $white;

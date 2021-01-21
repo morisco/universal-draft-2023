@@ -2,10 +2,10 @@
 <transition name="player-card__video-viewer" v-on:enter="enter" appear :duration="1000">
   <figure class="player-card__video-viewer" v-if="displayVideo">
     <div class="player-card__video-viewer-viewable" ref="viewable">
-      <VideoPlayer :videoWidth="videoWidth" :closeVideo="closeVideo" :playerVideo="playerVideo" />
+      <VideoPlayer :videoWidth="videoWidth" :closeVideo="closeVideo" :playerVideo="playerVideo" :trackTime="trackTime" />
       <div class="player-card__video-viewer-actions">
         <button class="player-card__video-viewer-close" v-on:click="closeVideo">Close Video</button>
-        <button class="player-card__video-viewer-close" v-on:click="closeVideo">Collapse Video</button>
+        <button class="player-card__video-viewer-close" v-on:click="collapseVideo">Collapse Video</button>
       </div>
     </div>
   </figure>
@@ -21,13 +21,22 @@ export default {
   data() {
     return {
       isMounted: false,
-      videoWidth: null
+      videoWidth: null,
+      currenTime: null
     }
   },
   methods: {
     enter() {
       this.videoWidth = this.$refs.viewable.offsetWidth;
       scrollIt(this.$refs.viewable.offsetParent.offsetParent.offsetParent.offsetTop + this.$refs.viewable.offsetParent.offsetParent.offsetTop + this.$refs.viewable.offsetParent.offsetTop+ this.$refs.viewable.offsetTop + (this.$refs.viewable.offsetHeight/2) - (window.innerHeight/2), 1000, 'easeInOutQuad');
+    },
+    collapseVideo() {
+      this.closeVideo();
+      this.$store.commit('viewOptions/setViewCollapsed');
+      setTimeout(() => this.$emit('collapseVideo', this.currentTime), 500);
+    },
+    trackTime(currentTime){
+      this.currentTime = currentTime;
     }
   },
   watch: {

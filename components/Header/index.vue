@@ -77,29 +77,48 @@ export default {
     display:flex;
     flex-direction:column; 
     max-width:60vh;
-    &--big{
-      margin:2.5vh 0;
-    }
+    // &--big{
+    //   margin:2.5vh 0;
+    // }
     @include non-mobile{
       max-width:100%;
+      
     }
   }
   .subheadline{
     margin:10px 0 5px;
     text-align:center;
     font-family:'Decima';
+    text-transform:uppercase;
 
     @include non-mobile{
       margin:0 0 0.125vw;
       font-size:42px;
     }
+    @include single-column{
+      font-size:5vw;
+      line-height:5vw;
+    }
   }
   .updated{
     color:$highlight1;
     opacity:0;
-    @include mobile{
-      margin-bottom:15px;
+    display:flex;
+    align-items:center;
+    &:before{
+      content:'';
+      display:inline-block;
+      width:16px;
+      height:16px;
+      background:$highlight1;
+      border-radius:100%;
+      margin-right:5px;
+      @include mobile{
+      width:10px;
+      height:10px;
+      }
     }
+    
     &-enter-to{
       opacity:1;
     }

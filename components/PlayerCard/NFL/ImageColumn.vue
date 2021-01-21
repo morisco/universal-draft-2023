@@ -11,7 +11,7 @@
         <div v-if="$mq !== 'mobile'">
           <Stats :player="fullPlayer" />
           <CombineResults :results="player.combineResults" :topHeight="topHeight" v-if="$mq !== 'mobile'" />
-          <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" v-if="playerVideo" />
+          <VideoThumb :playVideo="playVideo" :videoSettings="videoSettings" :playerVideo="playerVideo" :activeCard="activeCard" v-if="playerVideo" v-on:resetVideoSettings="$emit('resetVideoSettings')" />
           <PodcastCardPlayer v-if="player.player_podcast && $mq !== 'mobile'" :playerId="playerId" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
           <RelatedArticles :articles="fullPlayer.player_articles" v-if="fullPlayer.player_articles" />
         </div>
@@ -31,7 +31,7 @@ import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
 import VideoThumb from './VideoThumb'
 import RelatedArticles from './RelatedArticles'
 export default {
-  props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight', 'playVideo', 'setImageColHeight', 'expanded'],
+  props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight', 'playVideo', 'setImageColHeight', 'expanded', 'videoSettings', 'activeCard'],
   components: {CombineResults, DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles},
   data() {
     return {

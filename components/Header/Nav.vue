@@ -17,30 +17,50 @@
   justify-content:space-between;
   align-items:center;
   width:100%;
-  @include non-mobile{
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
+  position:absolute;
+  top:27px;
+  left:34px;
+  right:34px;
+  width:auto;
+  @include single-column{
+    top:25px;
+    left:20px;
+    right:20px;
+  }
+  @include mobile{
+    top:15px;
+    left:10px;
+    right:10px;
   }
   &__logo{
     display: inline-block;
-    max-width: 110px;
-    margin-left: 10px;
-    padding-top: 5px;
+    max-width: 185px;
+    @include single-column{
+      max-width:150px;
+    }
+    @include mobile{
+      max-width:110px;
+    }
     img{
       width:100%;
+      vertical-align:bottom;
     }
   }
   &__links{
     display:flex;
     justify-content:flex-end;
-    margin-right: 10px;
+    // margin-right: 10px;
     a{
       display: inline-block;
       padding: 5px 0;
       color: #fff;
-      margin-left: 15px;
+      margin-left: 20px;
+      @include single-column{
+        margin-left:15px;
+      }
+      @include mobile{
+        margin-left:5px;
+      }
     }
   }
 }

@@ -218,3 +218,40 @@
   font-style: normal;
   // font-display: swap;
 }
+
+@font-face {
+  font-family: 'Druk Wide';
+  src: url('~assets/webfonts/Druk/Druk-WideHeavyItalic.woff2') format('woff2'),
+      url('~assets/webfonts/Druk/Druk-WideHeavyItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Druk Wide Super';
+  src: url('~assets/webfonts/Druk/Druk-WideSuper.woff2') format('woff2'),
+      url('~assets/webfonts/Druk/Druk-WideSuper.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Druk Wide';
+  src: url('~assets/webfonts/Druk/DrukWide-Heavy.woff2') format('woff2'),
+      url('~assets/webfonts/Druk/DrukWide-Heavy.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Druk Wide Super';
+  src: url('~assets/webfonts/Druk/DrukWide-SuperItalic.woff2') format('woff2'),
+      url('~assets/webfonts/Druk/DrukWide-SuperItalic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+

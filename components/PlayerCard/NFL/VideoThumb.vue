@@ -6,7 +6,7 @@
       <img :src="playerVideo.poster.xsmall" :alt="playerVideo.title + ' Poster'" />
       <img src="@/assets/img/icons/Triangle-play.svg" class="player-card__video-thumb-play-button" />
     </button>
-    <VideoPlayer v-if="$mq === 'mobile' && expanded && videoWidth && activeCard" :playerVideo="playerVideo" :triggerPlay="mobilePlay" :videoWidth="videoWidth" :closeVideo="closeVideo" />
+    <VideoPlayer v-if="($mq === 'mobile' && expanded && videoWidth && activeCard) || (activeCard && collapsedVideoSettings)" :playerVideo="videoConfig" :triggerPlay="mobilePlay" :videoWidth="videoWidth" :closeVideo="closeVideo" />
   </div>
 </div>  
 </template>
@@ -17,25 +17,41 @@ export default {
   data() {
     return { 
       mobilePlay: false,
-      videoWidth: false
+      videoWidth: false,
+      collapsedVideoSettings: false
     }
   },
-  props: ['playVideo', 'expanded', 'activeCard', 'playerVideo'],
+  props: ['playVideo', 'expanded', 'activeCard', 'playerVideo', 'videoSettings'],
   components: { VideoPlayer },
+  computed: {
+    videoConfig() {
+      return {...this.playerVideo, ...this.videoSettings} 
+    },
+    viewCollapsed() {
+      return this.$store.getters['viewOptions/viewCollapsed'];
+    }
+  },
   mounted() {
     this.videoWidth = this.$refs.videoThumb.offsetWidth
   },
   methods: {
     triggerVideo() {
+      console.log('trigger');
       if(this.$mq === 'mobile'){
         this.mobilePlay = true;
       } else {
-        this.playVideo();
+        if(this.viewCollapsed){
+          this.mobilePlay = true;
+          this.collapsedVideoSettings = this.playerVideo
+        } else {
+          this.playVideo();
+        }
       }
     },
     closeVideo() {
       this.mobilePlay = false;
-    }
+      this.$emit('resetVideoSettings');
+    },
   },
   watch: {
     expanded() {
@@ -44,8 +60,15 @@ export default {
     activeCard() {
       if(!this.activeCard){
         this.mobilePlay = false;
+        this.collapsedVideoSettings = false;
       }
     },
+    videoSettings() {
+      if(this.videoSettings){
+        this.mobilePlay = true;
+        this.collapsedVideoSettings = this.videoSettings
+      }
+    }
   }
 }
 </script>

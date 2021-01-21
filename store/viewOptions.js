@@ -2,13 +2,14 @@
 const state = () => ({
   viewDepth:    'default',
   viewPosition: 'all',
-
+  viewCollapsed: false
 })
 
 // getters
 const getters = {
   depth:    (state) => state.viewDepth,
-  position: (state) => state.viewPosition
+  position: (state) => state.viewPosition,
+  viewCollapsed: (state) => state.viewCollapsed
 }
 
 // actions
@@ -18,6 +19,9 @@ const actions = {
   },
   setViewPosition ({ commit }, position) {
     commit('setPosition', position)
+  },
+  setViewCollapsed ({ commit }) {
+    commit('setViewCollapsed')
   }
 }
 
@@ -28,6 +32,9 @@ const mutations = {
   },
   setPosition (state, position) {
     state.viewPosition = position
+  },
+  setViewCollapsed (state) {
+    state.viewCollapsed = true;
   }
 }
 

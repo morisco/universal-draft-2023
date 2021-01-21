@@ -30,6 +30,9 @@
         :rankKey="rankKey"
         :playVideo="playVideo"
         :setImageColHeight="setImageColHeight"
+        :videoSettings="videoSettings"
+        :activeCard="activeCard"
+        v-on:resetVideoSettings="resetVideoSettings"
       />
       <InfoColumn 
         :playerId="playerId" 
@@ -50,7 +53,7 @@
         :cardExpanded="cardExpanded"
         v-on:toggle-card="toggleCard"
       />
-    <VideoViewer :displayVideo="displayVideo" :closeVideo="closeVideo" :player="player" :playerVideo="playerVideo" :expanded="expanded" v-if="playerVideo" />
+    <VideoViewer :displayVideo="displayVideo" :closeVideo="closeVideo" :player="player" :playerVideo="playerVideo" :expanded="expanded" v-if="playerVideo" v-on:collapseVideo="collapseVideo" />
   </article>
 </template>
 
@@ -81,7 +84,8 @@ export default {
       displayVideo:         false,
       imageHeight:          false,
       expanding:            false,
-      heightCount:          0
+      heightCount:          0,
+      videoSettings:        null
     }
   },
   created () {
@@ -173,6 +177,11 @@ export default {
         this.expanded = false;
       }
     },
+    activeCard() {
+      if(!this.activeCard){
+        this.resetVideoSettings();
+      }
+    }
   },
   mounted() {
     window.addEventListener('scroll', this.watchScroll);
@@ -182,8 +191,15 @@ export default {
     playVideo() {
       this.displayVideo = true;
     },
+    resetVideoSettings() {
+      this.videoSettings = null;
+    },
     closeVideo() {
       this.displayVideo = false;
+    },
+    collapseVideo(videoTime) {
+      const starTime = videoTime ? videoTime : this.playerVideo.start;
+      this.videoSettings = { start: videoTime }
     },
     setImageColHeight(height) {
       this.imageHeight = height;
@@ -297,9 +313,9 @@ export default {
       opacity:1;
     }
     
-    @include single-column{
-      margin-bottom:15px;
-    }
+    // @include single-column{
+    //   margin-bottom:15px;
+    // }
     @include mobile{
       border:0px;
       margin-bottom:45px;
