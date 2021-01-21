@@ -144,6 +144,7 @@ const mutations = {
     const product = state.all.find(product => product.id === id)
     product.inventory--
   },
+
   cardReady(state, route) {
     state.cardsReady += 1;
     if(['index', 'big_board_player_share'].indexOf(route.name) >=0 && state.cardsReady === 100){
@@ -156,6 +157,7 @@ const mutations = {
       state.allCardsSet = true;
     }
   },
+  
   resetReady(state) {
     state.cardsReady = 0;
   }

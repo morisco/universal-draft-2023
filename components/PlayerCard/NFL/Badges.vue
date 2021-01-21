@@ -52,12 +52,12 @@ export default {
       margin-left:-2px;
       margin-right:-2px;
     }
-    @include non-mobile{
-      .player-card--collapsed & {
-        margin-right:50px;
-        transform:translateX(-50px);
-      }
-    }
+    // @include non-mobile{
+    //   .player-card--collapsed & {
+    //     margin-right:50px;
+    //     transform:translateX(-50px);
+    //   }
+    // }
     @include medium-desktop {
       margin-left:-2px;
       margin-right:-2px;

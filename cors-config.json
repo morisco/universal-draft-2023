@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["http://localhost:3333"],
+    "origin": ["http://localhost:3333", "https://draft-nuxt.ue.r.appspot.com/", "https://nfldraft-theringer-com.uc.r.appspot.com/"],
     "method": ["GET", "OPTIONS"],
     "responseHeader": ["Content-Type", "Content-Encoding", "Access-Control-Allow-Origin"],
     "maxAgeSeconds": 6400

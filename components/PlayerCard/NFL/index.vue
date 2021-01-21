@@ -3,8 +3,9 @@
     'player-card--offense': player.offenseDefense === 'offense', 
     'player-card--defense': player.offenseDefense === 'defense', 
     'player-card--expanded': expanded, 
+    'player-card--expanding': expanding, 
     'player-card--collapsed': collapsed,
-    'player-card--transitioning': transitioning,
+
     'player-card--animated': animateHeight,
     'player-card--loaded': maxHeight > 0,
     'player-card--active': activeCard,
@@ -17,7 +18,7 @@
     } : { zIndex: zIndex }"
   v-on:click="openCard"
   ref="card">
-    <MetaBar :player="player" :rankKey="rankKey" ref="metaBar" v-if="$mq !== 'mobile'" />
+    <MetaBar :player="player" :rankKey="rankKey" ref="metaBar" :collapsed="collapsed" v-if="$mq !== 'mobile'" />
     <div class="player-card__image-info">
       <ImageColumn 
         :playerId="playerId" 
@@ -34,7 +35,7 @@
         :playerId="playerId" 
         :expanded="expanded" 
         :collapsed="collapsed" 
-        :rank="rank"
+        :rankKey="rankKey"
         :setMaxHeight="setMaxHeight"
         :setAnimateHeight="setAnimateHeight"
         :playVideo="playVideo"
@@ -79,6 +80,8 @@ export default {
       activeCard:           false,
       displayVideo:         false,
       imageHeight:          false,
+      expanding:            false,
+      heightCount:          0
     }
   },
   created () {
@@ -122,6 +125,24 @@ export default {
     window.removeEventListener('scroll', this.watchScroll);
   },
   watch: {
+    infoHeight() {
+      this.heightCount++;
+    }, 
+    imageHeight() {
+      this.heightCount++;
+    },
+    heightCount(){
+      if(this.heightCount === 2){
+        this.$store.commit('content/cardReady', this.$route);
+      }
+    },
+    expanded() {
+      const self = this;
+      this.expanding = true;
+      setTimeout(() => {
+        self.expanding = false;
+      }, 1000);
+    }, 
     allCardsSet() {
       if(this.allCardsSet){
         const featuredPlayer = this.$route.params.player_id === this.player.id_string;
@@ -166,16 +187,16 @@ export default {
     },
     setImageColHeight(height) {
       this.imageHeight = height;
-      if(this.infoHeight){
-        this.$store.commit('content/cardReady', this.$route);
-      }
     },
     watchScroll() {
       const cardOffset = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop;
       const cardHeight = this.$refs.card.offsetHeight;
       const scrollTop = window.scrollY;
-      const windowAdjustment = window.innerHeight/4;
-      if(scrollTop > cardOffset - windowAdjustment && scrollTop < cardOffset + cardHeight + windowAdjustment ){
+      const windowAdjustment = this.collapsed ? window.innerHeight/3 : window.innerHeight/4;
+      const isActive = this.collapsed && !this.expanded ? 
+        scrollTop >= cardOffset - ((window.innerHeight/3)) - ((cardHeight/2)) && scrollTop < cardOffset - (window.innerHeight/3) + ((cardHeight/2) * 1.25)
+        : scrollTop > cardOffset - windowAdjustment && scrollTop < cardOffset + cardHeight + windowAdjustment 
+      if(isActive){
         this.activeCard = true;
       } else {
         this.activeCard = false;
@@ -195,7 +216,11 @@ export default {
         let easing = this.expanded ? 'linear' : 'easeOutCubic';
         
         if(this.$mq === 'mobile' && this.expanded){
-          scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop + this.topHeight+ 220 - window.innerHeight - (this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop + this.$refs.card.offsetHeight - currentScroll - window.innerHeight);
+          if(this.collapsed){
+            scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop + 185 - window.innerHeight - (this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop + this.$refs.card.offsetHeight - currentScroll - window.innerHeight);
+          } else {
+            scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop + this.topHeight + 220 - window.innerHeight - (this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop + this.$refs.card.offsetHeight - currentScroll - window.innerHeight);
+          }
           timing = 500;
           easing = 'linear';
           cb();
@@ -218,9 +243,6 @@ export default {
     },
     setInfoHeight (height) {
       this.infoHeight = height;
-      if(this.imageHeight){
-        this.$store.commit('content/cardReady', this.$route);
-      }
     },
     setAnimateHeight() {
       this.animateHeight = true;
@@ -237,7 +259,14 @@ export default {
     },
     setMaxHeight (maxHeight) {
       const heightToUse = this.expanded ? Math.max(this.imageHeight, maxHeight) : maxHeight;
-      this.maxHeight = this.$mq === 'mobile' ? maxHeight + 250 : heightToUse + this.$refs.metaBar.$el.offsetHeight;
+      this.maxHeight = this.collapsed && !this.expanded ?
+        this.$mq === 'mobile' ?
+        185
+        :
+        this.$refs.metaBar.$el.offsetHeight 
+      : this.$mq === 'mobile' ? 
+        maxHeight + 250 
+      : heightToUse + this.$refs.metaBar.$el.offsetHeight;
     },
     openCard () {
       if(!this.expanded){
@@ -262,11 +291,12 @@ export default {
     margin-bottom:45px;
     overflow-x:visible;
     opacity:0;
-    transition:max-height 0.375s ease-in-out, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
+    transition:all 0.25s linear, max-height 0.375s ease-in-out, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
     
     &--all-cards-set{
       opacity:1;
     }
+    
     @include single-column{
       margin-bottom:15px;
     }
@@ -303,7 +333,14 @@ export default {
     }
     .app__content--collapsed & {
       margin-bottom:15px;
+      &.player-card--expanded{
+        margin-bottom:30px;
+      }
+      @include mobile {
+        margin-bottom:20px;
+      }
     }
+    
     &--animated{
       transition:max-height 0.375s ease-in-out, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
       @include mobile{
@@ -311,7 +348,7 @@ export default {
       }
     }
     &--transitioning{
-      transition:max-height 0.5s ease-in-out 0.125s, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
+      transition:max-height 0.5s ease-in-out 0.25s, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
     }
     &-enter{
       max-height:0 !important;

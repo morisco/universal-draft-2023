@@ -24,25 +24,29 @@ export default {
     }
   },
   created() {
-    this.currentLabel = this.getCurrentLabel(this.$route.path)
+    this.currentLabel = this.getCurrentLabel(this.$route.name)
   },
   methods: {
-    getCurrentLabel(path) {
-      switch(path){
-        case '/':
+    getCurrentLabel(name) {
+      switch(name){
+        case 'index':
+        case 'big_board_player_share':
           return 'Big Board by Danny Kelly'
-        case '/mock-draft':
+        case 'mock-draft':
+        case 'mock_draft_player_share':
           return 'Mock Draft'
-        case '/team-needs':
+        case 'team-needs':
+        case 'team_needs_team_share':          
           return 'Team Needs by Rober Mays'
-        case '/draft-results':
+        case 'draft-results':
+        case 'draft_results_player_share':
           return 'Draft Results'
       }
     }
   },
   watch : {
     $route() {
-      const newLabel = this.getCurrentLabel(this.$route.path);
+      const newLabel = this.getCurrentLabel(this.$route.name);
       this.newLabel = newLabel;
       this.transition = true;
       this.transitionTimeout = setTimeout(() => {

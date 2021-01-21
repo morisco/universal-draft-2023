@@ -66,13 +66,21 @@ export default {
         bottom:-25px;
         right:30px;
         left:330px;
-        .player-card--collapsed & {
-          bottom:20px;
-        }
+        // .player-card--collapsed & {
+        //   bottom:20px;
+        // }
         @include mobile{
           left:20px;
+          .player-card--collapsed &,
+          .player-card--expanded & {
+            bottom:-16px;
+            svg{
+              width:32px;
+            }
+          }
         }
       // }
+      
       .info-bubble{
         position:absolute;
         left:calc(100% + 5px);
@@ -98,22 +106,43 @@ export default {
         }
       }
       .player-card--expanded & {
-        // bottom:10px;
         transition:bottom 0.25s linear 0.125s;
-        .mock-draft & {
-          // bottom:27.5px;
+        @include mobile{
+          bottom:-16px;
         }
-        // @include mobile{
-          bottom:-25px;
-          .mock-draft & {
-            bottom:-25px;
-          }
-        // }
       }
       @include non-mobile{
-        .player-card--collapsed &{
-          bottom:35px;
+        .player-card--collapsed:not(.player-card--expanded) & {
+          bottom:50%;
+          left:100%;
+          transform:translate(-50%, 50%);
           transition:bottom 0.5s linear 0.125s;
+          right:auto;
+          svg circle{
+            fill:#D4D6D9;
+          }
+          &-span{
+            display:none;
+          }
+        }
+        
+      }
+      .player-card--collapsed.player-card--expanding & {
+        opacity:0;
+        transition:opacity 0.25s linear;
+      }
+      .player-card--collapsed.player-card--expanded:not(.player-card--expanding) & {
+        opacity:1;
+        transition:opacity 0.25s linear;
+      }
+      @include mobile {
+        .player-card--collapsed & {
+          left:100%;
+          right:auto;
+          transform:translateX(-100%);
+          &-span{
+            display:none;
+          }
         }
       }
       .player-card--transitioning & {
@@ -209,6 +238,11 @@ export default {
           display:block;
           @include mobile-expand-label;
         // }
+        @include mobile{
+          .player-card--expanded &{
+            margin-top:17px;
+          }
+        }
       }
       &-span{
        
@@ -235,6 +269,16 @@ export default {
           transition:all 0.25s ease-in-out;
         }
       }
+    }
+  }
+     
+  @keyframes toggleTransition {
+    0% {
+      opacity: 1; 
+    } 20%, 80% {
+      opacity: 0; 
+    } 100% {
+      opacity: 1; 
     }
   }
 </style>

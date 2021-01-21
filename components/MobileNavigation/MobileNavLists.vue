@@ -31,8 +31,8 @@ export default {
       return this.$store.getters['page/settings']
     },
     iconTop() {
-      const menuOrder = ['/', '/mock-draft', '/team-needs', '/draft-results'];
-      const activeIndex = menuOrder.indexOf(this.$route.path);
+      const menuOrder = [['index', 'big_board_player_share'], ['mock-draft', 'mock_draft_player_share'], ['team-needs', 'team_needs_team_share'], ['draft-results', 'draft_results_player_share']];
+      const activeIndex = menuOrder.findIndex((item) => item.indexOf(this.$route.name) >= 0);
       return 55 * activeIndex;
     }
   },

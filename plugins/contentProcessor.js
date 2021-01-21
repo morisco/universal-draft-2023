@@ -92,6 +92,7 @@ export function parseStats(stats) {
 export function processTeams(teams, teamPlayers) {
   let processedTeams = {};
   let teamIds = [];
+  let resultsIds = [];
   teams.sort((teamA, teamB) => parseInt(teamA.order,10) > parseInt(teamB.order,10) ? 1 : -1);
   teams.forEach((team) => {
     team = decodeContent(team);
@@ -103,7 +104,10 @@ export function processTeams(teams, teamPlayers) {
       return teamPlayers[id_string]
     });
     processedTeams[team.id] = team;
-
+  });
+  teams.sort((teamA, teamB) => parseInt(teamA.order_results,10) > parseInt(teamB.order_results,10) ? 1 : -1);
+  teams.forEach((team) => {
+    resultsIds.push(team.id);
   });
   const teamNameLogo = teams.map((team) => {
     return {teamName: team.title, logo: team.image}
@@ -111,6 +115,7 @@ export function processTeams(teams, teamPlayers) {
   return {
     teamData: processedTeams,
     teamNeeds: teamIds,
+    draftResults: resultsIds,
     teamNameLogo: [...teamNameLogo, ...teamNameLogo]
   }
 }

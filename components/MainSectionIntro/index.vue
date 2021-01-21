@@ -20,28 +20,28 @@ export default {
             headline: '<strong>Big Board</strong> By Danny Kelly',
             content: this.$store.getters['page/settings'].big_board_intro,
             link: '/mock-draft',
-            linkText: 'See the Mock Draft instead'
+            linkText: this.$store.getters['page/settings'].big_board_link,
           }
         case 'mock_draft':
           return {
             headline: '<strong>Mock Draft</strong>',
-            content: this.$store.getters['page/settings'].big_board_intro,
+            content: this.$store.getters['page/settings'].mock_draft_intro,
             link: '/',
-            linkText: 'See the Big Board by Danny Kelly instead'
+            linkText: this.$store.getters['page/settings'].mock_draft_link,
           }
         case 'team_needs':
           return {
             headline: '<strong>Team Needs</strong>',
-            content: this.$store.getters['page/settings'].big_board_intro,
-            link: '/',
-            linkText: 'See the Big Board by Danny Kelly instead'
+            content: this.$store.getters['page/settings'].team_needs_intro,
+            link: '/mock-draft',
+            linkText: this.$store.getters['page/settings'].team_needs_link,
           }
         case 'draft_results':
           return {
             headline: '<strong>Draft Results</strong>',
-            content: this.$store.getters['page/settings'].big_board_intro,
-            link: '/',
-            linkText: 'See the Mock Draft instead'
+            content: this.$store.getters['page/settings'].draft_results_intro,
+            link: '/mock-draft',
+            linkText: this.$store.getters['page/settings'].draft_results_link,
           }
         default:
           return {

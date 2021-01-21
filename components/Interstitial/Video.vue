@@ -58,9 +58,9 @@ export default {
     &.player-card{
       opacity:1;
       flex-direction:row;
-    }
-    @include mobile {
-      flex-direction:column-reverse;
+      @include mobile {
+        flex-direction:column-reverse;
+      }
     }
 
     &__content{

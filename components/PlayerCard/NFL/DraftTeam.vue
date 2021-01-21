@@ -55,9 +55,9 @@ export default {
     @include mobile{
       max-width:80px;
       max-height:80px;
-      top:0 !important;
+      top:150px !important;
       left:auto;
-      right:-30px;
+      right:30px;
       transform:none;
     }
     &--animated{
@@ -98,13 +98,13 @@ export default {
       pointer-events:none;
     }
 
-    .player-card--collapsed & {
-      max-width:40px;
-      max-height:40px;
-      top:100% !important;
-      left:10px;
-      transform:translateY(calc(-100% - 10px));
-    }
+    // .player-card--collapsed & {
+    //   max-width:40px;
+    //   max-height:40px;
+    //   top:100% !important;
+    //   left:10px;
+    //   transform:translateY(calc(-100% - 10px));
+    // }
     .player-card--collapsed & {
       transition: all 0.375s linear 0.125s, opacity 0.375s linear 0s, background-color 0.25s linear 0s;
     }

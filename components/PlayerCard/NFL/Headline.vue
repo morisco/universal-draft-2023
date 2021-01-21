@@ -17,7 +17,7 @@ export default {
   .player-card{
     &__headline-selling{
       // padding-right:40px;
-      margin:0 0 0;
+      margin:0  0;
       max-width:800px;
       @include mobile{
         margin:0;
@@ -25,13 +25,13 @@ export default {
         background:$lightgray;
         border-radius: 0 0 0.625rem 0.625rem;
         // padding-right:0;
-        .player-card--collapsed & { 
-          display:none;
-          margin: 15px 15px 30px;
-        }
-        .player-card--expanded & {
-          display:block;
-        }
+        // .player-card--collapsed & { 
+        //   display:none;
+        //   // margin: 15px 15px 30px;
+        // }
+        // .player-card--expanded & {
+        //   display:block;
+        // }
       }
     }
     &__headline{

@@ -3,6 +3,7 @@
   <div class="player-card__meta-bar-rank" v-if="rank">
     <span>{{rank}}</span>
   </div>
+  <DraftTeam v-if="['mock-draft', 'draft-results'].indexOf($route.name) >= 0 && teamNameLogo && collapsed" :teamNameLogo="teamNameLogo" />
   <div class="player-card__meta-bar-name-school player-card__image-column">
     <h3>
       <span>{{playerMeta.firstName}}</span>
@@ -47,12 +48,17 @@
 </template>
 
 <script>
+import DraftTeam from './DraftTeam'
 export default {
   name: 'MetaBar',
-  props: ['player', 'rankKey'],
+  components: {DraftTeam},
+  props: ['player', 'rankKey', 'collapsed'],
   computed: {
     rank() {
       return this.rankKey ? this.player[this.rankKey] + 1 : null;
+    },
+    teamNameLogo () {
+      return this.$store.getters['content/teamNameLogo'](this.player[this.rankKey]);
     },
     playerMeta() {
       let playerData = this.player
@@ -84,7 +90,39 @@ export default {
       font-family: 'Decima';
       display: flex;
       text-transform:uppercase;
-      transition:all 0.25s linear 0.5s;
+      transition:all 0.25s linear 0.5s, border-radius 0.25s linear 0s;
+      .draft-team{
+        box-shadow:none;
+        right:20px;
+        top:50%;
+        left:auto;
+        width:80px;
+        height:80px;
+        transform:translateY(-50%);
+        opacity: 1;
+        background: transparent !important;
+        transition:opacity 0.25s linear 0.5s;
+        .player-card--expanded &{
+            opacity:0;
+            transition:opacity 0.25s linear;
+          }
+        @include mobile{
+          transform: translate(0);
+          right:auto;
+          top: 46px !important;
+          left:10px;
+          width: 26px;
+          height: 26px;
+          background: $mediumgray !important;
+        }
+      }
+      .player-card--collapsed & {
+        border-radius:0.625rem;
+        border-bottom-color: transparent;
+      }
+      .player-card--expanded & {
+        border-radius:0.625rem 0.625rem 0 0;
+      }
       @include non-mobile{
         .player-card:hover &,
         .player-card--expanded & {
@@ -128,23 +166,54 @@ export default {
         display:flex;
         justify-content:center;
         align-items:center;
+        opacity:1;
+        
         @include card-rank;
+        @include mobile {
+          opacity:0;
+          left:10px;
+          top:18px;
+          transform:translateY(0);
+          z-index:5;
+          font-size:14px;
+          height:26px;
+          width:26px;
+          background-color:$darkgray;
+          transition:opacity 0.25s linear 0.5s;
+          .player-card--collapsed & {
+            opacity:1;
+          }
+          .player-card--expanded & {
+            opacity:0;
+            transition:opacity 0.25s linear;
+          }
+        }
         span{
           color:$white;
         }
       }
       &-name-school{
-        padding:0 0 0 40px;
-        @include mobile{
-          background-color:$mediumgray;
-          color:$black;
-          transition:all 0.5s linear 0s;
-          border-radius:0.625rem 0.625rem 0 0;
-          padding:15px 20px;
-          min-height:0;
-          .player-card--active &{
-            color:$white;
-            background-color:$darkgray;
+        &.player-card__image-column{
+          padding:0 0 0 40px;
+          @include mobile{
+            max-height:100% !important;
+            background-color:$mediumgray;
+            color:$black;
+            transition:all 0.5s linear 0s;
+            border-radius:0.625rem 0.625rem 0 0;
+            padding:15px 0 15px 15px;
+            .player-card--collapsed & {
+              padding:15px 0 15px 40px;
+            }
+            min-height:0;
+            .player-card--active &{
+              color:$white;
+              background-color:$darkgray;
+            }
+            .player-card--expanded & {
+              padding: 15px 0 15px 20px;
+              transition:all 0.5s linear 0s, padding 0.25s linear 0.25s;
+            }
           }
         }
   
@@ -174,6 +243,9 @@ export default {
             width:100%;
             height:1px;
             background:$darkmediumgray;
+            .player-card--collapsed & {
+              display:none;
+            }
           }
         }
         &-column{

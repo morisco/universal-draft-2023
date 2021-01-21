@@ -51,18 +51,18 @@ export default {
       margin-left:-2px;
       margin-right:-2px;
     }
-    @include non-mobile{
-      .player-card--collapsed & {
-        margin-right:50px;
-        transform:translateX(-50px);
-      }
-    }
+    // @include non-mobile{
+    //   .player-card--collapsed & {
+    //     margin-right:50px;
+    //     transform:translateX(-50px);
+    //   }
+    // }
     @include mobile {
       justify-content:flex-start;
       margin-top:-0.625rem;
       background:$lightgray;
       margin-right:0;
-      padding:0 20px 10px;
+      padding:0 15px 10px;
       margin-left:0;
       max-width:100%;
       width:100%;

@@ -1,19 +1,18 @@
 <template>
   <div class="draft-info">
     <span class="draft-info__name">{{teamNameLogo.teamName}}</span>
-    <div class="draft-info__content">
-    There’s still a possibility that the Timberwolves trade down with the Hornets, who would likely take James Wiseman with the first pick. If they did, the Wolves could still possibly select Edwards third. Regardless, Edwards is the top prospect who makes the most sense in Minnesota, as he’s the best positional fit next to D’Angelo Russell and Karl-Anthony Towns.
+    <div class="draft-info__content" v-html="infoText || 'PLACEHOLDER There’s still a possibility that the Timberwolves trade down with the Hornets, who would likely take James Wiseman with the first pick. If they did, the Wolves could still possibly select Edwards third. Regardless, Edwards is the top prospect who makes the most sense in Minnesota, as he’s the best positional fit next to D’Angelo Russell and Karl-Anthony Towns.'">
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['teamNameLogo'],
+  props: ['teamNameLogo', 'infoText'],
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .draft-info{
     // position:absolute;
     // border:1px solid $darkmediumgray;
@@ -27,37 +26,35 @@ export default {
     // visibility:hidden;
     
     @include mobile{
-      display:none;
+      background:$lightgray;
+      padding:15px 20px 30px;
+      .player-card--expanded{
+        padding:15px 20px 20px;
+      }
     }
     &__name{
       font-weight:500;
       text-transform:uppercase;
       margin-bottom:12px;
       display:block;
-      font-size:18px;
-      font-family: 'Decima';
-      line-height:13px;
-
-      @include tablet-landscape-and-below{
-        font-size:12px;
-      }
+      @include expanded-label;
     }
     &__content{
       @include player-card-body;
       margin-bottom:0;
-      @include tablet-landscape-and-below{
-        font-size:10px;
+      p{
+        @include player-card-body;
       }
     }
 
-    .player-card--collapsed & {
-      opacity:0;
-      transition: opacity 0.375s linear 0s;
-    }
-    .player-card--transitioning & {
-      opacity:1;
-      // transition: opacity 0.125s linear 0s;
-    }
+    // .player-card--collapsed & {
+    //   opacity:0;
+    //   transition: opacity 0.375s linear 0s;
+    // }
+    // .player-card--transitioning & {
+    //   opacity:1;
+    //   // transition: opacity 0.125s linear 0s;
+    // }
 
     .player-card--expanded & {
       // visibility:visible;

@@ -9,22 +9,26 @@
     v-bind:style="[maxHeight] ? {maxHeight: maxHeight + 'px'}: []"
   >
     <div class="player-card__top-data" ref="topData">
-      <template v-if="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) >= 0">
-        <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo" />
+      <MetaBar :player="player" :rankKey="rankKey" :collapsed="collapsed" ref="metaBar" v-if="$mq === 'mobile'" />
+      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-results', 'draft_results_player_share'].indexOf($route.name) >= 0">
+        <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo" :infoText="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) >= 0 ? player.mock_insight : player.results_insight" />
       </template>
-      <template v-if="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) === -1">
-        <MetaBar :player="player" :rankKey="null" ref="metaBar" v-if="$mq === 'mobile'" />
-        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile' && !this.collapsed" />
+      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-results', 'draft_results_player_share'].indexOf($route.name) === -1">
+        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile'" />
         <Badges :player="player" v-if="player.badges.length > 0" />
-        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile' && !this.collapsed" />
+        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile'" />
       </template>
 
     </div>
     <div class="player-card__bottom-data" ref="bottomData">
+      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-results', 'draft_results_player_share'].indexOf($route.name) >= 0">
+        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile'"  />
+        <Badges :player="player" v-if="player.badges.length > 0" />
+        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile'" />
+      </template>
       <Stats :player="player" v-if="$mq === 'mobile'" />
       <CombineResults :results="player.combine_results" :topHeight="topHeight" v-if="$mq === 'mobile'" />
-      <MetaList :playerMeta="player.player_meta" v-if="$mq === 'mobile' && this.collapsed " />
-      <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" />
+      <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
       <ExpandedMeta :player="player" />
 
       <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile'">
@@ -49,7 +53,7 @@ import VideoThumb from './VideoThumb'
 import RelatedArticles from './RelatedArticles'
 import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
 export default {
-  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rank', 'playVideo', 'activeCard'],
+  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
   components: { BasicMeta, Stats, MetaList, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles },
   data () {
     return {
@@ -78,7 +82,7 @@ export default {
       return this.player.player_video && this.player.player_video.video_id ? this.player.player_video : false
     },
     teamNameLogo () {
-      return this.$store.getters['content/teamNameLogo'](this.rank);
+      return this.$store.getters['content/teamNameLogo'](this.player[this.rankKey]);
     },
     viewDepth () {
       return this.$store.getters['viewOptions/depth'];
@@ -113,7 +117,9 @@ export default {
       this.setHeights();
     },
     collapsed(newCollapsed) {
-      this.topHeight = this.$refs.topData.offsetHeight
+      let interiorHeight = this.$mq === 'mobile' ? 0 : 60;
+      this.$refs.topData.children.forEach((child) => interiorHeight += child.offsetHeight);
+      this.topHeight = Math.max(255, interiorHeight);
       this.setHeights();
     },
     expanded(newExpanded) {
@@ -158,9 +164,10 @@ export default {
         width:100%;
         max-width:100%;
         background:white;
-        padding-bottom:30px;
+        // padding-bottom:30px;
         .player-card--collapsed &{
-          padding-bottom:15px;
+          // padding-bottom:15px;
+          border-radius:0.625rem;
           .player-card--expanded & {
             padding-bottom:0;
           }
@@ -189,15 +196,18 @@ export default {
     &__top-data{
       display:flex;
       flex-direction:column;
-      padding:30px;
+      justify-content:center;
+      padding:30px 30px 45px;
       min-height:255px;
-      .player-card--collapsed & {
-        min-height:0;
-      }
+      // .player-card--collapsed & {
+      //   min-height:0;
+      // }
       @include mobile {
         padding:0;
         flex-direction:column;
         border-radius: 0 0 0.625rem 0.625rem;
+        min-height:0;
+        overflow:hidden;
       }
     }
     &__meta-stats{
@@ -209,15 +219,32 @@ export default {
       }
     }
     &__bottom-data{
+      overflow-x:hidden;
+      @include non-mobile{
+        padding:0 30px;
+      }
       > *{
         opacity:0;
         transition:opacity 0.25s linear 0s;
+      }
+      .player-card--expanded & {
+        margin-top:0;
+        > *{
+          opacity:1;
+          transition:opacity 0.25s linear 0.5s;
+        }
       }
       @include mobile{
         background:$lightgray;
         padding-bottom:20px;
         border-radius:0 0 0.625rem 0.625rem;
-        margin-top:0.75rem;
+        .player-card--expanded & {
+          margin-top:-0.625rem;
+        }
+        padding-top:0.625rem;
+        .mock-draft & {
+          padding-top:0;
+        }
         &-extended{
           padding:0 20px;
           &:before{
@@ -228,13 +255,6 @@ export default {
             background:$darkmediumgray;
             margin-bottom:20px;
           }
-        }
-      }
-      .player-card--expanded & {
-        margin-top:0;
-        > *{
-          opacity:1;
-          transition:opacity 0.25s linear 0.5s;
         }
       }
     }

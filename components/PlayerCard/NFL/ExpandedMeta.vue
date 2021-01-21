@@ -26,7 +26,7 @@ export default {
       position:relative;
       display:flex;
       flex-direction:column;
-      margin: 0 30px;
+      margin: 0;
       padding:20px 0 30px;
       @include mobile {
         transition:opacity 1s linear 0s;

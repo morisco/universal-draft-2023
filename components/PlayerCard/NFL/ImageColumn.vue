@@ -1,5 +1,5 @@
 <template>
-  <div class="player-card__image-column"  :style="{'maxHeight': maxHeight + 'px'}">
+  <div class="player-card__image-column"  :style="{'maxHeight': collapsed && !expanded ? 0 : maxHeight + 'px', 'minHeight' : maxHeight || collapsed ? 0 : null}">
     <div class="player-card__image-column-inner" ref="imageColumn"> 
       <div class="player-card__image-column-img-wrapper" :style="{'maxHeight': topHeight + 'px'}"> 
         <img :src="player.image" :alt="player.imageAlt" />
@@ -93,12 +93,14 @@ export default {
       width:300px;
       min-width:300px;
       flex:0 0 auto;
-      transition:max-width 0.625s ease-in-out 0s;
+      transition:opacity 0.25s linear 0.25s, max-width 0.625s ease-in-out 0s, max-height 0.25s ease-in-out 0.25s, min-height 0.5s linear 0s;
       z-index:2;
+      opacity:1;
      
       // @include tablet-portrait-only{
       //   max-width:17.5%;
       // }
+      
       @include mobile {
         padding-top:0;
         width:100%;
@@ -106,9 +108,19 @@ export default {
         min-height:250px;
         background:white;
       }
-      .player-card--collapsed & {
-        transition:max-width 0.25s ease-in-out 0s;
+
+      .player-card--transitioning &,
+      .player-card--collapsed:not(.player-card--expanded) & {
+        // transition:opacity 0.25s linear;
+        @include mobile {
+          min-height:0;
+          overflow:hidden;
+          transition:all 0s linear;
+        }
       }
+      // .player-card--collapsed & {
+      //   transition:max-width 0.25s ease-in-out 0s;
+      // }
       &-content{
         // display:none;
         // .player-card--expanded & {
@@ -117,7 +129,9 @@ export default {
         position:relative;
         
         @include mobile{
-          top: 150px !important;
+          position:absolute;
+          width:100%;
+          top: 0 !important;
           transform:translateY(-100%);
         }
       }
@@ -139,6 +153,9 @@ export default {
         }
         .player-card--expanded & {
           padding-bottom:30px;
+          @include mobile{
+            padding:0;
+          }
         }
         .player-x-o{
           margin: 0 auto;
@@ -146,9 +163,9 @@ export default {
           right: auto;
           width: auto;
           height: 100%;
-          top: 30px;
+          top: 50%;
           left: 50%;
-          transform: translate(-50%,0);
+          transform: translate(-50%,-50%);
           max-height:220px;
           opacity:1;
           @include mobile {
@@ -168,9 +185,9 @@ export default {
         // }
       }
       @include non-mobile{
-        .player-card--collapsed &{
-          max-width: 15.5%;
-        }
+        // .player-card--collapsed &{
+        //   max-width: 15.5%;
+        // }
         .player-card--expanded & {
           max-width: calc(100% - 800px);
         }
@@ -236,10 +253,10 @@ export default {
         margin-top:5px;
       }
       @include non-mobile{
-        .player-card--collapsed & {
-          top:35px;
-          transition:top 0.5s linear 0.125s;
-        }
+        // .player-card--collapsed & {
+        //   top:35px;
+        //   transition:top 0.5s linear 0.125s;
+        // }
       }
       @include mobile{
         top:5px;
