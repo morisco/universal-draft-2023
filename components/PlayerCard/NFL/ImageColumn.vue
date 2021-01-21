@@ -13,7 +13,7 @@
           <CombineResults :results="player.combineResults" :topHeight="topHeight" v-if="$mq !== 'mobile'" />
           <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" v-if="playerVideo" />
           <PodcastCardPlayer v-if="player.player_podcast && $mq !== 'mobile'" :playerId="playerId" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
-          <RelatedArticles />
+          <RelatedArticles :articles="fullPlayer.player_articles" v-if="fullPlayer.player_articles" />
         </div>
       </div>
     </div>

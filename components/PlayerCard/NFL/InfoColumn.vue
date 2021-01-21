@@ -31,10 +31,10 @@
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
       <ExpandedMeta :player="player" />
 
-      <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile'">
+      <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile' && (playerVideo || player.player_podcast || player.player_articles)">
         <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" :expanded="expanded" :activeCard="activeCard" v-if="playerVideo" />
         <PodcastCardPlayer v-if="player.player_podcast" :playerId="player.id" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
-        <RelatedArticles />
+        <RelatedArticles :articles="player.player_articles" v-if="player.player_articles" />
       </div>
     </div>
   </div>
