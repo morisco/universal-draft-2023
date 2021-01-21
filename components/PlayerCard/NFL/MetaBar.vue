@@ -4,6 +4,7 @@
     <span>{{rank}}</span>
   </div>
   <DraftTeam v-if="['mock-draft', 'draft-results'].indexOf($route.name) >= 0 && teamNameLogo && collapsed" :teamNameLogo="teamNameLogo" />
+  <Trend v-if="player.player_updates" :trend="player.player_updates.rank_movement" />
   <div class="player-card__meta-bar-name-school player-card__image-column">
     <h3>
       <span>{{playerMeta.firstName}}</span>
@@ -49,9 +50,11 @@
 
 <script>
 import DraftTeam from './DraftTeam'
+import Trend from './Trend'
+
 export default {
   name: 'MetaBar',
-  components: {DraftTeam},
+  components: {DraftTeam, Trend},
   props: ['player', 'rankKey', 'collapsed'],
   computed: {
     rank() {

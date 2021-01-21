@@ -194,6 +194,8 @@ export default {
       flex:1;
     }
     &__top-data{
+      position:relative;
+      z-index:0;
       display:flex;
       flex-direction:column;
       justify-content:center;
@@ -219,10 +221,10 @@ export default {
       }
     }
     &__bottom-data{
+      position:relative;
+      z-index:1;
       overflow-x:hidden;
-      @include non-mobile{
-        padding:0 30px;
-      }
+      
       > *{
         opacity:0;
         transition:opacity 0.25s linear 0s;
@@ -234,17 +236,21 @@ export default {
           transition:opacity 0.25s linear 0.5s;
         }
       }
+      @include non-mobile{
+        padding:0 30px;
+      }
       @include mobile{
         background:$lightgray;
+        padding-top:35px;
         padding-bottom:20px;
         border-radius:0 0 0.625rem 0.625rem;
         .player-card--expanded & {
-          margin-top:-0.625rem;
+          margin-top:-35px;
         }
-        padding-top:0.625rem;
-        .mock-draft & {
-          padding-top:0;
-        }
+        // padding-top:0.625rem;
+        // .mock-draft & {
+        //   padding-top:0;
+        // }
         &-extended{
           padding:0 20px;
           &:before{
