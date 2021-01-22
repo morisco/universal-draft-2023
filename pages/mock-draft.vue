@@ -27,6 +27,7 @@ import PlayerCard from '~/components/PlayerCard'
 import MainSectionIntro from '~/components/MainSectionIntro'
 import Interstitial from '~/components/Interstitial';
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
+import headeBuilder from '~/plugins/headBuilder';
 export default {
   name: 'MockDraft',
   transition: {
@@ -83,19 +84,7 @@ export default {
     return asyncDataProcessor({$axios, store, route});
   },
   head()  {
-    const metaDescription = this.sharedPlayer ? 'See where ' + this.sharedPlayer.first_name.trim() + ' ' + this.sharedPlayer.last_name.trim() + ' ranks on our Big Board' : this.configuration.facebook_page_share_description;
-    return {
-      meta: [{
-        hid: 'og:title',
-        name: 'og:title',
-        content: this.configuration.facebook_page_share_title + 'Mock'
-      },
-      {
-        hid: 'og:description',
-        name: 'og:description',
-        content: metaDescription
-      }]
-    }
+    return headeBuilder(this);
   }
 }
 </script>

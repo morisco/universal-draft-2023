@@ -146,7 +146,7 @@ export default {
     })
   },
   created () {
-    window.addEventListener('scroll', this.handleScroll, {passive: true});
+    window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('resize', this.handleScroll);
   },
   mounted () {
