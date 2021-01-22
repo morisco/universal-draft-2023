@@ -229,7 +229,7 @@ export default {
         display:block;
         margin:3.75px 0 0;
         text-align:center;
-        @include meta-list-label;
+        @include selling-point;
         line-height:1;
         color:$black;
         transition:color 0.25s ease-in-out;

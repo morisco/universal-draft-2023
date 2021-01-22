@@ -235,7 +235,7 @@ export default {
       }
     }
     &__rank{
-      @include rank;
+      @include card-rank;
       position:absolute;
       background:$black;
       color:$white;

@@ -253,9 +253,12 @@ export default {
     color:$mediumgray;
   }
   &__button-updated{
-    @include navigation-link-updated;
+    @include filter-section-title;
     color:$mediumgray;
     min-height:13px;
+    @include single-column{
+      font-size:12px;
+    }
   }
   &__ghost{
     height:65px;

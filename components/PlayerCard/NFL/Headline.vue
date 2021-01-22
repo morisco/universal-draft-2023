@@ -47,12 +47,12 @@ export default {
       }
     }
     &__selling-point{
-      @include meta-list-value;
+      @include selling-point;
       @include mobile {
         padding-right:10px;
       }
       strong{
-        @include meta-list-label;
+        @include selling-point-strong;
       }
     }
   }

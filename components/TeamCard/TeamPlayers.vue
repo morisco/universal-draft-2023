@@ -97,14 +97,14 @@ export default {
         margin-left:10px;
       }
       &-title{
-        @include team-player-name;
+        @include updated-text;
         margin-bottom:2px;
         padding-right:10px;
         color:$black;
         transition:color 0.25s linear;
       }
       &-school-position{
-        @include team-player-meta;
+        @include player-card-body;
         span{
           display:block;
         }

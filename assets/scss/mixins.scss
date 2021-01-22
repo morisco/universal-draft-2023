@@ -11,18 +11,6 @@
   }
 }
 
-@mixin combine-title {
-  font-family: TTLakes;
-  font-size:18px;
-  letter-spacing:0.01em;
-  font-weight:600;
-}
-
-@mixin combine-value {
-  font-size:13px;
-  line-height:120%;
-}
-
 @mixin inter-title{
   font-family: 'Druk Wide';
   font-style:italic;
@@ -54,10 +42,6 @@
     font-size: 11px;
     line-height: .8;
   }
-  @include non-mobile{
-    // letter-spacing: .15em;
-
-  }
 }
 
 @mixin demibold-title{
@@ -65,25 +49,6 @@
   font-weight: normal;
   font-size: 22px;
   line-height:18px;
-  letter-spacing: 0;
-  text-transform: none;
-  @include single-column{
-    font-size:12px;
-  }
-}
-
-@mixin player-position {
-  font-family: TTLakes;
-  font-size: 18px;
-  line-height: 100%;
-  font-weight:600;
-}
-
-@mixin navigation-link-updated{
-  font-family: 'Decima';
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 13px;
   letter-spacing: 0;
   text-transform: none;
   @include single-column{
@@ -100,6 +65,13 @@
   line-height: 13px;
 }
 
+@mixin filter-option{
+  font-weight:normal;
+  font-size:16px;
+  line-height:100%;
+  letter-spacing:0;
+}
+
 @mixin mobile-nav-label{
   font-family: 'Decima';
   text-transform: uppercase;
@@ -107,13 +79,6 @@
   line-height: 1.15;
   font-weight:normal;
   letter-spacing:.1em;
-}
-
-@mixin filter-option{
-  font-weight:normal;
-  font-size:16px;
-  line-height:100%;
-  letter-spacing:0;
 }
 
 @mixin stat-title{
@@ -128,20 +93,16 @@
   font-size: 30px;
   line-height: .77;
   font-weight:300;
-  // @include medium-desktop {
-  //   font-size:18px;
-  //   letter-spacing:-1px;
-  // }
 }
 
-@mixin meta-list-label{
+@mixin selling-point{
   font-weight:600;
   font-size:12.5px;
   line-height: 125%;
   letter-spacing: .1em;
 }
 
-@mixin meta-list-value{
+@mixin selling-point-strong{
   font-weight:normal;
   font-size:16px;
   line-height: 100%;
@@ -184,44 +145,10 @@
   letter-spacing: .05em;
 }
 
-@mixin expanded-value{
-  line-height:1.4;
-  font-size:16px;
-  margin-bottom:15px;
-}
-
 @mixin tooltip {
   line-height: 1;
   font-weight:500;
   font-size:13px;
-}
-
-@mixin rank {
-  font-family: TTLakes, Arial, sans-serif;
-  line-height: 1;
-  font-size: 23px;
-  font-weight:600;
-}
-
-@mixin team-player-name {
-  font-family: TTLakes, Arial, sans-serif;
-  line-height: .9;
-  font-size: 22px;
-  font-weight:600;
-  text-transform:uppercase;
-  @include tablet-portrait-only{
-    font-size:16px;
-    line-height:1;
-  }
-}
-@mixin team-player-meta{
-  font-family: TTLakes, Arial, sans-serif;
-  font-size:14px;
-  line-height:1.2;
-  font-weight:300;
-  @include tablet-portrait-only{
-    font-size:11px;
-  }
 }
 
 @mixin player-card-body{
@@ -256,7 +183,6 @@
     @content;
   }
 }
-
 
 @mixin mobile{
   @media (max-width: #{$mobile-width}) {

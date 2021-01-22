@@ -41,20 +41,17 @@
 </template>
 
 <script>
-import BasicMeta from './BasicMeta';
 import Stats from './Stats';
 import Badges from './Badges';
-import MetaList from './MetaList';
 import Headline from './Headline';
 import ExpandedMeta from './ExpandedMeta';
 import MetaBar from './MetaBar';
-import DraftInfo from './DraftInfo';
 import VideoThumb from './VideoThumb'
 import RelatedArticles from './RelatedArticles'
 import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
 export default {
   props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
-  components: { BasicMeta, Stats, MetaList, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles },
+  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles },
   data () {
     return {
       mounted: false,
