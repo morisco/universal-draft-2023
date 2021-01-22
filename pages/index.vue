@@ -47,7 +47,7 @@ export default {
   created() {
     if(process.client){
       this.scrollDelay = setTimeout(() => {
-        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('scroll', this.handleScroll, {passive: true});
       }, 1000);
     }
   },

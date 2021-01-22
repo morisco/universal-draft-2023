@@ -184,7 +184,7 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('scroll', this.watchScroll);
+    window.addEventListener('scroll', this.watchScroll, {passive: true});
     this.watchScroll();
   },
   methods: {

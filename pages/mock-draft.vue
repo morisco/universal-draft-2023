@@ -43,7 +43,7 @@ export default {
   },
   created() {
     if(process.client){
-      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('scroll', this.handleScroll, {passive: true});
     }
   },
   destroyed() {
