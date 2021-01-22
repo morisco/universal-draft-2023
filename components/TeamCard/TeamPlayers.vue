@@ -105,6 +105,8 @@ export default {
       }
       &-school-position{
         @include player-card-body;
+        line-height:100%;
+        margin-bottom:0;
         span{
           display:block;
         }
