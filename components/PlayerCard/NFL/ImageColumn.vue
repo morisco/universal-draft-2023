@@ -263,6 +263,13 @@ export default {
         left:50%;
         margin-left:-120px;
         right:auto;
+        .player-card--collapsed & {
+          opacity:0;
+        }
+        .player-card--collapsed.player-card--expanded & {
+          opacity:1;
+          transition:opacity 0.25s linear 0.75s;
+        }
         span{
           margin-top:3px;
         }
