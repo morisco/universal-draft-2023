@@ -72,6 +72,9 @@ export default {
   &__slug{
     @include card-rank;
     color:$highlight2;
+    @include mobile {
+      font-size:20px;
+    }
   }
   &__headline{
     @include inter-title;
