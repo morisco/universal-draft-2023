@@ -223,7 +223,7 @@ export default {
         border-top:0;
       }
     }
-    @include mobile{
+    @include single-column{
       position:fixed;
       opacity:1;
       top:auto;

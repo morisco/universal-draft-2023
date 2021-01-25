@@ -18,11 +18,13 @@
         />
       </template>
     </transition-group>
+    <RelatedArticles :articles="relatedArticles" v-if="showAll" />
   </section>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import RelatedArticles from '~/components/RelatedArticles'
 import PlayerCard from '~/components/PlayerCard'
 import MainSectionIntro from '~/components/MainSectionIntro'
 import Interstitial from '~/components/Interstitial';
@@ -35,7 +37,7 @@ export default {
     mode:"out-in",
   },
   scrollToTop: false,
-  components: { MainSectionIntro, PlayerCard, Interstitial },
+  components: { MainSectionIntro, PlayerCard, RelatedArticles, Interstitial },
   data() {
     return {
       initTimeout: null,
@@ -64,6 +66,9 @@ export default {
     },
     viewPosition () {
       return this.$store.getters['viewOptions/position']
+    },
+    relatedArticles () {
+      return this.$store.getters['content/relatedArticles'];
     },
     mockDraftIds () {
       const itemCount = this.viewDepth === 'compact' ? 10 : 4;

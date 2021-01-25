@@ -36,13 +36,16 @@ export default {
     }
     &__headline{
       margin-bottom:-9px;
-      font-weight:300;
-      strong{
-        font-weight:normal;
-      }
+      font-weight:300;      
       p{
         margin-bottom:15px;
         @include player-headline;
+        color:$headlinegray;
+        strong{
+          font-weight:normal;
+          font-family: 'Decima';
+          color:$black;
+        }
 
       }
     }

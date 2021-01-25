@@ -319,7 +319,16 @@ export default {
     }
     &__ringer-home,
     &__links{
-      height:46px;
+      height:50px;
+    }
+    &__ringer-home{
+      width:100%;
+      max-width:40px;
+      img{
+        width:calc(100% - 10px);
+        vertical-align:bottom;
+        margin-top:3px;
+      }
     }
     &--fixed{
       .navigation__sticky{

@@ -137,10 +137,6 @@ export default {
     margin-top:15px;
     margin-bottom:15px;
     overflow:hidden;
-    @include tablet-landscape-and-below{
-      right:10px;
-      transform:translateY(calc(-100% - 27px));
-    }
     @include tablet-portrait-only{
       .mock-draft &,
       .draft-results & {

@@ -15,6 +15,7 @@ T<template>
         />
       </template>
     </transition-group>
+    <RelatedArticles :articles="relatedArticles" v-if="showAll" />
   </section>
 </template>
 
@@ -24,6 +25,8 @@ import MainSectionIntro from '~/components/MainSectionIntro'
 import Interstitial from '~/components/Interstitial'
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
+import RelatedArticles from '~/components/RelatedArticles'
+
 
 export default {
   name: 'TeamNeeds',
@@ -32,7 +35,7 @@ export default {
     mode:"out-in",
   },
   scrollToTop: false,
-  components: { MainSectionIntro, TeamCard, Interstitial },
+  components: { MainSectionIntro, TeamCard, Interstitial, RelatedArticles },
   data() {
     return {
       initTimeout: null,
@@ -59,6 +62,9 @@ export default {
     },
     interstitials() {
       return this.$store.getters['content/interstitials']('teamNeeds')
+    },
+    relatedArticles () {
+      return this.$store.getters['content/relatedArticles'];
     },
   },
   methods: {

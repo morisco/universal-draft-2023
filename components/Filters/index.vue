@@ -64,7 +64,7 @@
         </button>
       </div>
     </div>
-    <PodcastController v-if="$mq !== 'mobile'" />
+    <PodcastController v-if="['mobile', 'tablet', 'small_desktop'].indexOf($mq) === -1" />
   </div>
   <div class="filters__ghost"></div>
 </div>
@@ -151,6 +151,7 @@ export default {
   },
   mounted () {
     this.width = this.$mq === 'mobile' ?  null : this.$refs.filters.offsetWidth;
+    console.log('hiiii', this.$mq);
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll);
@@ -338,7 +339,7 @@ export default {
           transform:translateX(-50%);
           width: 100% !important;
           max-width:100vw;
-          background-color:$black;
+          background-color:$darkgray;
           max-height:30px;
           transition:background-color 0.25s linear 0s, max-height 0.25s linear;
 
@@ -352,7 +353,7 @@ export default {
           color:$white;
           transition:color 0.25s linear 0s;
           &.active{
-            color:$highlight2;
+            color:$highlight2-light;
           }
         }
       }

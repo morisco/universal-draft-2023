@@ -62,6 +62,7 @@ export default {
 
 <style lang="scss">
   .video-inter{
+    position:relative;
     background-color:$black;
     display:flex;
     flex-direction:row;

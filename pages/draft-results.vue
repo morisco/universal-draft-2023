@@ -18,6 +18,7 @@
         />
       </template>
     </transition-group>
+    <RelatedArticles :articles="relatedArticles" v-if="showAll" />
   </section>
 </template>
 
@@ -28,6 +29,8 @@ import MainSectionIntro from '~/components/MainSectionIntro'
 import Interstitial from '~/components/Interstitial';
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
+import RelatedArticles from '~/components/RelatedArticles'
+
 
 export default {
   name: 'DraftResults',
@@ -36,7 +39,7 @@ export default {
     mode:"out-in",
   },
   scrollToTop: false,
-  components: { MainSectionIntro, PlayerCard, Interstitial },
+  components: { MainSectionIntro, PlayerCard, Interstitial, RelatedArticles },
   data() {
     return {
       initTimeout: null,
@@ -69,6 +72,9 @@ export default {
     draftResultsIds () {
       const itemCount = this.viewDepth === 'compact' ? 10 : 4;
       return this.showAll ? this.$store.getters['content/draftResults'](this.viewPosition) : this.$store.getters['content/draftResults'](this.viewPosition).slice(0,itemCount)
+    },
+    relatedArticles () {
+      return this.$store.getters['content/relatedArticles'];
     },
   },
    methods: {

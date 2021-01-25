@@ -39,9 +39,8 @@ function headBuilder(context) {
     {
       hid: 'og:url',
       name: 'og:url',
-      content: baseUrl  + context.$route.path    
+      content: baseUrl  + context.$route.path
     }]
-
   }
 }
 
