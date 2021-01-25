@@ -87,7 +87,7 @@ export default {
       position:relative;
       width:100%;
       background:$mediumgray;
-      padding:12px 0;
+      padding:15px 0 12px;
       border-radius:0.625rem 0.625rem 0 0;
       font-family: 'Decima';
       display: flex;
@@ -105,9 +105,9 @@ export default {
         background: transparent !important;
         transition:opacity 0.25s linear 0.5s;
         .player-card--expanded &{
-            opacity:0;
-            transition:opacity 0.25s linear;
-          }
+          opacity:0;
+          transition:opacity 0.25s linear;
+        }
         @include mobile{
           transform: translate(0);
           right:auto;

@@ -303,7 +303,6 @@ export default {
     flex-direction:column;
     background:$lightgray;
     border-radius: .625rem;
-    border: .00875rem solid $mediumgray;
     margin-bottom:45px;
     overflow-x:visible;
     opacity:0;
