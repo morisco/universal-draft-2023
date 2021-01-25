@@ -5,7 +5,7 @@
     'player-card--expanded': expanded, 
     'player-card--expanding': expanding, 
     'player-card--collapsed': collapsed,
-
+    'player-card--collapsing': collapsing,
     'player-card--animated': animateHeight,
     'player-card--loaded': maxHeight > 0,
     'player-card--active': activeCard,
@@ -84,6 +84,7 @@ export default {
       displayVideo:         false,
       imageHeight:          false,
       expanding:            false,
+      collapsing:           false,
       heightCount:          0,
       videoSettings:        null
     }
@@ -142,10 +143,17 @@ export default {
     },
     expanded() {
       const self = this;
-      this.expanding = true;
-      setTimeout(() => {
-        self.expanding = false;
-      }, 1000);
+      if(this.expanded){
+        this.expanding = true;
+        setTimeout(() => {
+          self.expanding = false;
+        }, 1000);
+      } else {
+        this.collapsing = true;
+        setTimeout(() => {
+          self.collapsing = false;
+        }, 1000);
+      }
     }, 
     allCardsSet() {
       if(this.allCardsSet){

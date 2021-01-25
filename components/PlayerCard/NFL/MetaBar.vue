@@ -142,7 +142,7 @@ export default {
       h3{
         font-family: 'Decima';
         font-weight:normal;
-        font-size:30px;
+        font-size:28px;
         line-height:1.125;
         .player-card[data-player="antonio-gandy-golden"] &,
         .player-card[data-player="lloyd-cushenberry-iii"] &,
@@ -181,12 +181,13 @@ export default {
         @include mobile {
           opacity:0;
           left:10px;
-          top:18px;
+          top:15px;
           transform:translateY(0);
           z-index:5;
           font-size:14px;
           height:26px;
           width:26px;
+          padding-top:2px;
           background-color:$darkgray;
           transition:opacity 0.25s linear 0.5s;
           .player-card--collapsed & {
@@ -228,12 +229,15 @@ export default {
   
       }
       &-position-school{
+        @include meta-bar-detail;
+        margin-top:-3px;
+        // margin-bottom:5px;
         .school{
           font-weight:300;
         }
-        @include mobile{
-          font-size:18px;
-        }
+        // @include mobile{
+        //   font-size:18px;
+        // }
       }
       &-details{
         flex:1;
@@ -241,6 +245,10 @@ export default {
         display:flex;
         align-items:center;
         font-size:15px;
+        @include non-mobile{
+          margin-bottom:-3px;
+        }
+        @include meta-bar-detail;
         @include mobile{
           background:$lightgray;
           padding:15px 20px;
@@ -284,7 +292,7 @@ export default {
             }
           }
           &--shades{
-            font-size:18px;
+            @include meta-bar-detail;
             line-height:1;
             padding-left:50px;
             .shades-of-icon{

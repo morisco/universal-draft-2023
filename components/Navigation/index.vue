@@ -227,6 +227,7 @@ export default {
     }
     &:disabled{
       opacity:0.5;
+      cursor:default;
     }
     
     &:nth-child(4),

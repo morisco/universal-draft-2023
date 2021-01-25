@@ -90,10 +90,14 @@ export default {
         // padding-top:100%;
         border-radius:4px;
         background:$gray;
-        width:50px;
-        height:50px;
+        width:65px;
+        height:65px;
         flex: 0 0 auto;
         margin-right:7.5px;
+        @include mobile{
+          width:55px;
+          height:55px;
+        }
         img{
           width:100%;
           opacity:0;
@@ -134,7 +138,10 @@ export default {
       @include mobile {
         margin: 0 5px 15px;
         transition:opacity 0.25s linear;
-        width:calc(20% - 10px);
+        width:55px;
+        .player-card__stats-list--full & {
+          margin-right:0;
+        }
         .player-card--collapsed & {
           margin:0 5px 20px;
           &:nth-child(n+5) {

@@ -1,22 +1,22 @@
 <template>
 <div class="mobile-navigation__lists">
   <img src="@/assets/img/emoji/point-right.png" alt="Finger pointing right" class="mobile-navigation__lists-icon" :style="{top: iconTop + 'px'}" />
-  <router-link exact to="/" class="mobile-navigation__lists-button" v-on:click.native="changeList" activeClass="mobile-navigation__lists-button--active">
+  <NuxtLink tag="button" exact to="/" class="mobile-navigation__lists-button" v-on:click.native="changeList" activeClass="mobile-navigation__lists-button--active">
     <span class="mobile-navigation__lists-title">Big Board by Danny Kelly</span>
     <span class="mobile-navigation__lists-updated">{{pageSettings.players_to_watch_updated}}</span>
-  </router-link>
-  <router-link to="/mock-draft" class="mobile-navigation__lists-button" v-on:click.native="changeList" activeClass="mobile-navigation__lists-button--active">
+  </NuxtLink>
+  <NuxtLink tag="button" to="/mock-draft" class="mobile-navigation__lists-button" :disabled="!pageSettings.enable_mock" v-on:click.native="changeList" activeClass="mobile-navigation__lists-button--active">
     <span class="mobile-navigation__lists-title">Mock Draft</span>
     <span class="mobile-navigation__lists-updated">{{pageSettings.danny_updated}}</span>
-  </router-link>
-  <router-link to="/team-needs" class="mobile-navigation__lists-button" v-on:click.native="changeList" activeClass="mobile-navigation__lists-button--active">
+  </NuxtLink>
+  <NuxtLink tag="button" to="/team-needs" class="mobile-navigation__lists-button" v-on:click.native="changeList" :disabled="!pageSettings.breakdown_by_team" activeClass="mobile-navigation__lists-button--active">
     <span class="mobile-navigation__lists-title">Team Needs</span>
     <span class="mobile-navigation__lists-updated">{{pageSettings.breakdown_updated}}</span>
-  </router-link>
-  <router-link to="/draft-results" class="mobile-navigation__lists-button" v-on:click.native="changeList" activeClass="mobile-navigation__lists-button--active">
+  </NuxtLink>
+  <NuxtLink tag="button" to="/draft-results" class="mobile-navigation__lists-button" v-on:click.native="changeList" :disabled="!pageSettings.enable_results" activeClass="mobile-navigation__lists-button--active">
     <span class="mobile-navigation__lists-title">Draft Results</span>
     <span class="mobile-navigation__lists-updated">{{pageSettings.results_updated}}</span>
-  </router-link>
+  </NuxtLink>
 </div>  
 </template>
 <script>
@@ -56,13 +56,17 @@ export default {
     border-top:1px solid $lightgray;
     margin-left:-15px;
     margin-right:-15px;
-    a{ 
+    button{ 
       display:flex;
       flex-direction:column;
       justify-content:center;
       padding:0 40px;
       height:55px;
+      width:100%;
       border-bottom:1px solid $lightgray;
+      &:disabled{
+        opacity:0.5;
+      }
       span{
         display:block;
       }

@@ -33,16 +33,26 @@ export default {
     }
     &__headline{
       margin-bottom:-9px;
-      font-weight:300;      
+      font-weight:300;
+      @include non-mobile{
+        max-width:85%;
+      }
       p{
         margin-bottom:15px;
         @include player-headline;
         color:$headlinegray;
+        letter-spacing: -0.025em; 
+        font-size: 25px; 
+        // line-height:22px;
         strong{
+          display:inline-block;
           text-transform:uppercase;
           font-weight:normal;
           font-family: 'Decima';
           color:$black;
+          font-size:26px;
+          margin-bottom:-2px;
+          letter-spacing:0;
         }
 
       }

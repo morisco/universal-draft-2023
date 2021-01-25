@@ -1,5 +1,12 @@
 <template>
-  <div id="app" class="app" :class="{'app--supports-hover': !($device.isMobile || $device.isTablet)}">
+  <div 
+    id="app" 
+    class="app" 
+    :class="{
+      'app--supports-hover': !($device.isMobile || $device.isTablet),
+      'app--ready': siteReady
+    }"
+  >
     <Header />
      <main v-if="pageSettings" id="main">
       <Intro />
@@ -52,6 +59,7 @@ export default {
   },
   mounted() {
     if(this.$refs.sizer){
+      this.siteReady = true;
       let vh = this.$refs.sizer.offsetHeight * 0.01;
       // Then we set the value in the --vh custom property to the root of the document
       document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -60,11 +68,14 @@ export default {
         // Then we set the value in the --vh custom property to the root of the document
         document.documentElement.style.setProperty('--vh', `${vh}px`);
       })
+    } else {
+      this.siteReady = true;
     }
   },
   data () {
     return {
-      preLockScrollPos: null
+      preLockScrollPos: null,
+      siteReady: false
     }
   },
   methods: {
@@ -93,6 +104,10 @@ export default {
   background:#FFF;
 }
 .app{
+  opacity:0;
+  &--ready{
+    opacity:1;
+  }
   &__sizer{
     position:fixed;
     top:0;

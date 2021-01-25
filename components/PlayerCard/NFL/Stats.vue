@@ -1,15 +1,15 @@
 <template>
 <div class="player-card__stats">
-  <div class="player-card__stats-detail" v-if="player.stat_details">
-    <div class="player-card__stats-detail-year">{{player.stat_details.year}} STATS</div>
-    <div class="player-card__stats-detail-games">Based on {{player.stat_details.games}} games played</div>
+  <div class="player-card__stats-detail">
+    <div class="player-card__stats-detail-year">{{player.stat_details && player.stat_details.year}} STATS</div>
+    <div class="player-card__stats-detail-games">Based on {{player.stat_details && player.stat_details.games}} games played</div>
   </div>
-  <ul class="player-card__stats-list">
+  <ul class="player-card__stats-list" :class="{'player-card__stats-list--full' : statArray.length === 5}">
     <li v-for="stat in statArray" :key="stat.key">
       <div class="player-card__stat-tooltip">{{stat.tooltip}}</div>
       <div class="player-card__stat">
-        <span class="player-card__stat-title">{{stat.label}}</span>
         <span class="player-card__stat-value"><span>{{stat.value}}</span></span>
+        <span class="player-card__stat-title">{{stat.label}}</span>
       </div>
     </li>
   </ul>
@@ -88,6 +88,9 @@ export default {
         margin-left:0;
         max-width:100%;
         width:100%;
+        &--full {
+        justify-content:space-between; 
+        }
       }
     }
   
@@ -96,10 +99,10 @@ export default {
       display: flex;
       margin: 0 5px 0;
       flex: 1;
-      max-width: 70px;
+      max-width: 65px;
       .player-card__image-column &{
         flex: 0 0 auto;
-        margin:0 15px 0 0;
+        margin:0 22.5px 0 0;
         width:calc(33.333% - 5px);
       }
       &:first-of-type{
@@ -113,8 +116,12 @@ export default {
       }
 
       @include mobile {
-        margin: 0 5px 10px;
+        margin: 0 10px 10px 0;
         transition:opacity 0.25s linear;
+        max-width:55px;
+        &:last-of-type{
+          margin-right:0;
+        }
         .player-card--collapsed & {
           margin:0 5px 20px;
           &:nth-child(n+5) {
@@ -147,10 +154,12 @@ export default {
   &__stat-title{
     display:block;
     border-bottom: 2px solid $lightgray;
-    text-align: center;
+    text-align: left;
     box-sizing:content-box;
     line-height:1;
+    color:$darkmediumgray;
     @include stat-title;
+    margin-top:5px;
   }
   &__stat-value{
     position:relative;
@@ -165,6 +174,7 @@ export default {
     border-radius:4px;
     span{
       position:absolute;
+      padding-top:3px;
       top:50%;
       left:50%;
       transform:translate(-50%,-50%);
@@ -187,6 +197,7 @@ export default {
     background-clip: padding-box;
     @include tooltip;
     background-color:$highlight2;
+    z-index:3;
     // .player-card--offense & {
     //   background-color: $offense;
     // }

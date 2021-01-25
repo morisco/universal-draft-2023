@@ -2,7 +2,7 @@
 <div class="main-section__intro">
   <h2 v-html="introData.headline"></h2>
   <div class="main-section__intro-content" v-html="introData.content"></div>
-  <p class="main-section__intro-link" v-on:click="scrollToTop">
+  <p class="main-section__intro-link" v-on:click="scrollToTop" v-if="introData.linkText">
     <NuxtLink :to="introData.link">{{introData.linkText}}</NuxtLink>
   </p>
 </div>

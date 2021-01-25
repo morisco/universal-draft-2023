@@ -181,6 +181,9 @@ export default {
       &-enter-active{
         transition:opacity 1s linear;
       }
+      @include mobile{
+        padding:7px 4px 5px;
+      }
     }
    
     &-inner{
