@@ -27,7 +27,6 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
       .then(response => {
         response.data[0].data.title = response.data[0].title;
         response.data[0].data.description = response.data[0].description;
-        console.log(response.data[0]);
         store.commit('page/setPage', response.data[0].data);
         return response.data[0].data;
       })

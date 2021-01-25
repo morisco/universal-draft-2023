@@ -36,7 +36,6 @@ export default {
   },
   methods: {
     triggerVideo() {
-      console.log('trigger');
       if(this.$mq === 'mobile'){
         this.mobilePlay = true;
       } else {

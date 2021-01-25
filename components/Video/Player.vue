@@ -19,9 +19,6 @@ export default {
       isPlaying: false
     }
   },
-  mounted() {
-    console.log('mounted video', this.playerVideo);
-  },
   methods: {
     playVideo() {
       this.player.playVideo()
@@ -37,7 +34,6 @@ export default {
           self.trackTime(currentTime);
         }
         if(self.end && currentTime >= self.end){
-          console.log('hoooooo');
           self.player.mute();
           if(self.trackTime){
             self.trackTime(null);

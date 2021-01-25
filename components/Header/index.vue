@@ -16,8 +16,8 @@
 
         </div>
         <div>
-          <transition name="updated" appear :duration="50000">
-            <span v-if="pageSettings" class="updated">{{pageSettings.intro_updated}}</span>
+          <transition name="header__footer-updated" appear :duration="50000">
+            <span v-if="pageSettings" class="header__footer-updated">{{pageSettings.intro_updated}}</span>
           </transition>
           <div class="header__loader">
             <LoadingSpinner :loaded="pageSettings" />
@@ -92,42 +92,16 @@ export default {
     text-transform:uppercase;
 
     @include non-mobile{
-      margin:0 0 0.125vw;
-      font-size:42px;
+      margin:-0.5 0 0.125vw;
+      font-size:2.5vw;
     }
     @include single-column{
       font-size:5vw;
       line-height:5vw;
     }
   }
-  .updated{
-    color:$highlight1;
-    opacity:0;
-    display:flex;
-    align-items:center;
-    &:before{
-      content:'';
-      display:inline-block;
-      width:16px;
-      height:16px;
-      background:$highlight1;
-      border-radius:100%;
-      margin-right:5px;
-      @include mobile{
-      width:10px;
-      height:10px;
-      }
-    }
-    
-    &-enter-to{
-      opacity:1;
-    }
-    &-enter-active{
-      transition:opacity 1s linear;
-    }
-  }
   &__footer{
-    height:80px;
+    height:64px;
     background:$highlight2;
     width:100%;
     &-sponsor{
@@ -135,6 +109,7 @@ export default {
       align-items:center;
       span{
         @include header-sponsored-by;
+        flex: 0 0 auto;
       }
       @include mobile{
         flex-direction:column;
@@ -142,13 +117,43 @@ export default {
       }
       img{
         margin-left:10px;
-        height:30px;
+        height:20px;
         @include mobile{
           height:20px;
           margin-left:0;
         }
       }
+      
     }
+    &-updated{
+        @include header-nav-link;
+        color:$highlight1;
+        opacity:1;
+        display:flex;
+        align-items:center;
+        &:before{
+          content:'';
+          display:inline-block;
+          width:10px;
+          height:10px;
+          background:$highlight1;
+          border-radius:100%;
+          margin-right:10px;
+          @include mobile{
+            width:10px;
+            height:10px;
+            margin-right:5px;
+          }
+        }
+        
+        &-enter-to{
+          opacity:1;
+        }
+        &-enter-active{
+          transition:opacity 1s linear;
+        }
+      }
+   
     &-inner{
       padding:0 30px;
       display:flex;

@@ -6,10 +6,9 @@
     <transition name="podcast-controller__content">
       <div class="podcast-controller__content" v-if="player && playingState === 2" v-on:click="stopAudio">
         <div>
-          <span v-if="['tablet', 'small_desktop'].indexOf($mq) < 0">Player:</span>
-          <span>{{player.title}}</span>
+          <strong>{{player.title}}:&nbsp;</strong>{{player.player_podcast.label}}
         </div>
-        <a href="https://open.spotify.com/show/3sYLdv261f5jLvEgDLU9PD" v-if="['tablet', 'small_desktop'].indexOf($mq) < 0" target="_blank" class="podcast-controller__content-more" v-on:click="seeMore">
+        <a href="https://open.spotify.com/show/3sYLdv261f5jLvEgDLU9PD" target="_blank" class="podcast-controller__content-more" v-on:click="seeMore">
           <!-- <span v-if="$mq !== 'mobile'">More from the ringer</span> -->
           <img src="~/assets/img/spotify-logo.png" alt="Spotify logo" />
         </a>
@@ -128,12 +127,15 @@ export default {
     }
     &__content{
       display:flex;
-      align-items:center;
+      // align-items:center;
       background:$lightgray;
       padding:10px 15px;
       border-radius:0.625em;
       cursor:pointer;     
       flex-wrap:wrap;
+      @include single-column{
+        align-items:center;
+      }
       &-enter{
         opacity:0;
       }
@@ -160,6 +162,11 @@ export default {
         margin-right:10px;
         margin-bottom:1px;
         flex: 0 0 auto;
+        margin-top:4px;
+        @include single-column{
+          margin-top:0;
+          margin-bottom:1px;
+        }
       }
       span{
         display:block;
@@ -177,6 +184,27 @@ export default {
       }
       > div{
         max-width:calc(100% - 25px);
+        font-weight:300;
+        font-size:12px;
+        @include single-column{
+          display:flex;
+          align-items:center;
+        }
+        strong{
+          display:block;
+          font-family: 'Decima';
+          font-weight:normal;
+          text-transform:uppercase;
+
+            flex: 0 0 auto;
+            min-width:100%;
+          @include single-column{
+            min-width:0;
+          }
+        }
+      }
+      @include single-column{
+        padding:20px 15px;
       }
     }
     &__content-more{
@@ -194,7 +222,7 @@ export default {
         justify-self:flex-end;
         vertical-align:bottom;
       }
-      @include mobile{
+      @include single-column{
         min-width:0;
         flex:0 0 auto;
         justify-self:flex-end;

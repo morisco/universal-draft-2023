@@ -222,6 +222,9 @@ export default {
     color:$white;
     transition:all 0.25s linear 0.5s, border-right 0.25s linear 0s;
     background:$highlight2;
+    @include single-column{
+      padding:0 10px 0;
+    }
     &:disabled{
       opacity:0.5;
     }

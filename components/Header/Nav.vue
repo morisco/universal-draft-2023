@@ -4,9 +4,9 @@
       <img src="~/assets/img/logo.png" alt="The Ringer Logo" data-not-lazy />
     </a>
     <ul class="nav__links">
-      <li><a class="nav-link" href="https://www.theringer.com/pages/podcasts" target="_blank">Podcasts</a></li>
-      <li><a class="nav-link" href="https://www.theringer.com/nfl" target="_blank">NFL</a></li>
-      <li><a class="nav-link" href="https://www.theringer.com/college-football" target="_blank">College Football</a></li>
+      <li><a class="nav__link" href="https://www.theringer.com/pages/podcasts" target="_blank">Podcasts</a></li>
+      <li><a class="nav__link" href="https://www.theringer.com/nfl" target="_blank">NFL</a></li>
+      <li><a class="nav__link" href="https://www.theringer.com/college-football" target="_blank">College Football</a></li>
     </ul>
   </nav>
 </template>
@@ -34,9 +34,9 @@
   }
   &__logo{
     display: inline-block;
-    max-width: 185px;
+    max-width: 125px;
     @include single-column{
-      max-width:150px;
+      max-width:125px;
     }
     @include mobile{
       max-width:110px;
@@ -61,6 +61,13 @@
       @include mobile{
         margin-left:5px;
       }
+    }
+  }
+  &__link{
+    @include header-nav-link;
+    transition:color 0.25s linear;
+    &:hover{
+      color:$highlight1;
     }
   }
 }

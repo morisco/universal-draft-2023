@@ -151,7 +151,6 @@ export default {
   },
   mounted () {
     this.width = this.$mq === 'mobile' ?  null : this.$refs.filters.offsetWidth;
-    console.log('hiiii', this.$mq);
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll);
