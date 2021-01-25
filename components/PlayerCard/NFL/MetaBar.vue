@@ -89,7 +89,6 @@ export default {
       background:$mediumgray;
       padding:12px 0;
       border-radius:0.625rem 0.625rem 0 0;
-      border-bottom:1px solid $darkmediumgray;
       font-family: 'Decima';
       display: flex;
       text-transform:uppercase;
@@ -170,6 +169,13 @@ export default {
         justify-content:center;
         align-items:center;
         opacity:1;
+        padding-top:4px;
+        transition:background-color 0.25s linear 0.5s;
+        .player-card:hover & {
+          .app--supports-hover & {
+            background-color:$highlight1;
+          }
+        }
         
         @include card-rank;
         @include mobile {

@@ -39,6 +39,7 @@ export default {
         @include player-headline;
         color:$headlinegray;
         strong{
+          text-transform:uppercase;
           font-weight:normal;
           font-family: 'Decima';
           color:$black;

@@ -23,6 +23,7 @@
         <Nuxt />
       </div>
     </main>
+    <Footer />
     <div ref="sizer" class="app__sizer"></div> 
   </div>
 
@@ -34,8 +35,9 @@ import Filters from '~/components/Filters'
 import MobileNavigation from '~/components/MobileNavigation'
 import PodcastController from '~/components/Podcast/GlobalController'
 import Navigation from '~/components/Navigation'
+import Footer from '~/components/Footer'
 export default {
-  components: { Header, Filters, MobileNavigation, Navigation, PodcastController },
+  components: { Header, Filters, MobileNavigation, Navigation, PodcastController, Footer },
   computed: {
     pageSettings () {
       return this.$store.getters['page/settings']

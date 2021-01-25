@@ -271,7 +271,7 @@ export default {
           transition:opacity 0.25s linear 0.75s;
         }
         span{
-          margin-top:3px;
+          padding-top:1px;
         }
       }
     }
