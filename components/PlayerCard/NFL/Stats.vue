@@ -1,5 +1,10 @@
 <template>
-  <ul class="player-card__stats">
+<div class="player-card__stats">
+  <div class="player-card__stats-detail" v-if="player.stat_details">
+    <div class="player-card__stats-detail-year">{{player.stat_details.year}} STATS</div>
+    <div class="player-card__stats-detail-games">Based on {{player.stat_details.games}} games played</div>
+  </div>
+  <ul class="player-card__stats-list">
     <li v-for="stat in statArray" :key="stat.key">
       <div class="player-card__stat-tooltip">{{stat.tooltip}}</div>
       <div class="player-card__stat">
@@ -8,6 +13,7 @@
       </div>
     </li>
   </ul>
+</div>
 </template>
 
 <script>
@@ -27,46 +33,64 @@ export default {
 .player-card{
   &__stats{
     display:flex;
-    justify-content:flex-start;
-    flex:1;
-    padding: 0 30px;
-    // width:calc(100% + 10px);
-    width:100%;
-    list-style:none;
-    transform:translateX(0);
-    transition: transform 0s linear 0.125s, opacity 0.25s linear 0s;
-    .player-card__image-column &{
-      padding:0;
-      flex-wrap:wrap;
-      padding-top:20px;
-      width:calc(100% + 40px);
-      margin-bottom:15px;
-    }
-    @include medium-desktop {
-      margin-left:-2px;
-      margin-right:-2px;
-    }
-    @include tablet-portrait-only{
-      width:calc(100% + 4px);
-      margin-left:-2px;
-      margin-right:-2px;
-    }
-    // @include non-mobile{
-    //   .player-card--collapsed & {
-    //     margin-right:50px;
-    //     transform:translateX(-50px);
-    //   }
-    // }
+    flex-direction:column;
     @include mobile {
-      justify-content:flex-start;
+      padding:0 20px 10px;
       margin-top:-0.625rem;
       background:$lightgray;
-      margin-right:0;
-      padding:0 15px 10px;
-      margin-left:0;
-      max-width:100%;
-      width:100%;
     }
+
+    &-detail{
+      &-year{
+        @include expanded-label;
+      }
+      &-games{
+        @include player-card-body;
+        margin-bottom:10px;
+      }
+      .player-card__image-column &{
+        padding-top:20px;
+      }
+    }
+    &-list{
+       display:flex;
+      justify-content:flex-start;
+      flex:1;
+      // width:calc(100% + 10px);
+      width:100%;
+      list-style:none;
+      transform:translateX(0);
+      transition: transform 0s linear 0.125s, opacity 0.25s linear 0s;
+      .player-card__image-column &{
+        padding:0;
+        flex-wrap:wrap;
+        width:calc(100% + 40px);
+        margin-bottom:15px;
+      }
+      @include medium-desktop {
+        margin-left:-2px;
+        margin-right:-2px;
+      }
+      @include tablet-portrait-only{
+        width:calc(100% + 4px);
+        margin-left:-2px;
+        margin-right:-2px;
+      }
+      // @include non-mobile{
+      //   .player-card--collapsed & {
+      //     margin-right:50px;
+      //     transform:translateX(-50px);
+      //   }
+      // }
+      @include mobile {
+        justify-content:flex-start;
+        margin-right:0;
+        margin-left:0;
+        max-width:100%;
+        width:100%;
+      }
+    }
+  
     li{
       position:relative;
       display: flex;

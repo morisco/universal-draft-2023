@@ -1,9 +1,6 @@
 <template>
   <div class="player-card__headline-selling">
     <div class="player-card__headline" v-html="headline"></div>
-    <div class="player-card__selling-point">
-      <strong>MAIN SELLING POINT:</strong> {{selling}}
-    </div>
   </div>
 </template>
 
