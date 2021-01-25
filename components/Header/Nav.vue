@@ -24,8 +24,8 @@
   width:auto;
   @include single-column{
     top:25px;
-    left:20px;
-    right:20px;
+    left:30px;
+    right:30px;
   }
   @include mobile{
     top:15px;

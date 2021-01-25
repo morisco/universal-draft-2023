@@ -23,6 +23,7 @@
         <Nuxt />
       </div>
     </main>
+    <div ref="sizer" v-if="['mobile', 'tablet'].indexOf($mq) >= 0" class="app__sizer"></div> 
   </div>
 
 </template>
@@ -46,6 +47,18 @@ export default {
   created () {
     // this.$store.dispatch('page/getPageSettings')
     this.$store.dispatch('content/getContents')
+  },
+  mounted() {
+    if(this.$refs.sizer){
+      let vh = this.$refs.sizer.offsetHeight * 0.01;
+      // Then we set the value in the --vh custom property to the root of the document
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+      window.addEventListener('resize', function() {
+        let vh = this.$refs.sizer.offsetHeight * 0.01;
+        // Then we set the value in the --vh custom property to the root of the document
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      })
+    }
   },
   data () {
     return {
@@ -78,6 +91,14 @@ export default {
   background:#FFF;
 }
 .app{
+  &__sizer{
+    position:fixed;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    z-index:-1;
+  }
   &__content{
     position:relative;
     width: calc(100% - 210px);

@@ -36,11 +36,12 @@
   font-size: 18px;
   line-height: 125%;
   @include single-column{
-    font-size:16px;
-    line-height:16px;
+    font-size:22px;
+    line-height:22px;
   }
   @include mobile{
-    font-size: 11px;
+    font-size: 13px;
+    padding:5px 4px;
     line-height: .8;
   }
 }
@@ -135,10 +136,13 @@
   letter-spacing:0.05em;
   color:$white;
   text-transform:uppercase;
+  @include single-column{
+    font-size:18px;
+    letter-spacing: 0.05em;
+  }
   @include mobile{
-    font-size:14px;
-    margin-bottom:5px;
-    display:block;
+    font-size:12px;
+    line-height:12px;
   }
 }
 
