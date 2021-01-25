@@ -60,7 +60,6 @@
       <ul class="u-list-dot-sep">
         <li><a rel="nofollow" href="/contact">Contact</a></li>
         <li><a rel="nofollow" href="/contact#tip">Send Us a Tip</a></li>
-        <li><a rel="nofollow" href="https://www.theringer.com"> </a></li>
       </ul>
     </div>
     <div class="c-footer__section c-footer__section-vox">
@@ -86,19 +85,55 @@
 </footer>
 </template>
 
-<style lang="scss" scoped>
-  
+<style lang="scss">
+  .l-wrapper {
+    margin: 0 auto;
+    max-width: 1100px;
+}
+.u-list-dot-sep li{
+  display:inline-block;
+  button{
+    display:inline-block;
+  }
+}
+
+.u-hidden-text {
+    display: inline-block;
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 0;
+}
+.u-list-dot-sep li:after {
+    content: "\2022";
+    display: inline-block;
+    margin: 0 8px;
+}
+.u-list-dot-sep li:last-child:after {
+    content: "";
+    margin: 0;
+}
+.u-block {
+  display: block;
+}
 .c-footer {
 	background-color: #000;
 	color: #fff;
 	padding-top: 16px;
-	border-top: none
+  border-top: none
+  button{
+    border: 0;
+    background: none;
+    cursor: pointer;
+    display:inline-block !important;
+  }
 }
 
 .c-footer a,
 .c-footer button {
 	color: #fff;
-	vertical-align: baseline
+  vertical-align: baseline;
+  
 }
 
 .c-footer a:hover,
@@ -113,8 +148,14 @@
 
 .c-footer__section {
 	font-size: .75em;
-	padding: 8px 16px
+  padding: 8px 16px
+  
 }
+.c-footer p{
+  margin-top:-5px;
+    font-size:15px;
+    line-height:150%;
+  }
 
 .c-footer__logo-link {
 	vertical-align: middle
@@ -572,9 +613,12 @@
 }
 
 @media (min-width: 600px) {
-	.c-footer__network-logo svg {
-		position: relative;
-		top: 16px;
+	.c-footer__partner .c-footer__network-logo {
+    margin-bottom:4px;
+    svg {
+      position: relative;
+    }
+		// top: 16px;
 	}
 }
 </style>
