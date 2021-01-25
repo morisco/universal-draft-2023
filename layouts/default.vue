@@ -23,7 +23,7 @@
         <Nuxt />
       </div>
     </main>
-    <div ref="sizer" v-if="['mobile', 'tablet'].indexOf($mq) >= 0" class="app__sizer"></div> 
+    <div ref="sizer" class="app__sizer"></div> 
   </div>
 
 </template>
