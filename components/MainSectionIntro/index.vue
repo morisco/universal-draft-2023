@@ -1,6 +1,6 @@
 <template>
 <div class="main-section__intro">
-  <h2 v-html="introData.headline"></h2>
+  <h3 v-html="introData.headline"></h3>
   <div class="main-section__intro-content" v-html="introData.content"></div>
   <p class="main-section__intro-link" v-on:click="scrollToTop" v-if="introData.linkText">
     <NuxtLink :to="introData.link">{{introData.linkText}}</NuxtLink>
@@ -65,6 +65,9 @@ export default {
 .main-section__intro{
   margin-top:-15px;
   margin-bottom:70px;
+  h3{
+    text-transform:uppercase;
+  }
   h2{
     font-family: 'Decima';
     text-transform:uppercase;

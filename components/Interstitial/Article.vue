@@ -1,6 +1,6 @@
 <template>
   <a :href="interstitial.link" target="_blank" class="article-inter player-card">
-    <div class="article-inter__image">
+    <div class="article-inter__image" v-if="false">
       <img :src="interstitial.image.medium" :alt="interstitial.title" />
     </div>
     <div class="article-inter__content">
@@ -70,21 +70,26 @@ export default {
     }
   }
   &__slug{
-    @include card-rank;
+    @include slug;
     color:$highlight2;
-    @include mobile {
-      font-size:20px;
-    }
   }
   &__headline{
     @include inter-title;
     text-align:center;
     padding:25px 0 40px;
     flex:1;
+    @include mobile{
+      font-size:20px;
+      line-height:20px;
+      padding:10px 0 20px;
+    }
   }
   &__link{
     @include expanded-label;
     text-decoration:underline;
+    @include mobile{
+      font-size:15px;
+    }
   }
 }
 </style>

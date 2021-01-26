@@ -11,9 +11,10 @@
     }"
   >
     <div class="video-inter__content">
+      <img src="@/assets/img/icons/inter-play.svg" v-if="$mq === 'mobile'" class="video-inter__play-button" alt="Play button" data-not-lazy />
       <div class="video-inter__slug">Video</div>
       <div class="video-inter__title" v-html="interstitial.title"></div>
-      <img src="@/assets/img/icons/inter-play.svg" class="video-inter__play-button" alt="Play button" data-not-lazy />
+      <img src="@/assets/img/icons/inter-play.svg" v-if="$mq !== 'mobile'" class="video-inter__play-button" alt="Play button" data-not-lazy />
       
     </div>
     <div class="video-inter__video">
@@ -108,11 +109,8 @@ export default {
       }
     }
     &__slug{
-      @include card-rank;
+      @include slug;
       text-transform:uppercase;
-      @include mobile{
-        font-size:16px;
-      }
     }
     &__title{
       @include inter-title;
@@ -186,8 +184,8 @@ export default {
         height:50px;
       }
       @include mobile{
-        width:30px;
-        height:30px;
+        width:25px;
+        height:25px;
       }
     }
     &__iframe-wrapper{

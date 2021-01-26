@@ -15,12 +15,22 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .intro{
   &__inner{
     margin:60px auto;
     width:calc(100% - 30px);
     max-width:750px;
+    @include player-card-body;
+    strong{
+      font-family: 'Decima';
+    }
+  }
+  .hr-divider{
+    height:1px;
+    background:#bdbdbd;
+    width:100%;
+    margin:0 0 25px;
   }
 }
 </style>

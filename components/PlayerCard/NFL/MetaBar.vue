@@ -203,22 +203,7 @@ export default {
         padding:0;
         border-bottom:0;
       }
-      h3{
-        font-family: 'Decima';
-        font-weight:normal;
-        font-size:28px;
-        line-height:1.125;
-        .player-card[data-player="antonio-gandy-golden"] &,
-        .player-card[data-player="lloyd-cushenberry-iii"] &,
-        .player-card[data-player="prince-tega-wanogho"] &,
-        .player-card[data-player="akeem-davis-gaither"] &,
-        .player-card[data-player="laviska-shenault-jr"] & {
-          font-size:27px;
-        }
-        .player-card[data-player="clyde-edwards-helaire"] &{
-          font-size:25px;
-        }
-      }
+    
       &-rank{
         position:absolute;
         left:-26px;

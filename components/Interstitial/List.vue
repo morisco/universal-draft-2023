@@ -1,6 +1,6 @@
 <template>
   <div class="player-card list-inter">
-    <div class="list-inter__image player-card__image-column">
+    <div class="list-inter__image player-card__image-column" v-if="false">
       <img :src="interstitial.image.small" />
     </div>
     <div class="list-inter__info player-card__info-column">
@@ -29,8 +29,9 @@ export default {
 
 <style lang="scss">
   .list-inter{
-    background:$black;
     overflow:hidden;
+    background:transparent;
+    padding:0;
     flex-direction:row;
     border-radius:0.625rem;
     opacity:1;
@@ -49,21 +50,21 @@ export default {
       }
     }
     &__info{
-      color:$white;
-      padding:30px;
+      color:$highlight2;
+      padding:30px 0;
       background:transparent;
       @include mobile{
         width:100%;
-        padding:25px 20px 20px;
+        padding:25px 0 20px;
       }
     }
     &__title{
       @include inter-title;
     }
     &__title-presnted{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
+      // display:flex;
+      // align-items:flex-start;
+      // justify-content:space-between;
 
     }
     &__presented-by{
@@ -83,15 +84,9 @@ export default {
     }
     &__content{
       p{
-        font-size:1em;
-        line-height:1.4;
-        margin-bottom:10px;
-        &:last-of-type{
-          margin-bottom:0;
-        }
         a{
           text-decoration:underline;
-          color:$white;
+          color:$highlight2;
         }
       }
     }
