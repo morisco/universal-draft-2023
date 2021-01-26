@@ -52,7 +52,7 @@ export default {
       max-width:45px;
       max-height:45px;
       left:10px;
-      box-shadow:none;
+      // box-shadow:none;
     }
 
     @include tablet-portrait-only{
