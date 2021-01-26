@@ -58,16 +58,12 @@ export default {
     this.$store.dispatch('content/getContents')
   },
   mounted() {
+    const self = this;
     if(this.$refs.sizer){
       this.siteReady = true;
       let vh = this.$refs.sizer.offsetHeight * 0.01;
       // Then we set the value in the --vh custom property to the root of the document
       document.documentElement.style.setProperty('--vh', `${vh}px`);
-      window.addEventListener('resize', function() {
-        let vh = this.$refs.sizer.offsetHeight * 0.01;
-        // Then we set the value in the --vh custom property to the root of the document
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-      })
     } else {
       this.siteReady = true;
     }
@@ -91,6 +87,16 @@ export default {
       const topOfList = document.getElementById('app__content').offsetTop - 70;
       this.preLockScrollPos = topOfList
       window.scrollTo(0, topOfList);
+    }
+  },
+  watch: {
+    '$mq'() {
+      const self = this;
+      setTimeout(() => {
+        let vh = this.$refs.sizer.offsetHeight * 0.01;
+        // Then we set the value in the --vh custom property to the root of the document
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      }, 250);
     }
   }
 }

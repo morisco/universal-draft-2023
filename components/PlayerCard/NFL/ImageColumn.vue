@@ -55,9 +55,8 @@ export default {
       return this.fullPlayer.player_video && this.fullPlayer.player_video.video_id ? this.fullPlayer.player_video : false
     }
   },
-  watch:{
-    expanded() {
-      if(!this.$refs.imageColumn) return;
+  methods: {
+    setHeights() {
       if(this.expanded) {
         let interiorHeight = 30;
         this.$refs.imageColumn.children.forEach((child) => interiorHeight += child.offsetHeight);
@@ -66,6 +65,12 @@ export default {
       } else {
         this.maxHeight = this.$mq === 'mobile' ? 250 : this.topHeight;
       }
+    }
+  },
+  watch:{
+    expanded() {
+      if(!this.$refs.imageColumn) return;
+      this.setHeights();
     },
     topHeight() {
       if(!this.$refs.imageColumn) return;
@@ -73,6 +78,9 @@ export default {
         this.maxHeight = this.$mq === 'mobile' ? 250 : this.topHeight;
       }
       this.setImageColHeight(this.$refs.imageColumn.offsetHeight);
+    },
+    '$mq'() {
+      this.setHeights();
     }
   }
 }

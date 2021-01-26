@@ -129,6 +129,13 @@ export default {
     mounted(newMounted) {
       this.topHeight = this.$refs.topData.offsetHeight
       this.setHeights();
+    },
+    '$mq'() {
+      const self = this;
+      setTimeout(() => {
+        self.topHeight = this.$refs.topData.offsetHeight
+        self.setHeights();
+      }, 500);
     }
   }
 }
