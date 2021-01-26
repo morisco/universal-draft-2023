@@ -215,7 +215,7 @@ export default {
         margin-left:5px;
       }
       @include mobile{
-        margin-bottom:2px;
+        margin-bottom:1px;
       }
     }
     &__label{
@@ -223,7 +223,7 @@ export default {
       font-size:14px;
       margin-bottom:3px;
       @include mobile{
-        margin-bottom:3px;
+        margin-bottom:2px;
       }
     }
     &__progress{

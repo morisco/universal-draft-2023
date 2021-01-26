@@ -26,7 +26,7 @@
         <mq-layout mq="tablet+">
           <Filters />
         </mq-layout>
-        <PodcastController v-if="['tablet', 'small_desktop'].indexOf($mq) >= 0" />
+        <PodcastController v-if="['mobile', 'tablet', 'small_desktop'].indexOf($mq) >= 0" />
         <Nuxt />
       </div>
     </main>
