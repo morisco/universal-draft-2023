@@ -45,7 +45,6 @@ const actions = {
 // mutations
 const mutations = {
   setPage (state, page) {
-    console.log('hiiii', page.badges);
     let badges = {};
     page.badges.forEach((badge) => badges[badge.id] = badge);
     page.badges = badges;

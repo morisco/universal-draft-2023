@@ -28,6 +28,9 @@ export default {
       flex-direction:column;
       margin: 0;
       padding:3px 0 60px;
+      .mock-draft & {
+        padding-top:30px;
+      }
       @include mobile {
         transition:opacity 1s linear 0s;
         margin:0 0 0;

@@ -24,13 +24,13 @@
 import InfoBubble from '~/components/InfoBubble'
 export default {
   components: { InfoBubble },
-  props: ['offenseDefense', 'toggleCard', 'expanded', 'cardExpanded'],
+  props: ['offenseDefense', 'toggleCard', 'expanded', 'cardExpanded', 'openText', 'closeText'],
   computed: {
     moreText() {
-      return this.$mq === 'mobile' ? 'Read the full scouting report.' : 'Read the full scouting report.';
+      return this.openText ? this.openText : this.$mq === 'mobile' ? 'Read the full scouting report.' : 'Read the full scouting report.';
     },
     lessText() {
-      return this.$mq === 'mobile' ? 'Click to hide scouting report.' : 'Click to hide scouting report.';
+      return this.closeText ? this.closeText : this.$mq === 'mobile' ? 'Click to hide scouting report.' : 'Click to hide scouting report.';
     }
   }
 }

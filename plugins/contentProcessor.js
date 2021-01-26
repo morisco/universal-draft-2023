@@ -34,7 +34,7 @@ function processImages(image) {
 function processOrders(players) {
   const orderIds = players.map((player) => { return {id: parseInt(player.id,10), bigBoard: parseInt(player.order,10), mockDraft: parseInt(player.order_mockdraft,10), draftResults: parseInt(player.order_draftresults,10) } });
   const bigBoardSorted = orderIds.sort((playerA, playerB) => (playerA.bigBoard > playerB.bigBoard) ? 1 : -1);
-  const mockIds = orderIds.filter(player => player.mockDraft <= 63);
+  const mockIds = orderIds.filter(player => player.mockDraft <= 31);
   const draftResultIds = orderIds.filter(player => player.draftResults <= 31);
   const mockDraftSorted = mockIds.sort((playerA, playerB) => (playerA.mockDraft > playerB.mockDraft) ? 1 : -1);
   const draftResultsSorted = draftResultIds.sort((playerA, playerB) => (playerA.draftResults > playerB.draftResults) ? 1 : -1);
@@ -91,6 +91,12 @@ export function parseStats(stats) {
   positionStats = positionStats.map((stat) => {
     return {...stat, value: stats[stat.key], highlight: stat.key === stats.highlight};
   })
+  if(stats.position === 'qb'){
+    Array.prototype.move = function (from, to) {
+      this.splice(to, 0, this.splice(from, 1)[0]);
+    };
+    positionStats.move(0,1);
+  }
   return positionStats;
 }
 
@@ -115,7 +121,14 @@ export function processTeams(teams, teamPlayers) {
     resultsIds.push(team.id);
   });
   const teamNameLogo = teams.map((team) => {
-    return {teamName: team.title, logo: team.image}
+    let teamToUse = team;
+    let via = '';
+    if(team.pick_trades){
+      teamToUse = processedTeams[team.pick_trades[0].team];
+      via = team.pick_trades[0].via;
+      // console.log(teamToUse);
+    }
+    return {teamName: teamToUse.title, logo: teamToUse.image, via: via}
   });
   return {
     teamData: processedTeams,

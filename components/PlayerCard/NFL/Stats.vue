@@ -110,6 +110,9 @@ export default {
         flex: 0 0 auto;
         margin:0 15px 0 0;
         width:calc(33.333% - 5px);
+        @include tablet-portrait-only{
+          margin-right:10px;
+        }
       }
       &:first-of-type{
         margin-left:0;

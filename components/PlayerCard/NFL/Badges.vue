@@ -17,7 +17,6 @@ export default {
   computed: {
     badgeArray() {
       const badgeSettings = this.$store.getters['page/badges'];
-      console.log(badgeSettings);
       let badgeArray;
       if(this.player.badges){
         badgeArray = this.player.badges.map((badge) => { return badgeSettings[badge.badge]});
@@ -30,11 +29,6 @@ export default {
 
 <style lang="scss" scoped>
 .player-card{
-  &:hover {
-    .player-card__badges{
-      filter: grayscale(0);  
-    }
-  }
   &__badges{
     display:flex;
     filter: grayscale(1);
@@ -47,6 +41,14 @@ export default {
     transform:translateX(0);
     transition: transform 0s linear 0.125s, filter 0.375s linear 0.5s;
     margin-top:30px;
+    .player-card:hover & {
+      .app--supports-hover & {
+        filter: grayscale(0);  
+      }
+    }
+    .player-card--expanded & {
+      filter: grayscale(0);  
+    }
    
     @include tablet-portrait-only{
       width:calc(100% + 4px);

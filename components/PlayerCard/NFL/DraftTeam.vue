@@ -7,7 +7,10 @@
     }"
   >
     <img :src="teamNameLogo.logo.small" />
-    <span class="draft-team__name">{{teamNameLogo.teamName}}</span>
+    <span class="draft-team__name">
+      {{teamNameLogo.teamName}}
+      <span v-if="teamNameLogo.via">({{teamNameLogo.via}})</span>
+    </span>
   </div>
 </template>
 
@@ -52,6 +55,11 @@ export default {
       box-shadow:none;
     }
 
+    @include tablet-portrait-only{
+      max-width:65px;
+      max-height:65px;
+    }
+
     @include mobile{
       max-width:80px;
       max-height:80px;
@@ -89,13 +97,19 @@ export default {
       position:absolute;
       top:50%;
       left:50%;
+      width:90%;
+      text-align:center;
       transform:translate(-50%,-50%);
       opacity:0;
       z-index:0;
       transition:opacity 0.25s linear 0s;
       text-transform:uppercase;
-      margin-top:3px;
+      // margin-top:3px;
       pointer-events:none;
+      span{
+        display:block;
+        text-align:center;
+      }
     }
 
     // .player-card--collapsed & {
@@ -115,7 +129,7 @@ export default {
   
     &:hover{
       .player-card--offense &{
-        background-color: $offense;
+        background-color: $defense;
       }
       .player-card--defense &{
         background-color: $defense;

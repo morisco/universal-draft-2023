@@ -172,6 +172,10 @@ export default {
           opacity:0;
           transition:opacity 0.25s linear;
         }
+        @include tablet-portrait-only{
+          top:3px;
+          transform:none;
+        }
         @include mobile{
           transform: translate(0);
           right:auto;
@@ -220,9 +224,7 @@ export default {
         opacity:1;
         padding-top:4px;
         transition:background-color 0.25s linear 0.5s;
-        @include tablet-portrait-only{
-          left:-20px;
-        }
+
         .player-card:hover & {
           .app--supports-hover & {
             background-color:$mediumgray;
@@ -239,8 +241,9 @@ export default {
         }
         
         @include tablet-portrait-only{
-
-          top:15px;
+          top:12.5px;
+          left:-20px;
+          transform:translateY(0);
         }
         @include card-rank;
         @include mobile {
@@ -321,6 +324,9 @@ export default {
         @include non-mobile{
           margin-bottom:-3px;
         }
+        @include tablet-portrait-only{
+          margin-bottom:0;
+        }
         @include meta-bar-detail;
         @include mobile{
           background:$lightgray;
@@ -340,7 +346,7 @@ export default {
         }
         &-column{
           position:relative;
-          min-width:130px;
+          min-width:160px;
           padding:0 15px;
           display:flex;
           flex-direction:column;

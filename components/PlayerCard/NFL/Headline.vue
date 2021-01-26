@@ -34,6 +34,9 @@ export default {
     &__headline{
       margin-bottom:-9px;
       font-weight:300;
+      .mock-draft & {
+        margin-bottom:0;
+      }
       @include non-mobile{
         max-width:85%;
       }
