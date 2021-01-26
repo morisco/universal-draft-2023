@@ -45,7 +45,10 @@ const actions = {
 // mutations
 const mutations = {
   setPage (state, page) {
-    page.badges = page.badges.reduce((obj, item) => Object.assign(obj, { [item.id]: item}));
+    console.log('hiiii', page.badges);
+    let badges = {};
+    page.badges.forEach((badge) => badges[badge.id] = badge);
+    page.badges = badges;
     state.settings = page
   },
   setConfig (state, config) {

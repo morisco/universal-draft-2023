@@ -17,6 +17,7 @@ export default {
   computed: {
     badgeArray() {
       const badgeSettings = this.$store.getters['page/badges'];
+      console.log(badgeSettings);
       let badgeArray;
       if(this.player.badges){
         badgeArray = this.player.badges.map((badge) => { return badgeSettings[badge.badge]});
@@ -90,7 +91,7 @@ export default {
         width:100%;
         // padding-top:100%;
         border-radius:4px;
-        background:$gray;
+        background:$mediumgray;
         width:60px;
         height:60px;
         flex: 0 0 auto;
