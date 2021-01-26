@@ -66,6 +66,11 @@ export default {
   margin-bottom:70px;
   h3{
     text-transform:uppercase;
+    font-weight:300;
+    margin-bottom:15px;
+    strong{
+      font-weight:normal;
+    }
   }
   h2{
     font-family: 'Decima';
@@ -80,6 +85,11 @@ export default {
     }
     strong{
       font-weight:normal !important;
+    }
+  }
+  &-content{
+    @include non-mobile{
+      max-width:78%;
     }
   }
   p{

@@ -50,9 +50,10 @@ h1,
     font-style:italic;
     font-weight: 400;
     text-transform: uppercase;
-    font-size: 8.3vw;
-    line-height:1;
+    font-size: 9vw;
+    line-height:0.9;
     letter-spacing:.025em;
+    margin:30px 0 45px;
     > span, 
     em{
       display:block;
@@ -111,6 +112,9 @@ p{
   line-height:1.4;
   font-size:18px;
   margin-bottom:20px;
+  em{
+    font-style:italic;
+  }
   @include non-mobile{
     margin-bottom:30px;
     font-size:22px;

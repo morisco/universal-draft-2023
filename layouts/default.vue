@@ -31,6 +31,7 @@
       </div>
     </main>
     <Footer />
+    <Consent v-if="requiresConsent" />
     <div ref="sizer" class="app__sizer"></div> 
   </div>
 
@@ -39,18 +40,22 @@
 <script>
 import Header from '~/components/Header'
 import Filters from '~/components/Filters'
+import Consent from '~/components/Consent'
 import MobileNavigation from '~/components/MobileNavigation'
 import PodcastController from '~/components/Podcast/GlobalController'
 import Navigation from '~/components/Navigation'
 import Footer from '~/components/Footer'
 export default {
-  components: { Header, Filters, MobileNavigation, Navigation, PodcastController, Footer },
+  components: { Header, Filters, MobileNavigation, Navigation, PodcastController, Footer, Consent },
   computed: {
     pageSettings () {
       return this.$store.getters['page/settings']
     },
     collapsed() {
       return this.$store.getters['viewOptions/depth'] === 'compact';
+    },
+    requiresConsent() {
+      return false //this.$cookies.get('ringernfldraft-gdpr') ? false : true
     }
   },
   created () {

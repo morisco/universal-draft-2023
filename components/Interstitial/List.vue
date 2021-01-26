@@ -101,11 +101,21 @@ export default {
       .app--supports-hover &{
         background:$lightgray;
         color:$black;
+        .list-inter__presented-by{
+          span{
+            color:$black;
+          }
+        }
       }
     }
     &.player-card--expanded {
       background:$lightgray;
       color:$black;
+      .list-inter__presented-by{
+        span{
+          color:$black;
+        }
+      }
     }
     .player-card__toggle{
       left:60px;
@@ -164,9 +174,10 @@ export default {
     &__presented-by{
       display:flex;
       align-items:center;
-        margin-bottom:15px;
+        margin-bottom:30px;
       span{
-        @include mobile-nav-label;
+        @include header-sponsored-by;
+        transition:color 0.5s linear 0.5s;
       }
       img{
         height:20px;
@@ -177,7 +188,7 @@ export default {
     }
     &__byline{
       @include mobile-nav-label;
-      margin:10px 0 15px;
+      margin:15px 0 15px;
       @include mobile{
         margin: 10px 0 8px;
       }

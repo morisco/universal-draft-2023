@@ -45,6 +45,9 @@ export default {
       p{
         @include player-card-body;
       }
+      @include non-mobile{
+        max-width:85%;
+      }
     }
 
     // .player-card--collapsed & {

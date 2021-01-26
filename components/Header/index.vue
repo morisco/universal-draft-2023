@@ -117,8 +117,9 @@ export default {
     text-align:center;
     font-family:'Decima';
     text-transform:uppercase;
-    margin:-0.5 0 0.125vw;
+    margin:0 0 0.125vw;
     font-size:2.5vw;
+    letter-spacing:0.025em;
     @include mobile{
       font-size:6vw;
       line-height:6vw;

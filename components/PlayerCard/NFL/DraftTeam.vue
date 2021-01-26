@@ -36,17 +36,17 @@ export default {
 <style lang="scss" scoped>
   .draft-team{
     position:absolute;
-    background:$lightgray;
-    max-height:100px;
-    max-width:100px;
-    left:15px;
+    background:$mediumgray;
+    max-height:95px;
+    max-width:95px;
+    left:-15px;
     top:0;
     transform:translateY(calc(-100% - 15px));
     z-index:3;
     cursor:default;
     opacity:0;
     transition:opacity 0.25s linear;
-    box-shadow:0px 2px 4px rgba(0,0,0,0.22);
+    // box-shadow:0px 2px 4px rgba(0,0,0,0.22);
 
     @include tablet-landscape-and-below{
       max-width:45px;
@@ -103,7 +103,7 @@ export default {
       opacity:0;
       z-index:0;
       transition:opacity 0.25s linear 0s;
-      text-transform:uppercase;
+      // text-transform:uppercase;
       // margin-top:3px;
       pointer-events:none;
       span{
@@ -129,10 +129,10 @@ export default {
   
     &:hover{
       .player-card--offense &{
-        background-color: $defense;
+        background-color: $highlight1;
       }
       .player-card--defense &{
-        background-color: $defense;
+        background-color: $highlight1;
       }
       img,
       img[lazy=loaded]{

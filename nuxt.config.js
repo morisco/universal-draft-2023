@@ -63,7 +63,7 @@ export default {
   ],
 
   googleAnalytics: {
-    id: 'UA-132999529-1',
+    id: 'UA-98869396-1',
   },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -72,6 +72,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/device',
     'nuxt-mq',
+    'cookie-universal-nuxt',
     ['nuxt-lazy-load', {
       images: true,
       audios: false,

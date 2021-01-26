@@ -247,7 +247,7 @@ $navHeight: 70px;
       color:$white;
       transition:all 0.25s linear 0s;
       .navigation__button-updated{
-        color:$highlight1;
+        // color:$highlight1;
       }
     }
   }

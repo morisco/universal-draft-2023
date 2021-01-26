@@ -183,6 +183,7 @@ export default {
       text-decoration:underline;
       display:flex;
       align-items:center;
+      text-transform:uppercase;
       span{
         display:inline-block;
         padding-top:2px;

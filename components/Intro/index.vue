@@ -19,9 +19,14 @@ export default {
 .intro{
   &__inner{
     width:calc(100% - 30px);
-    max-width:750px;
+    max-width:805px;
     @include player-card-body;
     margin:60px auto 120px;
+    p{
+      @include non-mobile{
+        font-size:18px;
+      }
+    }
     @include mobile{
       margin-bottom:90px;
     }

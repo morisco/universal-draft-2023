@@ -143,7 +143,7 @@ export default {
       }
       &:hover{
         .player-card__stat-tooltip{
-          transform: translateX(-50%) scale(1);
+          transform: scale(1);
           opacity:1;
         }
       }
@@ -168,7 +168,7 @@ export default {
     line-height:1;
     color:$headlinegray;
     @include stat-title;
-    margin-top:5px;
+    margin-top:2px;
   }
   &__stat-value{
     position:relative;
@@ -191,9 +191,9 @@ export default {
   }
   &__stat-tooltip{
     position:absolute;
-    bottom: calc(100% + 2.5px);
-    left: 50%;
-    transform: translateX(-50%) scale(0);
+    top:65px;
+    left: 0;
+    transform: scale(0);
     width: auto;
     color: #fff!important;
     white-space: nowrap;
@@ -217,9 +217,9 @@ export default {
       content: '';
       display: block;
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%) rotate(45deg);
-      bottom: -5px;
+      left: 5px;
+      transform: rotate(-45deg);
+      top: -5px;
       height: 10px;
       width: 10px;
       z-index: -1;
