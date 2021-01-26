@@ -400,12 +400,12 @@ export default {
             }
 
             @include mobile{
-              font-size:14px;
+              font-size:19px;
               min-width:100%;
               flex-direction:row;
               justify-content:flex-start;
               line-height:20px;
-              margin:10px 0;
+              margin:15px 0 17px;
               padding-left:35px;
               .shades-of-icon{
                 left:0;
