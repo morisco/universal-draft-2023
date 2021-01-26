@@ -45,7 +45,7 @@ export default {
     margin-left:-5px;
     list-style:none;
     transform:translateX(0);
-    transition: transform 0s linear 0.125s, filter 0.375s linear;
+    transition: transform 0s linear 0.125s, filter 0.375s linear 0.5s;
     margin-top:30px;
    
     @include tablet-portrait-only{
@@ -78,7 +78,7 @@ export default {
     }
     .player-card__badge{
       &-label{
-        line-height:0.9;
+        line-height:1.1;
         margin-top:3px;
         font-size:15px;
         @include medium-desktop {
@@ -86,7 +86,6 @@ export default {
         }
         @include mobile{
           font-size:13px;
-          line-height:1.1;
         }
       }
       &-image{
@@ -118,7 +117,7 @@ export default {
       position:relative;
       display: flex;
       flex-direction:row;
-      align-items:center;
+      align-items:flex-start;
       margin: 0 5px 0;
       // flex: 1;
       // max-width: 70px;

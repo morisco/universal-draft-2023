@@ -81,7 +81,6 @@ export default {
       @include tooltip;
       font-family: 'GT America';
       font-size:13px;
-      text-transform:uppercase;
       font-weight:normal;
       color:$gray;
       transition:color 0.25s linear;

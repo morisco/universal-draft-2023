@@ -3,8 +3,8 @@
   <figure class="player-card__video-viewer" v-if="displayVideo" v-on:click="closeVideo">
     <div class="player-card__video-viewer-viewable" ref="viewable">
       <div class="player-card__video-viewer-actions">
+        <button class="player-card__video-viewer-close player-card__video-viewer-close--collapse" v-on:click="collapseVideo"></button>
         <button class="player-card__video-viewer-close" v-on:click="closeVideo"></button>
-        <button class="player-card__video-viewer-close" v-on:click="collapseVideo"></button>
       </div>
       <VideoPlayer :videoWidth="videoWidth" :closeVideo="closeVideo" :playerVideo="playerVideo" :trackTime="trackTime" />
     </div>
@@ -119,6 +119,9 @@ export default {
         background-image:url('~@/assets/img/icons/closeIcon.svg');
         background-size:contain;
         background-repeat:no-repeat ;
+        &--collapse{
+          background-image:url('~@/assets/img/icons/collapse.svg');
+        }
 
       }
       

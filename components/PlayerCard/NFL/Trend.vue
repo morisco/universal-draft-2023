@@ -1,10 +1,10 @@
 <template>
   <div class="player-card__trend">
-    <svg v-if="trend === 'down'" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    <svg class="player-card__trend-down" v-if="trend === 'down'" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	    viewBox="0 0 48 34" style="enable-background:new 0 0 48 34;" xml:space="preserve">
       <polygon class="player-card__trend-poly" points="28,28 37,25 24,12 16,20 0,4 4,0 16,12 24,4 41,21 44,12 48,34 "/>
     </svg>
-    <svg v-if="trend === 'up'" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    <svg class="player-card__trend-up" v-if="trend === 'up'" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	    viewBox="0 0 48 34" style="enable-background:new 0 0 48 34;" xml:space="preserve">
       <polygon class="player-card__trend-poly" points="48,0 44,22 41,13 24,30 16,22 4,34 0,30 16,14 24,22 37,9 28,6 "/>
     </svg>
@@ -21,17 +21,23 @@ export default {
 .player-card{
   &__trend{
     position:absolute;
-    top:15px;
-    right:10px;
-    width:20px;
+    top:17px;
+    right:15px;
+    width:30px;
     z-index:3;
-    opacity:1;
+    opacity:0.4;
     @include non-mobile{
-      right:15px;
-      top:15px;
+      right:20px;
+      top:22px;
+      width:45px;
       .player-card--collapsed & {
-        top:50%;
-        transform:translateY(-50%);
+        top:55%;
+        right:30px;
+        transform:translateY(50%);
+        @include tablet-portrait-only{
+          top:45px;
+          transform:translateY(-50%);
+        }
         .mock-draft &,
         .draft-results & {
           right:100px;

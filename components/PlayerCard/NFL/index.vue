@@ -166,6 +166,14 @@ export default {
       }
     },
     viewDepth (newDepth, oldDepth) {
+      if(this.activeCard){
+        console.log('active', this.player.title);
+        const self = this;
+        setTimeout(() => {
+          let scrollDestination = self.$refs.card.offsetParent.offsetTop + self.$refs.card.offsetTop - (self.$mq === 'mobile' ? 60 : self.collapsed ? 75 : 85) - (this.$mq === 'mobile' ? 15 : 30);
+          scrollIt(scrollDestination, 500, 'linear');
+        }, this.$mq === 'mobile' ? 1250 : 750);
+      }
       if(oldDepth === 'compact' || newDepth === 'compact'){
         const self = this;
         this.transitioning = true;

@@ -11,10 +11,12 @@
     }"
   >
     <div class="video-inter__content">
-      <img src="@/assets/img/icons/inter-play.svg" v-if="$mq === 'mobile'" class="video-inter__play-button" alt="Play button" data-not-lazy />
       <div class="video-inter__slug">Video</div>
       <div class="video-inter__title" v-html="interstitial.title"></div>
-      <img src="@/assets/img/icons/inter-play.svg" v-if="$mq !== 'mobile'" class="video-inter__play-button" alt="Play button" data-not-lazy />
+      <div class="video-inter__link">
+        <img src="@/assets/img/icons/inter-play.svg" class="video-inter__play-button" alt="Play button" data-not-lazy />
+        <span>Play the video</span>
+      </div>
       
     </div>
     <div class="video-inter__video">
@@ -111,6 +113,9 @@ export default {
     &__slug{
       @include slug;
       text-transform:uppercase;
+      @include mobile{
+        display:none;
+      }
     }
     &__title{
       @include inter-title;
@@ -173,16 +178,26 @@ export default {
         }
       }
     }
+    &__link{
+      @include expanded-label;
+      text-decoration:underline;
+      display:flex;
+      align-items:center;
+      span{
+        display:inline-block;
+        padding-top:2px;
+      }
+      @include mobile{
+        font-size:15px;
+      }
+    }
     &__play-button{
       position:relative;
-      width:90px;
-      height:90px;
+      width:40px;
+      height:40px;
       z-index:2;
       opacity:1;
-      @include single-column{
-        width:50px;
-        height:50px;
-      }
+      margin-right:7px;
       @include mobile{
         width:25px;
         height:25px;

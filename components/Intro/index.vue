@@ -18,12 +18,16 @@ export default {
 <style lang="scss">
 .intro{
   &__inner{
-    margin:60px auto;
     width:calc(100% - 30px);
     max-width:750px;
     @include player-card-body;
+    margin:60px auto 120px;
+    @include mobile{
+      margin-bottom:90px;
+    }
     strong{
       font-family: 'Decima';
+      text-transform:uppercase;
     }
   }
   .hr-divider{

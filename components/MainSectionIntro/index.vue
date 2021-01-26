@@ -63,11 +63,7 @@ export default {
 
 <style lang="scss">
 .main-section__intro{
-  margin-top:-15px;
   margin-bottom:70px;
-  @include mobile{
-    margin-top:0;
-  }
   h3{
     text-transform:uppercase;
   }

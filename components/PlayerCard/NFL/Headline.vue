@@ -37,6 +37,9 @@ export default {
       @include non-mobile{
         max-width:85%;
       }
+      @include tablet-portrait-only{
+        max-width:100%;
+      }
       p{
         margin-bottom:15px;
         @include player-headline;

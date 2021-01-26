@@ -202,7 +202,7 @@ export default {
       display:flex;
       flex-direction:column;
       justify-content:center;
-      padding:30px 30px 45px;
+      padding:30px 30px 30px;
       min-height:255px;
       // .player-card--collapsed & {
       //   min-height:0;

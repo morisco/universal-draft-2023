@@ -15,6 +15,7 @@
       </div>
       <div class="list-inter__presented-by" v-if="$mq === 'mobile'">
         <span>Presented By</span>
+        <img src="@/assets/img/state-farm-red.svg" alt="State Farm Logo" data-not-lazy />
       </div>
       <div class="list-inter__content" v-html="interstitial.content"></div>
     </div>
@@ -30,11 +31,14 @@ export default {
 <style lang="scss">
   .list-inter{
     overflow:hidden;
-    background:transparent;
-    padding:0;
+    // background:transparent;
+    padding:30px 90px 0 60px;
     flex-direction:row;
     border-radius:0.625rem;
     opacity:1;
+    @include mobile{
+      padding:0 20px;
+    }
     .app__content--collapsed & {
       margin-bottom:15px;
     }
@@ -68,8 +72,14 @@ export default {
 
     }
     &__presented-by{
+      display:flex;
+      align-items:center;
       span{
         @include mobile-nav-label;
+      }
+      img{
+        height:20px;
+        margin-left:7px;
       }
       @include mobile{
         margin-bottom:15px;
@@ -79,7 +89,7 @@ export default {
       @include mobile-nav-label;
       margin:10px 0 15px;
       @include mobile{
-        margin: 10px 0;
+        margin: 10px 0 8px;
       }
     }
     &__content{

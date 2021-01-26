@@ -51,6 +51,7 @@ export default {
       }
       &-games{
         @include player-card-body;
+        color:$headlinegray;
         margin-bottom:10px;
       }
       .player-card__image-column &{
@@ -107,7 +108,7 @@ export default {
       max-width: 60px;
       .player-card__image-column &{
         flex: 0 0 auto;
-        margin:0 30px 0 0;
+        margin:0 15px 0 0;
         width:calc(33.333% - 5px);
       }
       &:first-of-type{

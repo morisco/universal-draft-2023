@@ -4,7 +4,10 @@
     <img src="@/assets/img/logo-square.png" alt="The Ringer 'R' Logo" data-not-lazy />
   </a>
   <div class="mobile-navigation__toggle-label" :class="{'mobile-navigation__toggle-label--transition': transition}">
-    <span class="mobile-navigation__toggle-label-current">{{currentLabel}}</span>
+    <span class="mobile-navigation__toggle-label-current">
+      <span class="mobile-navigation__toggle-label-current-closed">{{currentLabel}}</span>
+      <span class="mobile-navigation__toggle-label-current-open">The Ringer's 2021 NFL Draft Guide</span>
+    </span>
     <span class="mobile-navigation__toggle-label-new">{{newLabel}}</span>
   </div>
   <div class="mobile-navigation__toggle-caret">
@@ -85,8 +88,35 @@ export default {
     width:100%;
     text-align:left;
     &-current{
+      position:relative;
       transform:translateY(0);
       opacity:1;
+      display:block;
+      flex:1;
+      &-closed{
+        opacity:1;
+        transition:opacity 0.25s linear 0.25s;  
+      }
+      &-open{
+        position:absolute;
+        left:0;
+        top:0;
+        right:0;
+        opacity:0;
+        transform:translateY(0);
+        transition:opacity 0.25s linear;
+      }
+      .mobile-navigation--expanded & {
+        &-open{
+          opacity:1;
+          transform:translateY(0);
+          transition:opacity 0.25s linear 0.25s;
+        }
+        &-closed{
+          opacity:0;
+          transition:opacity 0.25s linear;
+        }
+      }
     }
     &-new{
       position:absolute;

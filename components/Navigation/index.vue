@@ -132,6 +132,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$navHeight: 70px;
 .navigation{
   position:relative;
   width: calc(100% - 210px);
@@ -146,7 +147,7 @@ export default {
     left:50%;
     width: 100%;
     max-width:1270px;
-    height:65px;
+    height:$navHeight;
     transform:translateX(-50%);
     background:$white;
     // border: 2px solid $black;
@@ -159,11 +160,11 @@ export default {
     display:flex;
     flex:1;
     overflow:hidden;
-    height:65px;
+    height:$navHeight;
     &-inner{
       display:flex;
       min-width:200%;
-      height:65px;
+      height:$navHeight;
       transform:translate3d(0,0,0);
       will-change:transform;
     }
@@ -217,7 +218,7 @@ export default {
     flex-direction:column;
     padding:4px 20px 0;
     justify-content:center;
-    height:65px;
+    height:$navHeight;
     border-right:1px solid $white;
     color:$white;
     transition:all 0.25s linear 0.5s, border-right 0.25s linear 0s;
@@ -252,7 +253,7 @@ export default {
   }
   &__button-title{
     @include demibold-title;
-    margin-bottom:3px;
+    margin-bottom:1px;
   }
   &__button-subtitle{
     display:inline-block !important;
@@ -267,12 +268,13 @@ export default {
     color:$mediumgray;
     min-height:13px;
     margin:0;
+    text-transform:none !important;
     @include single-column{
       font-size:12px;
     }
   }
   &__ghost{
-    height:65px;
+    height:$navHeight;
     width: 100%;
   }
 
@@ -282,7 +284,7 @@ export default {
     justify-content:flex-end;
     align-items:center;
     width:4%;
-    height:65px;
+    height:$navHeight;
     max-width:55px;
     background:$highlight2-light;
     flex: 0 0 auto;
@@ -316,7 +318,7 @@ export default {
       width: calc(100% - 60px);
       max-width:100vw;
       border-radius:0;
-      max-height:65px;
+      max-height:$navHeight;
       transition:all 0.25s ease-in-out;
     }
   }

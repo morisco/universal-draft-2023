@@ -225,10 +225,23 @@ export default {
         }
         .player-card:hover & {
           .app--supports-hover & {
-            background-color:$highlight1;
+            background-color:$mediumgray;
+            span{
+              color:$black;
+            }
+          }
+        }
+        .player-card--expanded & {
+          background-color:$mediumgray;
+          span{
+            color:$black;
           }
         }
         
+        @include tablet-portrait-only{
+
+          top:15px;
+        }
         @include card-rank;
         @include mobile {
           opacity:0;
@@ -252,6 +265,7 @@ export default {
         }
         span{
           color:$white;
+          transition:color 0.25s linear 0.5s;
         }
       }
       &-name-school{
@@ -354,6 +368,9 @@ export default {
             @include meta-bar-detail;
             line-height:1;
             padding-left:50px;
+            @include tablet-portrait-only{
+              margin-left:-40px;
+            }
             .shades-of-icon{
               position:absolute;
               top:0;
