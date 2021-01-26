@@ -217,6 +217,7 @@ export default {
     }
     &__label{
       @include player-card-body;
+      font-size:14px;
       margin-bottom:3px;
     }
     &__progress{
