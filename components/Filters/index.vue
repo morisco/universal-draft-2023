@@ -112,6 +112,9 @@ export default {
       if(window.scrollY > this.$refs.filters.offsetParent.offsetTop - distanceFromTopWhenSticky){
         this.fixed = true;
         this.showInfoBubble = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) < 0 && this.$route.name === 'team-needs' || this.bubbleDismissed ? false : true;
+        if(window.scrollY > this.$refs.filters.offsetParent.offsetTop - distanceFromTopWhenSticky + window.innerHeight/2){
+          this.showInfoBubble = false;
+        }
         this.left = this.$refs.filters.offsetParent.offsetLeft;
       } else {
         this.fixed = false;

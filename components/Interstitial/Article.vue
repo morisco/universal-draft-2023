@@ -25,7 +25,7 @@ export default {
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding:40px;
+  padding:40px 0;
   overflow:hidden;
   border-radius:0.625rem;
   @include mobile {

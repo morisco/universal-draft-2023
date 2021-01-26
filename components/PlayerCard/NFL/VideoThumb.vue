@@ -111,7 +111,7 @@ export default {
       }
     }
     &-play-button{
-      width:50px;
+      width:25px;
       position:absolute;
       top:50%;
       left:50%;

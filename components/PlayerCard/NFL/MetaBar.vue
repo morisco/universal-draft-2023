@@ -40,7 +40,7 @@
       <div class="player-card__meta-bar-details-row">
         <span class="label">Shades Of:</span>
       </div>
-      <div class="player-card__meta-bar-details-row">
+      <div class="player-card__meta-bar-details-row player-card__meta-bar-details-row--shade-value">
         {{playerMeta.shadesOf}}
       </div>
     </div>
@@ -392,6 +392,11 @@ export default {
               line-height:20px;
               margin:15px 0 17px;
               padding-left:35px;
+              .player-card__meta-bar-details-row{
+                &--shade-value{
+                  flex:1;
+                }
+              }
               .shades-of-icon{
                 left:0;
               }

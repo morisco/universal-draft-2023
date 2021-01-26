@@ -65,13 +65,16 @@ export default {
     }
      @include mobile {
       justify-content:flex-start;
-      filter:grayscale(0);
+      filter:grayscale(1);
       padding:0 15px;
       margin-left:0;
       margin-right:0;
       flex-wrap:wrap;
       background:$lightgray;
       margin-top:0;
+      .player-card--active & {
+        filter:grayscale(0);
+      }
     }
     .player-card__badge{
       &-label{
