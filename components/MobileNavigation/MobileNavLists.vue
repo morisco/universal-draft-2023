@@ -6,7 +6,7 @@
     <span class="mobile-navigation__lists-updated">{{pageSettings.players_to_watch_updated}}</span>
   </NuxtLink>
   <NuxtLink tag="button" to="/mock-draft" class="mobile-navigation__lists-button" :disabled="!pageSettings.enable_mock" v-on:click.native="changeList" activeClass="mobile-navigation__lists-button--active">
-    <span class="mobile-navigation__lists-title">Mock Draft</span>
+    <span class="mobile-navigation__lists-title">Mock Draft by Danny Kelly</span>
     <span class="mobile-navigation__lists-updated">{{pageSettings.danny_updated}}</span>
   </NuxtLink>
   <NuxtLink tag="button" to="/team-needs" class="mobile-navigation__lists-button" v-on:click.native="changeList" :disabled="!pageSettings.breakdown_by_team" activeClass="mobile-navigation__lists-button--active">

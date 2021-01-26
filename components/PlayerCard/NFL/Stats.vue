@@ -1,8 +1,8 @@
 <template>
 <div class="player-card__stats">
-  <div class="player-card__stats-detail">
-    <div class="player-card__stats-detail-year">{{player.stat_details && player.stat_details.year}} STATS</div>
-    <div class="player-card__stats-detail-games">Based on {{player.stat_details && player.stat_details.games}} games played</div>
+  <div class="player-card__stats-detail" v-if="player.stat_details">
+    <div class="player-card__stats-detail-year">{{player.stat_details.year}} STATS</div>
+    <div class="player-card__stats-detail-games">Based on {{player.stat_details.games}} games played</div>
   </div>
   <ul class="player-card__stats-list" :class="{'player-card__stats-list--full' : statArray.length === 5}">
     <li v-for="stat in statArray" :key="stat.key">

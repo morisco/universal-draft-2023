@@ -24,7 +24,7 @@ export default {
           }
         case 'mock_draft':
           return {
-            headline: '<strong>Mock Draft</strong>',
+            headline: '<strong>Mock Draft</strong> By Danny Kelly',
             content: this.$store.getters['page/settings'].mock_draft_intro,
             link: '/',
             linkText: this.$store.getters['page/settings'].mock_draft_link,

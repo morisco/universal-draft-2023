@@ -43,8 +43,8 @@ export default {
     navOptions() { 
       return this.pageSettings ? [
         {to: '/', title: 'Big Board', subtitle:'by Danny Kelly', enabled: true, updated: this.pageSettings.players_to_watch_updated, routeNames: ['index', 'big_board_player_share']},
-        {to: '/mock-draft', title: 'Mock Draft', subtitle:'by Ringer Staff', enabled: this.pageSettings.enable_mock, updated: this.pageSettings.danny_updated, routeNames: ['mock-draft', 'mock_draft_player_share']},
-        {to: '/team-needs', title: 'Team Needs', subtitle:'by Robert Mays', enabled: this.pageSettings.breakdown_by_team, updated: this.pageSettings.breakdown_updated, routeNames: ['team-needs', 'team_needs_team_share']},
+        {to: '/mock-draft', title: 'Mock Draft', subtitle:'by Danny Kelly', enabled: this.pageSettings.enable_mock, updated: this.pageSettings.danny_updated, routeNames: ['mock-draft', 'mock_draft_player_share']},
+        {to: '/team-needs', title: 'Team Needs', subtitle:'', enabled: this.pageSettings.breakdown_by_team, updated: this.pageSettings.breakdown_updated, routeNames: ['team-needs', 'team_needs_team_share']},
         {to: '/draft-results', title: 'Draft Results', enabled: this.pageSettings.enable_results, updated: this.pageSettings.draft_results_updated, routeNames: ['draft-results', 'draft_results_player_share']}
       ] : null;
     }
