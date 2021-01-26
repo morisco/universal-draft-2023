@@ -103,7 +103,7 @@ export default {
     transition:all 0.125s linear, left 0.25s linear, right 0.25s linear, bottom 0.5s ease-in-out;
     border-radius:5px;
     background:$white;
-    border:1px solid $black;
+    // border:1px solid $black;
     border-color: $black;
     overflow:hidden;
     z-index:2;

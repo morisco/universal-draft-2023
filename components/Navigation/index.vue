@@ -226,8 +226,11 @@ export default {
       padding:0 10px 0;
     }
     &:disabled{
-      opacity:0.5;
+      // opacity:0.5;
       cursor:default;
+      span{
+        opacity:0.5;
+      }
     }
     
     &:nth-child(4),
@@ -249,17 +252,21 @@ export default {
   }
   &__button-title{
     @include demibold-title;
+    margin-bottom:3px;
   }
   &__button-subtitle{
     display:inline-block !important;
     @include demibold-title;
     font-weight:300;
-    color:$mediumgray;
+    color:$white;
   }
   &__button-updated{
-    @include filter-section-title;
+    @include player-card-body;
+    font-size:13px;
+    line-height:1;
     color:$mediumgray;
     min-height:13px;
+    margin:0;
     @include single-column{
       font-size:12px;
     }
@@ -297,7 +304,7 @@ export default {
 
     }
     img{
-      width:calc(100% - 20px);
+      width:calc(100% - 16px);
     }
   }
   &--fixed{

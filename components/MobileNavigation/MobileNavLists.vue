@@ -79,10 +79,13 @@ export default {
     }
     &-updated{
       @include tooltip;
-      font-family: 'Decima';
+      font-family: 'GT America';
+      font-size:13px;
+      text-transform:uppercase;
       font-weight:normal;
       color:$gray;
       transition:color 0.25s linear;
+      margin-top:2px;
     }
     &-button{
       &--active{
