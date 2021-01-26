@@ -79,6 +79,9 @@ export default {
         .player-card--collapsing & {
           bottom:-25px;
         }
+        @include tablet-portrait-only{
+          left:320px;
+        }
         @include mobile{
           left:20px;
           .player-card--collapsed &,
