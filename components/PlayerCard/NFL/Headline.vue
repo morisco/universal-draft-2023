@@ -51,13 +51,12 @@ export default {
           margin-bottom:5px;
         }
         strong{
-          display:inline-block;
+          display:inline;
           text-transform:uppercase;
           font-weight:normal;
           font-family: 'Decima';
           color:$black;
           font-size:26px;
-          margin-bottom:-2px;
           letter-spacing:0;
         }
         @include mobile{

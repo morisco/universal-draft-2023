@@ -17,6 +17,7 @@ function decodeContent(content) {
 }
 
 function processImages(image) {
+  if(!image) return {}
   const imageSplit  = image.split('.');
   const extension   = imageSplit.pop();
   const joinedImg   = imageSplit.join('.');
@@ -61,7 +62,11 @@ export function processPlayers(players) {
       if(player.player_video){
         player.player_video.poster = processImages(player.player_video.poster);
       }
-      player.image_data.image = processImages(player.image_data.image);
+      if(player.image_data){
+        player.image_data.image = processImages(player.image_data.image);
+      } else {
+        player.image_data = { image: {} };
+      }
       player.offenseDefense = offensePositions.indexOf(player.position) >= 0 ? 'offense' : 'defense' 
       teamPlayers[player.id_string] = {
         title: player.title,

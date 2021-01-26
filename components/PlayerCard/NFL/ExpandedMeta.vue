@@ -27,7 +27,7 @@ export default {
       display:flex;
       flex-direction:column;
       margin: 0;
-      padding:3px 0 30px;
+      padding:3px 0 60px;
       @include mobile {
         transition:opacity 1s linear 0s;
         margin:0 0 0;
