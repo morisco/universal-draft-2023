@@ -44,6 +44,9 @@ export default {
         letter-spacing: -0.025em; 
         font-size: 25px; 
         // line-height:22px;
+        &:last-of-type{
+          margin-bottom:5px;
+        }
         strong{
           display:inline-block;
           text-transform:uppercase;

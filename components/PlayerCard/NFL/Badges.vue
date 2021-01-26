@@ -90,8 +90,8 @@ export default {
         // padding-top:100%;
         border-radius:4px;
         background:$gray;
-        width:65px;
-        height:65px;
+        width:60px;
+        height:60px;
         flex: 0 0 auto;
         margin-right:7.5px;
         @include mobile{
@@ -127,12 +127,14 @@ export default {
       }
       @include medium-desktop {
         margin:0 2px 24px;
-        width:calc(20% - 4px);
+        width:calc(25% - 4px);
 
       }
       @include tablet-portrait-only{
         margin:0 2px 15px;
-        width:calc(20% - 4px);
+        width:calc(25% - 4px);
+        flex-direction:column;
+        align-items:flex-start;
       }
 
       @include mobile {

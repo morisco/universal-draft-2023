@@ -43,6 +43,11 @@ export default {
         }
       }
       &-section{
+        p{
+          &:last-of-type{
+            margin-bottom:45px;
+          }
+        }
         @include mobile{
           margin-bottom:20px;
         }
@@ -50,10 +55,6 @@ export default {
     }
     &__expanded-label{
       @include expanded-label;
-      margin-bottom:12px;
-      @include mobile{
-        margin-bottom:5px;
-      }
     }
     &__expanded-value{
       > p {

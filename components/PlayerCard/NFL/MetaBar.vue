@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="player-card__meta-bar-details">
-    <div class="player-card__meta-bar-details-column">
+    <div class="player-card__meta-bar-details-column" v-if="$mq !== 'tablet'">
       <div class="player-card__meta-bar-details-row">
         <span class="label">Year</span> {{playerMeta.year}}
       </div>
@@ -24,7 +24,7 @@
         <span class="label">Age</span> {{playerMeta.age}}
       </div>
     </div>
-    <div class="player-card__meta-bar-details-column">
+    <div class="player-card__meta-bar-details-column" v-if="$mq !== 'tablet'">
       <div class="player-card__meta-bar-details-row">
         <span class="label">Height</span> {{playerMeta.height}}
       </div>
@@ -42,6 +42,24 @@
       </div>
       <div class="player-card__meta-bar-details-row">
         {{playerMeta.shadesOf}}
+      </div>
+    </div>
+  </div>
+  <div class="player-card__meta-bar-tablet" v-if="$mq === 'tablet'">
+    <div class="player-card__meta-bar-details-column">
+      <div class="player-card__meta-bar-details-row">
+        <span class="label">Year</span> {{playerMeta.year}}
+      </div>
+      <div class="player-card__meta-bar-details-row">
+        <span class="label">Age</span> {{playerMeta.age}}
+      </div>
+    </div>
+    <div class="player-card__meta-bar-details-column">
+      <div class="player-card__meta-bar-details-row">
+        <span class="label">Height</span> {{playerMeta.height}}
+      </div>
+      <div class="player-card__meta-bar-details-row">
+        <span class="label">Weight</span> {{playerMeta.weight}}
       </div>
     </div>
   </div>
@@ -93,6 +111,52 @@ export default {
       display: flex;
       text-transform:uppercase;
       transition:all 0.25s linear 0.5s, border-radius 0.25s linear 0s;
+      @include tablet{
+        flex-wrap:wrap;
+      }
+      &-tablet{
+        flex: 0 0 auto;
+        min-width:calc(100% - 60px);
+        display:flex;
+        margin-left:40px;
+        margin-right:20px;
+        margin-top:7.5px;
+        padding-top:8px;
+        border-top:1px solid $darkmediumgray;
+        .player-card__meta-bar-details-column{
+          flex-direction:row;
+          flex:1;
+          padding:0;
+          &:after{
+            display:none;
+          }
+          &:last-of-type{
+            .player-card__meta-bar-details-row{
+              padding: 0 15px;
+            }
+          }
+          &:last-of-type{
+            .player-card__meta-bar-details-row{
+              &:last-of-type{
+                border-right:0;
+              }
+            }
+          }
+        }
+        .player-card__meta-bar-details-row{
+          flex:1;
+          padding: 2px 15px 0px;
+          border-right:1px solid $darkmediumgray;
+          display:flex;
+          align-items:center;
+          span{
+            margin-right:4px;
+          }
+          &:first-of-type{
+            padding-left:0px;
+          }
+        }
+      }
       .draft-team{
         box-shadow:none;
         right:20px;
@@ -171,6 +235,9 @@ export default {
         opacity:1;
         padding-top:4px;
         transition:background-color 0.25s linear 0.5s;
+        @include tablet-portrait-only{
+          left:-20px;
+        }
         .player-card:hover & {
           .app--supports-hover & {
             background-color:$highlight1;
@@ -203,8 +270,12 @@ export default {
         }
       }
       &-name-school{
+        
         &.player-card__image-column{
           padding:0 0 0 40px;
+          @include tablet{
+            width:50%;
+          }
           @include mobile{
             max-height:100% !important;
             background-color:$mediumgray;

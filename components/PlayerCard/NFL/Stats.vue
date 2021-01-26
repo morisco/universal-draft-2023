@@ -99,10 +99,10 @@ export default {
       display: flex;
       margin: 0 5px 0;
       flex: 1;
-      max-width: 65px;
+      max-width: 60px;
       .player-card__image-column &{
         flex: 0 0 auto;
-        margin:0 22.5px 0 0;
+        margin:0 30px 0 0;
         width:calc(33.333% - 5px);
       }
       &:first-of-type{
@@ -157,7 +157,7 @@ export default {
     text-align: left;
     box-sizing:content-box;
     line-height:1;
-    color:$darkmediumgray;
+    color:$headlinegray;
     @include stat-title;
     margin-top:5px;
   }

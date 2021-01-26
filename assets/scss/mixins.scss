@@ -87,15 +87,16 @@
 }
 
 @mixin stat-title{
-  font-size: 14px;
-  letter-spacing: .1em;
+  font-size: 13px;
+  letter-spacing: .05em;
   text-transform:uppercase;
   line-height:17px;
+  font-weight:500;
 }
 
 @mixin stat-value{
   font-family: 'Decima';
-  font-size: 30px;
+  font-size: 26px;
   line-height: .77;
   font-weight:300;
   @include mobile{
@@ -152,9 +153,10 @@
 @mixin expanded-label{
   font-family: 'Decima';
   font-size: 18px;
+  letter-spacing:0.025em;
   font-weight: normal;
   line-height: 13px;
-  letter-spacing: .05em;
+  margin-bottom:5px;
 }
 
 @mixin tooltip {
@@ -164,9 +166,9 @@
 }
 
 @mixin player-card-body{
-  font-size:14px;
-  line-height:21px;
-  margin-bottom:20px;
+  font-size:15px;
+  line-height:1.5;
+  margin-bottom:30px;
 }
 
 @mixin card-rank{

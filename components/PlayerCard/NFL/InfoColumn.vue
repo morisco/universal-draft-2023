@@ -27,7 +27,6 @@
         <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile'" />
       </template>
       <Stats :player="player" v-if="$mq === 'mobile'" />
-      <CombineResults :results="player.combine_results" :topHeight="topHeight" v-if="$mq === 'mobile'" />
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
       <ExpandedMeta :player="player" />
 
@@ -201,6 +200,9 @@ export default {
       // .player-card--collapsed & {
       //   min-height:0;
       // }
+      @include tablet-portrait-only{
+        padding: 30px 20px 45px;
+      }
       @include mobile {
         padding:0;
         flex-direction:column;
@@ -236,6 +238,10 @@ export default {
       @include non-mobile{
         padding:0 30px;
       }
+      @include tablet-portrait-only{
+        padding:0 20px;
+      }
+
       @include mobile{
         background:$lightgray;
         padding-top:35px;
