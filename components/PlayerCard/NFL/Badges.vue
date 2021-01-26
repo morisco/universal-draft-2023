@@ -82,6 +82,7 @@ export default {
         }
         @include mobile{
           font-size:13px;
+          line-height:1.1;
         }
       }
       &-image{

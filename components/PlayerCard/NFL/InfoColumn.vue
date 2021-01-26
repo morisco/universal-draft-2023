@@ -244,11 +244,11 @@ export default {
 
       @include mobile{
         background:$lightgray;
-        padding-top:35px;
-        padding-bottom:20px;
+        padding-top:0;
+        padding-bottom:40px;
         border-radius:0 0 0.625rem 0.625rem;
         .player-card--expanded & {
-          margin-top:-35px;
+          margin-top:-15px;
         }
         // padding-top:0.625rem;
         // .mock-draft & {
@@ -256,13 +256,14 @@ export default {
         // }
         &-extended{
           padding:0 20px;
+          margin-top:30px;
           &:before{
             content:'';
             display:block;
             width:100%;
             height:1px;
-            background:$darkmediumgray;
-            margin-bottom:20px;
+            background:#bdbdbd;
+            margin-bottom:30px;
           }
         }
       }

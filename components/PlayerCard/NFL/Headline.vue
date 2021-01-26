@@ -57,7 +57,12 @@ export default {
           margin-bottom:-2px;
           letter-spacing:0;
         }
-
+        @include mobile{
+          font-size:19px;
+          strong{
+            font-size:19px;
+          }
+        }
       }
     }
     &__selling-point{

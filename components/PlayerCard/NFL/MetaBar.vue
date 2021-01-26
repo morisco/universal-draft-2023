@@ -273,7 +273,7 @@ export default {
         
         &.player-card__image-column{
           padding:0 0 0 40px;
-          @include tablet{
+          @include tablet-portrait-only{
             width:50%;
           }
           @include mobile{
@@ -282,7 +282,7 @@ export default {
             color:$black;
             transition:all 0.5s linear 0s;
             border-radius:0.625rem 0.625rem 0 0;
-            padding:15px 0 15px 15px;
+            padding:17px 0 15px 20px;
             .player-card--collapsed & {
               padding:15px 0 15px 40px;
             }
@@ -302,6 +302,9 @@ export default {
       &-position-school{
         @include meta-bar-detail;
         margin-top:-3px;
+        @include mobile{
+          margin-top:-2px;
+        }
         // margin-bottom:5px;
         .school{
           font-weight:300;
@@ -322,15 +325,15 @@ export default {
         @include meta-bar-detail;
         @include mobile{
           background:$lightgray;
-          padding:15px 20px;
+          padding: 20px;
           flex-wrap:wrap;
-          font-size:14px;
+          font-size:15px;
           &:after{
             content:'';
             display:block;
             width:100%;
             height:1px;
-            background:$darkmediumgray;
+            background:#bdbdbd;
             .player-card--collapsed & {
               display:none;
             }

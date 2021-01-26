@@ -35,12 +35,17 @@ export default {
     display:flex;
     flex-direction:column;
     @include mobile {
-      padding:0 20px 10px;
+      padding:0 20px 20px;
       margin-top:-0.625rem;
       background:$lightgray;
     }
 
     &-detail{
+      @include mobile{
+        border-top:1px solid #bdbdbd;
+        padding-top:25px;
+        margin-top:0.625rem;
+      }
       &-year{
         @include expanded-label;
       }
@@ -116,7 +121,7 @@ export default {
       }
 
       @include mobile {
-        margin: 0 10px 10px 0;
+        margin: 0 10px 0 0;
         transition:opacity 0.25s linear;
         max-width:55px;
         &:last-of-type{

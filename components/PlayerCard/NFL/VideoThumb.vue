@@ -78,6 +78,7 @@ export default {
     margin-bottom:20px;
     &-title{
       @include expanded-label;
+      line-height:1;
       text-transform:uppercase;
       letter-spacing:-0.133px;
       margin-bottom:12px;

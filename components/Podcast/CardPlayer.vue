@@ -214,11 +214,17 @@ export default {
       @include tablet-landscape-and-below{
         margin-left:5px;
       }
+      @include mobile{
+        margin-bottom:2px;
+      }
     }
     &__label{
       @include player-card-body;
       font-size:14px;
       margin-bottom:3px;
+      @include mobile{
+        margin-bottom:3px;
+      }
     }
     &__progress{
       position:absolute;

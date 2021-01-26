@@ -169,6 +169,10 @@
   font-size:15px;
   line-height:1.5;
   margin-bottom:30px;
+  @include mobile{
+    line-height:1.4;
+    margin-bottom:10px;
+  }
 }
 
 @mixin card-rank{
@@ -182,6 +186,9 @@
 @mixin meta-bar-detail{
   font-size:17px;
   line-height:1.2;
+  @include mobile{
+    font-size:19px;
+  }
 }
 
 @mixin info-bubble{

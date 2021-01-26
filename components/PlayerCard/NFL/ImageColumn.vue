@@ -258,9 +258,9 @@ export default {
         // }
       }
       @include mobile{
-        top:5px;
+        top:15px;
         left:50%;
-        margin-left:-120px;
+        margin-left:-135px;
         right:auto;
         .player-card--collapsed & {
           opacity:0;
