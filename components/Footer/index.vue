@@ -120,7 +120,9 @@
 	background-color: #000;
 	color: #fff;
 	padding-top: 16px;
-  border-top: none
+  border-top: none;
+  position:relative;
+  z-index:2;
   button{
     border: 0;
     background: none;
