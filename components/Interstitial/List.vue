@@ -197,6 +197,12 @@ export default {
       }
     }
     &__content{
+      &:after{
+        content:'';
+        display:block;
+        position:relative;
+        width:100%;
+      }
       p{
         @include mobile {
           @include player-card-body;

@@ -1,6 +1,6 @@
 runtime: nodejs10
 
-instance_class: F24
+instance_class: F4
 
 automatic_scaling:
   min_idle_instances: 10
