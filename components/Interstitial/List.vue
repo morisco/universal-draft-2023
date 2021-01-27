@@ -198,6 +198,9 @@ export default {
     }
     &__content{
       p{
+        @include mobile {
+          @include player-card-body;
+        }
         a{
           text-decoration:underline;
           // color:$highlight2;

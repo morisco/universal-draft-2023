@@ -377,6 +377,7 @@ export default {
             @include tablet-portrait-only{
               margin-left:-40px;
             }
+
             .shades-of-icon{
               position:absolute;
               top:0;
@@ -415,9 +416,10 @@ export default {
               line-height:20px;
               margin:15px 0 17px;
               padding-left:35px;
+              flex-wrap:wrap;
               .player-card__meta-bar-details-row{
                 &--shade-value{
-                  flex:1;
+                  flex:0 0 auto;
                 }
               }
               .shades-of-icon{

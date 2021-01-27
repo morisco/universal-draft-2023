@@ -222,6 +222,9 @@ export default {
     color:$darkmediumgray;
     @include filter-option;
     transition:color 0.25s linear;
+    @include mobile{
+      padding:2px 0;
+    }
     &.active,
     &:hover{
       color:$black;

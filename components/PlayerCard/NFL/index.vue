@@ -332,7 +332,7 @@ export default {
     // }
     @include mobile{
       border:0px;
-      margin-bottom:45px;
+      margin-bottom:55px;
       border-radius: 0 0 .625rem .625rem;
     }
     &__image-info{
