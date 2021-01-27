@@ -68,6 +68,9 @@ export default {
 
   googleAnalytics: {
     id: 'UA-132999529-1',
+    debug: {
+      sendHitTask: true
+    }
   },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
