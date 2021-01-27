@@ -45,6 +45,7 @@ import MobileNavigation from '~/components/MobileNavigation'
 import PodcastController from '~/components/Podcast/GlobalController'
 import Navigation from '~/components/Navigation'
 import Footer from '~/components/Footer'
+
 export default {
   components: { Header, Filters, MobileNavigation, Navigation, PodcastController, Footer, Consent },
   computed: {
@@ -55,7 +56,7 @@ export default {
       return this.$store.getters['viewOptions/depth'] === 'compact';
     },
     requiresConsent() {
-      return false //this.$cookies.get('ringernfldraft-gdpr') ? false : true
+      return this.$cookies.get('ringernfldraft-gdpr') ? false : true
     }
   },
   created () {

@@ -5,7 +5,8 @@
         <img :src="badge.image" :alt="badge.label + 'badge'" />
       </div>
       <span class="player-card__badge-label">
-        {{badge.label}}
+        <span>{{badge.label}}</span>
+        <img src="@/assets/img/state-farm-red.svg" alt="State Farm Logo" data-not-lazy v-if="badge.id === 'instinctual_playmaking' || badge.id === 'infinite_upside'" />
       </span>
     </li>
   </ul>
@@ -83,6 +84,31 @@ export default {
         line-height:1.1;
         margin-top:3px;
         font-size:15px;
+        display:flex; 
+        flex-direction:column;
+        height:100%;
+        padding-bottom:6px;
+        span{
+          flex:1;
+        }
+        @include tablet-portrait-only{
+          padding-bottom:0;
+        }
+        // @include mobile{
+        //   // padding-bottom:0;
+        // }
+        img{
+          width:90%;
+          @include tablet-portrait-only{
+          
+            width:60px;
+          }
+          @include mobile{
+            // margin-top:3px;
+            width:80%;
+      
+          }
+        }
         @include medium-desktop {
           font-size:14px;
         }

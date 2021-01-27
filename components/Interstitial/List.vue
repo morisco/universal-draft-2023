@@ -189,6 +189,9 @@ export default {
     &__byline{
       @include mobile-nav-label;
       margin:15px 0 15px;
+      @include single-column{
+        margin:20px 0 15px;
+      }
       @include mobile{
         margin: 10px 0 8px;
       }

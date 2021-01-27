@@ -208,7 +208,7 @@ export default {
       //   min-height:0;
       // }
       @include tablet-portrait-only{
-        padding: 30px 20px 45px;
+        padding: 30px 20px 30px;
       }
       @include mobile {
         padding:0;

@@ -49,16 +49,12 @@ export default {
     // box-shadow:0px 2px 4px rgba(0,0,0,0.22);
 
     @include tablet-landscape-and-below{
-      max-width:45px;
-      max-height:45px;
-      left:10px;
+      max-width:95px;
+      max-height:95px;
+      left:-5px;
       // box-shadow:none;
     }
 
-    @include tablet-portrait-only{
-      max-width:65px;
-      max-height:65px;
-    }
 
     @include mobile{
       max-width:80px;

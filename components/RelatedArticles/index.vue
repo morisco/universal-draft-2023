@@ -1,6 +1,6 @@
 <template>
   <div class="related-articles">
-    <div class="related-articles__credits">Measurement data and player statistics via <a href="http://cfbstats.com/" target="_blank">cfbstats.com</a>, school bios, and the NFL combine.</div>
+    <div v-if="false" class="related-articles__credits">Measurement data and player statistics via <a href="http://cfbstats.com/" target="_blank">cfbstats.com</a>, school bios, and the NFL combine.</div>
     <div class="related-articles__title">
       More from The Ringer
     </div>

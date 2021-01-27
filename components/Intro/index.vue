@@ -18,7 +18,7 @@ export default {
 <style lang="scss">
 .intro{
   &__inner{
-    width:calc(100% - 30px);
+    width:calc(100% - 45px);
     max-width:805px;
     @include player-card-body;
     margin:60px auto 120px;
@@ -29,6 +29,7 @@ export default {
     }
     @include mobile{
       margin-bottom:90px;
+      width:calc(100% - 30px);
     }
     strong{
       font-family: 'Decima';
