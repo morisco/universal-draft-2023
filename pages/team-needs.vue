@@ -15,7 +15,7 @@ T<template>
         />
       </template>
     </transition-group>
-    <RelatedArticles :articles="relatedArticles" v-if="showAll" />
+    <MoreCoverage :articles="relatedArticles" v-if="showAll" />
   </section>
 </template>
 
@@ -25,7 +25,7 @@ import MainSectionIntro from '~/components/MainSectionIntro'
 import Interstitial from '~/components/Interstitial'
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
-import RelatedArticles from '~/components/RelatedArticles'
+import MoreCoverage from '~/components/MoreCoverage'
 
 
 export default {
@@ -35,7 +35,7 @@ export default {
     mode:"out-in",
   },
   scrollToTop: false,
-  components: { MainSectionIntro, TeamCard, Interstitial, RelatedArticles },
+  components: { MainSectionIntro, TeamCard, Interstitial, MoreCoverage },
   data() {
     return {
       initTimeout: null,

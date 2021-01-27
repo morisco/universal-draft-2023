@@ -18,12 +18,12 @@
         />
       </template>
     </transition-group>
-    <RelatedArticles :articles="relatedArticles" v-if="showAll" />
+    <MoreCoverage :articles="relatedArticles" v-if="showAll" />
   </section>
 </template>
 
 <script>
-import RelatedArticles from '~/components/RelatedArticles';
+import MoreCoverage from '~/components/MoreCoverage';
 import PlayerCard from '~/components/PlayerCard';
 import Interstitial from '~/components/Interstitial';
 import MainSectionIntro from '~/components/MainSectionIntro';
@@ -32,7 +32,7 @@ import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
 export default {
   name: 'BigBoard',
-  components: { MainSectionIntro, PlayerCard, RelatedArticles, Interstitial },
+  components: { MainSectionIntro, PlayerCard, MoreCoverage, Interstitial },
   transition: {
     name:"main-section",
     mode:"out-in",

@@ -9,7 +9,11 @@ export default {
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', href: 'https://cdn-images-1.medium.com/fit/c/128/128/1*w1O1RbAfBRNSxkSC48L1PQ.png' },
+      { rel: 'apple-touch-icon', href: 'https://cdn-images-1.medium.com/fit/c/152/152/1*w1O1RbAfBRNSxkSC48L1PQ.png', sizes:'152x152' },
+      { rel: 'apple-touch-icon', href: 'https://cdn-images-1.medium.com/fit/c/120/120/1*w1O1RbAfBRNSxkSC48L1PQ.png', sizes:'120x120' },
+      { rel: 'apple-touch-icon', href: 'https://cdn-images-1.medium.com/fit/c/76/76/1*w1O1RbAfBRNSxkSC48L1PQ.png', sizes:'76x76' },
+      { rel: 'apple-touch-icon', href: 'https://cdn-images-1.medium.com/fit/c/60/60/1*w1O1RbAfBRNSxkSC48L1PQ.png', sizes:'60x60' }
     ],
     script: [
     ],

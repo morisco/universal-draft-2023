@@ -18,13 +18,13 @@
         />
       </template>
     </transition-group>
-    <RelatedArticles :articles="relatedArticles" v-if="showAll" />
+    <MoreCoverage :articles="relatedArticles" v-if="showAll" />
   </section>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import RelatedArticles from '~/components/RelatedArticles'
+import MoreCoverage from '~/components/MoreCoverage'
 import PlayerCard from '~/components/PlayerCard'
 import MainSectionIntro from '~/components/MainSectionIntro'
 import Interstitial from '~/components/Interstitial';
@@ -37,7 +37,7 @@ export default {
     mode:"out-in",
   },
   scrollToTop: false,
-  components: { MainSectionIntro, PlayerCard, RelatedArticles, Interstitial },
+  components: { MainSectionIntro, PlayerCard, MoreCoverage, Interstitial },
   data() {
     return {
       initTimeout: null,
