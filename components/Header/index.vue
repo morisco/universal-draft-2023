@@ -61,7 +61,7 @@ export default {
   &__inner {
     display:flex;
     flex-direction:column;    
-    width: 100vw;
+    width: 100%;
     padding: 20px 4.5vw 0;
     justify-content:center;
     flex:1;
