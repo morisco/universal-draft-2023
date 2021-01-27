@@ -88,16 +88,19 @@ export function processPlayers(players) {
 
 export function parseStats(stats) {
   let positionStats = statMap[stats.position];
-  positionStats = positionStats.map((stat) => {
-    return {...stat, value: stats[stat.key], highlight: stat.key === stats.highlight};
+  let positionArray = [];
+  positionStats.forEach((stat) => {
+    if(stats[stat.key]){
+      positionArray.push({...stat, value: stats[stat.key], highlight: stat.key === stats.highlight});
+    }
   })
   if(stats.position === 'qb'){
     Array.prototype.move = function (from, to) {
       this.splice(to, 0, this.splice(from, 1)[0]);
     };
-    positionStats.move(0,1);
+    positionArray.move(0,1);
   }
-  return positionStats;
+  return positionArray;
 }
 
 export function processTeams(teams, teamPlayers) {

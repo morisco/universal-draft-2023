@@ -1,5 +1,7 @@
 <template>
-  <div class="m-privacy-consent" id="privacy-consent" role="status" aria-live="polite" aria-labelledby="privacy-consent-heading-label" v-if="!dismissed">
+  <div class="m-privacy-consent" :class="{
+    'm-privacy-consent--displayed': requiresConsent,
+  }"  v-if="requiresConsent && !dismissed">
   <div class="m-privacy-consent__inner">
       <h2 class="sr-only" id="privacy-consent-heading-label">Cookie banner</h2>
   <p>We use cookies and other tracking technologies to improve your browsing experience on our site, show personalized content and targeted ads, analyze site traffic, and understand where our audiences come from. To learn more or opt-out, read our <a href="https://www.theringer.com/legal/cookie-policy">Cookie Policy</a>. Please also read our <a href="https://www.theringer.com/legal/privacy-notice">Privacy Notice</a> and <a href="https://www.theringer.com/legal/terms-of-use">Terms of Use</a>, which became effective December 20, 2019.</p>
@@ -18,23 +20,42 @@
 </template>
 
 <script>
+import inEU from '@segment/in-eu'
 export default {
   data() {
-    dismissed: false
+    return {
+      dismissed: false,
+    }
+  },
+  computed: {
+    requiresConsent() {
+      const isEU = inEU();
+      return isEU && !this.$cookies.get('ringernfldraft-gdpr') ? true : false
+    }
   },
   methods: {
     giveConsent() {
       this.dismissed = true;
       this.$cookies.set('ringernfldraft-gdpr', 1);
-    }
+    },
   }
 }
 </script>
 <style lang="scss" scoped>
 .m-privacy-consent-lockup{
   display:flex;
+  b {
+    font-weight:500;
+  }
+  @include mobile{
+    flex-direction:column;
+  }
 }
 .m-privacy-consent {
+  display:none;
+  &--displayed{
+    display:block;
+  }
   background-color: rgb(60, 60, 60);
   bottom: 0;
   color: white !important;
@@ -49,11 +70,14 @@ export default {
 .m-privacy-consent__inner {
   margin: 0 auto;
   max-width: 100%;
-  padding: 30px 60px;
+  padding: 30px 60px 15px;
+  @include mobile{
+    padding:20px;
+  }
 }
 .m-privacy-consent__inner a {
   color: white !important;
-  font-weight: bold;
+  font-weight: normal;
   text-decoration: underline !important;
 }
 .m-privacy-consent__inner a:hover {
@@ -64,12 +88,15 @@ export default {
   border: 1px solid white;
   color: #ffffff;
   display: block;
-  font-weight: bold;
+  font-weight: normal;
   height: 46px;
   line-height: 46px;
   padding: 0 2em;
-  margin: 0 auto;
+  margin: -5px 10px 0;
   min-width: 200px;
+  @include mobile{
+    margin:0;
+  }
 }
 .m-privacy-consent__inner button:hover {
   background-color: #46b169;

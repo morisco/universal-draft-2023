@@ -31,7 +31,9 @@
       </div>
     </main>
     <Footer />
-    <Consent v-if="requiresConsent" />
+    <client-only >
+      <Consent />
+    </client-only>
     <div ref="sizer" class="app__sizer"></div> 
   </div>
 
@@ -55,9 +57,6 @@ export default {
     collapsed() {
       return this.$store.getters['viewOptions/depth'] === 'compact';
     },
-    requiresConsent() {
-      return this.$cookies.get('ringernfldraft-gdpr') ? false : true
-    }
   },
   created () {
     // this.$store.dispatch('page/getPageSettings')
@@ -67,12 +66,11 @@ export default {
     const self = this;
     if(this.$refs.sizer){
       this.siteReady = true;
-      let vh = this.$refs.sizer.offsetHeight * 0.01;
-      // Then we set the value in the --vh custom property to the root of the document
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
+      this.setCSSHeight();
     } else {
       this.siteReady = true;
     }
+    document.addEventListener('resize', this.setCSSHeight)
   },
   data () {
     return {
@@ -93,16 +91,20 @@ export default {
       const topOfList = document.getElementById('app__content').offsetTop - 70;
       this.preLockScrollPos = topOfList
       window.scrollTo(0, topOfList);
+    },
+    setCSSHeight() {
+      const self = this;
+      setTimeout(() => {
+        if(!self.$refs.sizer) return;
+        let vh = self.$refs.sizer.offsetHeight * 0.01;
+        // Then we set the value in the --vh custom property to the root of the document
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      }, 250);
     }
   },
   watch: {
     '$mq'() {
-      const self = this;
-      setTimeout(() => {
-        let vh = this.$refs.sizer.offsetHeight * 0.01;
-        // Then we set the value in the --vh custom property to the root of the document
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-      }, 250);
+      this.setCSSHeight();
     }
   }
 }

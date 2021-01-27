@@ -98,7 +98,7 @@ export default {
     positionArrowTop () {
       const positions = this.positionMap.map(position => position.positionKey);
       const positionIndex = positions.indexOf(this.$store.getters['viewOptions/position']);
-      return 21 * positionIndex;
+      return 18 * positionIndex;
     },
     positionMap() {
       return PositionMap;
