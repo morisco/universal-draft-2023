@@ -202,6 +202,7 @@ export default {
         display:block;
         position:relative;
         width:100%;
+        height:1px;
       }
       p{
         @include mobile {
