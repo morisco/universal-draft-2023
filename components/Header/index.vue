@@ -173,7 +173,7 @@ export default {
           width:8px;
           height:8px;
           margin-right:5px;
-          margin-top:-1px;
+          margin-top:-3px;
         }
       }
       
