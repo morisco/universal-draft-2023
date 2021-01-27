@@ -9,7 +9,7 @@
 import LoadingSpinner from '~/components/LoadingSpinner'
 export default {
   components: {LoadingSpinner},
-  props: ['videoWidth', 'closeVideo', 'triggerPlay', 'playerVideo'],
+  props: ['videoWidth', 'closeVideo', 'triggerPlay', 'playerVideo', 'trackTime'],
   data() {
     return {
       videoHeight: false,
@@ -20,7 +20,6 @@ export default {
     }
   },
   methods: {
-    
     playVideo() {
       this.player.playVideo()
     },
@@ -31,8 +30,14 @@ export default {
     timeUpdate(){
       var self = this;
       this.player.getCurrentTime().then((currentTime) => {
-        if(currentTime >= self.end){
+        if(self.trackTime){
+          self.trackTime(currentTime);
+        }
+        if(self.end && currentTime >= self.end){
           self.player.mute();
+          if(self.trackTime){
+            self.trackTime(null);
+          }
           if(this.$mq !== 'mobile'){
             self.ready = false;
           }
@@ -50,6 +55,7 @@ export default {
       if(this.$mq !== 'mobile'){
         this.ready = false;
       }
+      this.closeVideo();
       this.isPlaying = false;
       clearInterval(this.timeUpdateInterval);
     }
@@ -73,7 +79,7 @@ export default {
       let pv = {
         width: this.videoWidth,
         autoplay: 1,
-        start: this.playerVideo.start || 0,
+        start: parseInt(this.playerVideo.start,10) || 0,
         rel: 0,
         controls:1,
         modestbranding:1
@@ -105,7 +111,8 @@ export default {
     width:100%;
     padding-top:56.25%;
     z-index:2;
-    @include mobile{
+    .player-card__image-column &,
+    .player-card__info-column & {
       position:absolute;
       top:0;
       border-radius:0;
@@ -129,20 +136,26 @@ export default {
         transition:opacity 0.25s linear;
       }
     }
-    .player-card__video-viewer-enter &{
+    .player-card__video-viewer-enter &,
+    .video-inter__iframe-wrapper-enter &{
       opacity:0;
     }
-    .player-card__video-viewer-enter-to &{
+    .player-card__video-viewer-enter-to &,
+    .video-inter__iframe-wrapper-enter-to &{
       opacity:1;
     }
-    .player-card__video-viewer-leave &{
+    .player-card__video-viewer-leave &,
+    .video-inter__iframe-wrapper-leave &{
       opacity:1;
     }
-    .player-card__video-viewer-leave-to &{
+    .player-card__video-viewer-leave-to &,
+    .video-inter__iframe-wrapper-leave-to &{
       opacity:0;
     }
     .player-card__video-viewer-leave-active &,
-    .player-card__video-viewer-enter-active &{
+    .player-card__video-viewer-enter-active &,
+    .video-inter__iframe-wrapper-leave-active &,
+    .video-inter__iframe-wrapper-enter-active &{
       transition:opacity 0.5s ease-in-out;
     }
     iframe{

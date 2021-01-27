@@ -5,7 +5,8 @@
         <img :src="badge.image" :alt="badge.label + 'badge'" />
       </div>
       <span class="player-card__badge-label">
-        {{badge.label}}
+        <span>{{badge.label}}</span>
+        <img src="@/assets/img/state-farm-red.svg" alt="State Farm Logo" data-not-lazy v-if="badge.id === 'instinctual_playmaking' || badge.id === 'infinite_upside'" />
       </span>
     </li>
   </ul>
@@ -29,11 +30,6 @@ export default {
 
 <style lang="scss" scoped>
 .player-card{
-  &:hover {
-    .player-card__badges{
-      filter: grayscale(0);  
-    }
-  }
   &__badges{
     display:flex;
     filter: grayscale(1);
@@ -44,8 +40,16 @@ export default {
     margin-left:-5px;
     list-style:none;
     transform:translateX(0);
-    transition: transform 0s linear 0.125s, filter 0.375s linear;
+    transition: transform 0s linear 0.125s, filter 0.375s linear 0.5s;
     margin-top:30px;
+    .player-card:hover & {
+      .app--supports-hover & {
+        filter: grayscale(0);  
+      }
+    }
+    .player-card--expanded & {
+      filter: grayscale(0);  
+    }
    
     @include tablet-portrait-only{
       width:calc(100% + 4px);
@@ -64,19 +68,47 @@ export default {
     }
      @include mobile {
       justify-content:flex-start;
-      filter:grayscale(0);
+      filter:grayscale(1);
       padding:0 15px;
       margin-left:0;
       margin-right:0;
       flex-wrap:wrap;
       background:$lightgray;
       margin-top:0;
+      .player-card--active & {
+        filter:grayscale(0);
+      }
     }
     .player-card__badge{
       &-label{
-        line-height:0.9;
+        line-height:1.1;
         margin-top:3px;
         font-size:15px;
+        display:flex; 
+        flex-direction:column;
+        height:100%;
+        padding-bottom:6px;
+        span{
+          flex:1;
+        }
+        @include tablet-portrait-only{
+          padding-bottom:0;
+        }
+        // @include mobile{
+        //   // padding-bottom:0;
+        // }
+        img{
+          width:90%;
+          @include tablet-portrait-only{
+          
+            width:60px;
+          }
+          @include mobile{
+            // margin-top:3px;
+            width:80%;
+      
+          }
+        }
         @include medium-desktop {
           font-size:14px;
         }
@@ -89,11 +121,15 @@ export default {
         width:100%;
         // padding-top:100%;
         border-radius:4px;
-        background:$gray;
-        width:50px;
-        height:50px;
+        background:$mediumgray;
+        width:60px;
+        height:60px;
         flex: 0 0 auto;
         margin-right:7.5px;
+        @include mobile{
+          width:55px;
+          height:55px;
+        }
         img{
           width:100%;
           opacity:0;
@@ -109,7 +145,7 @@ export default {
       position:relative;
       display: flex;
       flex-direction:row;
-      align-items:center;
+      align-items:flex-start;
       margin: 0 5px 0;
       // flex: 1;
       // max-width: 70px;
@@ -123,18 +159,23 @@ export default {
       }
       @include medium-desktop {
         margin:0 2px 24px;
-        width:calc(20% - 4px);
+        width:calc(25% - 4px);
 
       }
       @include tablet-portrait-only{
         margin:0 2px 15px;
-        width:calc(20% - 4px);
+        width:calc(25% - 4px);
+        flex-direction:column;
+        align-items:flex-start;
       }
 
       @include mobile {
         margin: 0 5px 15px;
         transition:opacity 0.25s linear;
-        width:calc(20% - 10px);
+        width:55px;
+        .player-card__stats-list--full & {
+          margin-right:0;
+        }
         .player-card--collapsed & {
           margin:0 5px 20px;
           &:nth-child(n+5) {

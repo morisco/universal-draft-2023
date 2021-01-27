@@ -65,7 +65,7 @@ export default {
             }
             &:last-of-type{
               padding-left:4px;
-              @include combine-value;
+              @include stat-title;
             }
           }
           &:before{

@@ -1,8 +1,8 @@
 <template>
 <div class="main-section__intro">
-  <h2 v-html="introData.headline"></h2>
+  <h3 v-html="introData.headline"></h3>
   <div class="main-section__intro-content" v-html="introData.content"></div>
-  <p class="main-section__intro-link" v-on:click="scrollToTop">
+  <p class="main-section__intro-link" v-on:click="scrollToTop" v-if="introData.linkText">
     <NuxtLink :to="introData.link">{{introData.linkText}}</NuxtLink>
   </p>
 </div>
@@ -24,7 +24,7 @@ export default {
           }
         case 'mock_draft':
           return {
-            headline: '<strong>Mock Draft</strong>',
+            headline: '<strong>Mock Draft</strong> By Danny Kelly',
             content: this.$store.getters['page/settings'].mock_draft_intro,
             link: '/',
             linkText: this.$store.getters['page/settings'].mock_draft_link,
@@ -63,8 +63,15 @@ export default {
 
 <style lang="scss">
 .main-section__intro{
-  margin-top:-15px;
   margin-bottom:70px;
+  h3{
+    text-transform:uppercase;
+    font-weight:300;
+    margin-bottom:15px;
+    strong{
+      font-weight:normal;
+    }
+  }
   h2{
     font-family: 'Decima';
     text-transform:uppercase;
@@ -78,6 +85,11 @@ export default {
     }
     strong{
       font-weight:normal !important;
+    }
+  }
+  &-content{
+    @include non-mobile{
+      max-width:78%;
     }
   }
   p{

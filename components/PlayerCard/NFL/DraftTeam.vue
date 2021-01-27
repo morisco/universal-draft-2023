@@ -7,7 +7,10 @@
     }"
   >
     <img :src="teamNameLogo.logo.small" />
-    <span class="draft-team__name">{{teamNameLogo.teamName}}</span>
+    <span class="draft-team__name">
+      {{teamNameLogo.teamName}}
+      <span v-if="teamNameLogo.via">({{teamNameLogo.via}})</span>
+    </span>
   </div>
 </template>
 
@@ -33,24 +36,25 @@ export default {
 <style lang="scss" scoped>
   .draft-team{
     position:absolute;
-    background:$lightgray;
-    max-height:100px;
-    max-width:100px;
-    left:15px;
+    background:$mediumgray;
+    max-height:95px;
+    max-width:95px;
+    left:-15px;
     top:0;
     transform:translateY(calc(-100% - 15px));
     z-index:3;
     cursor:default;
     opacity:0;
     transition:opacity 0.25s linear;
-    box-shadow:0px 2px 4px rgba(0,0,0,0.22);
+    // box-shadow:0px 2px 4px rgba(0,0,0,0.22);
 
     @include tablet-landscape-and-below{
-      max-width:45px;
-      max-height:45px;
-      left:10px;
-      box-shadow:none;
+      max-width:95px;
+      max-height:95px;
+      left:-5px;
+      // box-shadow:none;
     }
+
 
     @include mobile{
       max-width:80px;
@@ -89,13 +93,19 @@ export default {
       position:absolute;
       top:50%;
       left:50%;
+      width:90%;
+      text-align:center;
       transform:translate(-50%,-50%);
       opacity:0;
       z-index:0;
       transition:opacity 0.25s linear 0s;
-      text-transform:uppercase;
-      margin-top:3px;
+      // text-transform:uppercase;
+      // margin-top:3px;
       pointer-events:none;
+      span{
+        display:block;
+        text-align:center;
+      }
     }
 
     // .player-card--collapsed & {
@@ -115,10 +125,10 @@ export default {
   
     &:hover{
       .player-card--offense &{
-        background-color: $offense;
+        background-color: $highlight1;
       }
       .player-card--defense &{
-        background-color: $defense;
+        background-color: $highlight1;
       }
       img,
       img[lazy=loaded]{

@@ -10,10 +10,9 @@
         <DraftTeam :teamNameLogo="teamNameLogo" v-if="teamNameLogo && ['order_mockdraft', 'order_draftresults'].indexOf(rankKey) >= 0" :infoHeight="infoHeight" />
         <div v-if="$mq !== 'mobile'">
           <Stats :player="fullPlayer" />
-          <CombineResults :results="player.combineResults" :topHeight="topHeight" v-if="$mq !== 'mobile'" />
-          <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" v-if="playerVideo" />
+          <VideoThumb :playVideo="playVideo" :videoSettings="videoSettings" :playerVideo="playerVideo" :activeCard="activeCard" v-if="playerVideo" v-on:resetVideoSettings="$emit('resetVideoSettings')" />
           <PodcastCardPlayer v-if="player.player_podcast && $mq !== 'mobile'" :playerId="playerId" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
-          <RelatedArticles />
+          <RelatedArticles :articles="fullPlayer.player_articles" v-if="fullPlayer.player_articles" />
         </div>
       </div>
     </div>
@@ -24,15 +23,13 @@
 </template>
 
 <script>
-import Stats from './Stats';
-import CombineResults from './CombineResults'
 import DraftTeam from './DraftTeam'
 import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
 import VideoThumb from './VideoThumb'
 import RelatedArticles from './RelatedArticles'
 export default {
-  props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight', 'playVideo', 'setImageColHeight', 'expanded'],
-  components: {CombineResults, DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles},
+  props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight', 'playVideo', 'setImageColHeight', 'expanded', 'videoSettings', 'activeCard'],
+  components: {DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles},
   data() {
     return {
       maxHeight: false
@@ -48,7 +45,6 @@ export default {
         offenseDefense: playerData.offenseDefense,
         image: playerData.image_data.image.small,
         imageAlt: playerData.title,
-        combineResults: playerData.combine_results,
         player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false
       }
     },
@@ -59,9 +55,8 @@ export default {
       return this.fullPlayer.player_video && this.fullPlayer.player_video.video_id ? this.fullPlayer.player_video : false
     }
   },
-  watch:{
-    expanded() {
-      if(!this.$refs.imageColumn) return;
+  methods: {
+    setHeights() {
       if(this.expanded) {
         let interiorHeight = 30;
         this.$refs.imageColumn.children.forEach((child) => interiorHeight += child.offsetHeight);
@@ -70,6 +65,12 @@ export default {
       } else {
         this.maxHeight = this.$mq === 'mobile' ? 250 : this.topHeight;
       }
+    }
+  },
+  watch:{
+    expanded() {
+      if(!this.$refs.imageColumn) return;
+      this.setHeights();
     },
     topHeight() {
       if(!this.$refs.imageColumn) return;
@@ -77,6 +78,9 @@ export default {
         this.maxHeight = this.$mq === 'mobile' ? 250 : this.topHeight;
       }
       this.setImageColHeight(this.$refs.imageColumn.offsetHeight);
+    },
+    '$mq'() {
+      this.setHeights();
     }
   }
 }
@@ -148,6 +152,9 @@ export default {
         border-radius: .625rem  0 0 .625rem;
         overflow:hidden;
         transition:padding-bottom 0.125s linear 0.25s;
+        @include tablet-portrait-only{
+          padding:0 20px 30px;
+        }
         @include mobile{
           padding:0;
         }
@@ -208,7 +215,7 @@ export default {
         width:100%;
         overflow:hidden;
         box-sizing:content-box;
-        border-bottom:1px solid $mediumgray;
+        border-bottom:1px solid $darkmediumgray;
         @include mobile {
           max-height:250px !important;
           border-bottom:0;
@@ -235,7 +242,7 @@ export default {
       }
     }
     &__rank{
-      @include rank;
+      @include card-rank;
       position:absolute;
       background:$black;
       color:$white;
@@ -259,12 +266,19 @@ export default {
         // }
       }
       @include mobile{
-        top:5px;
+        top:15px;
         left:50%;
-        margin-left:-120px;
+        margin-left:-135px;
         right:auto;
+        .player-card--collapsed & {
+          opacity:0;
+        }
+        .player-card--collapsed.player-card--expanded & {
+          opacity:1;
+          transition:opacity 0.25s linear 0.75s;
+        }
         span{
-          margin-top:3px;
+          padding-top:1px;
         }
       }
     }

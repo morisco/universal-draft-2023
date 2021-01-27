@@ -44,6 +44,12 @@ export default {
       margin-bottom:0;
       p{
         @include player-card-body;
+        &:last-of-type{
+          margin-bottom:0;
+        }
+      }
+      @include non-mobile{
+        max-width:85%;
       }
     }
 

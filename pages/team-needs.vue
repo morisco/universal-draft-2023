@@ -15,15 +15,19 @@ T<template>
         />
       </template>
     </transition-group>
+    <MoreCoverage :articles="relatedArticles" v-if="showAll" />
   </section>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import TeamCard from '~/components/TeamCard'
 import MainSectionIntro from '~/components/MainSectionIntro'
 import Interstitial from '~/components/Interstitial'
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
+import headeBuilder from '~/plugins/headBuilder';
+import MoreCoverage from '~/components/MoreCoverage'
+
+
 export default {
   name: 'TeamNeeds',
   transition: {
@@ -31,7 +35,7 @@ export default {
     mode:"out-in",
   },
   scrollToTop: false,
-  components: { MainSectionIntro, TeamCard, Interstitial },
+  components: { MainSectionIntro, TeamCard, Interstitial, MoreCoverage },
   data() {
     return {
       initTimeout: null,
@@ -40,7 +44,7 @@ export default {
   },
   created() {
     if(process.client){
-      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('scroll', this.handleScroll, {passive: true});
     }
   },
   destroyed() {
@@ -59,6 +63,9 @@ export default {
     interstitials() {
       return this.$store.getters['content/interstitials']('teamNeeds')
     },
+    relatedArticles () {
+      return this.$store.getters['content/relatedArticles'];
+    },
   },
   methods: {
     handleScroll() {
@@ -71,19 +78,7 @@ export default {
     return asyncDataProcessor({$axios, store, route});
   },
   head()  {
-    const metaDescription = this.sharedTeam ? 'See what the ' + this.sharedTeam.title.trim() + ' need to address in the draft.' : this.configuration.facebook_page_share_description;
-    return {
-      meta: [{
-        hid: 'og:title',
-        name: 'og:title',
-        content: this.configuration.facebook_page_share_title
-      },
-      {
-        hid: 'og:description',
-        name: 'og:description',
-        content: metaDescription
-      }]
-    }
+    return headeBuilder(this);
   }
 }
 </script>

@@ -3,72 +3,61 @@
   font-weight: normal;
   font-style:normal;
   line-height: 100%;
-  letter-spacing: 0;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   font-size:20px;
   @include non-mobile{
-    font-size:21px;
+    font-size:29px;
   }
 }
 
-@mixin combine-title {
-  font-family: TTLakes;
-  font-size:18px;
-  letter-spacing:0.01em;
-  font-weight:600;
-}
-
-@mixin combine-value {
-  font-size:13px;
-  line-height:120%;
-}
-
 @mixin inter-title{
-  font-size:40px;
-  font-weight:200;
-  line-height:0.9;
+  font-family: 'Druk Wide';
+  font-style:italic;
+  font-size:45px;
+  font-weight:normal;
+  letter-spacing:1.864px;
+  text-transform:uppercase;
+  line-height:45px;
+  max-width:70%;
+  @include single-column{
+    font-size:36px;
+    line-height:36px;
+    max-width:80%;
+  }
+  @include mobile{
+    font-size:19px;
+    line-height:20px;
+    max-width:100%;
+  }
 }
 
 @mixin header-nav-link{
-  letter-spacing: .1em;
+  font-family: 'Decima';
+  letter-spacing: .05em;
   text-transform: uppercase;
-  font-size: 10px;
-  line-height: .8;
-  @include non-mobile{
-    letter-spacing: .15em;
-    font-size: 12.5px;
-    line-height: 125%;
+  font-size: 18px;
+  line-height: 125%;
+  @include single-column{
+    font-size:22px;
+    line-height:22px;
+  }
+  @include mobile{
+    font-size: 13px;
+    padding:5px 4px;
+    line-height: .8;
   }
 }
 
 @mixin demibold-title{
   font-family: 'Decima';
   font-weight: normal;
-  font-size: 22px;
+  font-size: 18px;
   line-height:18px;
   letter-spacing: 0;
   text-transform: none;
   @include single-column{
-    font-size:12px;
-  }
-}
-
-@mixin player-position {
-  font-family: TTLakes;
-  font-size: 18px;
-  line-height: 100%;
-  font-weight:600;
-}
-
-@mixin navigation-link-updated{
-  font-family: 'Decima';
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 13px;
-  letter-spacing: 0;
-  text-transform: none;
-  @include single-column{
-    font-size:12px;
+    font-size:13px;
   }
 }
 
@@ -77,52 +66,54 @@
   color:$darkgray;
   font-weight: normal;
   text-transform: uppercase;
-  font-size: 14px;
-  line-height: 13px;
+  font-size: 17px;
+  line-height: 17px;
+  margin-bottom:5px;
+}
+
+@mixin filter-option{
+  font-weight:normal;
+  font-size:13px;
+  line-height:100%;
+  letter-spacing:0;
 }
 
 @mixin mobile-nav-label{
   font-family: 'Decima';
   text-transform: uppercase;
-  font-size: 12.5px;
-  line-height: 1.15;
+  font-size: 17px;
+  line-height: 14px;
+  margin-top:1px;
   font-weight:normal;
-  letter-spacing:.1em;
-}
-
-@mixin filter-option{
-  font-weight:normal;
-  font-size:16px;
-  line-height:100%;
-  letter-spacing:0;
+  letter-spacing:.025em;
 }
 
 @mixin stat-title{
-  font-size: 14px;
-  letter-spacing: .1em;
+  font-size: 13px;
+  letter-spacing: .05em;
   text-transform:uppercase;
   line-height:17px;
+  font-weight:500;
 }
 
 @mixin stat-value{
   font-family: 'Decima';
-  font-size: 30px;
+  font-size: 26px;
   line-height: .77;
   font-weight:300;
-  // @include medium-desktop {
-  //   font-size:18px;
-  //   letter-spacing:-1px;
-  // }
+  @include mobile{
+    font-size:24px;
+  }
 }
 
-@mixin meta-list-label{
+@mixin selling-point{
   font-weight:600;
   font-size:12.5px;
   line-height: 125%;
   letter-spacing: .1em;
 }
 
-@mixin meta-list-value{
+@mixin selling-point-strong{
   font-weight:normal;
   font-size:16px;
   line-height: 100%;
@@ -147,28 +138,27 @@
 }
 @mixin header-sponsored-by{
   font-weight:500;
-  font-size:22px;
+  font-size:14px;
+  letter-spacing:0.05em;
   color:$white;
   text-transform:uppercase;
+  @include single-column{
+    font-size:18px;
+    letter-spacing: 0.05em;
+  }
   @include mobile{
-    font-size:14px;
-    margin-bottom:5px;
-    display:block;
+    font-size:12px;
+    line-height:12px;
   }
 }
 
 @mixin expanded-label{
   font-family: 'Decima';
   font-size: 18px;
+  letter-spacing:0.025em;
   font-weight: normal;
   line-height: 13px;
-  letter-spacing: .05em;
-}
-
-@mixin expanded-value{
-  line-height:1.4;
-  font-size:16px;
-  margin-bottom:15px;
+  margin-bottom:5px;
 }
 
 @mixin tooltip {
@@ -177,45 +167,41 @@
   font-size:13px;
 }
 
-@mixin rank {
-  font-family: TTLakes, Arial, sans-serif;
-  line-height: 1;
-  font-size: 23px;
-  font-weight:600;
-}
-
-@mixin team-player-name {
-  font-family: TTLakes, Arial, sans-serif;
-  line-height: .9;
-  font-size: 22px;
-  font-weight:600;
-  text-transform:uppercase;
-  @include tablet-portrait-only{
-    font-size:16px;
-    line-height:1;
-  }
-}
-@mixin team-player-meta{
-  font-family: TTLakes, Arial, sans-serif;
-  font-size:14px;
-  line-height:1.2;
-  font-weight:300;
-  @include tablet-portrait-only{
-    font-size:11px;
-  }
-}
-
 @mixin player-card-body{
-  font-size:14px;
-  line-height:21px;
-  margin-bottom:20px;
+  font-size:15px;
+  line-height:1.5;
+  margin-bottom:30px;
+  @include mobile{
+    line-height:1.4;
+    margin-bottom:10px;
+  }
+}
+
+@mixin slug{
+  font-family: 'Decima';
+  font-size:30px;
+  line-height:30px;
+  color:$lightestgray;
+  font-weight:500;
+  @include mobile{
+    font-size:19px;
+  }
 }
 
 @mixin card-rank{
   font-family: 'Decima';
   font-size:30px;
+  line-height:30px;
   color:$lightestgray;
   font-weight:300;
+}
+
+@mixin meta-bar-detail{
+  font-size:17px;
+  line-height:1.2;
+  @include mobile{
+    font-size:19px;
+  }
 }
 
 @mixin info-bubble{
@@ -238,7 +224,6 @@
   }
 }
 
-
 @mixin mobile{
   @media (max-width: #{$mobile-width}) {
     @content;
@@ -246,13 +231,13 @@
 }
 
 @mixin single-column{
-  @media (max-width: #{$small-desktop-width}) {
+  @media (max-width: #{$small-desktop-width - 1}) {
     @content;
   }
 }
 
 @mixin single-column-only{
-  @media (max-width: #{$small-desktop-width}) and (min-width: #{$mobile-width + 1}) {
+  @media (max-width: #{$small-desktop-width - 1}) and (min-width: #{$mobile-width + 1}) {
     @content;
   }
 }

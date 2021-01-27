@@ -2,8 +2,12 @@ import { processPlayers, processTeams, processRelated, processInterstitials } fr
 
 const asyncDataProcessor = async function asyncData({$axios, store, route}) {
   let configuration = store.getters['page/configuration'];
+  var d = new Date();
+  var t = d.getTime();
   if(!configuration){
-    configuration = await $axios.get("https://storage.googleapis.com/" +  process.env.GCS_BUCKET + "/public/data/" + process.env.HEDDEK_PROJECT_ID + "/config." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=4",  {
+    var date = new Date();
+    
+    configuration = await $axios.get("https://storage.googleapis.com/" +  process.env.GCS_BUCKET + "/public/data/" + process.env.HEDDEK_PROJECT_ID + "/config." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
       headers: {
         'Content-Encoding': 'gzip'
       }
@@ -15,12 +19,14 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
   }
   let pageSettings = store.getters['page/settings'];
   if(!pageSettings){
-    pageSettings = await $axios.get("https://storage.googleapis.com/" +  process.env.GCS_BUCKET + "/public/data/" + process.env.HEDDEK_PROJECT_ID + "/page." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=4",  {
+    pageSettings = await $axios.get("https://storage.googleapis.com/" +  process.env.GCS_BUCKET + "/public/data/" + process.env.HEDDEK_PROJECT_ID + "/page." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
       headers: {
         'Content-Encoding': 'gzip'
       }
     })
       .then(response => {
+        response.data[0].data.title = response.data[0].title;
+        response.data[0].data.description = response.data[0].description;
         store.commit('page/setPage', response.data[0].data);
         return response.data[0].data;
       })
@@ -31,8 +37,6 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
   let sharedPlayer = contentLoaded ? store.getters['content/playerByShare'](shareId) : false;
   let sharedTeam = contentLoaded ? store.getters['content/teamByShare'](shareId) : false;
   if(!contentLoaded && shareId){
-    var d = new Date();
-    var t = d.getTime();
     await $axios.get("https://storage.googleapis.com/" +  process.env.GCS_BUCKET + "/public/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
       headers: {
         'Content-Encoding': 'gzip',

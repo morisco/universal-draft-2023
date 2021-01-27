@@ -44,7 +44,7 @@ statsMap.c = statsMap.t;
 statsMap.g = statsMap.t;
 export const statMap = statsMap;
 
-export const positionLabelMap = { "qb": 'Quarterback',  "wr": "Wide Receiver", "t": "Tackle",  "rb": "Running Back", "c": "Center", "g": "Guard", "te": "Tight End", "de": 'Edge Rusher', "lb": "Line Backer", "db": "Defensive Back", "idl": "Interior Defensive Lineman", "s": "Safety"}
+export const positionLabelMap = { "qb": 'Quarterback',  "wr": "Wide Receiver", "t": "Tackle",  "rb": "Running Back", "c": "Center", "g": "Guard", "te": "Tight End", "de": 'Edge Rusher', "lb": "Linebacker", "db": "Defensive Back", "idl": "Interior Defensive Lineman", "s": "Safety"}
 
 export const positionMap = {
   'all-offense': ['qb', 'rb', 'wr', 'te', 'c', 't', 'g'],

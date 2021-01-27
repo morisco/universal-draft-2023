@@ -24,13 +24,13 @@
 import InfoBubble from '~/components/InfoBubble'
 export default {
   components: { InfoBubble },
-  props: ['offenseDefense', 'toggleCard', 'expanded', 'cardExpanded'],
+  props: ['offenseDefense', 'toggleCard', 'expanded', 'cardExpanded', 'openText', 'closeText'],
   computed: {
     moreText() {
-      return this.$mq === 'mobile' ? 'Click to expand report.' : 'Click to expand report.';
+      return this.openText ? this.openText : this.$mq === 'mobile' ? 'Read the full scouting report.' : 'Read the full scouting report.';
     },
     lessText() {
-      return this.$mq === 'mobile' ? 'Click to collapse report.' : 'Click to collapse report.';
+      return this.closeText ? this.closeText : this.$mq === 'mobile' ? 'Click to hide scouting report.' : 'Click to hide scouting report.';
     }
   }
 }
@@ -58,17 +58,30 @@ export default {
       right:20px;
       cursor:pointer;
       z-index:8;
-      transition:bottom 0.25s linear 0.125s;
+      transition:bottom 0.25s linear 0s;
       // @include mobile{
         width:auto;
         right:20px;
         flex-direction:row;
-        bottom:-25px;
+        bottom:-20px;
         right:30px;
         left:330px;
         // .player-card--collapsed & {
         //   bottom:20px;
         // }
+        .player-card:not(.player-card--collapsed):hover & {
+          .app--supports-hover & {
+            transition:bottom 0.25s linear 0.5s;
+            bottom:-25px;
+          }
+        }
+        .player-card--expanded &,
+        .player-card--collapsing & {
+          bottom:-25px;
+        }
+        @include tablet-portrait-only{
+          left:320px;
+        }
         @include mobile{
           left:20px;
           .player-card--collapsed &,
@@ -229,18 +242,39 @@ export default {
         display:block;
         margin:3.75px 0 0;
         text-align:center;
-        @include meta-list-label;
+        @include selling-point;
         line-height:1;
         color:$black;
-        transition:color 0.25s ease-in-out;
+        opacity:0;
+        transition:color 0.25s ease-in-out, opacity 0.25s linear 0s;
         //  @include mobile{
           margin-top:10px;
           display:block;
           @include mobile-expand-label;
         // }
+        .player-card:hover & {
+          .app--supports-hover & {
+            opacity:1;
+            transition:color 0.25s ease-in-out, opacity 0.25s linear 0.75s;
+
+          }
+        }
+        .player-card--expanded & {
+          opacity:1;
+        }
+        .player-card--expanding &,
+        .player-card--collapsing & {
+          opacity:0 !important;
+          transition:color 0.25s ease-in-out, opacity 0.25s linear 0s;
+        }
+        @include single-column{
+          opacity:1;
+        }
         @include mobile{
+          opacity:1;
+          margin-top:15px;
           .player-card--expanded &{
-            margin-top:17px;
+            margin-top:15px;
           }
         }
       }

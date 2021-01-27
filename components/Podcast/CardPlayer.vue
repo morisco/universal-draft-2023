@@ -137,10 +137,6 @@ export default {
     margin-top:15px;
     margin-bottom:15px;
     overflow:hidden;
-    @include tablet-landscape-and-below{
-      right:10px;
-      transform:translateY(calc(-100% - 27px));
-    }
     @include tablet-portrait-only{
       .mock-draft &,
       .draft-results & {
@@ -218,10 +214,17 @@ export default {
       @include tablet-landscape-and-below{
         margin-left:5px;
       }
+      @include mobile{
+        margin-bottom:1px;
+      }
     }
     &__label{
       @include player-card-body;
+      font-size:14px;
       margin-bottom:3px;
+      @include mobile{
+        margin-bottom:2px;
+      }
     }
     &__progress{
       position:absolute;

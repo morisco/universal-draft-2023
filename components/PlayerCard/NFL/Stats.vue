@@ -1,13 +1,19 @@
 <template>
-  <ul class="player-card__stats">
+<div class="player-card__stats">
+  <div class="player-card__stats-detail" v-if="player.stat_details">
+    <div class="player-card__stats-detail-year">{{player.stat_details.year}} STATS</div>
+    <div class="player-card__stats-detail-games">Based on {{player.stat_details.games}} games played</div>
+  </div>
+  <ul class="player-card__stats-list" :class="{'player-card__stats-list--full' : statArray.length === 5}">
     <li v-for="stat in statArray" :key="stat.key">
       <div class="player-card__stat-tooltip">{{stat.tooltip}}</div>
       <div class="player-card__stat">
-        <span class="player-card__stat-title">{{stat.label}}</span>
         <span class="player-card__stat-value"><span>{{stat.value}}</span></span>
+        <span class="player-card__stat-title">{{stat.label}}</span>
       </div>
     </li>
   </ul>
+</div>
 </template>
 
 <script>
@@ -27,56 +33,86 @@ export default {
 .player-card{
   &__stats{
     display:flex;
-    justify-content:flex-start;
-    flex:1;
-    padding: 0 30px;
-    // width:calc(100% + 10px);
-    width:100%;
-    list-style:none;
-    transform:translateX(0);
-    transition: transform 0s linear 0.125s, opacity 0.25s linear 0s;
-    .player-card__image-column &{
-      padding:0;
-      flex-wrap:wrap;
-      padding-top:20px;
-      width:calc(100% + 40px);
-      margin-bottom:15px;
-    }
-    @include medium-desktop {
-      margin-left:-2px;
-      margin-right:-2px;
-    }
-    @include tablet-portrait-only{
-      width:calc(100% + 4px);
-      margin-left:-2px;
-      margin-right:-2px;
-    }
-    // @include non-mobile{
-    //   .player-card--collapsed & {
-    //     margin-right:50px;
-    //     transform:translateX(-50px);
-    //   }
-    // }
+    flex-direction:column;
     @include mobile {
-      justify-content:flex-start;
+      padding:0 20px 20px;
       margin-top:-0.625rem;
       background:$lightgray;
-      margin-right:0;
-      padding:0 15px 10px;
-      margin-left:0;
-      max-width:100%;
-      width:100%;
     }
+
+    &-detail{
+      @include mobile{
+        border-top:1px solid #bdbdbd;
+        padding-top:25px;
+        margin-top:0.625rem;
+      }
+      &-year{
+        @include expanded-label;
+      }
+      &-games{
+        @include player-card-body;
+        color:$headlinegray;
+        margin-bottom:10px;
+      }
+      .player-card__image-column &{
+        padding-top:20px;
+      }
+    }
+    &-list{
+       display:flex;
+      justify-content:flex-start;
+      flex:1;
+      // width:calc(100% + 10px);
+      width:100%;
+      list-style:none;
+      transform:translateX(0);
+      transition: transform 0s linear 0.125s, opacity 0.25s linear 0s;
+      .player-card__image-column &{
+        padding:0;
+        flex-wrap:wrap;
+        width:calc(100% + 40px);
+        margin-bottom:15px;
+      }
+      @include medium-desktop {
+        margin-left:-2px;
+        margin-right:-2px;
+      }
+      @include tablet-portrait-only{
+        width:calc(100% + 4px);
+        margin-left:-2px;
+        margin-right:-2px;
+      }
+      // @include non-mobile{
+      //   .player-card--collapsed & {
+      //     margin-right:50px;
+      //     transform:translateX(-50px);
+      //   }
+      // }
+      @include mobile {
+        justify-content:flex-start;
+        margin-right:0;
+        margin-left:0;
+        max-width:100%;
+        width:100%;
+        &--full {
+        justify-content:space-between; 
+        }
+      }
+    }
+  
     li{
       position:relative;
       display: flex;
       margin: 0 5px 0;
       flex: 1;
-      max-width: 70px;
+      max-width: 60px;
       .player-card__image-column &{
         flex: 0 0 auto;
         margin:0 15px 0 0;
         width:calc(33.333% - 5px);
+        @include tablet-portrait-only{
+          margin-right:10px;
+        }
       }
       &:first-of-type{
         margin-left:0;
@@ -89,8 +125,12 @@ export default {
       }
 
       @include mobile {
-        margin: 0 5px 10px;
+        margin: 0 10px 0 0;
         transition:opacity 0.25s linear;
+        max-width:55px;
+        &:last-of-type{
+          margin-right:0;
+        }
         .player-card--collapsed & {
           margin:0 5px 20px;
           &:nth-child(n+5) {
@@ -103,7 +143,7 @@ export default {
       }
       &:hover{
         .player-card__stat-tooltip{
-          transform: translateX(-50%) scale(1);
+          transform: scale(1);
           opacity:1;
         }
       }
@@ -123,10 +163,12 @@ export default {
   &__stat-title{
     display:block;
     border-bottom: 2px solid $lightgray;
-    text-align: center;
+    text-align: left;
     box-sizing:content-box;
     line-height:1;
+    color:$headlinegray;
     @include stat-title;
+    margin-top:2px;
   }
   &__stat-value{
     position:relative;
@@ -141,6 +183,7 @@ export default {
     border-radius:4px;
     span{
       position:absolute;
+      padding-top:3px;
       top:50%;
       left:50%;
       transform:translate(-50%,-50%);
@@ -148,9 +191,9 @@ export default {
   }
   &__stat-tooltip{
     position:absolute;
-    bottom: calc(100% + 2.5px);
-    left: 50%;
-    transform: translateX(-50%) scale(0);
+    top:65px;
+    left: 0;
+    transform: scale(0);
     width: auto;
     color: #fff!important;
     white-space: nowrap;
@@ -163,6 +206,7 @@ export default {
     background-clip: padding-box;
     @include tooltip;
     background-color:$highlight2;
+    z-index:3;
     // .player-card--offense & {
     //   background-color: $offense;
     // }
@@ -173,9 +217,9 @@ export default {
       content: '';
       display: block;
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%) rotate(45deg);
-      bottom: -5px;
+      left: 5px;
+      transform: rotate(-45deg);
+      top: -5px;
       height: 10px;
       width: 10px;
       z-index: -1;

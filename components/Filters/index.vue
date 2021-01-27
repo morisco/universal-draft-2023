@@ -64,7 +64,7 @@
         </button>
       </div>
     </div>
-    <PodcastController v-if="$mq !== 'mobile'" />
+    <PodcastController v-if="['mobile', 'tablet', 'small_desktop'].indexOf($mq) === -1" />
   </div>
   <div class="filters__ghost"></div>
 </div>
@@ -98,7 +98,7 @@ export default {
     positionArrowTop () {
       const positions = this.positionMap.map(position => position.positionKey);
       const positionIndex = positions.indexOf(this.$store.getters['viewOptions/position']);
-      return 21 * positionIndex;
+      return 18 * positionIndex;
     },
     positionMap() {
       return PositionMap;
@@ -112,6 +112,9 @@ export default {
       if(window.scrollY > this.$refs.filters.offsetParent.offsetTop - distanceFromTopWhenSticky){
         this.fixed = true;
         this.showInfoBubble = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) < 0 && this.$route.name === 'team-needs' || this.bubbleDismissed ? false : true;
+        if(window.scrollY > this.$refs.filters.offsetParent.offsetTop - distanceFromTopWhenSticky + window.innerHeight/2){
+          this.showInfoBubble = false;
+        }
         this.left = this.$refs.filters.offsetParent.offsetLeft;
       } else {
         this.fixed = false;
@@ -219,6 +222,9 @@ export default {
     color:$darkmediumgray;
     @include filter-option;
     transition:color 0.25s linear;
+    @include mobile{
+      padding:2px 0;
+    }
     &.active,
     &:hover{
       color:$black;
@@ -338,7 +344,7 @@ export default {
           transform:translateX(-50%);
           width: 100% !important;
           max-width:100vw;
-          background-color:$black;
+          background-color:$darkgray;
           max-height:30px;
           transition:background-color 0.25s linear 0s, max-height 0.25s linear;
 
@@ -352,7 +358,7 @@ export default {
           color:$white;
           transition:color 0.25s linear 0s;
           &.active{
-            color:$highlight2;
+            color:$highlight2-light;
           }
         }
       }

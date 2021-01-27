@@ -1,12 +1,13 @@
 <template>
 <button class="mobile-navigation__toggle-bar" v-on:click="toggleNavigation">
   <a href="https://theringer.com" target="_blank" class="mobile-navigation__ringer-logo">
-    <img src="@/assets/img/logo-square.png" alt="The Ringer 'R' Logo" />
+    <img src="@/assets/img/logo-square.png" alt="The Ringer 'R' Logo" data-not-lazy />
   </a>
-  <div class="mobile-navigation__toggle-icon">
-  </div>
   <div class="mobile-navigation__toggle-label" :class="{'mobile-navigation__toggle-label--transition': transition}">
-    <span class="mobile-navigation__toggle-label-current">{{currentLabel}}</span>
+    <span class="mobile-navigation__toggle-label-current">
+      <span class="mobile-navigation__toggle-label-current-closed">{{currentLabel}}</span>
+      <span class="mobile-navigation__toggle-label-current-open">The Ringer's 2021 NFL Draft Guide</span>
+    </span>
     <span class="mobile-navigation__toggle-label-new">{{newLabel}}</span>
   </div>
   <div class="mobile-navigation__toggle-caret">
@@ -63,10 +64,13 @@ export default {
   &__toggle-bar{
     display:flex;
     align-items:center;
-    
+    background:$highlight2;
+    padding:0 15px;
+    width:calc(100% + 30px);
+    margin:0 -15px;
     height:45px;
     position:relative;
-    width:100%;
+    color:$white;
   }
   &__toggle-icon{
     height:20px;
@@ -84,8 +88,35 @@ export default {
     width:100%;
     text-align:left;
     &-current{
+      position:relative;
       transform:translateY(0);
       opacity:1;
+      display:block;
+      flex:1;
+      &-closed{
+        opacity:1;
+        transition:opacity 0.25s linear 0.25s;  
+      }
+      &-open{
+        position:absolute;
+        left:0;
+        top:0;
+        right:0;
+        opacity:0;
+        transform:translateY(0);
+        transition:opacity 0.25s linear;
+      }
+      .mobile-navigation--expanded & {
+        &-open{
+          opacity:1;
+          transform:translateY(0);
+          transition:opacity 0.25s linear 0.25s;
+        }
+        &-closed{
+          opacity:0;
+          transition:opacity 0.25s linear;
+        }
+      }
     }
     &-new{
       position:absolute;
@@ -117,7 +148,7 @@ export default {
     position:absolute;
     top:50%;
     margin-top:-8px;
-    right:0;
+    right:15px;
     background-image:url('~@/assets/img/icons/mobile-nav-arrow.svg');
     background-position: center center;
     background-size:contain;
@@ -130,12 +161,12 @@ export default {
   }
   &__ringer-logo{
     display:block;
-    width:30px;
-    height:30px;
+    width:33px;
+    height:auto;
     margin-left:0;
     margin-right:10px;
     opacity:1;
-    transition:all 0.25s ease-in-out 0.5s;
+    transition:all 0.25s ease-in-out 0.25s;
     img{
       width:100%;
     }

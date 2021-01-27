@@ -5,7 +5,7 @@
     'player-card--expanded': expanded, 
     'player-card--expanding': expanding, 
     'player-card--collapsed': collapsed,
-
+    'player-card--collapsing': collapsing,
     'player-card--animated': animateHeight,
     'player-card--loaded': maxHeight > 0,
     'player-card--active': activeCard,
@@ -30,6 +30,9 @@
         :rankKey="rankKey"
         :playVideo="playVideo"
         :setImageColHeight="setImageColHeight"
+        :videoSettings="videoSettings"
+        :activeCard="activeCard"
+        v-on:resetVideoSettings="resetVideoSettings"
       />
       <InfoColumn 
         :playerId="playerId" 
@@ -50,7 +53,7 @@
         :cardExpanded="cardExpanded"
         v-on:toggle-card="toggleCard"
       />
-    <VideoViewer :displayVideo="displayVideo" :closeVideo="closeVideo" :player="player" :playerVideo="playerVideo" :expanded="expanded" v-if="playerVideo" />
+    <VideoViewer :displayVideo="displayVideo" :closeVideo="closeVideo" :player="player" :playerVideo="playerVideo" :expanded="expanded" v-if="playerVideo" v-on:collapseVideo="collapseVideo" />
   </article>
 </template>
 
@@ -81,7 +84,9 @@ export default {
       displayVideo:         false,
       imageHeight:          false,
       expanding:            false,
-      heightCount:          0
+      collapsing:           false,
+      heightCount:          0,
+      videoSettings:        null
     }
   },
   created () {
@@ -138,10 +143,17 @@ export default {
     },
     expanded() {
       const self = this;
-      this.expanding = true;
-      setTimeout(() => {
-        self.expanding = false;
-      }, 1000);
+      if(this.expanded){
+        this.expanding = true;
+        setTimeout(() => {
+          self.expanding = false;
+        }, 1000);
+      } else {
+        this.collapsing = true;
+        setTimeout(() => {
+          self.collapsing = false;
+        }, 1000);
+      }
     }, 
     allCardsSet() {
       if(this.allCardsSet){
@@ -154,6 +166,13 @@ export default {
       }
     },
     viewDepth (newDepth, oldDepth) {
+      if(this.activeCard){
+        const self = this;
+        setTimeout(() => {
+          let scrollDestination = self.$refs.card.offsetParent.offsetTop + self.$refs.card.offsetTop - (self.$mq === 'mobile' ? 60 : self.collapsed ? 75 : 85) - (this.$mq === 'mobile' ? 15 : 30);
+          scrollIt(scrollDestination, 500, 'linear');
+        }, this.$mq === 'mobile' ? 1250 : 750);
+      }
       if(oldDepth === 'compact' || newDepth === 'compact'){
         const self = this;
         this.transitioning = true;
@@ -173,17 +192,29 @@ export default {
         this.expanded = false;
       }
     },
+    activeCard() {
+      if(!this.activeCard){
+        this.resetVideoSettings();
+      }
+    }
   },
   mounted() {
-    window.addEventListener('scroll', this.watchScroll);
+    window.addEventListener('scroll', this.watchScroll, {passive: true});
     this.watchScroll();
   },
   methods: {
     playVideo() {
       this.displayVideo = true;
     },
+    resetVideoSettings() {
+      this.videoSettings = null;
+    },
     closeVideo() {
       this.displayVideo = false;
+    },
+    collapseVideo(videoTime) {
+      const starTime = videoTime ? videoTime : this.playerVideo.start;
+      this.videoSettings = { start: videoTime }
     },
     setImageColHeight(height) {
       this.imageHeight = height;
@@ -287,7 +318,6 @@ export default {
     flex-direction:column;
     background:$lightgray;
     border-radius: .625rem;
-    border: .00875rem solid $mediumgray;
     margin-bottom:45px;
     overflow-x:visible;
     opacity:0;
@@ -297,12 +327,12 @@ export default {
       opacity:1;
     }
     
-    @include single-column{
-      margin-bottom:15px;
-    }
+    // @include single-column{
+    //   margin-bottom:15px;
+    // }
     @include mobile{
       border:0px;
-      margin-bottom:45px;
+      margin-bottom:55px;
       border-radius: 0 0 .625rem .625rem;
     }
     &__image-info{

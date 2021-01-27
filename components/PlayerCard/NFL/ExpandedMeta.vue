@@ -27,33 +27,40 @@ export default {
       display:flex;
       flex-direction:column;
       margin: 0;
-      padding:20px 0 30px;
+      padding:3px 0 60px;
+      .mock-draft & {
+        padding-top:30px;
+      }
       @include mobile {
         transition:opacity 1s linear 0s;
-        margin:0;
+        margin:0 0 0;
         padding:0 20px;
         background:$lightgray;
-        &:before{
-          content:'';
-          display:block;
-          width:100%;
-          height:1px;
-          background:$darkmediumgray;
-          margin-bottom:20px;
-        }
+        // &:before{
+        //   content:'';
+        //   display:block;
+        //   width:100%;
+        //   height:1px;
+        //   background:$darkmediumgray;
+        //   margin-bottom:20px;
+        // }
       }
       &-section{
+        p{
+          &:last-of-type{
+            margin-bottom:30px;
+          }
+        }
         @include mobile{
           margin-bottom:20px;
+          &:last-of-type{
+            margin-bottom:0;
+          }
         }
       }
     }
     &__expanded-label{
       @include expanded-label;
-      margin-bottom:12px;
-      @include mobile{
-        margin-bottom:5px;
-      }
     }
     &__expanded-value{
       > p {

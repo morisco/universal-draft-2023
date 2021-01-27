@@ -17,6 +17,7 @@ function decodeContent(content) {
 }
 
 function processImages(image) {
+  if(!image) return {}
   const imageSplit  = image.split('.');
   const extension   = imageSplit.pop();
   const joinedImg   = imageSplit.join('.');
@@ -33,7 +34,7 @@ function processImages(image) {
 function processOrders(players) {
   const orderIds = players.map((player) => { return {id: parseInt(player.id,10), bigBoard: parseInt(player.order,10), mockDraft: parseInt(player.order_mockdraft,10), draftResults: parseInt(player.order_draftresults,10) } });
   const bigBoardSorted = orderIds.sort((playerA, playerB) => (playerA.bigBoard > playerB.bigBoard) ? 1 : -1);
-  const mockIds = orderIds.filter(player => player.mockDraft <= 63);
+  const mockIds = orderIds.filter(player => player.mockDraft <= 31);
   const draftResultIds = orderIds.filter(player => player.draftResults <= 31);
   const mockDraftSorted = mockIds.sort((playerA, playerB) => (playerA.mockDraft > playerB.mockDraft) ? 1 : -1);
   const draftResultsSorted = draftResultIds.sort((playerA, playerB) => (playerA.draftResults > playerB.draftResults) ? 1 : -1);
@@ -61,7 +62,11 @@ export function processPlayers(players) {
       if(player.player_video){
         player.player_video.poster = processImages(player.player_video.poster);
       }
-      player.image_data.image = processImages(player.image_data.image);
+      if(player.image_data){
+        player.image_data.image = processImages(player.image_data.image);
+      } else {
+        player.image_data = { image: {} };
+      }
       player.offenseDefense = offensePositions.indexOf(player.position) >= 0 ? 'offense' : 'defense' 
       teamPlayers[player.id_string] = {
         title: player.title,
@@ -83,10 +88,19 @@ export function processPlayers(players) {
 
 export function parseStats(stats) {
   let positionStats = statMap[stats.position];
-  positionStats = positionStats.map((stat) => {
-    return {...stat, value: stats[stat.key], highlight: stat.key === stats.highlight};
+  let positionArray = [];
+  positionStats.forEach((stat) => {
+    if(stats[stat.key]){
+      positionArray.push({...stat, value: stats[stat.key], highlight: stat.key === stats.highlight});
+    }
   })
-  return positionStats;
+  if(stats.position === 'qb'){
+    Array.prototype.move = function (from, to) {
+      this.splice(to, 0, this.splice(from, 1)[0]);
+    };
+    positionArray.move(0,1);
+  }
+  return positionArray;
 }
 
 export function processTeams(teams, teamPlayers) {
@@ -110,7 +124,14 @@ export function processTeams(teams, teamPlayers) {
     resultsIds.push(team.id);
   });
   const teamNameLogo = teams.map((team) => {
-    return {teamName: team.title, logo: team.image}
+    let teamToUse = team;
+    let via = '';
+    if(team.pick_trades){
+      teamToUse = processedTeams[team.pick_trades[0].team];
+      via = team.pick_trades[0].via;
+      // console.log(teamToUse);
+    }
+    return {teamName: teamToUse.title, logo: teamToUse.image, via: via}
   });
   return {
     teamData: processedTeams,
@@ -139,6 +160,26 @@ export function processInterstitials(contents) {
   };
   const listInters = contents.list_inter.content;
   const videoInters = contents.video_inter.content;
+  const articleInters = contents.article_inter.content;
+
+  articleInters.forEach((article_inter) => {
+    article_inter = decodeContent(article_inter);
+
+    article_inter.image = processImages(article_inter.image);
+    const listPositions = article_inter.list_positions;
+    if(listPositions.big_board_position) {
+      processedInterstitials.bigBoard[listPositions.big_board_position] = article_inter;
+    }
+    if(listPositions.mock_draft_position) {
+      processedInterstitials.mockDraft[listPositions.mock_draft_position] = article_inter;
+    }
+    if(listPositions.team_needs_position) {
+      processedInterstitials.teamNeeds[listPositions.team_needs_position] = article_inter;
+    }
+    if(listPositions.draft_results_position) {
+      processedInterstitials.draftResults[listPositions.draft_results_position] = article_inter;
+    }
+  });
 
   listInters.forEach((list_inter) => {
     list_inter = decodeContent(list_inter);

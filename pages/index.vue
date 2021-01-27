@@ -18,20 +18,21 @@
         />
       </template>
     </transition-group>
-    <RelatedArticles :articles="relatedArticles" v-if="showAll" />
+    <MoreCoverage :articles="relatedArticles" v-if="showAll" />
   </section>
 </template>
 
 <script>
-import RelatedArticles from '~/components/RelatedArticles';
+import MoreCoverage from '~/components/MoreCoverage';
 import PlayerCard from '~/components/PlayerCard';
 import Interstitial from '~/components/Interstitial';
 import MainSectionIntro from '~/components/MainSectionIntro';
 import { mapActions } from 'vuex'
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
+import headeBuilder from '~/plugins/headBuilder';
 export default {
   name: 'BigBoard',
-  components: { MainSectionIntro, PlayerCard, RelatedArticles, Interstitial },
+  components: { MainSectionIntro, PlayerCard, MoreCoverage, Interstitial },
   transition: {
     name:"main-section",
     mode:"out-in",
@@ -47,7 +48,7 @@ export default {
   created() {
     if(process.client){
       this.scrollDelay = setTimeout(() => {
-        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('scroll', this.handleScroll, {passive: true});
       }, 1000);
     }
   },
@@ -92,19 +93,7 @@ export default {
     return asyncDataProcessor({$axios, store, route});
   },
   head()  {
-    const metaDescription = this.sharedPlayer ? 'See where ' + this.sharedPlayer.first_name.trim() + ' ' + this.sharedPlayer.last_name.trim() + ' ranks on our Big Board' : this.configuration.facebook_page_share_description;
-    return {
-      meta: [{
-        hid: 'og:title',
-        name: 'og:title',
-        content: this.configuration.facebook_page_share_title
-      },
-      {
-        hid: 'og:description',
-        name: 'og:description',
-        content: metaDescription
-      }]
-    }
+    return headeBuilder(this);
   }
 }
 </script>

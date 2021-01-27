@@ -5,16 +5,17 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1.0, viewport-fit=cover' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'description', name: 'description', content: '' },
+      { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', href: 'https://cdn-images-1.medium.com/fit/c/128/128/1*w1O1RbAfBRNSxkSC48L1PQ.png' },
+      { rel: 'apple-touch-icon', href: 'https://cdn-images-1.medium.com/fit/c/152/152/1*w1O1RbAfBRNSxkSC48L1PQ.png', sizes:'152x152' },
+      { rel: 'apple-touch-icon', href: 'https://cdn-images-1.medium.com/fit/c/120/120/1*w1O1RbAfBRNSxkSC48L1PQ.png', sizes:'120x120' },
+      { rel: 'apple-touch-icon', href: 'https://cdn-images-1.medium.com/fit/c/76/76/1*w1O1RbAfBRNSxkSC48L1PQ.png', sizes:'76x76' },
+      { rel: 'apple-touch-icon', href: 'https://cdn-images-1.medium.com/fit/c/60/60/1*w1O1RbAfBRNSxkSC48L1PQ.png', sizes:'60x60' }
     ],
     script: [
-      {
-        src:
-          'https://polyfill.io/v3/polyfill.min.js?features=Promise%2CArray.prototype.forEach%2CSymbol.iterator'
-      }
     ],
   },
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -25,7 +26,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    {src: '~/plugins/VueYoutube', mode: 'client'}
+    {src: '~/plugins/VueYoutube', mode: 'client'},
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -66,7 +67,7 @@ export default {
   ],
 
   googleAnalytics: {
-    id: 'UA-132999529-1',
+    id: 'UA-98869396-1',
   },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -75,6 +76,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/device',
     'nuxt-mq',
+    'cookie-universal-nuxt',
     ['nuxt-lazy-load', {
       images: true,
       audios: false,

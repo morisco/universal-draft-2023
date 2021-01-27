@@ -18,6 +18,7 @@
         />
       </template>
     </transition-group>
+    <MoreCoverage :articles="relatedArticles" v-if="showAll" />
   </section>
 </template>
 
@@ -27,6 +28,10 @@ import PlayerCard from '~/components/PlayerCard'
 import MainSectionIntro from '~/components/MainSectionIntro'
 import Interstitial from '~/components/Interstitial';
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
+import headeBuilder from '~/plugins/headBuilder';
+import MoreCoverage from '~/components/MoreCoverage'
+
+
 export default {
   name: 'DraftResults',
   transition: {
@@ -34,7 +39,7 @@ export default {
     mode:"out-in",
   },
   scrollToTop: false,
-  components: { MainSectionIntro, PlayerCard, Interstitial },
+  components: { MainSectionIntro, PlayerCard, Interstitial, MoreCoverage },
   data() {
     return {
       initTimeout: null,
@@ -43,7 +48,7 @@ export default {
   },
   created() {
     if(process.client){
-      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('scroll', this.handleScroll, {passive: true});
     }
   },
   destroyed() {
@@ -68,6 +73,9 @@ export default {
       const itemCount = this.viewDepth === 'compact' ? 10 : 4;
       return this.showAll ? this.$store.getters['content/draftResults'](this.viewPosition) : this.$store.getters['content/draftResults'](this.viewPosition).slice(0,itemCount)
     },
+    relatedArticles () {
+      return this.$store.getters['content/relatedArticles'];
+    },
   },
    methods: {
    ...mapActions({
@@ -83,19 +91,7 @@ export default {
     return asyncDataProcessor({$axios, store, route});
   },
   head()  {
-    const metaDescription = this.sharedPlayer ? 'See where ' + this.sharedPlayer.first_name.trim() + ' ' + this.sharedPlayer.last_name.trim() + ' ranks on our Big Board' : this.configuration.facebook_page_share_description;
-    return {
-      meta: [{
-        hid: 'og:title',
-        name: 'og:title',
-        content: this.configuration.facebook_page_share_title + 'Draft Results'
-      },
-      {
-        hid: 'og:description',
-        name: 'og:description',
-        content: metaDescription
-      }]
-    }
+    return headeBuilder(this);
   }
 }
 </script>

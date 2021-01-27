@@ -27,34 +27,30 @@
         <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile'" />
       </template>
       <Stats :player="player" v-if="$mq === 'mobile'" />
-      <CombineResults :results="player.combine_results" :topHeight="topHeight" v-if="$mq === 'mobile'" />
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
       <ExpandedMeta :player="player" />
 
-      <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile'">
+      <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile' && (playerVideo || player.player_podcast || player.player_articles)">
         <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" :expanded="expanded" :activeCard="activeCard" v-if="playerVideo" />
         <PodcastCardPlayer v-if="player.player_podcast" :playerId="player.id" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
-        <RelatedArticles />
+        <RelatedArticles :articles="player.player_articles" v-if="player.player_articles" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import BasicMeta from './BasicMeta';
 import Stats from './Stats';
 import Badges from './Badges';
-import MetaList from './MetaList';
 import Headline from './Headline';
 import ExpandedMeta from './ExpandedMeta';
 import MetaBar from './MetaBar';
-import DraftInfo from './DraftInfo';
 import VideoThumb from './VideoThumb'
 import RelatedArticles from './RelatedArticles'
 import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
 export default {
   props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
-  components: { BasicMeta, Stats, MetaList, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles },
+  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles },
   data () {
     return {
       mounted: false,
@@ -133,6 +129,13 @@ export default {
     mounted(newMounted) {
       this.topHeight = this.$refs.topData.offsetHeight
       this.setHeights();
+    },
+    '$mq'() {
+      const self = this;
+      setTimeout(() => {
+        self.topHeight = this.$refs.topData.offsetHeight
+        self.setHeights();
+      }, 500);
     }
   }
 }
@@ -194,14 +197,19 @@ export default {
       flex:1;
     }
     &__top-data{
+      position:relative;
+      z-index:0;
       display:flex;
       flex-direction:column;
       justify-content:center;
-      padding:30px 30px 45px;
+      padding:30px 30px 30px;
       min-height:255px;
       // .player-card--collapsed & {
       //   min-height:0;
       // }
+      @include tablet-portrait-only{
+        padding: 30px 20px 30px;
+      }
       @include mobile {
         padding:0;
         flex-direction:column;
@@ -219,10 +227,10 @@ export default {
       }
     }
     &__bottom-data{
+      position:relative;
+      z-index:1;
       overflow-x:hidden;
-      @include non-mobile{
-        padding:0 30px;
-      }
+      
       > *{
         opacity:0;
         transition:opacity 0.25s linear 0s;
@@ -234,26 +242,35 @@ export default {
           transition:opacity 0.25s linear 0.5s;
         }
       }
+      @include non-mobile{
+        padding:0 30px;
+      }
+      @include tablet-portrait-only{
+        padding:0 20px;
+      }
+
       @include mobile{
         background:$lightgray;
-        padding-bottom:20px;
+        padding-top:0;
+        padding-bottom:40px;
         border-radius:0 0 0.625rem 0.625rem;
         .player-card--expanded & {
-          margin-top:-0.625rem;
+          margin-top:-15px;
         }
-        padding-top:0.625rem;
-        .mock-draft & {
-          padding-top:0;
-        }
+        // padding-top:0.625rem;
+        // .mock-draft & {
+        //   padding-top:0;
+        // }
         &-extended{
           padding:0 20px;
+          margin-top:30px;
           &:before{
             content:'';
             display:block;
             width:100%;
             height:1px;
-            background:$darkmediumgray;
-            margin-bottom:20px;
+            background:#bdbdbd;
+            margin-bottom:30px;
           }
         }
       }

@@ -18,15 +18,18 @@
         />
       </template>
     </transition-group>
+    <MoreCoverage :articles="relatedArticles" v-if="showAll" />
   </section>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import MoreCoverage from '~/components/MoreCoverage'
 import PlayerCard from '~/components/PlayerCard'
 import MainSectionIntro from '~/components/MainSectionIntro'
 import Interstitial from '~/components/Interstitial';
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
+import headeBuilder from '~/plugins/headBuilder';
 export default {
   name: 'MockDraft',
   transition: {
@@ -34,7 +37,7 @@ export default {
     mode:"out-in",
   },
   scrollToTop: false,
-  components: { MainSectionIntro, PlayerCard, Interstitial },
+  components: { MainSectionIntro, PlayerCard, MoreCoverage, Interstitial },
   data() {
     return {
       initTimeout: null,
@@ -43,7 +46,7 @@ export default {
   },
   created() {
     if(process.client){
-      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('scroll', this.handleScroll, {passive: true});
     }
   },
   destroyed() {
@@ -64,6 +67,9 @@ export default {
     viewPosition () {
       return this.$store.getters['viewOptions/position']
     },
+    relatedArticles () {
+      return this.$store.getters['content/relatedArticles'];
+    },
     mockDraftIds () {
       const itemCount = this.viewDepth === 'compact' ? 10 : 4;
       return this.showAll ? this.$store.getters['content/mockDraft'](this.viewPosition) : this.$store.getters['content/mockDraft'](this.viewPosition).slice(0,itemCount)
@@ -83,19 +89,7 @@ export default {
     return asyncDataProcessor({$axios, store, route});
   },
   head()  {
-    const metaDescription = this.sharedPlayer ? 'See where ' + this.sharedPlayer.first_name.trim() + ' ' + this.sharedPlayer.last_name.trim() + ' ranks on our Big Board' : this.configuration.facebook_page_share_description;
-    return {
-      meta: [{
-        hid: 'og:title',
-        name: 'og:title',
-        content: this.configuration.facebook_page_share_title + 'Mock'
-      },
-      {
-        hid: 'og:description',
-        name: 'og:description',
-        content: metaDescription
-      }]
-    }
+    return headeBuilder(this);
   }
 }
 </script>

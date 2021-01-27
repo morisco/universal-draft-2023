@@ -1,5 +1,12 @@
 <template>
-  <div id="app" class="app" :class="{'app--supports-hover': !($device.isMobile || $device.isTablet)}">
+  <div 
+    id="app" 
+    class="app" 
+    :class="{
+      'app--supports-hover': !($device.isMobile || $device.isTablet),
+      'app--ready': siteReady
+    }"
+  >
     <Header />
      <main v-if="pageSettings" id="main">
       <Intro />
@@ -19,10 +26,15 @@
         <mq-layout mq="tablet+">
           <Filters />
         </mq-layout>
-        <PodcastController v-if="$mq === 'mobile'" />
+        <PodcastController v-if="['mobile', 'tablet', 'small_desktop'].indexOf($mq) >= 0" />
         <Nuxt />
       </div>
     </main>
+    <Footer />
+    <client-only >
+      <Consent />
+    </client-only>
+    <div ref="sizer" class="app__sizer"></div> 
   </div>
 
 </template>
@@ -30,26 +42,40 @@
 <script>
 import Header from '~/components/Header'
 import Filters from '~/components/Filters'
+import Consent from '~/components/Consent'
 import MobileNavigation from '~/components/MobileNavigation'
 import PodcastController from '~/components/Podcast/GlobalController'
 import Navigation from '~/components/Navigation'
+import Footer from '~/components/Footer'
+
 export default {
-  components: { Header, Filters, MobileNavigation, Navigation, PodcastController },
+  components: { Header, Filters, MobileNavigation, Navigation, PodcastController, Footer, Consent },
   computed: {
     pageSettings () {
       return this.$store.getters['page/settings']
     },
     collapsed() {
       return this.$store.getters['viewOptions/depth'] === 'compact';
-    }
+    },
   },
   created () {
     // this.$store.dispatch('page/getPageSettings')
     this.$store.dispatch('content/getContents')
   },
+  mounted() {
+    const self = this;
+    if(this.$refs.sizer){
+      this.siteReady = true;
+      this.setCSSHeight();
+    } else {
+      this.siteReady = true;
+    }
+    document.addEventListener('resize', this.setCSSHeight)
+  },
   data () {
     return {
-      preLockScrollPos: null
+      preLockScrollPos: null,
+      siteReady: false
     }
   },
   methods: {
@@ -65,6 +91,20 @@ export default {
       const topOfList = document.getElementById('app__content').offsetTop - 70;
       this.preLockScrollPos = topOfList
       window.scrollTo(0, topOfList);
+    },
+    setCSSHeight() {
+      const self = this;
+      setTimeout(() => {
+        if(!self.$refs.sizer) return;
+        let vh = self.$refs.sizer.offsetHeight * 0.01;
+        // Then we set the value in the --vh custom property to the root of the document
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      }, 250);
+    }
+  },
+  watch: {
+    '$mq'() {
+      this.setCSSHeight();
     }
   }
 }
@@ -78,6 +118,18 @@ export default {
   background:#FFF;
 }
 .app{
+  opacity:0;
+  &--ready{
+    opacity:1;
+  }
+  &__sizer{
+    position:fixed;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    z-index:-1;
+  }
   &__content{
     position:relative;
     width: calc(100% - 210px);

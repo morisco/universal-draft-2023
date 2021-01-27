@@ -43,8 +43,8 @@ export default {
     navOptions() { 
       return this.pageSettings ? [
         {to: '/', title: 'Big Board', subtitle:'by Danny Kelly', enabled: true, updated: this.pageSettings.players_to_watch_updated, routeNames: ['index', 'big_board_player_share']},
-        {to: '/mock-draft', title: 'Mock Draft', subtitle:'by Ringer Staff', enabled: this.pageSettings.enable_mock, updated: this.pageSettings.danny_updated, routeNames: ['mock-draft', 'mock_draft_player_share']},
-        {to: '/team-needs', title: 'Team Needs', subtitle:'by Robert Mays', enabled: this.pageSettings.breakdown_by_team, updated: this.pageSettings.breakdown_updated, routeNames: ['team-needs', 'team_needs_team_share']},
+        {to: '/mock-draft', title: 'Mock Draft', subtitle:'by Danny Kelly', enabled: this.pageSettings.enable_mock, updated: this.pageSettings.danny_updated, routeNames: ['mock-draft', 'mock_draft_player_share']},
+        {to: '/team-needs', title: 'Team Needs', subtitle:'', enabled: this.pageSettings.breakdown_by_team, updated: this.pageSettings.breakdown_updated, routeNames: ['team-needs', 'team_needs_team_share']},
         {to: '/draft-results', title: 'Draft Results', enabled: this.pageSettings.enable_results, updated: this.pageSettings.draft_results_updated, routeNames: ['draft-results', 'draft_results_player_share']}
       ] : null;
     }
@@ -132,6 +132,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$navHeight: 70px;
 .navigation{
   position:relative;
   width: calc(100% - 210px);
@@ -146,7 +147,7 @@ export default {
     left:50%;
     width: 100%;
     max-width:1270px;
-    height:65px;
+    height:$navHeight;
     transform:translateX(-50%);
     background:$white;
     // border: 2px solid $black;
@@ -159,11 +160,11 @@ export default {
     display:flex;
     flex:1;
     overflow:hidden;
-    height:65px;
+    height:$navHeight;
     &-inner{
       display:flex;
       min-width:200%;
-      height:65px;
+      height:$navHeight;
       transform:translate3d(0,0,0);
       will-change:transform;
     }
@@ -215,15 +216,22 @@ export default {
     flex:1;
     display:flex;
     flex-direction:column;
-    padding:0 20px;
+    padding:4px 20px 0;
     justify-content:center;
-    height:65px;
+    height:$navHeight;
     border-right:1px solid $white;
     color:$white;
     transition:all 0.25s linear 0.5s, border-right 0.25s linear 0s;
     background:$highlight2;
+    @include single-column{
+      padding:0 10px 0;
+    }
     &:disabled{
-      opacity:0.5;
+      // opacity:0.5;
+      cursor:default;
+      span{
+        opacity:0.5;
+      }
     }
     
     &:nth-child(4),
@@ -239,26 +247,34 @@ export default {
       color:$white;
       transition:all 0.25s linear 0s;
       .navigation__button-updated{
-        color:$highlight1;
+        // color:$highlight1;
       }
     }
   }
   &__button-title{
     @include demibold-title;
+    margin-bottom:1px;
   }
   &__button-subtitle{
     display:inline-block !important;
     @include demibold-title;
     font-weight:300;
-    color:$mediumgray;
+    color:$white;
   }
   &__button-updated{
-    @include navigation-link-updated;
+    @include player-card-body;
+    font-size:13px;
+    line-height:1;
     color:$mediumgray;
     min-height:13px;
+    margin:0;
+    text-transform:none !important;
+    @include single-column{
+      font-size:12px;
+    }
   }
   &__ghost{
-    height:65px;
+    height:$navHeight;
     width: 100%;
   }
 
@@ -268,7 +284,7 @@ export default {
     justify-content:flex-end;
     align-items:center;
     width:4%;
-    height:65px;
+    height:$navHeight;
     max-width:55px;
     background:$highlight2-light;
     flex: 0 0 auto;
@@ -290,7 +306,7 @@ export default {
 
     }
     img{
-      width:calc(100% - 20px);
+      width:calc(100% - 16px);
     }
   }
   &--fixed{
@@ -302,7 +318,7 @@ export default {
       width: calc(100% - 60px);
       max-width:100vw;
       border-radius:0;
-      max-height:65px;
+      max-height:$navHeight;
       transition:all 0.25s ease-in-out;
     }
   }
@@ -316,7 +332,16 @@ export default {
     }
     &__ringer-home,
     &__links{
-      height:46px;
+      height:50px;
+    }
+    &__ringer-home{
+      width:100%;
+      max-width:40px;
+      img{
+        width:calc(100% - 10px);
+        vertical-align:bottom;
+        margin-top:3px;
+      }
     }
     &--fixed{
       .navigation__sticky{

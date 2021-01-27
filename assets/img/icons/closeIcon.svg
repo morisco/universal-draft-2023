@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="15px" height="16px" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <g id="Icons/Carrot/Normal">
+    <path d="M0.666667 0.571429L7.33333 7.42857" id="Line-4" fill="#000000" stroke="#000000" stroke-width="2" stroke-linecap="square" />
+    <path d="M0.666667 0.571429L7.33333 7.42857" transform="matrix(-1 0 0 1 15 0)" id="Line-4" fill="#000000" stroke="#000000" stroke-width="2" stroke-linecap="square" />
+    <path d="M0.666667 0.571429L7.33333 7.42857" transform="matrix(1 0 0 -1 0 15)" id="Line-4" fill="#000000" stroke="#000000" stroke-width="2" stroke-linecap="square" />
+    <path d="M0.666667 0.571429L7.33333 7.42857" transform="matrix(-1 0 0 -1 15 15)" id="Line-4" fill="#000000" stroke="#000000" stroke-width="2" stroke-linecap="square" />
+  </g>
+</svg>

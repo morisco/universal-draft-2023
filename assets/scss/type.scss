@@ -22,7 +22,6 @@ em{
 
 h1,
 .headline{
-  font-family: TTLakes, Arial, sans-serif;
   font-weight: 300;
   line-height: 1;
   color: #fffefe;
@@ -35,32 +34,37 @@ h1,
     font-size: 14vw;
   }
   &--small{
-    line-height: 1.75;
-    font-size:4vh;
+    font-family:'Decima';
     text-align:center;
-    @include non-mobile{
-      font-size: 80px;
-      line-height: 1;
-
+    text-transform:uppercase;
+    font-weight:300;
+    font-size: 4.5vw;
+    line-height: 1;
+    @include mobile{
+      font-size:9vw;
+      line-height:9vw;
     }
   }
   &--big{
-    font-family: Tabia-Black, Arial, sans-serif;
+    font-family: 'Druk Wide Super', Arial, sans-serif;
+    font-style:italic;
     font-weight: 400;
-    letter-spacing: -.025em;
-    word-spacing: -.1em;
-    text-transform: none;
-    font-size:25vw;
-    line-height:0.8;
- 
-    @include non-mobile{
-      font-size: 12vw;
-      line-height: .85;
-      > span, 
-      em{
-        display:block;
-        line-height: .925;
-        height: 12.4vw;
+    text-transform: uppercase;
+    font-size: 9vw;
+    line-height:0.9;
+    letter-spacing:.025em;
+    margin:30px 0 45px;
+    > span, 
+    em{
+      display:block;
+      margin:30px 0;
+    }
+    @include single-column{
+      font-size:13.5vw;
+      letter-spacing:.025em;
+      line-height:0.9;
+      > span{
+        margin:20px 0 20px;
       }
     }
   }
@@ -81,17 +85,23 @@ h2{
     font-size: 22px;
   }
 }
-// h3{
-//   font-family: Tabia-Black, Arial, sans-serif;
-//   font-weight: 400;
-//   font-size: 52px;
-//   line-height: .85;
-//   text-transform: none;
-//   letter-spacing: -.015em;
-//   @include tablet-portrait-only{
-//     font-size:46px;
-//   }
-// }
+
+h3{
+  font-family: 'Decima';
+  font-weight:normal;
+  font-size:28px;
+  line-height:1.125;
+  .player-card[data-player="antonio-gandy-golden"] &,
+  .player-card[data-player="lloyd-cushenberry-iii"] &,
+  .player-card[data-player="prince-tega-wanogho"] &,
+  .player-card[data-player="akeem-davis-gaither"] &,
+  .player-card[data-player="laviska-shenault-jr"] & {
+    font-size:27px;
+  }
+  .player-card[data-player="clyde-edwards-helaire"] &{
+    font-size:25px;
+  }
+}
 
 p{
   // font-family: TTCommons, Arial, sans-serif;
@@ -102,6 +112,9 @@ p{
   line-height:1.4;
   font-size:18px;
   margin-bottom:20px;
+  em{
+    font-style:italic;
+  }
   @include non-mobile{
     margin-bottom:30px;
     font-size:22px;
@@ -109,12 +122,4 @@ p{
   strong{
     font-weight:normal;
   }
-}
-
-.updated{
-  @include updated-text;
-}
-
-.nav-link{
-  @include header-nav-link;
 }

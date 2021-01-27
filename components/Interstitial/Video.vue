@@ -5,6 +5,7 @@
     :class="{
       'video-inter--open': open
     }"
+    v-on:click="openVideo"
     :style="{
       height: openHeight + 'px'
     }"
@@ -12,49 +13,66 @@
     <div class="video-inter__content">
       <div class="video-inter__slug">Video</div>
       <div class="video-inter__title" v-html="interstitial.title"></div>
-      <div class="video-inter__dek" v-html="interstitial.dek"></div>
-      <div class="video-inter__presented-by">
-        <span>Presented By</span>
+      <div class="video-inter__link">
+        <img src="@/assets/img/icons/inter-play.svg" class="video-inter__play-button" alt="Play button" data-not-lazy />
+        <span>Play the video</span>
       </div>
+      
     </div>
-    <div class="video-inter__video" v-on:click="openVideo">
-      <img :src="interstitial.image.medium" alt="Video thumbnail" class="video-inter__thumbnail" /> 
-      <img src="@/assets/img/icons/inter-play.svg" class="video-inter__play-button" alt="Play button" />
-      <div class="video-inter__iframe-wrapper">
-        <iframe v-if="open" :src="'https://www.youtube.com/embed/' + interstitial.video + '?autoplay=1&rel=0'" data-not-lazy frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+    <div class="video-inter__video">
+      <img :src="interstitial.image.medium" alt="Video thumbnail"  /> 
+      <transition name="video-inter__iframe-wrapper" appear>
+        <div class="video-inter__iframe-wrapper" v-if="open || ($device.isMobile || $device.isTablet)">
+          <VideoPlayer :playerVideo="videoConfig" :triggerPlay="open" :videoWidth="videoWidth" :closeVideo="closeVideo" />
+        </div>
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
+import VideoPlayer from '~/components/Video/Player'
 export default {
+  components: { VideoPlayer },
   props: ['interstitial'],
   data() {
     return {
       open: false,
-      openHeight: null
+      openHeight: null,
+      videoWidth: null
     }
   },
-  methods: {
-    openVideo() {
-      this.open = true;
-      if(this.$mq !== 'mobile'){
-        this.openHeight = this.$refs.videoCard.offsetHeight;
+  computed: {
+    videoConfig() {
+      return {
+        video_id: this.interstitial.video
       }
     }
+  },
+  mounted() {
+    this.videoWidth = this.$refs.videoCard.offsetWidth;
+  },
+  methods: {
+    closeVideo() {
+      this.open = false;
+    },
+    openVideo() {
+      this.open = true;
+    }
   }
-  
 }
 </script>
 
 <style lang="scss">
   .video-inter{
+    position:relative;
     background-color:$black;
     display:flex;
     flex-direction:row;
     overflow:hidden;
     border-radius:0.625rem;
+    padding-top:56.25%;
+    cursor:pointer;
     &.player-card{
       opacity:1;
       flex-direction:row;
@@ -64,59 +82,56 @@ export default {
     }
 
     &__content{
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:2;
       padding:40px;
-      width:46.5%;
-      max-width:46.5%;
+      width:100%;
+      max-width:100%;
       flex: 0 0 auto;
       color:$white;
       text-align:center;
       display:flex;
       flex-direction:column;
-      min-height:300px;
+      justify-content:center;
+      background:rgba(0,0,0,0.25);
+      align-items:center;
       transition:max-width 0.5s ease-in-out 0.375s;
       flex: 0 0 auto;
-      @include tablet{
-        padding:25px 20px;
-      }
-      @include mobile {
-        max-width:100%;
-        width:100%;
-        padding:30px 20px;
-      }
+      transition:opacity 0.25s linear 0.25s;
       .video-inter--open & {
-        max-width:27%;
-        @include mobile {
-          max-width:100%;
-        }
+        opacity:0;
+        transition:opacity 0.25s linear 0s;
+      }
+      @include mobile{
+        padding:15px;
       }
     }
     &__slug{
-      @include mobile-nav-label;
+      @include slug;
+      text-transform:uppercase;
+      @include mobile{
+        display:none;
+      }
     }
     &__title{
       @include inter-title;
-      padding:10px 0 20px;
-      flex:1;
+      padding:25px 0 25px;
       transition:font-size 0s ease-in-out 0.5s;
       @include non-mobile {
         animation: titleTransition 1.25s 1 linear;
       }
       animation-play-state: paused;
       animation-fill-mode: forwards;
-      @include tablet {
-        font-size:32px;
+      @include mobile{
+        padding:15px 0;
       }
-      .video-inter--open & {
-        font-size:24px;
-        animation-play-state: running;
-        @include tablet {
-          font-size:22px;
-        }
-
-        @include mobile {
-          font-size:32px;
-        }
-      }
+      // @include tablet {
+      //   font-size:32px;
+      // }
     }
     &__dek{
       p{
@@ -139,50 +154,54 @@ export default {
       }
     }
     &__video{
-      position:relative;
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
       cursor:pointer;
-      flex:1;
-      @include non-mobile{
-        border-left:2px solid $gray;
-      }
-      @include mobile{
-        border-bottom:1px solid $gray;
-      }
-      iframe{
+      > img {
         position:relative;
         width:100%;
         height:100%;
-        object-fit:contain;
+        object-fit:cover;
+        object-position:center center;
+        opacity:0;
+        vertical-align:bottom;
+        transition:opacity 0.25s linear 0s;
+        &.isLoaded{
+          opacity:1;
+        }
         .video-inter--open & {
-          z-index:3;
-        }     
+          opacity:0;
+          transition:opacity 0.25s linear 0s;
+        }
       }
     }
-    &__thumbnail{
-      position:relative;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center center;
-      opacity:1;
-      vertical-align:bottom;
-      .video-inter--open & {
-        opacity:0;
-        transition:opacity 0.25s linear 0s;
+    &__link{
+      @include expanded-label;
+      text-decoration:underline;
+      display:flex;
+      align-items:center;
+      text-transform:uppercase;
+      span{
+        display:inline-block;
+        padding-top:2px;
+      }
+      @include mobile{
+        font-size:15px;
       }
     }
     &__play-button{
-      position:absolute;
-      top:50%;
-      left:50%;
-      width:90px;
-      height:90px;
-      margin:-45px 0 0 -45px;
+      position:relative;
+      width:40px;
+      height:40px;
       z-index:2;
       opacity:1;
-      .video-inter--open & {
-        opacity:0;
-        transition:opacity 0.25s linear 0s;
+      margin-right:7px;
+      @include mobile{
+        width:25px;
+        height:25px;
       }
     }
     &__iframe-wrapper{
