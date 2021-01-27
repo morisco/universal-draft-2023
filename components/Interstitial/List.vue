@@ -52,7 +52,14 @@ export default {
   },
   methods: {
     toggleCard() {
-      this.expanded = !this.expanded;    
+      if(!this.expanded){
+        this.$ga.event({
+          eventCategory: 'list-interstitial',
+          eventAction: 'expanded',
+          eventLabel: this.interstitial.title_html
+        });
+      }
+      this.expanded = !this.expanded;
     },
     cardExpanded() {
       // this.expanded = !this.expanded;
@@ -90,7 +97,7 @@ export default {
   .list-inter{
     // overflow:hidden;
     // background:transparent;
-    padding:60px 90px 60px 60px;
+    padding:60px 90px 30px 60px;
     flex-direction:row;
     border-radius:0.625rem;
     opacity:1;
@@ -165,6 +172,7 @@ export default {
     }
     &__remaining-content{
       opacity:0;
+      padding-bottom:1px;
       transition:opacity 0.25s linear 0s;
       .player-card--expanded & {
         opacity:1;

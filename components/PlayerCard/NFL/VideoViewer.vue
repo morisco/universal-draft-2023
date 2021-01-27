@@ -32,6 +32,11 @@ export default {
     },
     collapseVideo(e) {
       e.stopPropagation();
+      this.$ga.event({
+        eventCategory: 'video',
+        eventAction: 'collapsed',
+        eventLabel: 'Collapse player video'
+      })
       this.closeVideo();
       this.$store.commit('viewOptions/setViewCollapsed');
       setTimeout(() => this.$emit('collapseVideo', this.currentTime), 500);

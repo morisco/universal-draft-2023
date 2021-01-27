@@ -1,5 +1,5 @@
 <template>
-  <a :href="interstitial.link" target="_blank" class="article-inter player-card">
+  <a :href="interstitial.link" target="_blank" class="article-inter player-card" v-on:click="trackArticleOpen">
     <div class="article-inter__image" v-if="false">
       <img :src="interstitial.image.medium" :alt="interstitial.title" />
     </div>
@@ -13,7 +13,16 @@
 
 <script>
 export default {
-  props: ['interstitial']
+  props: ['interstitial'],
+  methods: {
+    trackArticleOpen() {
+      this.$ga.event({
+        eventCategory: 'article-interstitial',
+        eventAction: 'opened',
+        eventLabel: this.interstitial.title
+      });
+    }
+  }
 }
 </script>
 

@@ -215,6 +215,11 @@ export default {
       this.videoSettings = null;
     },
     closeVideo() {
+      this.$ga.event({
+        eventCategory: 'video',
+        eventAction: 'close',
+        eventLabel: 'Close player video'
+      })
       this.displayVideo = false;
     },
     collapseVideo(videoTime) {

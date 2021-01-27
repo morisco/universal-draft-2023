@@ -142,10 +142,20 @@ export default {
       scrollIt(destinationOffset, duration, 'easeOutQuad', () => {
         self.setViewPosition(position);
       });
+      this.$ga.event({
+        eventCategory: 'filter-position',
+        eventAction: 'click',
+        eventLabel: position
+      });
     },
     setViewDepth($event, depth) {
       $event.stopPropagation();
       this.storeViewDepth(depth);
+      this.$ga.event({
+        eventCategory: 'filter-depth',
+        eventAction: 'click',
+        eventLabel: depth
+      });
     },
     ...mapActions({
       'storeViewDepth': 'viewOptions/setViewDepth',

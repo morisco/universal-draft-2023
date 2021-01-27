@@ -63,7 +63,6 @@ export default {
     this.$store.dispatch('content/getContents')
   },
   mounted() {
-    const self = this;
     if(this.$refs.sizer){
       this.siteReady = true;
       this.setCSSHeight();
@@ -138,6 +137,7 @@ export default {
     display:flex;
     justify-content:flex-end;
     min-height:calc(100vh - 41px);
+    z-index:0;
     @include medium-desktop {
       width:calc(100% - 75px);
     }

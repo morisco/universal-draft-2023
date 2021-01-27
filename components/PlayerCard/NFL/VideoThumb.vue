@@ -36,6 +36,12 @@ export default {
   },
   methods: {
     triggerVideo() {
+      
+      this.$ga.event({
+        eventCategory: 'video',
+        eventAction: 'play',
+        eventLabel: 'Play player video'
+      })
       if(this.$mq === 'mobile'){
         this.mobilePlay = true;
       } else {
