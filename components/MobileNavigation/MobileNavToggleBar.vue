@@ -89,7 +89,7 @@ export default {
     text-align:left;
     &-current{
       position:relative;
-      transform:translateY(0);
+      transform:translateY(2px);
       opacity:1;
       display:block;
       flex:1;
@@ -169,6 +169,7 @@ export default {
     transition:all 0.25s ease-in-out 0.25s;
     img{
       width:100%;
+      margin-top:2px;
     }
     .mobile-navigation--expanded & {
       margin-left:-40px;
