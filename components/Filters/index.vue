@@ -8,16 +8,18 @@
   ref="filters"
 >
   <div class="filters__sticky" v-bind:style="{width: width + 'px', left: left + 'px'}">
-    <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-      <transition name="info-bubble--animated">
-        <InfoBubble v-if="showInfoBubble">
-          <span>
-            See our full<br/>scouting reports<br/>in Deep<br/>Dive mode
-            <img src="@/assets/img/icons/down-left-arrow.svg" alt="Arrow pointing to deep dive mode" />
-          </span>
-        </InfoBubble>
-      </transition>
-    </mq-layout>
+    <client-only>
+      <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+        <transition name="info-bubble--animated">
+          <InfoBubble v-if="showInfoBubble">
+            <span>
+              See our full<br/>scouting reports<br/>in Deep<br/>Dive mode
+              <img src="@/assets/img/icons/down-left-arrow.svg" alt="Arrow pointing to deep dive mode" />
+            </span>
+          </InfoBubble>
+        </transition>
+      </mq-layout>
+    </client-only>
     <div class="filters__section">
       <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
         <div class="filters__section-title">
@@ -112,10 +114,12 @@ export default {
       if(window.scrollY > this.$refs.filters.offsetParent.offsetTop - distanceFromTopWhenSticky){
         this.fixed = true;
         this.showInfoBubble = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) < 0 && this.$route.name === 'team-needs' || this.bubbleDismissed ? false : true;
-        if(window.scrollY > this.$refs.filters.offsetParent.offsetTop - distanceFromTopWhenSticky + window.innerHeight/2){
-          this.showInfoBubble = false;
-        }
         this.left = this.$refs.filters.offsetParent.offsetLeft;
+        const self = this;
+        setTimeout(() => {
+          self.showInfoBubble = false
+          self.bubbleDismissed = true;
+        }, 5000);
       } else {
         this.fixed = false;
         this.left = 0;

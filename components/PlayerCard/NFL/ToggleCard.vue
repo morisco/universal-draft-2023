@@ -85,7 +85,8 @@ export default {
         @include mobile{
           left:20px;
           .player-card--collapsed &,
-          .player-card--expanded & {
+          .player-card--expanded &,
+          .app__content--collapsed & {
             bottom:-16px;
             svg{
               width:32px;

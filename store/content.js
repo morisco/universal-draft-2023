@@ -147,9 +147,9 @@ const mutations = {
 
   cardReady(state, route) {
     state.cardsReady += 1;
-    if(['index', 'big_board_player_share'].indexOf(route.name) >=0 && state.cardsReady === 100){
+    if(['index', 'big_board_player_share'].indexOf(route.name) >=0 && state.cardsReady === Object.keys(state.playerData).length){
       state.allCardsSet = true;
-    } else if(['mock-draft', 'mock_draft_player_share'].indexOf(route.name) >=0 && state.cardsReady === 64){
+    } else if(['mock-draft', 'mock_draft_player_share'].indexOf(route.name) >=0 && state.cardsReady === 32){
       state.allCardsSet = true;
     } else if(['team-needs', 'team_needs_team_share'].indexOf(route.name) >=0 && state.cardsReady === 32){
       state.allCardsSet = true;

@@ -53,8 +53,15 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
       store.commit('content/setPlayerData', processedPlayers)
       store.commit('content/setTeamData', processedTeams)
       store.commit('content/setRelatedData', processedRelated)
-      sharedPlayer = store.getters['content/playerByShare'](shareId);
-      sharedTeam = store.getters['content/teamByShare'](shareId);
+      const postFetchPlayer = Object.keys(processedPlayers.playerData).find((id) => {
+        return shareId === processedPlayers.playerData[id].id_string
+      });
+      sharedPlayer = shareId ? processedPlayers.playerData[postFetchPlayer] : false;
+
+      const postFetchTeam = Object.keys(processedTeams.teamData).find((id) => {
+        return shareId === processedTeams.teamData[id].id_string
+      });
+      sharedTeam = shareId ? processedTeams.teamData[postFetchTeam] : false;
     })
     .catch(err => console.log(err));
   }

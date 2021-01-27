@@ -1,8 +1,10 @@
 <template>
   <div>
-    <ListInter v-if="interstitial.category === 'list_inter'" :interstitial="interstitial" />
-    <VideoInter v-if="interstitial.category === 'video_inter'" :interstitial="interstitial" />
-    <ArticleInter v-if="interstitial.category === 'article_inter'" :interstitial="interstitial" />
+    <client-only>
+      <ListInter v-if="interstitial.category === 'list_inter'" :interstitial="interstitial" />
+      <VideoInter v-if="interstitial.category === 'video_inter'" :interstitial="interstitial" />
+      <ArticleInter v-if="interstitial.category === 'article_inter'" :interstitial="interstitial" />
+    </client-only>
   </div>
 </template>
 

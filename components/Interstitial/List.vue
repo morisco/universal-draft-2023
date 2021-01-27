@@ -128,7 +128,7 @@ export default {
       padding:30px 20px 40px;
     }
     .app__content--collapsed & {
-      margin-bottom:15px;
+      // margin-bottom:15px;
     }
     &__image{
       img{
