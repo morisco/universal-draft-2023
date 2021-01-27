@@ -23,7 +23,7 @@
       <img :src="interstitial.image.medium" alt="Video thumbnail"  /> 
       <transition name="video-inter__iframe-wrapper" appear>
         <div class="video-inter__iframe-wrapper" v-if="open || ($device.isMobile || $device.isTablet)">
-          <VideoPlayer :playerVideo="videoConfig" :triggerPlay="open" :videoWidth="videoWidth" :closeVideo="closeVideo" />
+          <VideoPlayer :playerVideo="videoConfig" :triggerPlay="open" :videoWidth="videoWidth" :closeVideo="closeVideo" :videoType="'interstitial'" />
         </div>
       </transition>
     </div>

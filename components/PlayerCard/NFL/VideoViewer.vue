@@ -4,9 +4,9 @@
     <div class="player-card__video-viewer-viewable" ref="viewable">
       <div class="player-card__video-viewer-actions">
         <button class="player-card__video-viewer-close player-card__video-viewer-close--collapse" v-on:click="collapseVideo"></button>
-        <button class="player-card__video-viewer-close" v-on:click="closeVideo"></button>
+        <button class="player-card__video-viewer-close" v-on:click="manualClose"></button>
       </div>
-      <VideoPlayer :videoWidth="videoWidth" :closeVideo="closeVideo" :playerVideo="playerVideo" :trackTime="trackTime" />
+      <VideoPlayer :videoWidth="videoWidth" :closeVideo="closeVideo" :playerVideo="playerVideo" :videoType="'playerCard'" :trackTime="trackTime" />
     </div>
   </figure>
 </transition>
@@ -30,12 +30,22 @@ export default {
       this.videoWidth = this.$refs.viewable.offsetWidth;
       scrollIt(this.$refs.viewable.offsetParent.offsetParent.offsetParent.offsetTop + this.$refs.viewable.offsetParent.offsetParent.offsetTop + this.$refs.viewable.offsetParent.offsetTop+ this.$refs.viewable.offsetTop + (this.$refs.viewable.offsetHeight/2) - (window.innerHeight/2), 1000, 'easeInOutQuad');
     },
+    manualClose() {
+      this.$ga.event({
+        eventCategory: 'video',
+        eventAction: 'manual_close',
+        eventLabel: 'Manual close player video',
+        eventValue: this.currentTime
+      })
+      this.closeVideo();
+    },
     collapseVideo(e) {
       e.stopPropagation();
       this.$ga.event({
         eventCategory: 'video',
         eventAction: 'collapsed',
-        eventLabel: 'Collapse player video'
+        eventLabel: 'Collapse player video',
+        eventValue: this.currentTime
       })
       this.closeVideo();
       this.$store.commit('viewOptions/setViewCollapsed');

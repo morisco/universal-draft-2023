@@ -9,7 +9,7 @@
 import LoadingSpinner from '~/components/LoadingSpinner'
 export default {
   components: {LoadingSpinner},
-  props: ['videoWidth', 'closeVideo', 'triggerPlay', 'playerVideo', 'trackTime'],
+  props: ['videoWidth', 'closeVideo', 'triggerPlay', 'playerVideo', 'trackTime', 'videoType'],
   data() {
     return {
       videoHeight: false,
@@ -34,6 +34,19 @@ export default {
           self.trackTime(currentTime);
         }
         if(self.end && currentTime >= self.end){
+          if(this.videoType === 'playerCard'){
+            this.$ga.event({
+              eventCategory: 'video',
+              eventAction: 'completed',
+              eventLabel: 'Completed player video'
+            });
+          } else if(this.videoType === 'interstitial'){
+            this.$ga.event({
+              eventCategory: 'video-interstitial',
+              eventAction: 'completed',
+              eventLabel: 'Completed interstitial video'
+            });
+          }
           self.player.mute();
           if(self.trackTime){
             self.trackTime(null);
@@ -55,6 +68,19 @@ export default {
       if(this.$mq !== 'mobile'){
         this.ready = false;
       }
+      if(this.videoType === 'playerCard'){
+          this.$ga.event({
+            eventCategory: 'video',
+            eventAction: 'completed',
+            eventLabel: 'Completed player video'
+          });
+        } else if(this.videoType === 'interstitial'){
+          this.$ga.event({
+            eventCategory: 'video-interstitial',
+            eventAction: 'completed',
+            eventLabel: 'Completed interstitial video'
+          });
+        }
       this.closeVideo();
       this.isPlaying = false;
       clearInterval(this.timeUpdateInterval);
@@ -129,6 +155,7 @@ export default {
     iframe{
       opacity:0;
       transition:opacity 0.75s linear;
+      
     }
     &--ready{
       iframe{
@@ -162,6 +189,7 @@ export default {
       position:absolute !important;
       top:0;
       left:0;
+      z-index:2;
     }
   }
 </style>
