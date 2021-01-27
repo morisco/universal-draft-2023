@@ -45,6 +45,7 @@
         :activeCard="activeCard"
         v-on:set-info-height="setInfoHeight"
         v-on:set-top-height="setTopHeight"
+        v-on:setMetaHeight="setMetaHeight"
       />
     </div>
       <ToggleCard 
@@ -86,7 +87,8 @@ export default {
       expanding:            false,
       collapsing:           false,
       heightCount:          0,
-      videoSettings:        null
+      videoSettings:        null,
+      metaHeight:           null
     }
   },
   created () {
@@ -203,6 +205,9 @@ export default {
     this.watchScroll();
   },
   methods: {
+    setMetaHeight(height){
+      this.metaHeight = height
+    },
     playVideo() {
       this.displayVideo = true;
     },
@@ -292,7 +297,7 @@ export default {
       const heightToUse = this.expanded ? Math.max(this.imageHeight, maxHeight) : maxHeight;
       this.maxHeight = this.collapsed && !this.expanded ?
         this.$mq === 'mobile' ?
-        185
+        this.metaHeight - 20
         :
         this.$refs.metaBar.$el.offsetHeight 
       : this.$mq === 'mobile' ? 

@@ -146,6 +146,9 @@
     font-size:18px;
     letter-spacing: 0.05em;
   }
+  @include tablet-portrait-only{
+    font-size:16px;
+  }
   @include mobile{
     font-size:12px;
     line-height:12px;
@@ -213,7 +216,7 @@
 }
 
 @mixin tablet-portrait-only {
-  @media (min-width: #{$mobile-width+1}) and (max-width: #{$tablet-width - 1px}) {
+  @media (min-width: #{$mobile-width+1}) and (max-width: #{$tablet-portrait-width - 1px}) {
     @content;
   }
 }

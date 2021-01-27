@@ -1,5 +1,6 @@
 <template>
   <nav class="mobile-navigation" 
+    id="mobile-navigation"
     ref="nav" 
     :class="{
       'mobile-navigation--sticky': fixed,

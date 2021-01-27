@@ -55,7 +55,8 @@ export default {
   },
   methods: {
     scrollToTop() {
-      scrollIt(document.getElementById('navigation').offsetTop + 4, 500);
+      var offset = this.$mq === 'mobile' ? document.getElementById('mobile-navigation').offsetTop + 4 : document.getElementById('navigation').offsetTop + 4
+      scrollIt(offset, 500);
     }
   }
 }

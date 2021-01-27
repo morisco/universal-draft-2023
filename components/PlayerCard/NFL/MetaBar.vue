@@ -1,5 +1,5 @@
 <template>
-<div class="player-card__meta-bar">
+<div class="player-card__meta-bar" ref="metaBar">
   <div class="player-card__meta-bar-rank" v-if="rank">
     <span>{{rank}}</span>
   </div>
@@ -74,6 +74,9 @@ export default {
   name: 'MetaBar',
   components: {DraftTeam, Trend},
   props: ['player', 'rankKey', 'collapsed'],
+  mounted() {
+    this.$emit('setHeight',this.$refs.metaBar.offsetHeight);
+  },
   computed: {
     rank() {
       return this.rankKey ? this.player[this.rankKey] + 1 : null;
@@ -94,6 +97,14 @@ export default {
         weight: playerData.player_meta.weight,
         shadesOf: playerData.player_meta.shades_of
       };
+    },
+    viewDepth () {
+      return this.$store.getters['viewOptions/depth']
+    },
+  },
+  watch: {
+    viewDepth() {
+      this.$emit('setHeight',this.$refs.metaBar.offsetHeight);
     }
   }
 }

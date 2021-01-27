@@ -103,7 +103,7 @@ export default {
   .headline{
     display:flex;
     flex-direction:column; 
-    max-width:60vh;
+    // max-width:60vh;
     // &--big{
     //   margin:2.5vh 0;
     // }

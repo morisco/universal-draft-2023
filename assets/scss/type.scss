@@ -40,6 +40,9 @@ h1,
     font-weight:300;
     font-size: 4.5vw;
     line-height: 1;
+    @include single-column{
+      font-size:6vw;
+    }
     @include mobile{
       font-size:9vw;
       line-height:9vw;
@@ -64,7 +67,12 @@ h1,
       letter-spacing:.025em;
       line-height:0.9;
       > span{
-        margin:20px 0 20px;
+        margin:-10px 0 20px;
+      }
+    }
+    @include mobile {
+      > span{
+        margin:-10px 0 20px;
       }
     }
   }
@@ -112,6 +120,11 @@ p{
   line-height:1.4;
   font-size:18px;
   margin-bottom:20px;
+  .m-privacy-consent & {
+    @include mobile{
+      font-size:11px;
+    }
+  }
   em{
     font-style:italic;
   }

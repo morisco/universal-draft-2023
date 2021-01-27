@@ -9,7 +9,7 @@
     v-bind:style="[maxHeight] ? {maxHeight: maxHeight + 'px'}: []"
   >
     <div class="player-card__top-data" ref="topData">
-      <MetaBar :player="player" :rankKey="rankKey" :collapsed="collapsed" ref="metaBar" v-if="$mq === 'mobile'" />
+      <MetaBar :player="player" :rankKey="rankKey" :collapsed="collapsed" ref="metaBar" v-if="$mq === 'mobile'" v-on:setHeight="setMetaHeight" />
       <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-results', 'draft_results_player_share'].indexOf($route.name) >= 0">
         <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo" :infoText="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) >= 0 ? player.mock_insight : player.results_insight" />
       </template>
@@ -87,6 +87,9 @@ export default {
   methods: {
     windowResized () {
       this.setHeights();
+    },
+    setMetaHeight(height) {
+      this.$emit('setMetaHeight', height);
     },
     setHeights() {
       const self = this;
