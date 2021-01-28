@@ -23,7 +23,7 @@
     <div class="filters__section">
       <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
         <div class="filters__section-title">
-          <span>How much do you</span> <span> want to know</span>
+          <span>How much do you</span> <span> want to know?</span>
         </div>
       </mq-layout>
       <button class="filters__option" :class="{active: activeDepth === 'compact'}" v-on:click="setViewDepth($event,'compact')">
