@@ -122,6 +122,7 @@ export default {
       display: flex;
       text-transform:uppercase;
       transition:all 0.25s linear 0.5s, border-radius 0.25s linear 0s;
+      flex: 0 0 auto;
       @include tablet{
         flex-wrap:wrap;
       }
