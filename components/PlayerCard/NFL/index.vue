@@ -158,14 +158,20 @@ export default {
       }
     }, 
     allCardsSet() {
-      if(this.allCardsSet){
-        const featuredPlayer = this.$route.params.player_id === this.player.id_string;
-        if(featuredPlayer){
-          this.expanded = true;
-          let scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop - (this.$mq === 'mobile' ? 60 : this.collapsed ? 75 : 85);
-          window.scrollTo(0, scrollDestination);
+      const self = this;
+      setTimeout(() => {
+
+        if(self.allCardsSet){
+          const featuredPlayer = self.$route.params.player_id === self.player.id_string;
+          if(featuredPlayer){
+            console.log('hii',self.$refs.card);
+            this.expanded = true;
+            let scrollDestination = self.$refs.card.offsetParent.offsetTop + self.$refs.card.offsetTop - (self.$mq === 'mobile' ? 60 : self.collapsed ? 75 : 85);
+            console.log(scrollDestination);
+            window.scrollTo(0, scrollDestination);
+          }
         }
-      }
+      }, 1000);
     },
     viewDepth (newDepth, oldDepth) {
       if(this.activeCard){
