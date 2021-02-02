@@ -164,10 +164,8 @@ export default {
         if(self.allCardsSet){
           const featuredPlayer = self.$route.params.player_id === self.player.id_string;
           if(featuredPlayer){
-            console.log('hii',self.$refs.card);
             this.expanded = true;
             let scrollDestination = self.$refs.card.offsetParent.offsetTop + self.$refs.card.offsetTop - (self.$mq === 'mobile' ? 60 : self.collapsed ? 75 : 85);
-            console.log(scrollDestination);
             window.scrollTo(0, scrollDestination);
           }
         }
