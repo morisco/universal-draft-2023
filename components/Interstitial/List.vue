@@ -66,18 +66,20 @@ export default {
     }
   },
   created() {
-    let el = document.createElement('html');
-      el.innerHTML = "<html><head><title>titleTest</title></head><body>" + this.interstitial.content + "</body></html>";
-    const paragraphs = el.getElementsByTagName('p')
-    let rest = '';
-    paragraphs.forEach((p, i) => {
-      if(i === 0){
-        this.firstParagraph = p.outerHTML;
-      } else {
-        rest += p.outerHTML;
-      }
-    });
-    this.remainingContent = rest;
+    if(process.client){
+      let el = document.createElement('html');
+        el.innerHTML = "<html><head><title>titleTest</title></head><body>" + this.interstitial.content + "</body></html>";
+      const paragraphs = el.getElementsByTagName('p')
+      let rest = '';
+      paragraphs.forEach((p, i) => {
+        if(i === 0){
+          this.firstParagraph = p.outerHTML;
+        } else {
+          rest += p.outerHTML;
+        }
+      });
+      this.remainingContent = rest;
+    }
   },
   watch:{
     expanded() {
