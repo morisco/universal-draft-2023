@@ -111,6 +111,7 @@ export default {
     $route(to, from) {
       this.$store.commit('content/resetReady');
       if(to.path !== from.path){
+        this.$ga.page(to.path);
         const newActiveIndex = this.sortedNavOptions.findIndex((option) => option.to === to.path);
         this.advanceClass = 'navigation--advance-' + newActiveIndex;
         this.active = this.getActive();

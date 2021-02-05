@@ -81,6 +81,7 @@ export default {
   },
   watch:{
     expanded() {
+      if(!this.$refs.topData) return
       let scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop - (this.$mq === 'mobile' ? 60 : self.collapsed ? 75 : 85);
       scrollIt(scrollDestination, 500, 'linear');
       if(this.expanded){

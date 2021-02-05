@@ -27,6 +27,7 @@ export default {
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     {src: '~/plugins/VueYoutube', mode: 'client'},
+    {src: '~/plugins/analytics', mode: 'client'},
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -60,18 +61,23 @@ export default {
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     ['@nuxtjs/dotenv', { 
-      // filename: '.env.staging',
-      filename: '.env' 
+      filename: '.env.staging',
+      // filename: '.env' 
     }],
-    '@nuxtjs/google-analytics',
+    // '@nuxtjs/google-analytics',
   ],
 
-  googleAnalytics: {
-    id: 'UA-132999529-1',
-    debug: {
-      sendHitTask: true
-    }
-  },
+  // googleAnalytics: {
+  //   id: 'UA-132999529-1',
+  //   // disableScriptLoader: true, 
+  //   autoTracking: {
+  //     pageviewOnLoad: false
+  //   },
+  //   debug: {
+  //     enabled: true,
+  //     sendHitTask: true
+  //   }
+  // },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
@@ -79,7 +85,6 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/device',
     'nuxt-mq',
-    'cookie-universal-nuxt',
     ['nuxt-lazy-load', {
       images: true,
       audios: false,

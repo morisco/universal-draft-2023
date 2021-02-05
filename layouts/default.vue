@@ -59,6 +59,9 @@ export default {
     },
   },
   created () {
+    if(process.client){
+      this.$ga.page(this.$route.path);
+    }
     // this.$store.dispatch('page/getPageSettings')
     this.$store.dispatch('content/getContents')
   },

@@ -30,13 +30,17 @@ export default {
   computed: {
     requiresConsent() {
       const isEU = inEU();
-      return isEU && !this.$cookies.get('ringernfldraft-gdpr') ? true : false
+      return isEU && !window.localStorage.getItem('ringer-nfldraft-gdpr') ? true : false
     }
   },
   methods: {
     giveConsent() {
       this.dismissed = true;
-      this.$cookies.set('ringernfldraft-gdpr', 1);
+      console.log('here', this.$route.name);
+      
+      this.$ga.enable();
+      this.$ga.page(this.$route.path);
+      window.localStorage.setItem('ringer-nfldraft-gdpr', 1);
     },
   }
 }
@@ -66,6 +70,9 @@ export default {
   position: fixed;
   right: 0;
   z-index: 5000001;
+  p{
+    font-size:18px;
+  }
 }
 .m-privacy-consent__inner {
   margin: 0 auto;
