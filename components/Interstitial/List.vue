@@ -47,6 +47,7 @@ export default {
   mounted() {
     const self = this;
     setTimeout(() => {
+      if(!self.$refs.topData) return;
       self.maxHeight = self.$refs.topData.offsetHeight;
     }, 500)
   },
