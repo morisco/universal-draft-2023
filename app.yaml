@@ -24,8 +24,8 @@ handlers:
     secure: always
 
   - url: /2019/dist/(.*)
-    static_files: 2019/dist/\1
-    upload: 2019/dist/(.*)
+    static_files: static/2019/dist/\1
+    upload: static/2019/dist/(.*)
 
   - url: /.*
     script: auto
