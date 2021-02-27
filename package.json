@@ -16,6 +16,7 @@
     "@nuxtjs/style-resources": "1.0.0",
     "@segment/in-eu": "0.3.0",
     "@segment/in-regions": "1.2.2",
+    "babel": "^6.23.0",
     "cookie-universal-nuxt": "2.1.4",
     "core-js": "3.6.5",
     "fibers": "5.0.0",
