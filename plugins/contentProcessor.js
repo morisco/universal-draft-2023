@@ -32,7 +32,7 @@ function processImages(image) {
 }
 
 function processOrders(players) {
-  const orderIds = players.map((player) => { return {id: parseInt(player.id,10), bigBoard: parseInt(player.order,10), mockDraft: parseInt(player.order_mockdraft,10), draftResults: parseInt(player.order_draftresults,10) } });
+  const orderIds = players.map((player) => { return {id: player.id, bigBoard: parseInt(player.order,10), mockDraft: parseInt(player.order_mockdraft,10), draftResults: parseInt(player.order_draftresults,10) } });
   const bigBoardSorted = orderIds.sort((playerA, playerB) => (playerA.bigBoard > playerB.bigBoard) ? 1 : -1);
   const mockIds = orderIds.filter(player => player.mockDraft <= 31);
   const draftResultIds = orderIds.filter(player => player.draftResults <= 31);
@@ -51,7 +51,6 @@ export function processPlayers(players) {
   players.forEach((player) => {
     player = decodeContent(player);
     if(process.env.PROJECT_LEAGUE === 'NBA'){
-      console.log(player);
       player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
     } else {
       player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
@@ -129,7 +128,6 @@ export function processTeams(teams, teamPlayers) {
     if(team.pick_trades){
       teamToUse = processedTeams[team.pick_trades[0].team];
       via = team.pick_trades[0].via;
-      // console.log(teamToUse);
     }
     return {teamName: teamToUse.title, logo: teamToUse.image, via: via}
   });
@@ -159,7 +157,7 @@ export function processInterstitials(contents) {
     teamNeeds: {},
   };
   const listInters = contents.list_inter.content;
-  const videoInters = contents.video_inter.content;
+  const videoInters = contents.video_inter ? contents.video_inter.content : [];
   const articleInters = contents.article_inter.content;
 
   articleInters.forEach((article_inter) => {

@@ -27,9 +27,10 @@ import DraftTeam from './DraftTeam'
 import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
 import VideoThumb from './VideoThumb'
 import RelatedArticles from './RelatedArticles'
+import Stats from './Stats';
 export default {
   props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight', 'playVideo', 'setImageColHeight', 'expanded', 'videoSettings', 'activeCard'],
-  components: {DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles},
+  components: {DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles, Stats},
   data() {
     return {
       maxHeight: false

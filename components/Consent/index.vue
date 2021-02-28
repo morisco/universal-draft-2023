@@ -36,8 +36,6 @@ export default {
   methods: {
     giveConsent() {
       this.dismissed = true;
-      console.log('here', this.$route.name);
-      
       this.$ga.enable();
       this.$ga.page(this.$route.path);
       window.localStorage.setItem('ringer-nfldraft-gdpr', 1);

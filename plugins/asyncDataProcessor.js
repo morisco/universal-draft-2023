@@ -6,8 +6,7 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
   var t = d.getTime();
   if(!configuration){
     var date = new Date();
-    
-    configuration = await $axios.get("https://storage.googleapis.com/" +  process.env.GCS_BUCKET + "/public/data/" + process.env.HEDDEK_PROJECT_ID + "/config." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
+    configuration = await $axios.get("https://storage.googleapis.com/" +  process.env.GCS_BUCKET + "/public/data/" + process.env.HEDDEK_PROJECT_ID + "/settings." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
       headers: {
         'Content-Encoding': 'gzip'
       }
@@ -25,6 +24,7 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
       }
     })
       .then(response => {
+
         response.data[0].data.title = response.data[0].title;
         response.data[0].data.description = response.data[0].description;
         store.commit('page/setPage', response.data[0].data);
