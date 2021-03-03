@@ -93,7 +93,7 @@ const actions = {
     var d = new Date();
     var t = d.getTime();
 
-    axios.get("https://storage.googleapis.com/" + process.env.GCS_BUCKET + "/public/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
+    axios.get("https://storage.googleapis.com/" + process.env.GCS_BUCKET + "/hardrefresh/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
       headers: {
         'Content-Encoding': 'gzip',
         'Content-Type': 'json',
