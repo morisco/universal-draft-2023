@@ -250,8 +250,8 @@ export default {
 
     
     &__loader {
-      border: 2px solid $mediumgray; /* Light grey */
-      border-top: 2px solid $gray; /* Blue */
+      border: 2px solid $mediumgray;
+      border-top: 2px solid $gray; 
       border-radius: 50%;
       width: 10px;
       height: 10px;
@@ -262,12 +262,7 @@ export default {
       .podcast-player--loading & {
         opacity:1;
       }
-      .player-card--offense & {
-        border-top-color: $offense; /* Blue */
-      }
-      .player-card--defense & {
-        border-top-color: $defense; /* Blue */
-      }
+      border-top-color: $defense;
     }
 
     @keyframes spin {
