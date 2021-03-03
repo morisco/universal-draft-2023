@@ -54,7 +54,7 @@
     <div class="filters__section filters__section--position">
       <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
         <div class="filters__section-title">
-          <span v-html="$mq === 'mobile' ? 'Sort By<br/>Position' : 'Sort By Position'"></span>
+          <span v-html="$mq === 'mobile' ? 'Filter By<br/>Position' : 'Filter By Position'"></span>
         </div>
       </mq-layout>
       <div class="filters__section-list">
