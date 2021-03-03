@@ -128,7 +128,7 @@ export default {
     align-items:center;
     background:$mediumgray;
     // right:15px;
-    height:40px;
+    height:35px;
     border-radius:4px;
     padding:5px 0 5px 10px;
     cursor:pointer;
@@ -164,7 +164,7 @@ export default {
       position:relative;
       justify-content:space-between;
       align-items:center;
-      width:14px;
+      width:13px;
       z-index:2;
       svg{
         opacity:1;
@@ -206,7 +206,8 @@ export default {
       line-height:1;
       margin-right:-1px;
       @include player-card-body;
-      margin-bottom:2px;
+      font-size:13px;
+      margin-bottom:0;
       width:35px;
       text-align: left;
       color:$darkmediumgray;
@@ -220,7 +221,7 @@ export default {
     }
     &__label{
       @include player-card-body;
-      font-size:14px;
+      font-size:13px;
       margin-bottom:3px;
       @include mobile{
         margin-bottom:2px;

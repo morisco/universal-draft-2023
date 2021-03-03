@@ -6,7 +6,7 @@
     <transition name="podcast-controller__content">
       <div class="podcast-controller__content" v-if="player && playingState === 2" v-on:click="stopAudio">
         <div>
-          <strong>{{player.title}}:&nbsp;</strong>{{player.player_podcast.label}}
+          <strong>{{player.title}}</strong>{{['tablet', 'mobile', 'small-desktop'].indexOf($mq) >= 0 ? ':&nbsp;' + player.player_podcast.label : ''}}
         </div>
         <a href="https://open.spotify.com/show/3sYLdv261f5jLvEgDLU9PD" target="_blank" class="podcast-controller__content-more" v-on:click="seeMore">
           <!-- <span v-if="$mq !== 'mobile'">More from the ringer</span> -->
@@ -113,12 +113,11 @@ export default {
     position:absolute;
     bottom:30px;
     left:0;
-    right:0;
+    right:5px;
     overflow:hidden;
     @include mobile{
       position:fixed;
       bottom:0;
-      
     }
     audio{
       // position:absolute;
@@ -132,7 +131,6 @@ export default {
       padding:10px 15px;
       border-radius:0.625em;
       cursor:pointer;     
-      flex-wrap:wrap;
       @include single-column{
         align-items:center;
       }
@@ -162,7 +160,7 @@ export default {
         margin-right:10px;
         margin-bottom:1px;
         flex: 0 0 auto;
-        margin-top:4px;
+        margin-top:0px;
         @include single-column{
           margin-top:0;
           margin-bottom:1px;
@@ -183,21 +181,27 @@ export default {
         }
       }
       > div{
-        max-width:calc(100% - 25px);
+        max-width:calc(100% - 50px);
         font-weight:300;
         font-size:12px;
+        flex:1;
+        line-height:17px;
         @include single-column{
           display:flex;
           align-items:center;
         }
+            white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         strong{
-          display:block;
+          display:inline;
           font-family: 'Decima';
           font-weight:normal;
           text-transform:uppercase;
 
-            flex: 0 0 auto;
+            flex: 1;
             min-width:100%;
+        
           @include single-column{
             min-width:0;
           }
@@ -209,14 +213,16 @@ export default {
     }
     &__content-more{
       flex: 0 0 auto;
-      min-width:100%;
       margin-top:5px;
+      margin-right:-5px;
       @include mobile-nav-label;
       opacity:0.5;
       font-size:11px;
       text-align:left;
-      padding-left:25px;
+      padding-left:5px;
       justify-content:flex-end;
+      flex:0 0 auto;
+      margin-top:0;
       img{
         height:17px;
         justify-self:flex-end;
@@ -229,6 +235,7 @@ export default {
         padding-left:0;
         img{
           margin-top:-4px;
+          height:20px;
         }
       }
 
@@ -267,7 +274,13 @@ export default {
           display:flex;
           flex-wrap:nowrap;
           flex:1;
-          max-width:calc(100% - 82px);
+          max-width:calc(100% - 50px);
+          margin-right:5px;
+          display:inline-block;
+          strong{
+            flex:0 0 auto;
+            margin-bottom:-2px;
+          }
           span:first-of-type{
             margin-right:5px;
           }
