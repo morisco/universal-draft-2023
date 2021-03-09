@@ -112,10 +112,6 @@ export function processTeams(teams, teamPlayers) {
     team.id_string = team.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
     teamIds.push(team.id);
     team.image = processImages(team.image);
-    team.players = team.players.map((player) => {
-      const id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
-      return teamPlayers[id_string]
-    });
     processedTeams[team.id] = team;
   });
   teams.sort((teamA, teamB) => parseInt(teamA.order_results,10) > parseInt(teamB.order_results,10) ? 1 : -1);
