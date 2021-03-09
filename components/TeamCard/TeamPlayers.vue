@@ -1,27 +1,28 @@
 <template>
   <div class="team-card__players">
     <div class="team-card__players-label">
-      <span>Fiendly</span> <span>Suggestions</span>
+      <span>Friendly Suggestions</span>
     </div>
-    <div 
-      class="team-card__player" 
-      v-for="player in players" 
-      :key="teamId + player.title"
-      :class="{
-        'team-card__player--offense': player.offenseDefense === 'offense',
-        'team-card__player--defense': player.offenseDefense === 'defense',
-      }"
-    >
-      <div class="team-card__player-image">
-        <img :src="player.image.small" :alt="player.title + ' Image'" />
-      </div>
-      <div class="team-card__player-meta">
-        <div class="team-card__player-title">{{player.title}}</div>
-        <div class="team-card__player-school-position">
-          <span>{{player.position}}</span> <span>{{player.school}}</span>
+    <div class="team-card__player-picks" v-if="players">
+      <div v-for="player in players" :key="teamId + '-' +player.id" class="team-card__player-pick">
+        <div class="player-card__image-column-img-wrapper"> 
+          <img :src="player.image.small" :alt="player.imageAlt" />
+          <img src="@/assets/img/icons/offense-o-2021.svg" v-if="player.offenseDefense === 'offense'" class="player-x-o" data-not-lazy />
+          <img src="@/assets/img/icons/defense-x-2021.svg" v-if="player.offenseDefense === 'defense'" class="player-x-o" data-not-lazy />
+        </div>
+        <div class="team-card__player-pick-content">
+          <span class="team-card__player-name">
+            <span>{{player.firstName}}</span>
+            <span>{{player.lastName}}</span>
+          </span>
+          <span class="team-card__player-position-school">
+            <span>{{player.position}},</span>
+            <span>{{player.school}}</span>
+          </span>
         </div>
       </div>
     </div>
+    
   </div>  
 </template>
 
@@ -30,7 +31,14 @@ export default {
   props: ['teamId'],
   computed: {
     players() {
-      return this.$store.getters['content/team'](this.teamId).players;
+      if(this.$store.getters['content/team'](this.teamId).players[0].player){
+        return this.$store.getters['content/team'](this.teamId).players.map((player) => {
+          console.log('PLAYER', this.$store.getters['content/teamPlayer'](player.player));
+          return this.$store.getters['content/teamPlayer'](player.player)
+        });
+      } else {
+        return false
+      }
     }
   }
 }
@@ -38,35 +46,82 @@ export default {
 
 <style lang="scss" scoped>
   .team-card{
+    &__player-picks{
+      display:flex;
+      min-width:100%;
+      justify-content:space-between;
+      margin-top:15px;
+      border-bottom:1px solid $mediumgray;
+      margin-left:-5px;
+      width:calc(100% + 10px);
+      overflow:hidden;
+    }
+    &__player-name{
+      @include expanded-label;
+      text-transform:uppercase;
+      line-height:17px;
+      span{
+        display:block;
+      }
+    }
+    &__player-position-school{
+      font-size:14px;
+      line-height:16px;
+      span{
+        display:block;
+      }
+    }
+    &__player-pick{
+      display:flex;
+      align-items:center;
+      flex: 0 0 auto;
+      max-height:115px;
+      width:100%;
+      max-width:calc(33.3333% - 10px);
+      overflow:visible;
+      .player-card__image-column-img-wrapper{
+        width:80px;
+        overflow:visible;
+        flex: 0 0 auto;
+        margin-right:15px;
+        align-self:flex-start;
+        img{
+          z-index:1;
+          width:140%;
+          top:5px;
+          left:50%;
+          transform:translateX(-50%);
+        }
+        .player-x-o{
+          width:80px;
+          opacity:1;
+          z-index:0;
+          left:50%;
+          transform:translateX(-50%);
+          top:0;
+        }
+      }
+    }
     &__players{
       display:flex;
-      border-top:1px solid $black;
-      border-bottom:1px solid $black;
-      padding:30px 0;
+      flex-direction:column;
+      padding:30px 0 0;
       position:relative;
+      &:before{
+        content:'____';
+        display:block;
+        margin-bottom:5px;
+        color:$headlinegray;
+      }
       @include tablet{
         flex-wrap:wrap;
       }
       @include mobile{
         flex-direction:column;
       }
-      &:before,
-      &:after{
-        content:'';
-        position:absolute;
-        left:0;
-        right:0;
-        height:0.6px;
-        background-color:$black;
-        top:4px;
-      }
-      &:after{
-        top:auto;
-        bottom:4px;
-      }
       &-label{
         @include mobile-nav-label;
-        width:110px;
+        width:100%;
         flex: 0 1 auto;
         span{
           display:block;

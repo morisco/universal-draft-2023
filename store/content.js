@@ -21,6 +21,9 @@ const state = () => ({
 const getters = {
   contentLoaded: (state => state.contentLoaded),
   allCardsSet: (state) => state.allCardsSet,
+  teamPlayer: (state) => (playerId) => {
+    return state.teamPlayers[playerId]
+  },
   bigBoard: (state) => (selectedPosition) => {
     const activePositionArray = positionMap[selectedPosition];
     return state.bigBoard.filter((playerId) => {
@@ -123,6 +126,7 @@ const mutations = {
     state.bigBoard = processedPlayers.bigBoard;
     state.mockDraft = processedPlayers.mockDraft;
     state.draftResults = processedPlayers.draftResults;
+    state.teamPlayers = processedPlayers.teamPlayers;
     state.contentLoaded = true
   },
 

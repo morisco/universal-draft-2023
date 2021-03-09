@@ -67,8 +67,11 @@ export function processPlayers(players) {
         player.image_data = { image: {} };
       }
       player.offenseDefense = offensePositions.indexOf(player.position) >= 0 ? 'offense' : 'defense' 
-      teamPlayers[player.id_string] = {
+      teamPlayers[player.id] = {
         title: player.title,
+        firstName: player.first_name,
+        lastName: player.last_name,
+        id: player.id,
         image: player.image_data.image,
         school: player.player_meta.school,
         position: positionLabelMap[player.position],
@@ -112,10 +115,6 @@ export function processTeams(teams, teamPlayers) {
     team.id_string = team.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
     teamIds.push(team.id);
     team.image = processImages(team.image);
-    team.players = team.players.map((player) => {
-      const id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
-      return teamPlayers[id_string]
-    });
     processedTeams[team.id] = team;
   });
   teams.sort((teamA, teamB) => parseInt(teamA.order_results,10) > parseInt(teamB.order_results,10) ? 1 : -1);
