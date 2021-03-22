@@ -124,7 +124,7 @@ export function processTeams(teams, teamPlayers) {
   const teamNameLogo = teams.map((team) => {
     let teamToUse = team;
     let via = '';
-    if(team.pick_trades){
+    if(team.pick_trades && team.pick_trades[0]){
       teamToUse = processedTeams[team.pick_trades[0].team];
       via = team.pick_trades[0].via;
     }
