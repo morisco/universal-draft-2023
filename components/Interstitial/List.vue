@@ -104,7 +104,7 @@ export default {
     padding:60px 90px 30px 60px;
     flex-direction:row;
     border-radius:0.625rem;
-    opacity:1;
+    opacity:1 !important;
     background:$black;
     color:$white;
     transition:all 0.5s linear 0.5s;
