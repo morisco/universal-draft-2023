@@ -108,6 +108,9 @@ export default {
     background:$black;
     color:$white;
     transition:all 0.5s linear 0.5s;
+    .player-card--all-cards-set & {
+      opacity:1;
+    }
     &:hover{
       .app--supports-hover &{
         background:$lightgray;
