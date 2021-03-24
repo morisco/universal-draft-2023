@@ -105,16 +105,16 @@ export default {
     flex-direction:row;
     border-radius:0.625rem;
     opacity:1 !important;
-    background:$black;
-    color:$white;
+    background:$black !important;
+    color:$white !important;
     transition:all 0.5s linear 0.5s;
     .player-card--all-cards-set & {
       opacity:1;
     }
     &:hover{
       .app--supports-hover &{
-        background:$lightgray;
-        color:$black;
+        background:$lightgray !important;
+        color:$black !important;
         .list-inter__presented-by{
           span{
             color:$black;
