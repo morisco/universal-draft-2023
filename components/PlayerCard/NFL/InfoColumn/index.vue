@@ -15,7 +15,7 @@
       </template>
       <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-results', 'draft_results_player_share'].indexOf($route.name) === -1">
         <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile'" />
-        <Badges :player="player" v-if="player.badges.length > 0" />
+        <Badges :player="player" v-if="player.badges && player.badges.length > 0" />
         <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile'" />
       </template>
 
@@ -23,12 +23,12 @@
     <div class="player-card__bottom-data" ref="bottomData">
       <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-results', 'draft_results_player_share'].indexOf($route.name) >= 0">
         <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile'"  />
-        <Badges :player="player" v-if="player.badges.length > 0" />
+        <Badges :player="player" v-if="player.badges && player.badges.length > 0" />
         <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile'" />
       </template>
       <Stats :player="player" v-if="$mq === 'mobile'" />
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
-      <ExpandedMeta :player="player" />
+      <ExpandedMeta :player="player" v-if="player.deep_dives" />
 
       <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile' && (playerVideo || player.player_podcast || player.player_articles)">
         <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" :expanded="expanded" :activeCard="activeCard" v-if="playerVideo" />
