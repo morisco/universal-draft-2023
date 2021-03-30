@@ -4,7 +4,7 @@
       <span>{{label}}</span>
     </div>
     <div class="team-card__player-picks" :class="['team-card__player-picks--' + players.length]" v-if="players">
-      <div v-for="player in players.slice(0,maxPlayers)" :key="teamId + '-'  + player.title" class="team-card__player-pick">
+      <NuxtLink tag="a" :to="'/' + player.id_string" v-for="player in players.slice(0,maxPlayers)" :key="teamId + '-'  + player.title" class="team-card__player-pick">
         <div class="player-card__image-column-img-wrapper"> 
           <img :src="player.image.small" :alt="player.imageAlt" />
           <img src="@/assets/img/icons/offense-o-2021.svg" v-if="player.offenseDefense === 'offense'" class="player-x-o" data-not-lazy />
@@ -20,9 +20,8 @@
             <span>{{player.school}}</span>
           </span>
         </div>
-      </div>
+      </NuxtLink>
     </div>
-    
   </div>  
 </template>
 
@@ -120,7 +119,8 @@ export default {
         height:90px;
         display:flex;
         flex-direction:column;
-        justify-content:center;
+        justify-content:flex-start;
+        padding-top:5px;
       }
       .player-card__image-column-img-wrapper{
         width:100px;
