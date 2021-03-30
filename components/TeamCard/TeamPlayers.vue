@@ -4,7 +4,7 @@
       <span>Friendly Suggestions</span>
     </div>
     <div class="team-card__player-picks" :class="['team-card__player-picks--' + players.length]" v-if="players">
-      <div v-for="player in players" :key="teamId + '-'  + player.title" class="team-card__player-pick">
+      <div v-for="player in players.slice(0,maxPlayers)" :key="teamId + '-'  + player.title" class="team-card__player-pick">
         <div class="player-card__image-column-img-wrapper"> 
           <img :src="player.image.small" :alt="player.imageAlt" />
           <img src="@/assets/img/icons/offense-o-2021.svg" v-if="player.offenseDefense === 'offense'" class="player-x-o" data-not-lazy />
@@ -28,9 +28,10 @@
 
 <script>
 export default {
-  props: ['teamId'],
+  props: ['teamId', 'maxPlayers'],
   computed: {
     players() {
+      console.log(this.$store.getters['content/team'](this.teamId));
       if(this.$store.getters['content/team'](this.teamId).players[0].player){
         return this.$store.getters['content/team'](this.teamId).players.map((player) => {
           return this.$store.getters['content/teamPlayer'](player.player)
@@ -54,26 +55,31 @@ export default {
       margin-left:-5px;
       width:calc(100% + 10px);
       overflow:hidden;
+      color:$black !important;
+      @include tablet{
+        border-bottom:0;
+      }
       @include mobile{
         flex-wrap:wrap;
+        border-bottom:0;
       }
-      &--3 {
-        .team-card__player-pick{
-          &:nth-of-type(3){
-            margin-left:25%;
-            margin-right:25%;
-          }
-        }
-      }
+      // &--3 {
+      //   .team-card__player-pick{
+      //     &:nth-of-type(3){
+      //       margin-left:25%;
+      //       margin-right:25%;
+      //     }
+      //   }
+      // }
 
-      &--1 {
-        .team-card__player-pick{
-          &:nth-of-type(1){
-            margin-left:25%;
-            margin-right:25%;
-          }
-        }
-      }
+      // &--1 {
+      //   .team-card__player-pick{
+      //     &:nth-of-type(1){
+      //       margin-left:25%;
+      //       margin-right:25%;
+      //     }
+      //   }
+      // }
     }
     &__player-name{
       @include expanded-label;
@@ -97,30 +103,36 @@ export default {
       display:flex;
       align-items:center;
       flex: 0 0 auto;
-      max-height:115px;
+      max-height:150px;
       width:100%;
       max-width:calc(33.3333% - 10px);
       overflow:visible;
       
       @include mobile{
         position:relative;
-        max-width:calc(50% - 10px);
+        max-width:100%;
         overflow:hidden;
-        flex-direction:column;
         max-height:100%;
         margin-bottom:15px;
+        border-bottom:1px solid $mediumgray;
+        &:last-of-type{
+          margin-bottom:0;
+          border-bottom:0;
+        }
       }
       .team-card__player-pick-content{
         width:100%;
         display:block;
-        text-align:center;
+        text-align:left;
       }
       .player-card__image-column-img-wrapper{
-        width:80px;
+        width:100px;
         overflow:visible;
         flex: 0 0 auto;
-        margin-right:15px;
+        margin-right:5px;
         align-self:flex-start;
+        overflow:hidden;
+
         
         img{
           z-index:1;
@@ -140,10 +152,11 @@ export default {
 
         @include mobile{
           position:relative;
-          width:100%;
           overflow:hidden;
-          height:100px;
-          margin-bottom:10px;
+          height:145px;
+          width:50%;
+          margin-left:-15px;
+          // margin-bottom:10px;
           img{
             width:100%;
             position:absolute;
@@ -154,24 +167,23 @@ export default {
     &__players{
       display:flex;
       flex-direction:column;
-      padding:30px 0 0;
+      padding:15px 0 0;
       position:relative;
-      &:before{
-        content:'____';
-        display:block;
-        margin-bottom:5px;
-        color:$headlinegray;
-      }
+      width:100%;
       @include tablet{
         flex-wrap:wrap;
+        padding-top:0;
       }
       @include mobile{
+        margin-top:30px;
         flex-direction:column;
       }
       &-label{
-        @include mobile-nav-label;
+        @include expanded-label;
+        text-transform:uppercase;
         width:100%;
         flex: 0 1 auto;
+        color:$black !important;
         span{
           display:block;
           @include mobile{

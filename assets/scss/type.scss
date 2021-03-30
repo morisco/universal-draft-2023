@@ -111,6 +111,10 @@ h3{
   }
 }
 
+h5{
+  @include expanded-label;
+}
+
 p{
   // font-family: TTCommons, Arial, sans-serif;
   font-family: 'GT America';

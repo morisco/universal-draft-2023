@@ -1,20 +1,21 @@
 <template>
   <article class="player-card team-card" ref="card">
-    <TeamMetaBar :team="team" />
-    <div class="player-card__image-info">
-      
-      <div class="player-card__image-column team-card__image-column">
+    <TeamMetaBar :team="team" :teamId="teamId" />
+    <div class="player-card__image-info">      
+      <div class="player-card__image-column team-card__image-column" v-if="['mobile', 'tablet'].indexOf($mq) < 0">
         <div class="player-card__image-column-inner">
-          <div class="team-card__logo-wrapper">
-            <img v-if="$mq !== 'mobile'" :src="team.image.medium" class="team-card__logo" />
-          </div>
           <TeamPicks :team="team" />
         </div>
       </div>
       <div class="player-card__info-column">
         <div class="player-card__top-data">
-          <TeamHeadline :headline="team.history" />
-          <TeamPlayers v-if="hasPlayers" :teamId="teamId" />
+          <h5>Team Needs</h5>
+          <div class="team-card__needs">
+            {{teamNeeds}}
+          </div>
+          <div class="team-card__headline" v-html="team.history" />
+          <TeamPicks :team="team" />
+          <TeamPlayers v-if="hasPlayers && ['mobile', 'tablet'].indexOf($mq) >= 0" :teamId="teamId" :maxPlayers="4" />
         </div>
       </div>
     </div>
@@ -34,6 +35,12 @@ export default {
   computed: {
     team() {
       return this.$store.getters['content/team'](this.teamId)
+    },
+    teamNeeds () {
+      const tn = this.team.needs.map((need) => {
+        return need.need
+      })
+      return tn.join(', ')
     },
     allCardsSet () {
       return this.$store.getters['content/allCardsSet']
@@ -58,28 +65,55 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '~/components/PlayerCard/NFL/nfl-card.scss';
   @import '~/components/PlayerCard/NFL/ImageColumn/style.scss';
   @import '~/components/PlayerCard/NFL/InfoColumn/style.scss';
   .team-card{
     flex-direction:column;
     margin: 0 0 30px;
-    border-radius: .625rem;
+    border-radius: .625rem !important;
     background:$lightgray;
     border:1px solid $mediumgray;
     max-height:100%;
-    opacity:1;
-    @include mobile{
+    opacity:1 !important;
+    overflow:hidden;
+    h5{
+      @include expanded-label;
+      line-height:15px;
+      text-transform:uppercase;
+      margin-bottom:5px;
+    }
+    @include tablet{
       padding:0 !important;
     }
     .player-card__top-data{
       padding-bottom:0;
     }
+    &__headline{
+      margin-top:30px;
+      p{
+        font-size:20px;
+        &:last-of-type{
+          margin-bottom:0;
+        }
+        &:empty{
+          display:none;
+        }
+        strong{
+          text-transform:uppercase;
+          @include expanded-label;
+          font-family:'Decima';
+          font-weight:500;
+        }
+      }
+    }
     &__image-column{
       padding-bottom:30px;
-      @include mobile{
+      @include tablet{
         min-height:0;
+        min-width:100%;
+        max-width:100%;
         background:transparent !important;
       }
     }
@@ -94,14 +128,14 @@ export default {
       justify-self:center;
     }
     .player-card__headline-selling{
-      @include mobile{
+      @include tablet{
       padding:0;
       }
     }
     @include single-column{
       padding:30px 25px;
     }
-    @include mobile{
+    @include tablet{
       padding:25px;
     }
     p{
@@ -109,7 +143,10 @@ export default {
     }
     .player-card__info-column{
       background:$lightgray !important;
-      padding: 0 20px 30px;
+      padding: 0 20px 0;
+      @include mobile{
+        padding:30px 20px 0;
+      }
     }
   }
 </style>
