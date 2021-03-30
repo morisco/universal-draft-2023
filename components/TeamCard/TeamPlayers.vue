@@ -68,27 +68,9 @@ export default {
         flex-wrap:wrap;
         border-bottom:0;
       }
-      // &--3 {
-      //   .team-card__player-pick{
-      //     &:nth-of-type(3){
-      //       margin-left:25%;
-      //       margin-right:25%;
-      //     }
-      //   }
-      // }
-
-      // &--1 {
-      //   .team-card__player-pick{
-      //     &:nth-of-type(1){
-      //       margin-left:25%;
-      //       margin-right:25%;
-      //     }
-      //   }
-      // }
     }
     &__player-name{
       @include expanded-label;
-
       text-transform:uppercase;
       line-height:17px;
       span{
