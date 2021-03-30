@@ -3,8 +3,8 @@
     <div class="team-card__players-label">
       <span>Friendly Suggestions</span>
     </div>
-    <div class="team-card__player-picks" v-if="players">
-      <div v-for="player in players" :key="teamId + '-' +player.id" class="team-card__player-pick">
+    <div class="team-card__player-picks" :class="['team-card__player-picks--' + players.length]" v-if="players">
+      <div v-for="player in players" :key="teamId + '-'  + player.title" class="team-card__player-pick">
         <div class="player-card__image-column-img-wrapper"> 
           <img :src="player.image.small" :alt="player.imageAlt" />
           <img src="@/assets/img/icons/offense-o-2021.svg" v-if="player.offenseDefense === 'offense'" class="player-x-o" data-not-lazy />
@@ -33,7 +33,6 @@ export default {
     players() {
       if(this.$store.getters['content/team'](this.teamId).players[0].player){
         return this.$store.getters['content/team'](this.teamId).players.map((player) => {
-          console.log('PLAYER', this.$store.getters['content/teamPlayer'](player.player));
           return this.$store.getters['content/teamPlayer'](player.player)
         });
       } else {
@@ -55,6 +54,17 @@ export default {
       margin-left:-5px;
       width:calc(100% + 10px);
       overflow:hidden;
+      @include mobile{
+        flex-wrap:wrap;
+      }
+      &--3 {
+        .team-card__player-pick{
+          &:nth-of-type(3){
+            margin-left:25%;
+            margin-right:25%;
+          }
+        }
+      }
     }
     &__player-name{
       @include expanded-label;
@@ -62,6 +72,9 @@ export default {
       line-height:17px;
       span{
         display:block;
+        @include mobile{
+          display:inline;
+        }
       }
     }
     &__player-position-school{
@@ -79,12 +92,27 @@ export default {
       width:100%;
       max-width:calc(33.3333% - 10px);
       overflow:visible;
+      
+      @include mobile{
+        position:relative;
+        max-width:calc(50% - 10px);
+        overflow:hidden;
+        flex-direction:column;
+        max-height:100%;
+        margin-bottom:15px;
+      }
+      .team-card__player-pick-content{
+        width:100%;
+        display:block;
+        text-align:center;
+      }
       .player-card__image-column-img-wrapper{
         width:80px;
         overflow:visible;
         flex: 0 0 auto;
         margin-right:15px;
         align-self:flex-start;
+        
         img{
           z-index:1;
           width:140%;
@@ -99,6 +127,18 @@ export default {
           left:50%;
           transform:translateX(-50%);
           top:0;
+        }
+
+        @include mobile{
+          position:relative;
+          width:100%;
+          overflow:hidden;
+          height:100px;
+          margin-bottom:10px;
+          img{
+            width:100%;
+            position:absolute;
+          }
         }
       }
     }
@@ -125,6 +165,9 @@ export default {
         flex: 0 1 auto;
         span{
           display:block;
+          @include mobile{
+            display:inline;
+          }
         }
         @include tablet{
           margin-bottom:10px;
@@ -164,6 +207,9 @@ export default {
         margin-bottom:0;
         span{
           display:block;
+          @include mobile{
+            display:inline;
+          }
         }
       }
       &-image{

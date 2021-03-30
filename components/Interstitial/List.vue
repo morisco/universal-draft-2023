@@ -103,7 +103,7 @@ export default {
     // background:transparent;
     padding:60px 90px 30px 60px;
     flex-direction:row;
-    border-radius:0.625rem !important;
+    border-radius:0.625rem;
     opacity:1 !important;
     background:$black !important;
     color:$white !important;
@@ -157,7 +157,7 @@ export default {
     }
     &__info{
       padding:0 0;
-      background:transparent !important;
+      background:transparent;
       transition:max-height 0.5s linear 0.125s;
       @include mobile{
         width:100%;

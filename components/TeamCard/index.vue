@@ -3,10 +3,10 @@
     <TeamMetaBar :team="team" />
     <div class="player-card__image-info">
       
-      <div class="player-card__image-column">
+      <div class="player-card__image-column team-card__image-column">
         <div class="player-card__image-column-inner">
           <div class="team-card__logo-wrapper">
-            <img :src="team.image.medium" class="team-card__logo" />
+            <img v-if="$mq !== 'mobile'" :src="team.image.medium" class="team-card__logo" />
           </div>
           <TeamPicks :team="team" />
         </div>
@@ -67,11 +67,15 @@ export default {
     border:1px solid $mediumgray;
     max-height:100%;
     opacity:1;
+    @include mobile{
+      padding:0 !important;
+    }
     .player-card__top-data{
       padding-bottom:0;
     }
     &__image-column{
       padding-bottom:30px;
+      background:transparent !important;
     }
     &__logo-wrapper{
       width:100%;
@@ -83,6 +87,11 @@ export default {
       margin: 30px 0;
       justify-self:center;
     }
+    .player-card__headline-selling{
+      @include mobile{
+      padding:0;
+      }
+    }
     @include single-column{
       padding:30px 25px;
     }
@@ -91,6 +100,10 @@ export default {
     }
     p{
       font-size:16px;
+    }
+    .player-card__info-column{
+      background:$lightgray !important;
+      padding: 0 20px 30px;
     }
   }
 </style>

@@ -20,6 +20,9 @@ export default {
   .team-card{
     &__picks{
       margin-bottom:30px;
+      @include mobile{
+        padding:30px 20px 0;
+      }
     }
     &__pick{
       display:flex;

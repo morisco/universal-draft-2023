@@ -1,6 +1,7 @@
 <template>
 <div class="player-card__meta-bar team-card__meta-bar" ref="metaBar">
   <div class="player-card__meta-bar-name-school player-card__image-column">
+    <img v-if="$mq === 'mobile'" :src="team.image.medium" class="team-card__meta-bar-logo" />
     <h3>
       <span>{{team.title}}</span>
     </h3>
@@ -50,15 +51,36 @@ export default {
   @import '~/components/PlayerCard/NFL/MetaBar/style.scss';
   .team-card{
     &__meta-bar{
+      &-logo{
+        width:45px;
+        margin-left:-10px;
+        margin-right:5px;
+      }
       h3{
         margin-top:3px;
       }
+      .player-card__meta-bar-name-school{
+        @include mobile{
+          flex-direction:row;
+          align-items:center;
+        }
+      }
       .player-card__meta-bar-details{
+        @include mobile{
+          &:after{
+            display:none;
+          }
+        }
         &-column{
           padding-left:30px;
           &:after{
             left:0;
             right:auto;
+          }
+          @include mobile{
+            padding-left:0;
+            border:0;
+            
           }
         }
       }
