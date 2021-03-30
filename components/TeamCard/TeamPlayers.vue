@@ -65,6 +65,15 @@ export default {
           }
         }
       }
+
+      &--1 {
+        .team-card__player-pick{
+          &:nth-of-type(1){
+            margin-left:25%;
+            margin-right:25%;
+          }
+        }
+      }
     }
     &__player-name{
       @include expanded-label;

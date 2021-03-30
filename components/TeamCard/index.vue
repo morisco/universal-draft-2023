@@ -14,7 +14,7 @@
       <div class="player-card__info-column">
         <div class="player-card__top-data">
           <TeamHeadline :headline="team.history" />
-          <TeamPlayers :teamId="teamId" />
+          <TeamPlayers v-if="hasPlayers" :teamId="teamId" />
         </div>
       </div>
     </div>
@@ -38,6 +38,9 @@ export default {
     allCardsSet () {
       return this.$store.getters['content/allCardsSet']
     },
+    hasPlayers() {
+      return this.$store.getters['content/team'](this.teamId).players && this.$store.getters['content/team'](this.teamId).players.length
+    }
   },
   mounted() {
     this.$store.commit('content/cardReady', this.$route);
@@ -75,7 +78,10 @@ export default {
     }
     &__image-column{
       padding-bottom:30px;
-      background:transparent !important;
+      @include mobile{
+        min-height:0;
+        background:transparent !important;
+      }
     }
     &__logo-wrapper{
       width:100%;

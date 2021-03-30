@@ -61,6 +61,7 @@ export default {
       }
       .player-card__meta-bar-name-school{
         @include mobile{
+          display:flex;
           flex-direction:row;
           align-items:center;
         }

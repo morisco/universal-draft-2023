@@ -21,7 +21,8 @@ export default {
     &__picks{
       margin-bottom:30px;
       @include mobile{
-        padding:30px 20px 0;
+        padding:10px 20px 0;
+        margin-bottom:0;
       }
     }
     &__pick{
