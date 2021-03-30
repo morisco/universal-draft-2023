@@ -88,6 +88,7 @@ export default {
     }
     &__player-name{
       @include expanded-label;
+
       text-transform:uppercase;
       line-height:17px;
       span{
@@ -100,13 +101,14 @@ export default {
     &__player-position-school{
       font-size:14px;
       line-height:16px;
+      font-family: 'GT America';
       span{
         display:block;
       }
     }
     &__player-pick{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       flex: 0 0 auto;
       max-height:150px;
       width:100%;
@@ -133,6 +135,10 @@ export default {
         width:100%;
         display:block;
         text-align:left;
+        height:90px;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
       }
       .player-card__image-column-img-wrapper{
         width:100px;
@@ -151,7 +157,7 @@ export default {
           transform:translateX(-50%);
         }
         .player-x-o{
-          width:80px;
+          width:90px;
           opacity:1;
           z-index:0;
           left:50%;
