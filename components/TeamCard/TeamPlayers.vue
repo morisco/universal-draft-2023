@@ -4,7 +4,7 @@
       <span>{{label}}</span>
     </div>
     <div class="team-card__player-picks" :class="['team-card__player-picks--' + players.length]" v-if="players">
-      <NuxtLink tag="a" :to="'/' + player.id_string" v-for="player in players.slice(0,maxPlayers)" :key="teamId + '-'  + player.title" class="team-card__player-pick">
+      <NuxtLink tag="a" target="_blank" :to="'/' + player.id_string" v-for="player in players.slice(0,maxPlayers)" :key="teamId + '-'  + player.title" class="team-card__player-pick">
         <div class="player-card__image-column-img-wrapper"> 
           <img :src="player.image.small" :alt="player.imageAlt" />
           <img src="@/assets/img/icons/offense-o-2021.svg" v-if="player.offenseDefense === 'offense'" class="player-x-o" data-not-lazy />

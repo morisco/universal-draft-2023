@@ -72,6 +72,7 @@ export function processPlayers(players) {
         firstName: player.first_name,
         lastName: player.last_name,
         id: player.id,
+        id_string: player.id_string,
         image: player.image_data.image,
         school: player.player_meta.school,
         position: positionLabelMap[player.position],

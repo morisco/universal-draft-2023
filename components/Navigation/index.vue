@@ -112,9 +112,14 @@ export default {
       this.$store.commit('content/resetReady');
       if(to.path !== from.path){
         this.$ga.page(to.path);
-        const newActiveIndex = this.sortedNavOptions.findIndex((option) => option.to === to.path);
+        let toPath = to.path;
+        if(to.name === 'big_board_player_share'){
+          toPath = '/';
+        }
+        const newActiveIndex = this.sortedNavOptions.findIndex((option) => option.to === toPath);
         this.advanceClass = 'navigation--advance-' + newActiveIndex;
         this.active = this.getActive();
+      
         this.resortTimeout = setTimeout(() => {
           let existingSorted = [...this.sortedNavOptions];
           for(var i=0; i<newActiveIndex; i++){
