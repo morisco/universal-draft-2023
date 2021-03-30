@@ -1,7 +1,7 @@
 <template>
   <div class="team-card__players">
     <div class="team-card__players-label">
-      <span>Friendly Suggestions</span>
+      <span>{{label}}</span>
     </div>
     <div class="team-card__player-picks" :class="['team-card__player-picks--' + players.length]" v-if="players">
       <div v-for="player in players.slice(0,maxPlayers)" :key="teamId + '-'  + player.title" class="team-card__player-pick">
@@ -30,8 +30,13 @@
 export default {
   props: ['teamId', 'maxPlayers'],
   computed: {
+    label() {
+      return this.players ? 'Friendly Suggestions' : 'No picks in the first two rounds'
+    },
     players() {
-      console.log(this.$store.getters['content/team'](this.teamId));
+      if(!this.$store.getters['content/team'](this.teamId).players || this.$store.getters['content/team'](this.teamId).players.length === 0){
+        return false;
+      }
       if(this.$store.getters['content/team'](this.teamId).players[0].player){
         return this.$store.getters['content/team'](this.teamId).players.map((player) => {
           return this.$store.getters['content/teamPlayer'](player.player)
@@ -206,8 +211,6 @@ export default {
             display:inline;
           }
         }
-
-
       }
     }
     &__player{

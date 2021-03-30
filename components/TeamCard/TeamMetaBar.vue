@@ -4,7 +4,7 @@
     <img :src="team.image.medium" class="team-card__meta-bar-logo" />
   </div>
   <div class="player-card__meta-bar-details" v-if="['mobile', 'tablet'].indexOf($mq) < 0">
-    <TeamPlayers :teamId="teamId" v-if="hasPlayers && ['mobile', 'tablet'].indexOf($mq) < 0" :maxPlayers="3" />
+    <TeamPlayers :teamId="teamId" v-if="['mobile', 'tablet'].indexOf($mq) < 0" :maxPlayers="3" />
     <!-- <div class="player-card__meta-bar-details-column" v-if="$mq !== 'tablet'">
       <div class="player-card__meta-bar-details-row">
         <span class="label">Team Needs</span><br/>
@@ -98,7 +98,7 @@ export default {
           width:1px;
           background:$darkmediumgray;
           @include tablet{
-            display:none;
+            
           }
         }
         @include tablet{
