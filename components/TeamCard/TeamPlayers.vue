@@ -49,10 +49,10 @@ export default {
     &__player-picks{
       display:flex;
       min-width:100%;
-      justify-content:space-between;
+      justify-content:flex-start;
       margin-top:15px;
       border-bottom:1px solid $mediumgray;
-      margin-left:-5px;
+      // margin-left:-5px;
       width:calc(100% + 10px);
       overflow:hidden;
       color:$black !important;
@@ -107,8 +107,12 @@ export default {
       width:100%;
       max-width:calc(33.3333% - 10px);
       overflow:visible;
-      
+      margin-right:15px;
+      &:last-of-type{
+        margin-right:15px;
+      }
       @include mobile{
+        margin-right:0;
         position:relative;
         max-width:100%;
         overflow:hidden;
@@ -167,7 +171,7 @@ export default {
     &__players{
       display:flex;
       flex-direction:column;
-      padding:15px 0 0;
+      padding:30px 0 0;
       position:relative;
       width:100%;
       @include tablet{
@@ -184,6 +188,7 @@ export default {
         width:100%;
         flex: 0 1 auto;
         color:$black !important;
+        margin-left:20px;
         span{
           display:block;
           @include mobile{
@@ -191,6 +196,7 @@ export default {
           }
         }
         @include tablet{
+          margin-left:0;
           margin-bottom:10px;
         }
         @include tablet{

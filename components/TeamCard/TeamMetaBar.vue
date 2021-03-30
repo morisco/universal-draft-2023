@@ -85,7 +85,22 @@ export default {
         }
       }
       .player-card__meta-bar-details{
-        padding-left:45px !important;
+        position:relative;
+        margin-left:15px;
+        overflow:hidden;
+        &:before{
+          content:'';
+          display:block;
+          position:absolute;
+          left:0;
+          top:15px;
+          bottom:15px;
+          width:1px;
+          background:$darkmediumgray;
+          @include tablet{
+            display:none;
+          }
+        }
         @include tablet{
           &:after{
             display:none;

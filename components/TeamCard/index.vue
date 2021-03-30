@@ -90,6 +90,22 @@ export default {
     .player-card__top-data{
       padding-bottom:0;
     }
+    .player-card__image-info{
+      &:before{
+        content:'';
+        display:block;
+        width:1px;
+        position:absolute;
+        top:30px;
+        bottom:30px;
+        left:315px;
+        background:$darkmediumgray;
+        z-index:5;
+        @include tablet{
+          display:none;
+        }
+      }
+    }
     &__headline{
       margin-top:30px;
       p{
