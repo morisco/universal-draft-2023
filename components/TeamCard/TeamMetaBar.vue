@@ -61,7 +61,9 @@ export default {
       }
       &-logo{
         position:absolute;
-        height:calc(100% - 60px);
+        max-height:calc(100% - 60px);
+        max-width:80%;
+
         left:50%;
         top:50%;
         transform:translate(-50%, -50%);

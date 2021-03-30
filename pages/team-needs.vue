@@ -49,7 +49,7 @@ export default {
   },
   destroyed() {
     if(process.client){
-      window.removeEventListener('scroll', this.handleScroll);
+      window.removeEventListener('scroll', this.handleScroll, {passive: true});
     }
   },
   destroyed() {

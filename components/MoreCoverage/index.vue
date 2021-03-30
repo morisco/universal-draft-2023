@@ -5,7 +5,7 @@
       More from The Ringer
     </div>
     <div class="related-articles__articles">
-      <Article v-for="article in articles" :key="article.id" :article="article" />
+      <Article v-for="article in articlesToShow" :key="article.id" :article="article" />
     </div>
   </div>
 </template>
@@ -14,7 +14,18 @@
 import Article from './Article.vue';
 export default {
   props: ['articles'],
-  components: { Article }
+  components: { Article },
+  computed: {
+    articlesToShow () {
+      let ats = [];
+      this.articles.forEach((article) => {
+        if(!article.deleted){
+          ats.push(article);
+        }
+      });
+      return ats;
+    }
+  }
 }
 </script>
 

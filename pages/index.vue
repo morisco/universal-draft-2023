@@ -55,7 +55,7 @@ export default {
   destroyed() {
     if(process.client){
       clearTimeout(this.scrollDelay);
-      window.removeEventListener('scroll', this.handleScroll);
+      window.removeEventListener('scroll', this.handleScroll, {passive: true});
     }
   },
   computed: {
