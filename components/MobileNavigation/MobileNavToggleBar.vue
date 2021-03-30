@@ -38,7 +38,7 @@ export default {
           return 'Mock Draft'
         case 'team-needs':
         case 'team_needs_team_share':          
-          return 'Team Needs by Rober Mays'
+          return 'Team Needs by Danny Heifetz'
         case 'draft-results':
         case 'draft_results_player_share':
           return 'Draft Results'
