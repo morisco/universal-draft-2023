@@ -14,8 +14,8 @@
             {{teamNeeds}}
           </div>
           <div class="team-card__headline" v-html="team.history" />
-          <TeamPicks :team="team" />
-          <TeamPlayers v-if="hasPlayers && ['mobile', 'tablet'].indexOf($mq) >= 0" :teamId="teamId" :maxPlayers="4" />
+          <TeamPicks :team="team" v-if="['mobile', 'tablet'].indexOf($mq) >= 0" />
+          <TeamPlayers v-if="['mobile', 'tablet'].indexOf($mq) >= 0" :teamId="teamId" :maxPlayers="4" />
         </div>
       </div>
     </div>
@@ -88,7 +88,7 @@ export default {
       padding:0 !important;
     }
     .player-card__top-data{
-      padding-bottom:0;
+      // padding-bottom:0;
     }
     .player-card__image-info{
       &:before{
