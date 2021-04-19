@@ -79,7 +79,7 @@ export default {
       return this.player.player_video && this.player.player_video.video_id ? this.player.player_video : false
     },
     teamNameLogo () {
-      return this.$store.getters['content/teamNameLogo'](this.player[this.rankKey]);
+      return ['draft-results', 'draft_results_player_share'].indexOf(this.$route.name) >= 0 ? this.$store.getters['content/resultsTeamNameLogo'](this.player[this.rankKey]) : this.$store.getters['content/teamNameLogo'](this.player[this.rankKey]);
     },
     viewDepth () {
       return this.$store.getters['viewOptions/depth'];
