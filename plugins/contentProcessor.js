@@ -121,6 +121,15 @@ export function processTeams(teams, teamPlayers) {
   teams.forEach((team) => {
     resultsIds.push(team.id);
   });
+  const resultsTeamNameLogo = teams.map((team) => {
+    let teamToUse = team;
+    let via = '';
+    if(team.pick_trades_results && team.pick_trades_results[0]){
+      teamToUse = processedTeams[team.pick_trades_results[0].team];
+      via = team.pick_trades_results[0].via;
+    }
+    return {teamName: teamToUse.title, logo: teamToUse.image, via: via}
+  });
   const teamNameLogo = teams.map((team) => {
     let teamToUse = team;
     let via = '';
@@ -134,7 +143,8 @@ export function processTeams(teams, teamPlayers) {
     teamData: processedTeams,
     teamNeeds: teamIds,
     draftResults: resultsIds,
-    teamNameLogo: [...teamNameLogo, ...teamNameLogo]
+    teamNameLogo: [...teamNameLogo, ...teamNameLogo],
+    resultsTeamNameLogo: [...resultsTeamNameLogo, ...resultsTeamNameLogo]
   }
 }
 

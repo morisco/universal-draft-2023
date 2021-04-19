@@ -50,7 +50,7 @@ export default {
       }
     },
     teamNameLogo () {
-      return this.$store.getters['content/teamNameLogo'](this.rank);
+      return this.rankKey  === 'order_mockdraft' ?  this.$store.getters['content/teamNameLogo'](this.rank) : this.$store.getters['content/resultsTeamNameLogo'](this.rank);
     },
     playerVideo() {
       return this.fullPlayer.player_video && this.fullPlayer.player_video.video_id ? this.fullPlayer.player_video : false
