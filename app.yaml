@@ -1,15 +1,5 @@
 runtime: nodejs10
 
-instance_class: F4
-
-automatic_scaling:
-  min_idle_instances: 10
-  max_idle_instances: automatic
-  min_pending_latency: 0.030s
-  max_pending_latency: automatic
-  target_cpu_utilization: 0.6
-  min_instances: 5
-
 default_expiration: "30d"
 
 handlers:
