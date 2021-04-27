@@ -185,34 +185,38 @@ export function processInterstitials(contents) {
     list_inter.data.category = list_inter.category;
     list_inter.data.image = processImages(list_inter.data.image);
     const listPositions = list_inter.list_positions;
-    if(listPositions.big_board_position) {
-      processedInterstitials.bigBoard[listPositions.big_board_position] = list_inter.data;
-    }
-    if(listPositions.mock_draft_position) {
-      processedInterstitials.mockDraft[listPositions.mock_draft_position] = list_inter.data;
-    }
-    if(listPositions.team_needs_position) {
-      processedInterstitials.teamNeeds[listPositions.team_needs_position] = list_inter.data;
-    }
-    if(listPositions.draft_results_position) {
-      processedInterstitials.draftResults[listPositions.draft_results_position] = list_inter.data;
+    if(listPositions){
+      if(listPositions.big_board_position) {
+        processedInterstitials.bigBoard[listPositions.big_board_position] = list_inter.data;
+      }
+      if(listPositions.mock_draft_position) {
+        processedInterstitials.mockDraft[listPositions.mock_draft_position] = list_inter.data;
+      }
+      if(listPositions.team_needs_position) {
+        processedInterstitials.teamNeeds[listPositions.team_needs_position] = list_inter.data;
+      }
+      if(listPositions.draft_results_position) {
+        processedInterstitials.draftResults[listPositions.draft_results_position] = list_inter.data;
+      }
     }
   });
   videoInters.forEach((video_inter) => {
     video_inter = decodeContent(video_inter);
     const listPositions = video_inter.list_positions;
     video_inter.image = processImages(video_inter.image);
-    if(listPositions.big_board_position) {
-      processedInterstitials.bigBoard[listPositions.big_board_position] = video_inter;
-    }
-    if(listPositions.mock_draft_position) {
-      processedInterstitials.mockDraft[listPositions.mock_draft_position] = video_inter;
-    }
-    if(listPositions.team_needs_position) {
-      processedInterstitials.teamNeeds[listPositions.team_needs_position] = video_inter;
-    }
-    if(listPositions.draft_results_position) {
-      processedInterstitials.draftResults[listPositions.draft_results_position] = video_inter;
+    if(listPositions){
+      if(listPositions.big_board_position) {
+        processedInterstitials.bigBoard[listPositions.big_board_position] = video_inter;
+      }
+      if(listPositions.mock_draft_position) {
+        processedInterstitials.mockDraft[listPositions.mock_draft_position] = video_inter;
+      }
+      if(listPositions.team_needs_position) {
+        processedInterstitials.teamNeeds[listPositions.team_needs_position] = video_inter;
+      }
+      if(listPositions.draft_results_position) {
+        processedInterstitials.draftResults[listPositions.draft_results_position] = video_inter;
+      }
     }
   })
   return processedInterstitials
