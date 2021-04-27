@@ -122,6 +122,15 @@ export function processTeams(teams, teamPlayers) {
   teams.forEach((team) => {
     resultsIds.push(team.id);
   });
+  const resultsTeamNameLogo = teams.map((team) => {
+    let teamToUse = team;
+    let via = '';
+    if(team.pick_trades_results && team.pick_trades_results[0]){
+      teamToUse = processedTeams[team.pick_trades_results[0].team];
+      via = team.pick_trades_results[0].via;
+    }
+    return {teamName: teamToUse.title, logo: teamToUse.image, via: via}
+  });
   const teamNameLogo = teams.map((team) => {
     let teamToUse = team;
     let via = '';
@@ -135,7 +144,8 @@ export function processTeams(teams, teamPlayers) {
     teamData: processedTeams,
     teamNeeds: teamIds,
     draftResults: resultsIds,
-    teamNameLogo: [...teamNameLogo, ...teamNameLogo]
+    teamNameLogo: [...teamNameLogo, ...teamNameLogo],
+    resultsTeamNameLogo: [...resultsTeamNameLogo, ...resultsTeamNameLogo]
   }
 }
 
@@ -185,34 +195,38 @@ export function processInterstitials(contents) {
     list_inter.data.category = list_inter.category;
     list_inter.data.image = processImages(list_inter.data.image);
     const listPositions = list_inter.list_positions;
-    if(listPositions.big_board_position) {
-      processedInterstitials.bigBoard[listPositions.big_board_position] = list_inter.data;
-    }
-    if(listPositions.mock_draft_position) {
-      processedInterstitials.mockDraft[listPositions.mock_draft_position] = list_inter.data;
-    }
-    if(listPositions.team_needs_position) {
-      processedInterstitials.teamNeeds[listPositions.team_needs_position] = list_inter.data;
-    }
-    if(listPositions.draft_results_position) {
-      processedInterstitials.draftResults[listPositions.draft_results_position] = list_inter.data;
+    if(listPositions){
+      if(listPositions.big_board_position) {
+        processedInterstitials.bigBoard[listPositions.big_board_position] = list_inter.data;
+      }
+      if(listPositions.mock_draft_position) {
+        processedInterstitials.mockDraft[listPositions.mock_draft_position] = list_inter.data;
+      }
+      if(listPositions.team_needs_position) {
+        processedInterstitials.teamNeeds[listPositions.team_needs_position] = list_inter.data;
+      }
+      if(listPositions.draft_results_position) {
+        processedInterstitials.draftResults[listPositions.draft_results_position] = list_inter.data;
+      }
     }
   });
   videoInters.forEach((video_inter) => {
     video_inter = decodeContent(video_inter);
     const listPositions = video_inter.list_positions;
     video_inter.image = processImages(video_inter.image);
-    if(listPositions.big_board_position) {
-      processedInterstitials.bigBoard[listPositions.big_board_position] = video_inter;
-    }
-    if(listPositions.mock_draft_position) {
-      processedInterstitials.mockDraft[listPositions.mock_draft_position] = video_inter;
-    }
-    if(listPositions.team_needs_position) {
-      processedInterstitials.teamNeeds[listPositions.team_needs_position] = video_inter;
-    }
-    if(listPositions.draft_results_position) {
-      processedInterstitials.draftResults[listPositions.draft_results_position] = video_inter;
+    if(listPositions){
+      if(listPositions.big_board_position) {
+        processedInterstitials.bigBoard[listPositions.big_board_position] = video_inter;
+      }
+      if(listPositions.mock_draft_position) {
+        processedInterstitials.mockDraft[listPositions.mock_draft_position] = video_inter;
+      }
+      if(listPositions.team_needs_position) {
+        processedInterstitials.teamNeeds[listPositions.team_needs_position] = video_inter;
+      }
+      if(listPositions.draft_results_position) {
+        processedInterstitials.draftResults[listPositions.draft_results_position] = video_inter;
+      }
     }
   })
   return processedInterstitials

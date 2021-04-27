@@ -10,6 +10,7 @@ const state = () => ({
   draftResults: [],
   teamData: {},
   teamNameLogo: [],
+  resultsTeamNameLogo: [],
   relatedData: [],
   interstitials: {},
   contentLoaded: false,
@@ -84,7 +85,12 @@ const getters = {
     });
     return state.teamData[sharedPlayerId];
   },
-  teamNameLogo: (state) => (index) => state.teamNameLogo && state.teamNameLogo[index],
+  teamNameLogo: (state) => (index) => {
+    return state.teamNameLogo && state.teamNameLogo[index]
+  },
+  resultsTeamNameLogo: (state) => (index) => {
+    return state.resultsTeamNameLogo && state.resultsTeamNameLogo[index]
+  },
   relatedArticles: (state) => state.relatedData,
   interstitials: (state) => (list)  => state.interstitials[list],
   interstitial: (state) => (list, interKey)  => state.interstitials[list] ? state.interstitials[list][interKey] : false
@@ -134,6 +140,7 @@ const mutations = {
     state.teamData = processedTeams.teamData;
     state.teamNeeds = processedTeams.teamNeeds;
     state.teamNameLogo = processedTeams.teamNameLogo;
+    state.resultsTeamNameLogo = processedTeams.resultsTeamNameLogo;
   },
 
   setRelatedData(state, processedRelated) {
