@@ -51,13 +51,15 @@ function headBuilder(context) {
   : context.$route.name === 'team-needs' || context.$route.name === 'team_needs_team_share'
   ? context.settings['team-needs-page-description']
   : '';
+  console.log(context.$route.name);
+  console.log(pageDescription);
+  
   return {
     title: pageTitle,
-    description: pageDescription,
     meta: [{ 
       hid: 'description', 
       name: 'description', 
-      content: context.settings.description 
+      content: pageDescription 
     }
     ,{
       hid: 'og:title',
