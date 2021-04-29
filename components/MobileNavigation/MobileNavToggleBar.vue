@@ -41,7 +41,7 @@ export default {
           return 'Team Needs by Danny Heifetz'
         case 'draft-grades':
         case 'draft_grades_player_share':
-          return 'Draft Grades'
+          return 'Draft Grades by Danny Kelly'
       }
     }
   },

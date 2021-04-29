@@ -38,7 +38,7 @@ export default {
           }
         case 'draft_grades':
           return {
-            headline: '<strong>Draft Grades</strong>',
+            headline: '<strong>Draft Grades</strong> By Danny Kelly',
             content: this.$store.getters['page/settings'].draft_results_intro,
             link: '/mock-draft',
             linkText: this.$store.getters['page/settings'].draft_results_link,

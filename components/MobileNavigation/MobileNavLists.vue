@@ -14,7 +14,7 @@
     <span class="mobile-navigation__lists-updated">{{pageSettings.breakdown_updated}}</span>
   </NuxtLink>
   <NuxtLink tag="button" to="/draft-grades" class="mobile-navigation__lists-button" v-on:click.native="changeList" :disabled="!pageSettings.enable_results" activeClass="mobile-navigation__lists-button--active">
-    <span class="mobile-navigation__lists-title">Draft Grades</span>
+    <span class="mobile-navigation__lists-title">Draft Grades by Danny Kelly</span>
     <span class="mobile-navigation__lists-updated">{{pageSettings.results_updated}}</span>
   </NuxtLink>
 </div>  
