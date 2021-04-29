@@ -40,7 +40,7 @@ export default {
           return {
             headline: '<strong>Draft Grades</strong> By Danny Kelly',
             content: this.$store.getters['page/settings'].draft_results_intro,
-            link: '/mock-draft',
+            link: '/big-board',
             linkText: this.$store.getters['page/settings'].draft_results_link,
           }
         default:

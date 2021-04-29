@@ -6,11 +6,11 @@
     </a>
     <div class="navigation__links">
       <div class="navigation__links-inner">
-        <NuxtLink tag="a" v-for="option in sortedNavOptions" :to="option.to" :exact="option.to === '/'" v-on:click.native="changeActive" :disabled="!option.enabled" class="navigation__button" :key="option.to" :class="{'navigation__button--active': active === option.to}">
+        <NuxtLink tag="a" v-for="option in sortedNavOptions" :to="option.to" :exact="option.to === '/'" v-on:click.native="changeActive" :event="option.enabled ? 'click' : ''" :data-disabled="!option.enabled" class="navigation__button" :key="option.to" :class="{'navigation__button--active': active === option.to}">
           <span class="navigation__button-title">{{option.title}} <span class="navigation__button-subtitle">{{option.subtitle}}</span></span>
           <span class="navigation__button-updated">{{option.updated}}</span>
         </NuxtLink >
-        <NuxtLink tag="a"  v-for="option in sortedNavOptions" :to="option.to" :exact="option.to === '/'" v-on:click.native="changeActive" :disabled="!option.enabled" class="navigation__button navigation__button--duplicate" :key="'dupe' + option.to">
+        <NuxtLink tag="a"  v-for="option in sortedNavOptions" :to="option.to" :exact="option.to === '/'" v-on:click.native="changeActive" :event="option.enabled ? 'click' : ''" :data-disabled="!option.enabled" class="navigation__button navigation__button--duplicate" :key="'dupe' + option.to">
           <span class="navigation__button-title">{{option.title}} <span class="navigation__button-subtitle">{{option.subtitle}}</span></span>
           <span class="navigation__button-updated">{{option.updated}}</span>
         </NuxtLink>
@@ -89,6 +89,9 @@ export default {
     },
     changeActive(event) {
       event.preventDefault();
+      if(event.currentTarget.dataset.disabled) {
+        return;
+      }
       if(window.scrollY < this.$refs.navigation.offsetTop){
         scrollIt(this.$refs.navigation.offsetTop + 4, 500);
       } else {
@@ -232,7 +235,7 @@ $navHeight: 70px;
     @include single-column{
       padding:0 10px 0;
     }
-    &:disabled{
+    &[data-disabled="true"]{
       // opacity:0.5;
       cursor:default;
       span{
