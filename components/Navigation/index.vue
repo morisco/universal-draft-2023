@@ -6,11 +6,11 @@
     </a>
     <div class="navigation__links">
       <div class="navigation__links-inner">
-        <NuxtLink tag="button" v-for="option in sortedNavOptions" :to="option.to" :exact="option.to === '/'" v-on:click.native="changeActive" :disabled="!option.enabled" class="navigation__button" :key="option.to" :class="{'navigation__button--active': active === option.to}">
+        <NuxtLink tag="a" v-for="option in sortedNavOptions" :to="option.to" :exact="option.to === '/'" v-on:click.native="changeActive" :disabled="!option.enabled" class="navigation__button" :key="option.to" :class="{'navigation__button--active': active === option.to}">
           <span class="navigation__button-title">{{option.title}} <span class="navigation__button-subtitle">{{option.subtitle}}</span></span>
           <span class="navigation__button-updated">{{option.updated}}</span>
         </NuxtLink >
-        <NuxtLink tag="button"  v-for="option in sortedNavOptions" :to="option.to" :exact="option.to === '/'" v-on:click.native="changeActive" :disabled="!option.enabled" class="navigation__button navigation__button--duplicate" :key="'dupe' + option.to">
+        <NuxtLink tag="a"  v-for="option in sortedNavOptions" :to="option.to" :exact="option.to === '/'" v-on:click.native="changeActive" :disabled="!option.enabled" class="navigation__button navigation__button--duplicate" :key="'dupe' + option.to">
           <span class="navigation__button-title">{{option.title}} <span class="navigation__button-subtitle">{{option.subtitle}}</span></span>
           <span class="navigation__button-updated">{{option.updated}}</span>
         </NuxtLink>
@@ -45,7 +45,7 @@ export default {
         {to: '/', title: 'Big Board', subtitle:'by Danny Kelly', enabled: true, updated: this.pageSettings.players_to_watch_updated, routeNames: ['index', 'big_board_player_share']},
         {to: '/mock-draft', title: 'Mock Draft', subtitle:'by Danny Kelly', enabled: this.pageSettings.enable_mock, updated: this.pageSettings.danny_updated, routeNames: ['mock-draft', 'mock_draft_player_share']},
         {to: '/team-needs', title: 'Team Needs', subtitle:'by Danny Heifetz', enabled: this.pageSettings.breakdown_by_team, updated: this.pageSettings.breakdown_updated, routeNames: ['team-needs', 'team_needs_team_share']},
-        {to: '/draft-results', title: 'Draft Results', enabled: this.pageSettings.enable_results, updated: this.pageSettings.draft_results_updated, routeNames: ['draft-results', 'draft_results_player_share']}
+        {to: '/draft-results', title: 'Draft Grades', enabled: this.pageSettings.enable_results, updated: this.pageSettings.draft_results_updated, routeNames: ['draft-results', 'draft_results_player_share']}
       ] : null;
     }
   },

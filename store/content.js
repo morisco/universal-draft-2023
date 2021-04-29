@@ -11,6 +11,7 @@ const state = () => ({
   teamData: {},
   teamNameLogo: [],
   resultsTeamNameLogo: [],
+  teamNameLogoResults: {},
   relatedData: [],
   interstitials: {},
   contentLoaded: false,
@@ -88,6 +89,13 @@ const getters = {
   teamNameLogo: (state) => (index) => {
     return state.teamNameLogo && state.teamNameLogo[index]
   },
+  teamNameLogoResults: (state) => (team_id, via) => {
+    let team = state.teamNameLogoResults && state.teamNameLogoResults[team_id];
+    if(team){
+      team.via = via ? via : null;
+    }
+    return state.teamNameLogoResults && state.teamNameLogoResults[team_id]
+  },
   resultsTeamNameLogo: (state) => (index) => {
     return state.resultsTeamNameLogo && state.resultsTeamNameLogo[index]
   },
@@ -141,6 +149,7 @@ const mutations = {
     state.teamNeeds = processedTeams.teamNeeds;
     state.teamNameLogo = processedTeams.teamNameLogo;
     state.resultsTeamNameLogo = processedTeams.resultsTeamNameLogo;
+    state.teamNameLogoResults = processedTeams.teamNameLogoResults;
   },
 
   setRelatedData(state, processedRelated) {

@@ -35,9 +35,9 @@ function processOrders(players) {
   const orderIds = players.map((player) => { return {id: player.id, bigBoard: parseInt(player.order,10), mockDraft: parseInt(player.order_mockdraft,10), draftResults: parseInt(player.order_draftresults,10) } });
   const bigBoardSorted = orderIds.sort((playerA, playerB) => (playerA.bigBoard > playerB.bigBoard) ? 1 : -1);
   const mockIds = orderIds.filter(player => player.mockDraft <= 31);
-  const draftResultIds = orderIds.filter(player => player.draftResults <= 31);
+  const draftResultIds = players.filter(player => player.drafted_team);
   const mockDraftSorted = mockIds.sort((playerA, playerB) => (playerA.mockDraft > playerB.mockDraft) ? 1 : -1);
-  const draftResultsSorted = draftResultIds.sort((playerA, playerB) => (playerA.draftResults > playerB.draftResults) ? 1 : -1);
+  const draftResultsSorted = draftResultIds.sort((playerA, playerB) => (playerA.order_draftresults > playerB.order_draftresults) ? 1 : -1);
   return {
     bigBoard: bigBoardSorted.map(player => player.id),
     mockDraft: mockDraftSorted.map(player => player.id),
@@ -140,12 +140,25 @@ export function processTeams(teams, teamPlayers) {
     }
     return {teamName: teamToUse.title, logo: teamToUse.image, via: via}
   });
+
+  let teamNameLogoResults = {};
+  teams.forEach((team) => {
+    let teamToUse = team;
+    let via = '';
+    if(team.pick_trades && team.pick_trades[0]){
+      teamToUse = processedTeams[team.pick_trades[0].team];
+      via = team.pick_trades[0].via;
+    }
+    teamNameLogoResults[teamToUse.id] =  {teamName: teamToUse.title, logo: teamToUse.image, via: via}
+  });
+
   return {
     teamData: processedTeams,
     teamNeeds: teamIds,
     draftResults: resultsIds,
     teamNameLogo: [...teamNameLogo, ...teamNameLogo],
-    resultsTeamNameLogo: [...resultsTeamNameLogo, ...resultsTeamNameLogo]
+    resultsTeamNameLogo: [...resultsTeamNameLogo, ...resultsTeamNameLogo],
+    teamNameLogoResults: teamNameLogoResults
   }
 }
 
