@@ -39,7 +39,7 @@ export default {
           transform:translateY(-50%);
         }
         .mock-draft &,
-        .draft-results & {
+        .draft-grades & {
           right:100px;
         }
       }

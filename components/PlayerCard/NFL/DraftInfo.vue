@@ -44,6 +44,9 @@ export default {
       margin-bottom:0;
       p{
         @include player-card-body;
+        strong{
+          font-weight:500;
+        }
         &:last-of-type{
           margin-bottom:0;
         }

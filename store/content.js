@@ -173,7 +173,7 @@ const mutations = {
       state.allCardsSet = true;
     } else if(['team-needs', 'team_needs_team_share'].indexOf(route.name) >=0 && state.cardsReady === 32){
       state.allCardsSet = true;
-    } else if(['draft-results', 'draft_results_player_share'].indexOf(route.name) >=0 && state.cardsReady === 32){
+    } else if(['draft-grades', 'draft_grades_player_share'].indexOf(route.name) >=0 && state.cardsReady === 32){
       state.allCardsSet = true;
     }
   },

@@ -10,10 +10,10 @@
   >
     <div class="player-card__top-data" ref="topData">
       <MetaBar :player="player" :rankKey="rankKey" :collapsed="collapsed" ref="metaBar" v-if="$mq === 'mobile'" v-on:setHeight="setMetaHeight" />
-      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-results', 'draft_results_player_share'].indexOf($route.name) >= 0">
+      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) >= 0">
         <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo" :infoText="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) >= 0 ? player.mock_insight : player.results_insight" />
       </template>
-      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-results', 'draft_results_player_share'].indexOf($route.name) === -1">
+      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) === -1">
         <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile'" />
         <Badges :player="player" v-if="player.badges && player.badges.length > 0" />
         <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile'" />
@@ -21,7 +21,7 @@
 
     </div>
     <div class="player-card__bottom-data" ref="bottomData">
-      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-results', 'draft_results_player_share'].indexOf($route.name) >= 0">
+      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) >= 0">
         <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile'"  />
         <Badges :player="player" v-if="player.badges && player.badges.length > 0" />
         <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile'" />
@@ -79,7 +79,7 @@ export default {
       return this.player.player_video && this.player.player_video.video_id ? this.player.player_video : false
     },
     teamNameLogo () {
-      return ['draft-results', 'draft_results_player_share'].indexOf(this.$route.name) >= 0 ? this.$store.getters['content/teamNameLogoResults'](this.player.drafted_team, this.player.results_via) : this.$store.getters['content/teamNameLogo'](this.player[this.rankKey]);
+      return ['draft-grades', 'draft_grades_player_share'].indexOf(this.$route.name) >= 0 ? this.$store.getters['content/teamNameLogoResults'](this.player.drafted_team, this.player.results_via) : this.$store.getters['content/teamNameLogo'](this.player[this.rankKey]);
     },
     viewDepth () {
       return this.$store.getters['viewOptions/depth'];

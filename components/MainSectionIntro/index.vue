@@ -36,7 +36,7 @@ export default {
             link: '/mock-draft',
             linkText: this.$store.getters['page/settings'].team_needs_link,
           }
-        case 'draft_results':
+        case 'draft_grades':
           return {
             headline: '<strong>Draft Grades</strong>',
             content: this.$store.getters['page/settings'].draft_results_intro,

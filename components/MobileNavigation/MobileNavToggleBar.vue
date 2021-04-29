@@ -39,8 +39,8 @@ export default {
         case 'team-needs':
         case 'team_needs_team_share':          
           return 'Team Needs by Danny Heifetz'
-        case 'draft-results':
-        case 'draft_results_player_share':
+        case 'draft-grades':
+        case 'draft_grades_player_share':
           return 'Draft Grades'
       }
     }

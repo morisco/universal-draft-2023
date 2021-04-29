@@ -65,7 +65,7 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
     })
     .catch(err => console.log(err));
   }
-  return { configuration: configuration, settings: pageSettings, sharedPlayer: sharedPlayer, sharedTeam: sharedTeam }
+  return { configuration: configuration, settings: pageSettings, sharedPlayer: sharedPlayer, sharedTeam: sharedTeam, }
 }
 
 export default asyncDataProcessor

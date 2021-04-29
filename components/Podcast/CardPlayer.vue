@@ -139,7 +139,7 @@ export default {
     overflow:hidden;
     @include tablet-portrait-only{
       .mock-draft &,
-      .draft-results & {
+      .draft-grades & {
         padding: 5px 2px 5px 8px;
       }
       right:5px;

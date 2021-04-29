@@ -13,7 +13,7 @@
     <span class="mobile-navigation__lists-title">Team Needs</span>
     <span class="mobile-navigation__lists-updated">{{pageSettings.breakdown_updated}}</span>
   </NuxtLink>
-  <NuxtLink tag="button" to="/draft-results" class="mobile-navigation__lists-button" v-on:click.native="changeList" :disabled="!pageSettings.enable_results" activeClass="mobile-navigation__lists-button--active">
+  <NuxtLink tag="button" to="/draft-grades" class="mobile-navigation__lists-button" v-on:click.native="changeList" :disabled="!pageSettings.enable_results" activeClass="mobile-navigation__lists-button--active">
     <span class="mobile-navigation__lists-title">Draft Grades</span>
     <span class="mobile-navigation__lists-updated">{{pageSettings.results_updated}}</span>
   </NuxtLink>
@@ -31,7 +31,7 @@ export default {
       return this.$store.getters['page/settings']
     },
     iconTop() {
-      const menuOrder = [['index', 'big_board_player_share'], ['mock-draft', 'mock_draft_player_share'], ['team-needs', 'team_needs_team_share'], ['draft-results', 'draft_results_player_share']];
+      const menuOrder = [['index', 'big_board_player_share'], ['mock-draft', 'mock_draft_player_share'], ['team-needs', 'team_needs_team_share'], ['draft-grades', 'draft_results_player_share']];
       const activeIndex = menuOrder.findIndex((item) => item.indexOf(this.$route.name) >= 0);
       return 55 * activeIndex;
     }

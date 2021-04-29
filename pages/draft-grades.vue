@@ -1,6 +1,6 @@
 <template>
-  <section class="main-section draft-results" ref="draftResults">
-    <MainSectionIntro type="draft_results" />
+  <section class="main-section draft-grades" ref="draftResults">
+    <MainSectionIntro type="draft_grades" />
     <transition-group name="player-card" class="draft-results__inner" tag="div">
       <template v-for="(playerId, index) in draftResultsIds">
         <PlayerCard 
@@ -97,7 +97,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.draft-results{
+.draft-grades{
    min-height:calc(100vh + 4px);
 }
 </style>

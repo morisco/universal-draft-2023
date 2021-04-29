@@ -51,9 +51,9 @@ export default {
         component: resolve(__dirname, 'pages/team-needs.vue')
       });
       routes.push({
-        name: 'draft_results_player_share',
-        path: '/draft-results/:player_id',
-        component: resolve(__dirname, 'pages/draft-results.vue')
+        name: 'draft_grades_player_share',
+        path: '/draft-grades/:player_id',
+        component: resolve(__dirname, 'pages/draft-grades.vue')
       });
     }
   },
