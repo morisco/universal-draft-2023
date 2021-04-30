@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .player-card{
   &__badges{
     display:flex;
@@ -50,7 +50,9 @@ export default {
     .player-card--expanded & {
       filter: grayscale(0);  
     }
-   
+    .player-card__bottom-data & {
+      margin-bottom:30px;
+    }
     @include tablet-portrait-only{
       width:calc(100% + 4px);
       margin-left:-2px;
