@@ -95,7 +95,7 @@ const getters = {
     if(team){
       team.via = via ? via : null;
     }
-    return state.teamNameLogoResults && state.teamNameLogoResults[team_id]
+    return state.teamNameLogoResults && team
   },
   resultsTeamNameLogo: (state) => (index) => {
     return state.resultsTeamNameLogo && state.resultsTeamNameLogo[index]

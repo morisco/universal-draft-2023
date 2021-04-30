@@ -147,12 +147,12 @@ export function processTeams(teams, teamPlayers) {
     let via = '';
     if(team.pick_trades && team.pick_trades[0]){
       teamToUse = processedTeams[team.pick_trades[0].team];
-      via = team.pick_trades[0].via;
+      via = null;
     }
     teamNameLogoResults[teamToUse.id] =  {teamName: teamToUse.title, logo: teamToUse.image, via: via}
   });
 
-  return {
+    return {
     teamData: processedTeams,
     teamNeeds: teamIds,
     draftResults: resultsIds,
