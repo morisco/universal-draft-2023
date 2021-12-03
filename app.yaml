@@ -10,7 +10,7 @@ automatic_scaling:
   target_cpu_utilization: 0.6
   min_instances: 5
 
-default_expiration: "30d"
+default_expiration: "15m"
 
 handlers:
   - url: /_nuxt
