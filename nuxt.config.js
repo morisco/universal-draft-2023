@@ -19,7 +19,7 @@ export default {
     ],
   },
   // Global page headers (https://go.nuxtjs.dev/config-head)
-
+  serverMiddleware: ['~/server-middleware/cache'],
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
   ],
