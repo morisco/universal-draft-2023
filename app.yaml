@@ -26,6 +26,7 @@ handlers:
   - url: /.*
     script: auto
     secure: always
+    expiration: 5m
 
 env_variables:
   HOST: '0.0.0.0'
