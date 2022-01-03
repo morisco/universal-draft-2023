@@ -17,7 +17,8 @@ handlers:
     static_dir: .nuxt/dist/client
     expiration: 4d 5h
     secure: always
-
+  - url: /
+    expiration: 5m
   - url: /(.*\.(gif|png|jpg|ico|txt))$
     static_files: static/\1
     upload: static/.*\.(gif|png|jpg|ico|txt)$
@@ -26,7 +27,6 @@ handlers:
   - url: /.*
     script: auto
     secure: always
-    expiration: 5m
 
 env_variables:
   HOST: '0.0.0.0'
