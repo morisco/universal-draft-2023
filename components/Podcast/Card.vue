@@ -5,7 +5,7 @@
     <div class="card-item__controls">
       <button type="button" v-on:click="handlePlayClick" class="sticky-play-pause">
         <img v-if=" ((currentPod.id === pod.id && currentPod.type === 'full' && podPlaying) || shouldPlay)" src="~/assets/img/icons/pause.svg" />
-        <img v-if="currentPod.id !== pod.id || currentPod.type !== 'full' || !podPlaying" src="~/assets/img/icons/play.svg" />
+        <img v-if="(currentPod.id !== pod.id || currentPod.type !== 'full' || !podPlaying) && !shouldPlay" src="~/assets/img/icons/play.svg" />
       </button>
       <span class="card-item__controls-duration">
           {{format(pod.spotify_episodeDuration - currentTime)}}

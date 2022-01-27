@@ -170,6 +170,10 @@ export default {
     color:$headlinegray;
     @include stat-title;
     margin-top:2px;
+    @include mobile{
+      text-align:center;
+      padding:4px;
+    }
   }
   &__stat-value{
     position:relative;
@@ -208,6 +212,7 @@ export default {
     @include tooltip;
     background-color:$highlight2;
     z-index:3;
+    height:22px;
     // .player-card--offense & {
     //   background-color: $offense;
     // }

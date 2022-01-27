@@ -76,7 +76,6 @@ export default {
       } else {
         seconds += parseInt(tSplit[0],10);
       }
-
       return seconds;
     },
     format(time) {   
@@ -104,7 +103,11 @@ export default {
     },
     podTime() {
       if(this.activePod) {
-        this.currentTime = this.podTime - this.startTime;
+        if(this.podTime >= this.startTime && this.podTime <= this.endTime){
+          this.currentTime = this.podTime - this.startTime;
+        } else {
+          this.currentTime = 0;
+        }
       }
     },
     podPlaying() {
@@ -116,6 +119,11 @@ export default {
     },
     currentTime() {
       this.progress = (this.currentTime/this.totalTime) * 100;
+    },
+    activePod() {
+      if(!this.activePod) {
+        this.currentTime = 0;
+      }
     }
   },
 }

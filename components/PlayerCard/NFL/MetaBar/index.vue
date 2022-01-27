@@ -16,6 +16,14 @@
     </div>
   </div>
   <div class="player-card__meta-bar-details">
+    <div class="player-card__meta-bar-details-column player-card__meta-bar-details-column--shades">
+      <div class="player-card__meta-bar-details-row">
+        <span class="label">Shades Of:</span>
+      </div>
+      <div class="player-card__meta-bar-details-row player-card__meta-bar-details-row--shade-value">
+        {{playerMeta.shadesOf}}
+      </div>
+    </div>
     <div class="player-card__meta-bar-details-column" v-if="$mq !== 'tablet'">
       <div class="player-card__meta-bar-details-row">
         <span class="label">Year</span> {{playerMeta.year}}
@@ -30,18 +38,6 @@
       </div>
       <div class="player-card__meta-bar-details-row">
         <span class="label">Weight</span> {{playerMeta.weight}}
-      </div>
-    </div>
-     <div class="player-card__meta-bar-details-column player-card__meta-bar-details-column--shades">
-      <div class="shades-of-icon">
-        <img src="@/assets/img/icons/shades-of.svg" alt="Venn Diagaram Icon" data-not-lazy class="hover" />
-        <img src="@/assets/img/icons/shades-of-icon-black.svg" alt="Venn Diagaram Icon" data-not-lazy class="non-hover" />
-      </div>
-      <div class="player-card__meta-bar-details-row">
-        <span class="label">Shades Of:</span>
-      </div>
-      <div class="player-card__meta-bar-details-row player-card__meta-bar-details-row--shade-value">
-        {{playerMeta.shadesOf}}
       </div>
     </div>
   </div>
