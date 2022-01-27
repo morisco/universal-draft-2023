@@ -411,6 +411,7 @@ export default {
 
       @media(min-width:1200px)  and (max-height:580px){
         padding:8px;
+        margin-top:8px;
       }
 
       @include single-column{
