@@ -152,7 +152,7 @@ export function processTeams(teams, teamPlayers) {
     teamNameLogoResults[teamToUse.id] =  {teamName: teamToUse.title, logo: teamToUse.image, via: via}
   });
 
-    return {
+  return {
     teamData: processedTeams,
     teamNeeds: teamIds,
     draftResults: resultsIds,
@@ -182,6 +182,7 @@ export function processInterstitials(contents) {
   const listInters = contents.list_inter.content;
   const videoInters = contents.video_inter ? contents.video_inter.content : [];
   const articleInters = contents.article_inter.content;
+  const podcastInters = contents.podcast_inter.content;
 
   articleInters.forEach((article_inter) => {
     article_inter = decodeContent(article_inter);
@@ -223,6 +224,24 @@ export function processInterstitials(contents) {
       }
     }
   });
+  podcastInters.forEach((podcast_inter) => {
+    podcast_inter = decodeContent(podcast_inter);
+    const listPositions = podcast_inter.list_positions;
+    if(listPositions){
+      if(listPositions.big_board_position) {
+        processedInterstitials.bigBoard[listPositions.big_board_position] = podcast_inter;
+      }
+      if(listPositions.mock_draft_position) {
+        processedInterstitials.mockDraft[listPositions.mock_draft_position] = podcast_inter;
+      }
+      if(listPositions.team_needs_position) {
+        processedInterstitials.teamNeeds[listPositions.team_needs_position] = podcast_inter;
+      }
+      if(listPositions.draft_results_position) {
+        processedInterstitials.draftResults[listPositions.draft_results_position] = podcast_inter;
+      }
+    }
+  })
   videoInters.forEach((video_inter) => {
     video_inter = decodeContent(video_inter);
     const listPositions = video_inter.list_positions;
@@ -242,5 +261,8 @@ export function processInterstitials(contents) {
       }
     }
   })
-  return processedInterstitials
+  return {
+    podcastInters: podcastInters,
+    listInters: processedInterstitials
+  }
 }

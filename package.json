@@ -13,6 +13,7 @@
     "@nuxtjs/axios": "5.12.4",
     "@nuxtjs/device": "1.2.7",
     "@nuxtjs/google-analytics": "2.4.0",
+    "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/style-resources": "1.0.0",
     "@segment/in-eu": "0.3.0",
     "@segment/in-regions": "1.2.2",

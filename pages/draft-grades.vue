@@ -46,6 +46,13 @@ export default {
       showAll: this.$route.params.player_id ? true : false
     }
   },
+  mounted() {
+    if(!this.pageSettings.enable_results) {
+      this.$router.push({
+        path: '/'
+      })
+    }
+  },
   created() {
     if(process.client){
       window.addEventListener('scroll', this.handleScroll, {passive: true});
@@ -57,6 +64,9 @@ export default {
     }
   },
   computed: {
+    pageSettings () {
+      return this.$store.getters['page/settings'] || {}
+    },
     interstitials() {
       return this.$store.getters['content/interstitials']('draftResults')
     },
@@ -84,6 +94,15 @@ export default {
     handleScroll() {
       if(this.$refs.draftResults && window.scrollY > this.$refs.draftResults.offsetParent.offsetTop + this.$refs.draftResults.offsetTop - window.innerHeight) {
         this.showAll = true;
+      }
+    }
+  },
+  watch: {
+    pageSettings() {
+      if(!this.pageSettings.enable_results) {
+        this.$router.push({
+          path: '/'
+        })
       }
     }
   },

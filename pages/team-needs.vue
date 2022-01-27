@@ -36,6 +36,13 @@ export default {
   },
   scrollToTop: false,
   components: { MainSectionIntro, TeamCard, Interstitial, MoreCoverage },
+  mounted() {
+    if(!this.pageSettings.breakdown_by_team) {
+      this.$router.push({
+        path: '/'
+      })
+    }
+  },
   data() {
     return {
       initTimeout: null,
@@ -56,6 +63,9 @@ export default {
     clearTimeout(this.initTimeout);
   },
   computed: {
+    pageSettings () {
+      return this.$store.getters['page/settings'] || {}
+    },
     teamNeedsIds () {
       const itemCount = 4;
       return this.showAll ? this.$store.getters['content/teamNeeds'] : this.$store.getters['content/teamNeeds'].slice(0,itemCount)
@@ -71,6 +81,15 @@ export default {
     handleScroll() {
       if(window.scrollY > this.$refs.teamNeeds.offsetParent.offsetTop + this.$refs.teamNeeds.offsetTop - window.innerHeight) {
         this.showAll = true;
+      }
+    }
+  },
+  watch: {
+    pageSettings() {
+      if(!this.pageSettings.breakdown_by_team) {
+        this.$router.push({
+          path: '/'
+        })
       }
     }
   },

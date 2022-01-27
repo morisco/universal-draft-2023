@@ -26,8 +26,8 @@
         <mq-layout mq="tablet+">
           <Filters />
         </mq-layout>
-        <PodcastController v-if="['mobile', 'tablet', 'small_desktop'].indexOf($mq) >= 0" />
         <Nuxt />
+        <StickyPodcast v-if="showSticky" />
       </div>
     </main>
     <Footer />
@@ -45,11 +45,12 @@ import Filters from '~/components/Filters'
 import Consent from '~/components/Consent'
 import MobileNavigation from '~/components/MobileNavigation'
 import PodcastController from '~/components/Podcast/GlobalController'
+import StickyPodcast from '~/components/StickyPodcast';
 import Navigation from '~/components/Navigation'
 import Footer from '~/components/Footer'
 
 export default {
-  components: { Header, Filters, MobileNavigation, Navigation, PodcastController, Footer, Consent },
+  components: { Header, Filters, MobileNavigation, Navigation, StickyPodcast, Footer, Consent },
   computed: {
     pageSettings () {
       return this.$store.getters['page/settings']
@@ -71,12 +72,16 @@ export default {
     } else {
       this.siteReady = true;
     }
+    if(typeof window !== 'undefined') {
+      this.showSticky = window.innerWidth <= 1200;
+    }
     document.addEventListener('resize', this.setCSSHeight)
   },
   data () {
     return {
       preLockScrollPos: null,
-      siteReady: false
+      siteReady: false,
+      showSticky: false,
     }
   },
   methods: {
@@ -95,6 +100,7 @@ export default {
     },
     setCSSHeight() {
       const self = this;
+      this.showSticky = typeof window !== 'undefined' && window.innerWidth <= 1200,
       setTimeout(() => {
         if(!self.$refs.sizer) return;
         let vh = self.$refs.sizer.offsetHeight * 0.01;

@@ -1,8 +1,8 @@
 <template>
   <div class="podcast-controller">
-    <audio ref="audioPlayer"  data-not-lazy>
+    <!-- <audio ref="audioPlayer"  data-not-lazy>
       <source :src="activeMP3" type="audio/mpeg">
-    </audio>
+    </audio> -->
     <transition name="podcast-controller__content">
       <div class="podcast-controller__content" v-if="player && playingState === 2" v-on:click="stopAudio">
         <div>

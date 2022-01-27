@@ -175,8 +175,8 @@ export default {
       if(this.activeCard){
         const self = this;
         setTimeout(() => {
-          let scrollDestination = self.$refs.card.offsetParent.offsetTop + self.$refs.card.offsetTop - (self.$mq === 'mobile' ? 60 : self.collapsed ? 75 : 85) - (this.$mq === 'mobile' ? 15 : 30);
-          scrollIt(scrollDestination, 500, 'linear');
+          // let scrollDestination = self.$refs.card.offsetParent.offsetTop + self.$refs.card.offsetTop - (self.$mq === 'mobile' ? 60 : self.collapsed ? 75 : 85) - (this.$mq === 'mobile' ? 15 : 30);
+          // scrollIt(scrollDestination, 500, 'linear');
         }, this.$mq === 'mobile' ? 1250 : 750);
       }
       if(oldDepth === 'compact' || newDepth === 'compact'){
@@ -184,7 +184,7 @@ export default {
         this.transitioning = true;
         this.transitioningTimeout = setTimeout(() => {
           self.transitioning = false;
-        }, 1000);
+        }, 2000);
       }
       if(newDepth === 'detailed'){
         this.expanded = true;
@@ -278,7 +278,7 @@ export default {
         this.transitioning = true;
         setTimeout(() => {
           self.transitioning = false;
-        }, 1000);
+        }, 2000);
       }
     },
     setInfoHeight (height) {

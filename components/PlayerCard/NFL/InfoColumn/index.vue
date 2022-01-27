@@ -32,7 +32,7 @@
 
       <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile' && (playerVideo || player.player_podcast || player.player_articles)">
         <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" :expanded="expanded" :activeCard="activeCard" v-if="playerVideo" />
-        <PodcastCardPlayer v-if="player.player_podcast" :playerId="player.id" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
+        <PodcastCardPlayer v-if="player.player_podcast" :playerId="playerId" :playerPodcast="player.player_podcast" :player="player" :infoHeight="topHeight" :podcast="player.player_podcast" />
         <RelatedArticles :articles="player.player_articles" v-if="player.player_articles" />
       </div>
     </div>
@@ -47,7 +47,7 @@ import ExpandedMeta from '../ExpandedMeta';
 import MetaBar from '../MetaBar';
 import VideoThumb from '../VideoThumb'
 import RelatedArticles from '../RelatedArticles'
-import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
+import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import DraftInfo from '../DraftInfo';
 export default {
   props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],

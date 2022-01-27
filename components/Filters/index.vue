@@ -66,7 +66,7 @@
         </button>
       </div>
     </div>
-    <PodcastController v-if="['mobile', 'tablet', 'small_desktop'].indexOf($mq) === -1" />
+    <StickyPodcast v-if="showSticky" />
   </div>
   <div class="filters__ghost"></div>
 </div>
@@ -77,9 +77,10 @@ import { mapActions } from 'vuex'
 import { scrollIt } from '~/plugins/scroller'
 import InfoBubble     from '~/components/InfoBubble'
 import PodcastController     from '~/components/Podcast/GlobalController.vue'
+import StickyPodcast     from '~/components/StickyPodcast/index.vue'
 import PositionMap from '~/plugins/positionMap';
 export default {
-  components: { InfoBubble, PodcastController },
+  components: { InfoBubble, PodcastController, StickyPodcast },
   data() {
     return {
       fixed: false,
@@ -87,8 +88,12 @@ export default {
       left: null,
       bubbleDismissed: false,
       showInfoBubble: false,
-      disabled: this.$route.name === 'team-needs'
+      disabled: this.$route.name === 'team-needs',
+      showSticky: true,
     }
+  },
+  updated() {
+    this.showSticky = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) === -1;
   },
   computed: {
     activeDepth () {
@@ -168,12 +173,16 @@ export default {
   },
   mounted () {
     this.width = this.$mq === 'mobile' ?  null : this.$refs.filters.offsetWidth;
+    this.showSticky = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) === -1;
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('resize', this.handleScroll);
   },
   watch: {
+    $mq() {
+      this.showSticky = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) === -1;
+    },
     activeDepth () {
       this.bubbleDismissed = true;
       this.showInfoBubble = false
@@ -422,6 +431,11 @@ export default {
       &:after{
         width:22.5px;
       }
+    }
+  }
+  @include single-column{
+    .sticky-podcast{
+      display:none;
     }
   }
 

@@ -16,11 +16,13 @@ const state = () => ({
   interstitials: {},
   contentLoaded: false,
   cardsReady: 0,
-  allCardsSet: false
+  allCardsSet: false,
+  pods: [],
 })
 
 // getters
 const getters = {
+  podcastInters: (state => state.podcast_inters),
   contentLoaded: (state => state.contentLoaded),
   allCardsSet: (state) => state.allCardsSet,
   teamPlayer: (state) => (playerId) => {
@@ -102,7 +104,8 @@ const getters = {
   },
   relatedArticles: (state) => state.relatedData,
   interstitials: (state) => (list)  => state.interstitials[list],
-  interstitial: (state) => (list, interKey)  => state.interstitials[list] ? state.interstitials[list][interKey] : false
+  interstitial: (state) => (list, interKey)  => state.interstitials[list] ? state.interstitials[list][interKey] : false,
+  pods: (state) => state.pods
 }
 
 // actions
@@ -110,7 +113,6 @@ const actions = {
   getContents ({commit}) {
     var d = new Date();
     var t = d.getTime();
-
     axios.get("https://storage.googleapis.com/" + process.env.GCS_BUCKET + "/hardrefresh/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
       headers: {
         'Content-Encoding': 'gzip',
@@ -124,6 +126,7 @@ const actions = {
       const processedInters = processInterstitials(contents);
       const processedTeams = processTeams(contents.teams.content, processedPlayers.teamPlayers);
       const processedRelated = processRelated(contents.coverage.content);
+      commit('setPodcastsData', contents.podcast.content)
       commit('setInterstitialData', processedInters);
       commit('setPlayerData', processedPlayers)
       commit('setTeamData', processedTeams)
@@ -153,12 +156,16 @@ const mutations = {
     state.teamNameLogoResults = processedTeams.teamNameLogoResults;
   },
 
+  setPodcastsData (state, podcasts) {
+    state.pods = podcasts.reduce((ac, pod) => ({...ac,[pod.id]:pod}),{});
+  },
+
   setRelatedData(state, processedRelated) {
     state.relatedData = processedRelated;
   },
 
   setInterstitialData(state, processedInters) {
-    state.interstitials = processedInters;
+    state.interstitials = processedInters.listInters;
   },
 
   decrementProductInventory (state, { id }) {

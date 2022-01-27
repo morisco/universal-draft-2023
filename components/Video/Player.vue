@@ -104,7 +104,7 @@ export default {
       this.videoHeight = this.videoWidth * 0.5625;
       let pv = {
         width: this.videoWidth,
-        autoplay: 1,
+        autoplay: 0,
         start: parseInt(this.playerVideo.start,10) || 0,
         rel: 0,
         controls:1,

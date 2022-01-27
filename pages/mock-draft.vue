@@ -54,7 +54,17 @@ export default {
       window.removeEventListener('scroll', this.handleScroll);
     }
   },
+  mounted() {
+    if(!this.pageSettings.enable_mock) {
+      this.$router.push({
+        path: '/'
+      })
+    }
+  },
   computed: {
+    pageSettings () {
+      return this.$store.getters['page/settings'] || {}
+    },
     interstitials() {
       return this.$store.getters['content/interstitials']('mockDraft')
     },
@@ -82,6 +92,15 @@ export default {
     handleScroll() {
       if(window.scrollY > this.$refs.mockDraft.offsetParent.offsetTop + this.$refs.mockDraft.offsetTop - window.innerHeight) {
         this.showAll = true;
+      }
+    }
+  },
+  watch: {
+    pageSettings() {
+      if(!this.pageSettings.enable_mock) {
+        this.$router.push({
+          path: '/'
+        })
       }
     }
   },

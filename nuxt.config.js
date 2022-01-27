@@ -60,6 +60,7 @@ export default {
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
+    '@nuxtjs/moment',
     ['@nuxtjs/dotenv', { 
       filename: '.env.staging',
       // filename: '.env' 

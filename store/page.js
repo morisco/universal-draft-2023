@@ -3,7 +3,10 @@ import axios from 'axios';
 const state = () => ({
   settings: null,
   configuration: null,
-  cardExpanded: false
+  cardExpanded: false,
+  currentPod: null,
+  podPlaying: null,
+  podTime: 0,
 })
 
 // getters
@@ -11,13 +14,26 @@ const getters = {
   settings: (state) => state.settings,
   configuration: (state) => state.configuration,
   cardExpanded: (state) => state.cardExpanded,
-  badges: (state) => state.settings.badges
+  badges: (state) => state.settings.badges,
+  defaultPod: (state) => state.settings.default_podcast,
+  currentPod: (state) => state.currentPod,
+  podPlaying: (state) => state.podPlaying,
+  podTime: (state) => state.podTime
 }
 
 // actions
 const actions = {
   setCardExpanded ({commit}) {
     commit('setCardExpanded', true);
+  },
+  setCurrentPod ({commit}, podId) {
+    commit('setCurrentPod', podId);
+  },
+  setPlaying ({commit}, playing) {
+    commit('setPlaying', playing);
+  },
+  setPodTime ({commit}, time) {
+    commit('setPodTime', time);
   }
 }
 
@@ -27,13 +43,22 @@ const mutations = {
     let badges = {};
     page.badges.forEach((badge) => badges[badge.id] = badge);
     page.badges = badges;
-    state.settings = page
+    state.settings = page;
   },
   setConfig (state, config) {
     state.configuration = config
   },
   setCardExpanded(state) {
     state.cardExpanded = true
+  },
+  setCurrentPod(state, podId) {
+    state.currentPod = podId
+  },
+  setPlaying(state, playing) {
+    state.podPlaying = playing
+  },
+  setPodTime(state, podTime) {
+    state.podTime = podTime
   }
 }
 

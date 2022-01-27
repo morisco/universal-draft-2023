@@ -11,7 +11,7 @@
         <div v-if="$mq !== 'mobile'">
           <Stats :player="fullPlayer" />
           <VideoThumb :playVideo="playVideo" :videoSettings="videoSettings" :playerVideo="playerVideo" :activeCard="activeCard" v-if="playerVideo" v-on:resetVideoSettings="$emit('resetVideoSettings')" />
-          <PodcastCardPlayer v-if="player.player_podcast && $mq !== 'mobile'" :playerId="playerId" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
+          <PodcastCardPlayer v-if="player.player_podcast && $mq !== 'mobile'" :playerId="playerId" :playerPodcast="player.player_podcast" :player="player" :infoHeight="topHeight" :podcast="player.player_podcast" />
           <RelatedArticles :articles="fullPlayer.player_articles" v-if="fullPlayer.player_articles" />
         </div>
       </div>
@@ -24,7 +24,7 @@
 
 <script>
 import DraftTeam from '../DraftTeam'
-import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
+import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import VideoThumb from '../VideoThumb'
 import RelatedArticles from '../RelatedArticles'
 import Stats from '../Stats';
@@ -48,6 +48,7 @@ export default {
         image: playerData.image_data.image.small,
         imageAlt: playerData.title,
         results_via: playerData.results_via,
+        title: playerData.title,
         player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false
       }
     },
