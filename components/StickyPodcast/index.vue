@@ -73,8 +73,11 @@ import Topper from '~/components/Podcast/Topper.vue';
 export default {
   components: { Topper },
   mounted() {
+    this.handleScroll();
     window.addEventListener('scroll', this.handleScroll);
-
+    if(!this.activePodcast && this.pods && this.currentPod) {
+      this.activePodcast = this.pods[this.currentPod.id];
+    }
   },
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll);

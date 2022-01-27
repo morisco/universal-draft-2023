@@ -24,6 +24,7 @@ export default {
     return {
       podIds: null,
       podItems: null,
+      mobilePod: null,
     }
   },
   mounted() {

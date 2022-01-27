@@ -89,13 +89,12 @@ export default {
       bubbleDismissed: false,
       showInfoBubble: false,
       disabled: this.$route.name === 'team-needs',
-      showSticky: true,
     }
   },
-  updated() {
-    this.showSticky = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) === -1;
-  },
   computed: {
+    showSticky() {
+      return ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) === -1;
+    },
     activeDepth () {
       return this.$store.getters['viewOptions/depth']
     },

@@ -58,6 +58,10 @@ export default {
     collapsed() {
       return this.$store.getters['viewOptions/depth'] === 'compact';
     },
+    showSticky() {
+      console.log('HEY', ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) >= 0);
+      return ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) >= 0;
+    }
   },
   created () {
     if(process.client){
@@ -72,16 +76,12 @@ export default {
     } else {
       this.siteReady = true;
     }
-    if(typeof window !== 'undefined') {
-      this.showSticky = window.innerWidth <= 1200;
-    }
     document.addEventListener('resize', this.setCSSHeight)
   },
   data () {
     return {
       preLockScrollPos: null,
       siteReady: false,
-      showSticky: false,
     }
   },
   methods: {
@@ -100,14 +100,13 @@ export default {
     },
     setCSSHeight() {
       const self = this;
-      this.showSticky = typeof window !== 'undefined' && window.innerWidth <= 1200,
       setTimeout(() => {
         if(!self.$refs.sizer) return;
         let vh = self.$refs.sizer.offsetHeight * 0.01;
         // Then we set the value in the --vh custom property to the root of the document
         document.documentElement.style.setProperty('--vh', `${vh}px`);
       }, 250);
-    }
+    },
   },
   watch: {
     '$mq'() {
