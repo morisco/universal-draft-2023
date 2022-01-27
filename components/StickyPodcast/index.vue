@@ -285,6 +285,8 @@ export default {
     
     width:270px;
     margin-left:-90px;
+    border-radius:8px;
+    overflow:hidden;
     @media(min-width:1200px)  and (max-height:650px){
       bottom:15px;
     }
@@ -408,10 +410,11 @@ export default {
       width:100%;
       border-radius:8px;
       padding:16px;
+      overflow:hidden;
 
       @media(min-width:1200px)  and (max-height:580px){
         padding:8px;
-        margin-top:8px;
+        margin-top:0px;
       }
 
       @include single-column{
@@ -777,6 +780,10 @@ export default {
          max-width:0;
          z-index:0;
          transition:max-width 0.25s ease-in-out;
+        @media(min-width:1200px)  and (max-height:580px){
+          border-radius:8px;
+        }
+
          @media(min-width:1200px)  and (max-height:650px){
           display:flex;
         }
