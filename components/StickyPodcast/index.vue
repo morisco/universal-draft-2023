@@ -450,6 +450,9 @@ export default {
           position:relative;
           display:flex;
           width:100%;
+          @media (min-width:1201px) {
+            padding:0 0;
+          }
           > button{
             position:absolute;
             top:50%;
@@ -469,8 +472,8 @@ export default {
             }
           }
         }
-        @media (min-width:1201px) and (max-width:1400px) {
-          padding: 0 5px;
+        @media (min-width:1201px)  {
+          padding: 0 0;
         }
         @media(min-width:1200px)  and (max-height:650px){
           display:flex;
@@ -513,8 +516,8 @@ export default {
             align-items:center;
             max-width:60px;
             transition:opacity 0.25s linear 0.25s, left 0.25s linear 0s;
-            @media (min-width:1201px) and (max-width:1400px) {
-              left: 5px;
+            @media (min-width:1201px) {
+              left: 0;
             }
 
           }
@@ -625,6 +628,12 @@ export default {
           .card-item & {
             width:80px;
           }
+          @media(min-width:1201px) and (max-width:1400px) {
+              display:none;
+            }
+            @media(min-width:1200px)  and (max-height:650px){
+              display:none;
+            }
           &:after{
             content:'';
             display:block;
@@ -639,12 +648,7 @@ export default {
             width:100%;
             object-fit:cover;
             object-position:center top;
-            @media(min-width:1201px) and (max-width:1400px) {
-              display:none;
-            }
-            @media(min-width:1200px)  and (max-height:650px){
-              display:none;
-            }
+            
           }
           &--player{
             > img{
