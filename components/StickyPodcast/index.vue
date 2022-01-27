@@ -780,9 +780,6 @@ export default {
          max-width:0;
          z-index:0;
          transition:max-width 0.25s ease-in-out;
-        @media(min-width:1200px)  and (max-height:580px){
-          border-radius:8px;
-        }
 
          @media(min-width:1200px)  and (max-height:650px){
           display:flex;
