@@ -7,7 +7,7 @@
   <ul class="player-card__stats-list" :class="{'player-card__stats-list--full' : statArray.length === 5}">
     <li v-for="stat in statArray" :key="stat.key">
       <div class="player-card__stat-tooltip">{{stat.tooltip}}</div>
-      <div class="player-card__stat">
+      <div class="player-card__stat" :class="{'player-card__stat--long-rtg': stat.label === 'RTG' && stat.value.length > 4 }">
         <span class="player-card__stat-value"><span>{{stat.value}}</span></span>
         <span class="player-card__stat-title">{{stat.label}}</span>
       </div>
@@ -21,6 +21,12 @@ import { parseStats } from '~/plugins/contentProcessor'
 export default {
   props: ['player'],
   name: 'Stats',
+  mounted(){
+    this.statArray && this.statArray.forEach((stat) => {
+      console.log(stat.label.length);
+    })
+    
+  },
   computed: {
     statArray() {
       const parsedStats = parseStats(this.player.player_position_stats);
@@ -72,7 +78,7 @@ export default {
         padding:0;
         flex-wrap:wrap;
         width:calc(100% + 40px);
-        margin-bottom:15px;
+        margin-bottom:-18px;
       }
       @include medium-desktop {
         margin-left:-2px;
@@ -156,7 +162,7 @@ export default {
     border-radius: 10px;
     background-clip: padding-box;
     width:100%;
-    margin-bottom:10px;
+    margin-bottom:15px;
     .player-card__image-column &{
       background:transparent !important;
     }
@@ -169,10 +175,10 @@ export default {
     line-height:1;
     color:$headlinegray;
     @include stat-title;
-    margin-top:2px;
+    padding:6px 0 0;
     @include mobile{
       text-align:center;
-      padding:4px;
+      padding:0 4px;
     }
   }
   &__stat-value{
@@ -186,6 +192,9 @@ export default {
     padding-top:100%;
     background:$mediumgray;
     border-radius:4px;
+    .player-card__stat--long-rtg &{
+      font-size:24px;
+    }
     span{
       position:absolute;
       padding-top:3px;

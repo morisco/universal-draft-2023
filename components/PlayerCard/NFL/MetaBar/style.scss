@@ -237,7 +237,6 @@
           display:block;
           width:100%;
           height:1px;
-          background:#bdbdbd;
           margin-top:17px;
           .player-card--collapsed & {
             display:none;
@@ -288,6 +287,10 @@
             font-size:19px;
             line-height:1.15;
           }
+          .player-card__meta-bar-details-row--shade-value{
+            font-size:19px;
+            line-height:1.15;
+          }
           
 
           .shades-of-icon{
@@ -326,7 +329,7 @@
             flex-direction:row;
             justify-content:flex-start;
             line-height:20px;
-            margin:15px 0 17px;
+            margin:15px 0 10px;
             padding-left:35px;
             flex-wrap:wrap;
             @include mobile{

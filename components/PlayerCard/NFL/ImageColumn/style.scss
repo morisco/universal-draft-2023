@@ -69,8 +69,30 @@
       @include mobile{
         padding:0;
       }
+      &:after{
+        content:'';
+        display:block;
+        position:absolute;
+        right:0;
+        top:30px;
+        bottom:30px;
+        width:1px;
+        background:$darkmediumgray;
+        opacity:0;
+        transition:opacity 0.25s linear 0.25s;
+        .player-card--expanded & {
+          opacity:1;
+        }
+        @include mobile{
+          display:none;
+        }
+      }
       .player-card--expanded & {
+        position:relative;
         padding-bottom:30px;
+        &:after{
+          opacity:1;
+        }
         @include mobile{
           padding:0;
         }

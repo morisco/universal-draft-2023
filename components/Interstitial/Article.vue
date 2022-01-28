@@ -79,6 +79,7 @@ export default {
   }
   &__slug{
     @include slug;
+    font-size:19px;
     color:$highlight2;
   }
   &__headline{
@@ -94,6 +95,7 @@ export default {
   }
   &__link{
     @include expanded-label;
+    font-size:19px;
     text-decoration:underline;
     @include mobile{
       font-size:15px;

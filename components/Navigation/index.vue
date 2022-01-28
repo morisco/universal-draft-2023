@@ -269,6 +269,9 @@ $navHeight: 70px;
     @include demibold-title;
     font-weight:300;
     color:$white;
+    @media(max-width:1100px) {
+      display:none !important;
+    }
   }
   &__button-updated{
     @include player-card-body;

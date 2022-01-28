@@ -18,7 +18,7 @@ export default {
       max-width:800px;
       @include mobile{
         margin:0;
-        padding: 10px 20px 40px;
+        padding: 0 20px 40px;
         background:$lightgray;
         border-radius: 0 0 0.625rem 0.625rem;
         // padding-right:0;

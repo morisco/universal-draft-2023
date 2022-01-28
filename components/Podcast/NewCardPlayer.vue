@@ -136,6 +136,7 @@ export default {
     background:$mediumgray;
     border-radius:8px;
     padding:10px 5px 10px 12px;
+    margin-top:20px;
     @include mobile{
       margin-bottom:10px;
     }

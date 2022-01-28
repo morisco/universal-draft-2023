@@ -172,16 +172,12 @@ export default {
   },
   mounted () {
     this.width = this.$mq === 'mobile' ?  null : this.$refs.filters.offsetWidth;
-    this.showSticky = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) === -1;
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('resize', this.handleScroll);
   },
   watch: {
-    $mq() {
-      this.showSticky = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) === -1;
-    },
     activeDepth () {
       this.bubbleDismissed = true;
       this.showInfoBubble = false

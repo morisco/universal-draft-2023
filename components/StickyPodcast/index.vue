@@ -302,8 +302,9 @@ export default {
     }
 
     @include single-column{
-      width:auto;
+      width:100%;
       position:fixed;
+      border-radius:0;
       bottom:0;
       left:0;
       z-index:5555;
@@ -321,7 +322,6 @@ export default {
       }
       &__player{
         border-radius:0;
-        border-top-right-radius:8px;
         overflow:hidden;
       }
     }
@@ -411,7 +411,7 @@ export default {
       background:$lightgray;
       width:100%;
       border-radius:8px;
-      padding:16px;
+      padding:15px 15px 10px;
       overflow:hidden;
 
       @media(min-width:1200px)  and (max-height:580px){
@@ -420,18 +420,17 @@ export default {
       }
 
       @include single-column{
-        width:auto;
+        width:100%;
         padding:8px;
         margin-top:0;
         border-radius:0;
-        border-top-right-radius:8px;
-        border-top:1px solid $highlight2;
-        border-right:1px solid $highlight2;
-        box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+        border-top: 1px solid #d1d1d1;
+        // border-top-right-radius:8px;
+        // border-top:1px solid $highlight2;
+        // border-right:1px solid $highlight2;
       } 
       @include mobile {
         border-radius:0;
-        border:0;
         width:100%;
       }
 
@@ -444,7 +443,7 @@ export default {
         z-index:1;
         display:none;
         .mini-controls-inner{
-          padding: 0 15px;
+          padding: 0;
           transition:padding 0.25s ease-in-out 0s;
           position:relative;
           display:flex;
@@ -461,7 +460,7 @@ export default {
             transition:opacity 0.25s linear 0s;
             img{
               vertical-align:bottom;
-              margin-bottom:-2px;
+              margin-bottom:-4px;
             }
             &.mini-controls-back{
               left:0;
@@ -495,20 +494,27 @@ export default {
           align-items:center;
           width:100%;
           justify-content:space-between;
-          padding-left:65px;
+          
           transition:padding-left 0.25s ease-in-out 0s;
           @media (min-width:1201px) and (max-width:1400px) {
             justify-content:flex-end;
           }
+          @include single-column{
+            justify-content:center;
+          }
           @include mobile{
             justify-content:flex-start;
-            height:20px
+            height:20px;
+            padding-left:70px;
           }
           a{
-            position:absolute;
-            left:16px;
-            top:50%;
-            transform:translateY(-50%);
+            @include mobile{
+              position:absolute;
+              left:5px;
+              top:50%;
+              transform:translateY(-50%);
+              margin-right:0;
+            }
             flex: 0 0 auto;
             margin-right:10px;
             display:flex;
@@ -529,10 +535,14 @@ export default {
               flex:0 0 auto;
               justify-content:space-between;
             }
+            @include single-column{
+              flex: 0 0 auto;
+              
+            }
             @include mobile{
               position:absolute;
               right:16px;
-              max-width:calc(100% - 100px);
+              max-width:calc(100% - 90px);
               transition:all 0.25s ease-in-out;
             }
 
@@ -564,6 +574,10 @@ export default {
               @include single-column{
                 display:block;
                 margin-top:0;
+                flex: 0 0 auto;
+              }
+              @include mobile{
+                flex:1;
               }
 
             }
@@ -591,9 +605,11 @@ export default {
             }
 
             a{
-              opacity:0;
-              pointer-events:none;
-              transition:opacity 0.25s linear 0s, left 0.25s linear 0.25s;
+              @include mobile{
+                opacity:0;
+                pointer-events:none;
+                transition:opacity 0.25s linear 0s, left 0.25s linear 0.25s;
+              }
               @media (min-width:1201px) and (max-width:1400px) {
                 opacity:1;
                 pointer-events:none;
@@ -685,11 +701,12 @@ export default {
           .sticky-episode-title{
             @include podcast-episode-name;
              display: -webkit-box;
-              -webkit-line-clamp: 2;
+              -webkit-line-clamp: 3;
               -webkit-box-orient: vertical;  
               overflow: hidden;
             padding-bottom:4px;
             margin-bottom:4px;
+            margin-top:-4px;
             @media(min-width:1200px)  and (max-height:650px){
               margin-bottom:5px;
             }
@@ -727,7 +744,7 @@ export default {
       &-controls{
         display:flex;
         align-items:center;
-        margin-top:15px;  
+        margin-top:10px;  
         @media(min-width:1200px)  and (max-height:650px){
           display:none;
         }
@@ -752,13 +769,14 @@ export default {
           cursor:pointer;
           flex:1;
           padding:5px 0;
+          margin-top:-3px;
           &-inner{
             position:relative;
 
             border-radius:5px;
             height:3px;
             overflow:hidden;
-            background:#E0E0E0;
+            background:#d1d1d1;
           }
           &-bar{
             height:3px;

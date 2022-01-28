@@ -201,7 +201,7 @@ export default {
     
   }
   &__stat{
-    background:$white;
+    // background:$white;
     border-radius: 10px;
     background-clip: padding-box;
     width:100%;

@@ -7,9 +7,9 @@
       <img  :src="content.image" :alt="content.show + ' Album Art'" />
     </div>
     <div class="sticky-podcast__player-top-content">
-      <div class="album-show-name">
+      <!-- <div class="album-show-name">
         <div class="sticky-show-name">{{ content.show }}</div>
-      </div>
+      </div> -->
       <div class="sticky-episode-title">{{ content.title }}</div>
       <div class="sticky-play-meta">
         <button v-if="playPause" type="button" v-on:click="playPause" class="sticky-play-pause">

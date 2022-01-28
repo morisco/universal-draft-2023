@@ -81,7 +81,7 @@ export default {
 <style lang="scss" scoped>
 .player-card{
   &__video-thumb{
-    margin-bottom:20px;
+    margin-top:20px;
     &-title{
       @include expanded-label;
       line-height:1;
