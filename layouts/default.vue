@@ -59,7 +59,6 @@ export default {
       return this.$store.getters['viewOptions/depth'] === 'compact';
     },
     showSticky() {
-      console.log('HEY', ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) >= 0);
       return ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) >= 0;
     }
   },

@@ -229,12 +229,9 @@ export default {
       this.handlePlayPause();
     },
     currentPod(newVal, oldVal) {
-      console.log('CURRENTPOD', this.currentPod)
       if(this.activePodcast) {
         this.shouldPlay = true
       }
-      console.log('new', newVal);
-      console.log('old', oldVal);
       this.podUpdate = true
       if(this.currentPod && this.pods) {
         this.activePodcast = this.pods[this.currentPod.id];
@@ -245,7 +242,6 @@ export default {
       this.readyToPlay = false
     },
     activePodcast() {
-      console.log('actie', this.activePodcast);
       this.podUpdate = true;
     },
     pods() {
@@ -266,10 +262,8 @@ export default {
       this.podUpdate = false;
       if(this.currentPod.start) {
         this.duration = this.currentPod.end - this.currentPod.start;
-        console.log('start start', this.duration);
         this.$refs.audioPlayer.currentTime = this.currentPod.start;
       } else {
-        console.log('hiiii');
         this.duration = this.activePodcast.spotify_episodeDuration;
          if(this.$refs.audioPlayer) {
           this.$refs.audioPlayer.currentTime = 0;

@@ -4,7 +4,7 @@
     <div class="header__inner">
       <div class="header__inner-text">
         <h1 class="headline">
-          <span class="headline--small">The Ringer's 2021</span>
+          <span class="headline--small">The Ringer's 2022</span>
           <span class="headline--big"><span>NFL Draft Guide</span></span>
         </h1>
         <h2 class="subheadline">With scouting reports by Danny Kelly</h2>
