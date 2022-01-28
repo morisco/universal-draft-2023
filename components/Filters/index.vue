@@ -210,7 +210,6 @@ export default {
         pointer-events:none;
       }
     }
-    
   }
   &--fixed{
     .filters__sticky{

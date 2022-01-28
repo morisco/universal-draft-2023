@@ -5,13 +5,17 @@
 export function scrollIt(destination, duration = 200, easing = 'linear', callback) {
   
   if(destination === parseInt(window.pageYOffset.toFixed(), 10)){
-    callback();
+    if (callback) {
+      callback();
+    }
     return;
   }
   const scrollDetector = () => {
     if (parseInt(window.pageYOffset.toFixed(), 10) === destination) {
       window.removeEventListener('scroll', scrollDetector, false)
-      callback()
+      if(callback) {
+        callback()
+      }
     }
   }
   window.addEventListener('scroll', scrollDetector, false)

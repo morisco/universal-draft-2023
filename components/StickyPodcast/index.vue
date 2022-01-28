@@ -147,7 +147,7 @@ export default {
       this.isOpen = !this.isOpen
     },
     watchTime() {
-      this.currentTime = this.$refs.audioPlayer.currentTime;
+      this.currentTime = this.$refs.audioPlayer ? this.$refs.audioPlayer.currentTime : 0;
     },
     podcastEnded() {
       this.setPlaying(false);
@@ -183,6 +183,11 @@ export default {
     handlePlayPause() {
       if(this.podPlaying) {
         if(this.readyToPlay) {
+          this.$ga.event({
+            eventCategory: this.currentPod.type === "clip" ? 'poddcast-clip' : 'podcast-episode',
+            eventAction: 'played',
+            eventLabel: this.currentPod.show + ' - ' + this.currentPod.title,
+          });
           this.$refs.audioPlayer.play();
           this.shouldPlay = false;
         } else {
