@@ -207,9 +207,10 @@ export default {
     .filters{
       &__section{
         opacity:0.5;
+        pointer-events:none;
       }
     }
-    pointer-events:none;
+    
   }
   &--fixed{
     .filters__sticky{
