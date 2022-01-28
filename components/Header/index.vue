@@ -4,7 +4,7 @@
     <div class="header__inner">
       <div class="header__inner-text">
         <h1 class="headline">
-          <span class="headline--small">The Ringer's 2022</span>
+          <span class="headline--small">The Ringer's <span class="orange">2022</span></span>
           <span class="headline--big"><span>NFL Draft Guide</span></span>
         </h1>
         <h2 class="subheadline">With scouting reports by Danny Kelly</h2>
@@ -55,8 +55,11 @@ export default {
   height:100vh;
   height: calc(var(--vh, 1vh) * 100);
   justify-content:center;
+  .orange{
+    color:$highlight1;
+  }
   @include non-mobile{
-    min-height:800px;
+    min-height:700px;
   }
   &__inner {
     display:flex;

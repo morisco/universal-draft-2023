@@ -249,7 +249,7 @@ export default {
         opacity:0;
         transition:color 0.25s ease-in-out, opacity 0.25s linear 0s;
         //  @include mobile{
-          margin-top:10px;
+          margin: 15px 0 0;
           display:block;
           @include mobile-expand-label;
         // }

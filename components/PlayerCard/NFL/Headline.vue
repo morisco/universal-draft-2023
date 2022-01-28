@@ -44,11 +44,12 @@ export default {
         max-width:100%;
       }
       p{
-        margin-bottom:15px;
+        margin-bottom:10px;
         @include player-headline;
         color:$headlinegray;
         letter-spacing: -0.025em; 
         font-size: 25px; 
+        line-height:1.2;
         // line-height:22px;
         &:last-of-type{
           margin-bottom:5px;
@@ -59,7 +60,8 @@ export default {
           font-weight:normal;
           font-family: 'Decima';
           color:$black;
-          font-size:26px;
+          font-size:25px;
+          line-height:0.95;
           letter-spacing:0;
         }
         @include mobile{

@@ -90,6 +90,7 @@ export default {
         flex-direction:column;
         height:100%;
         padding-bottom:6px;
+        padding:0 10px 6px 0;
         span{
           flex:1;
         }
@@ -100,7 +101,8 @@ export default {
         //   // padding-bottom:0;
         // }
         img{
-          width:90%;
+          width: 75%;
+          padding-bottom: 7px;
           @include tablet-portrait-only{
           
             width:60px;

@@ -283,6 +283,11 @@
           @include tablet-portrait-only{
             margin-left:-40px;
           }
+
+          .label{
+            font-size:19px;
+            line-height:1.15;
+          }
           
 
           .shades-of-icon{
