@@ -4,7 +4,7 @@
       <PodcastCard v-for="pod in podItems" :key="interstitial.id + '-' + pod.id" :pod="pod" />
     </mq-layout>
     <mq-layout mq="mobile" class="podcast-inter__inner">
-      <PodcastCard :pod="mobilePod" />
+      <PodcastCard :pod="mobilePod" v-if="mobilePod" />
     </mq-layout>
   </div>
 </template>
@@ -13,6 +13,7 @@
 import PodcastCard from '~/components/Podcast/Card'
 export default {
   props: ['interstitial'],
+  components: { PodcastCard }, 
   methods: {
     setPods() {
       const self = this;
