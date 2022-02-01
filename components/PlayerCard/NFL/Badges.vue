@@ -6,7 +6,7 @@
       </div>
       <span class="player-card__badge-label">
         <span>{{badge.label}}</span>
-        <img src="@/assets/img/state-farm-red.svg" alt="State Farm Logo" data-not-lazy v-if="badge.id === 'instinctual_playmaking' || badge.id === 'infinite_upside'" />
+        <!-- <img src="@/assets/img/state-farm-red.svg" alt="State Farm Logo" data-not-lazy v-if="badge.id === 'instinctual_playmaking' || badge.id === 'infinite_upside'" /> -->
       </span>
     </li>
   </ul>
