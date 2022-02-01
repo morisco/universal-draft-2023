@@ -5,14 +5,13 @@
       'sticky-podcast--open': isOpen,
       'sticky-podcast--show-mobile': showMobile,
     }"
-    v-if="activePodcast"
   >
-    <div class="sticky-podcast__trigger">
+    <div class="sticky-podcast__trigger" v-if="activePodcast">
       <a :href="activePodcast.spotify_episodeSpotify" target="_blank">
         <img src="~/assets/img/icons/spotify.svg" alt="Spotify" />
       </a>
     </div>
-    <div class="sticky-podcast__player">
+    <div class="sticky-podcast__player" v-if="activePodcast">
       <Topper :content="currentPod" :readyToPlay="readyToPlay" :activePodcast="activePodcast" :duration="duration" :podPlaying="podPlaying || shouldPlay" :playPause="togglePlay" />
       <div
         class="sticky-podcast__player-mini-controls" 
@@ -58,10 +57,9 @@
               <div class="mini-controls-progress" :style="{'max-width': progress + '%'}" />
 
     </div>
-    <audio ref="audioPlayer" v-on:canplay="audioCanPlay" v-on:timeupdate="watchTime" v-on:ended="podcastEnded"  data-not-lazy>
-      <source :src="activePodcast.spotify_episodeMP3" type="audio/mpeg">
+    <audio preload="auto" ref="audioPlayer" v-on:canplay="audioCanPlay" v-on:timeupdate="watchTime" v-on:ended="podcastEnded"  data-not-lazy>
+      <source :src="activePodcast && activePodcast.spotify_episodeMP3" type="audio/mpeg">
     </audio>
-   
   </div>
 </template>
 
@@ -142,6 +140,7 @@ export default {
     }),
     audioCanPlay() {
       this.readyToPlay = true;
+
     },
     toggleOpen() {
       this.isOpen = !this.isOpen
@@ -233,21 +232,29 @@ export default {
       }
       this.handlePlayPause();
     },
+    shouldPlay() {
+      this.handlePlayPause();
+    },
     currentPod(newVal, oldVal) {
       if(this.activePodcast) {
         this.shouldPlay = true
       }
       this.podUpdate = true
+      if(this.currentPod && this.activePodcast && this.currentPod.id !== this.activePodcast.id) {
+        this.readyToPlay = false
+      }
       if(this.currentPod && this.pods) {
         this.activePodcast = this.pods[this.currentPod.id];
       }
       this.setPlaying(false);
       this.currentTime = 0;
       this.ended = false;
-      this.readyToPlay = false
     },
     activePodcast() {
       this.podUpdate = true;
+      // if(this.activePodcast && this.$refs.audioPlayer) {
+      //   // this.$refs.audioPlayer.load();
+      // }
     },
     pods() {
       if(this.pods && this.defaultPod) {
@@ -704,7 +711,7 @@ export default {
               -webkit-line-clamp: 3;
               -webkit-box-orient: vertical;  
               overflow: hidden;
-            padding-bottom:4px;
+            padding-bottom:3px;
             margin-bottom:4px;
             margin-top:-4px;
             @media(min-width:1200px)  and (max-height:650px){

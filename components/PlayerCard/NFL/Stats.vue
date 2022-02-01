@@ -21,12 +21,6 @@ import { parseStats } from '~/plugins/contentProcessor'
 export default {
   props: ['player'],
   name: 'Stats',
-  mounted(){
-    this.statArray && this.statArray.forEach((stat) => {
-      console.log(stat.label.length);
-    })
-    
-  },
   computed: {
     statArray() {
       const parsedStats = parseStats(this.player.player_position_stats);
