@@ -12,8 +12,8 @@
           By {{interstitial.byline}}
         </div>
         <div class="list-inter__presented-by">
-          <span>Presented By</span>
-          <img src="@/assets/img/state-farm-red.svg" alt="State Farm Logo" data-not-lazy />
+          <!-- <span>Presented By</span>
+          <img src="@/assets/img/state-farm-red.svg" alt="State Farm Logo" data-not-lazy /> -->
         </div>
         <div class="list-inter__content" v-html="firstParagraph"></div>
       </div>
