@@ -8,12 +8,12 @@ let statsMap = {
   ],
   de: [
     { key: 'tackles', label: 'TKLS', tooltip: 'Tackles' },
-    { key: 'tackles_for_loss', label: 'TFL', tooltip: 'Tackles For Loss' },
+    { key: 'tackles_for_loss', label: 'TFL', tooltip: 'Interceptions' },
     { key: 'sacks', label: 'SACKS', tooltip: 'Sacks' },
   ],
   db: [
     { key: 'tackles', label: 'TKLS', tooltip: 'Tackles' },
-    { key: 'interceptions', label: 'INTS', tooltip: 'Tackles For Loss' },
+    { key: 'interceptions', label: 'INTS', tooltip: 'Interceptions' },
     { key: 'passes_broken_up', label: 'PBU', tooltip: 'Pass Breakups' }
   ],
   wr: [
