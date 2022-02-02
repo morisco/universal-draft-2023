@@ -100,6 +100,11 @@ export default {
   watch: {
     currentPod() {
       this.activePod = this.currentPod.id === this.podcast.podcast && this.currentPod.start === this.startTime
+      if(this.podPlaying && this.podcast.podcast === this.currentPod.id && this.currentPod.start === this.startTime) {
+        this.playing = true;
+      } else {
+        this.playing = false;
+      }
     },
     podTime() {
       if(this.activePod) {
