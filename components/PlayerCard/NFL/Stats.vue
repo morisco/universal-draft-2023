@@ -170,7 +170,7 @@ export default {
     line-height:1;
     color:$headlinegray;
     @include stat-title;
-    padding:6px 0 0;
+    padding:3px 0 0;
     @include mobile{
       text-align:center;
       padding:0 4px;
