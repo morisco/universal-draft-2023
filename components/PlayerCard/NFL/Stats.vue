@@ -1,5 +1,5 @@
 <template>
-<div class="player-card__stats">
+<div class="player-card__stats" v-if="statArray.length">
   <div class="player-card__stats-detail" v-if="player.stat_details">
     <div class="player-card__stats-detail-year">{{player.stat_details.year}} STATS</div>
     <div class="player-card__stats-detail-games">Based on {{player.stat_details.games}} games played</div>
@@ -24,6 +24,7 @@ export default {
   computed: {
     statArray() {
       const parsedStats = parseStats(this.player.player_position_stats);
+      console.log(parsedStats);
       return parsedStats;
     }
   }  

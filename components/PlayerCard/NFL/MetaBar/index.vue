@@ -29,7 +29,7 @@
         <span class="label">Year</span> {{playerMeta.year}}
       </div>
       <div class="player-card__meta-bar-details-row">
-        <span class="label">Age</span> {{playerMeta.age}}
+        <span class="label">Age</span> {{playerMeta.age || "--"}}
       </div>
     </div>
     <div class="player-card__meta-bar-details-column" v-if="$mq !== 'tablet'">
