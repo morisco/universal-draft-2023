@@ -17,7 +17,7 @@ export default {
   methods: {
     setPods() {
       const self = this;
-      if(this.pods && this.pods.length > 0) {
+      if(this.pods && Object.keys(this.pods).length > 0) {
         this.podItems = this.podIds.map(id => self.pods[id]);
         this.mobilePod = this.pods[this.interstitial.mobile_pod];
       }
@@ -44,14 +44,18 @@ export default {
     pods() {
       return this.$store.getters['content/pods']
     },
-   
   },
   watch: {
     pods() {
-      if(this.pods) {
+      if(this.pods && this.podIds) {
         this.setPods()
       }
-    }
+    },
+    podIds() {
+      if(this.pods && this.podIds) {
+        this.setPods()
+      }
+    },
   },
 }
 </script>
