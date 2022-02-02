@@ -17,8 +17,10 @@ export default {
   methods: {
     setPods() {
       const self = this;
-      this.podItems = this.podIds.map(id => self.pods[id]);
-      this.mobilePod = this.pods[this.interstitial.mobile_pod];
+      if(this.pods && this.pods.length > 0) {
+        this.podItems = this.podIds.map(id => self.pods[id]);
+        this.mobilePod = this.pods[this.interstitial.mobile_pod];
+      }
     },
   },
   data() {
@@ -47,7 +49,7 @@ export default {
   watch: {
     pods() {
       if(this.pods) {
-        setPods()
+        this.setPods()
       }
     }
   },
