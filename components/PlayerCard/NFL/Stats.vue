@@ -24,7 +24,6 @@ export default {
   computed: {
     statArray() {
       const parsedStats = parseStats(this.player.player_position_stats);
-      console.log(parsedStats);
       return parsedStats;
     }
   }  
