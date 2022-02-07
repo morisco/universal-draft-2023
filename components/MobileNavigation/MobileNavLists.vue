@@ -10,7 +10,7 @@
     <span class="mobile-navigation__lists-updated">{{pageSettings.danny_updated}}</span>
   </NuxtLink>
   <NuxtLink tag="button" to="/team-needs" class="mobile-navigation__lists-button" v-on:click.native="changeList" :disabled="!pageSettings.breakdown_by_team" activeClass="mobile-navigation__lists-button--active">
-    <span class="mobile-navigation__lists-title">Team Needs</span>
+    <span class="mobile-navigation__lists-title">Team Needs by Danny Heifetz</span>
     <span class="mobile-navigation__lists-updated">{{pageSettings.breakdown_updated}}</span>
   </NuxtLink>
   <NuxtLink tag="button" to="/draft-grades" class="mobile-navigation__lists-button" v-on:click.native="changeList" :disabled="!pageSettings.enable_results" activeClass="mobile-navigation__lists-button--active">

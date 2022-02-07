@@ -61,7 +61,7 @@ export default {
           font-family: 'Decima';
           color:$black;
           font-size:25px;
-          line-height:0.95;
+          line-height:0.935;
           letter-spacing:0;
         }
         @include mobile{
