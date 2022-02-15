@@ -1,7 +1,7 @@
 <template>
   <section class="main-section draft-grades" ref="draftResults">
     <MainSectionIntro type="draft_grades" />
-    <transition-group name="player-card" class="draft-results__inner" tag="div">
+    <transition-group name="player-card" class="draft-results__inner main-section__inner" tag="div">
       <template v-for="(playerId, index) in draftResultsIds">
         <PlayerCard 
           :playerId="playerId" 

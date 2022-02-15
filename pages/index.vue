@@ -1,7 +1,7 @@
 <template>
   <section class="main-section big-board" ref="bigBoard">
     <MainSectionIntro type="big_board" />
-    <transition-group name="player-card" class="big-board__inner" tag="div">
+    <transition-group name="player-card" class="big-board__inner main-section__inner" tag="div">
       <template v-for="(playerId, index) in bigBoardIds">
         <PlayerCard 
           :playerId="playerId" 

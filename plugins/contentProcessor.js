@@ -118,11 +118,12 @@ export function processTeams(teams, teamPlayers) {
     team.image = processImages(team.image);
     processedTeams[team.id] = team;
   });
-  teams.sort((teamA, teamB) => parseInt(teamA.order_results,10) > parseInt(teamB.order_results,10) ? 1 : -1);
-  teams.forEach((team) => {
+  const rTeams = [...teams];
+  rTeams.sort((teamA, teamB) => parseInt(teamA.order_results,10) > parseInt(teamB.order_results,10) ? 1 : -1);
+  rTeams.forEach((team) => {
     resultsIds.push(team.id);
   });
-  const resultsTeamNameLogo = teams.map((team) => {
+  const resultsTeamNameLogo = rTeams.map((team) => {
     let teamToUse = team;
     let via = '';
     if(team.pick_trades_results && team.pick_trades_results[0]){

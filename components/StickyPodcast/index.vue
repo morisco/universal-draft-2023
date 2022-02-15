@@ -173,7 +173,7 @@ export default {
       this.setPlaying(true);
     },
     handleScroll() {
-      if(window.scrollY > document.querySelector('.big-board__inner').offsetParent.offsetTop) {
+      if(window.scrollY > document.querySelector('.main-section__inner').offsetParent.offsetTop) {
         this.showMobile = true
       } else {
         this.showMobile = false
@@ -536,6 +536,7 @@ export default {
           .mini-controls-meta{
             display:flex;
             max-width:100%;
+            max-width:calc(100% - 70px);
             flex:1;
             @media (min-width:1201px) and (max-width:1400px) {
               max-width:100%;

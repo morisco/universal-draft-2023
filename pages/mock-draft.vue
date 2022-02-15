@@ -1,7 +1,7 @@
 <template>
   <section class="main-section mock-draft" ref="mockDraft">
     <MainSectionIntro type="mock_draft" />
-    <transition-group name="player-card" class="mock-draft__inner" tag="div">
+    <transition-group name="player-card" class="mock-draft__inner main-section__inner" tag="div">
       <template v-for="(playerId, index) in mockDraftIds">
         <PlayerCard 
           :playerId="playerId" 
