@@ -44,15 +44,35 @@
   text-transform:uppercase;
   line-height:45px;
   max-width:70%;
+  .app--nba & {
+    font-family: "GT America Condensed",Arial,sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -.29px;
+    text-transform: normal;
+    line-height: 1.2;
+    max-width: 70%;
+    text-transform:none;
+  }
   @include single-column{
     font-size:36px;
     line-height:36px;
     max-width:80%;
+    .app--nba & {
+      font-size:36px;
+      line-height:36px;
+      max-width:80%;
+    }
   }
   @include mobile{
     font-size:19px;
     line-height:20px;
     max-width:100%;
+    .app--nba & {
+      font-size:19px;
+      line-height:20px;
+      max-width:100%;
+    }
   }
 }
 
