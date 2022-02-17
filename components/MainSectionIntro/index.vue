@@ -17,28 +17,28 @@ export default {
       switch(this.type){
         case 'big_board':
           return {
-            headline: '<strong>Big Board</strong> By Danny Kelly',
+            headline: `<strong>Big Board</strong> By ${this.league === 'nfl' ? "Danny Kelly" : "Kevin O'Connor"}`,
             content: this.$store.getters['page/settings'].big_board_intro,
             link: '/mock-draft',
             linkText: this.$store.getters['page/settings'].big_board_link,
           }
         case 'mock_draft':
           return {
-            headline: '<strong>Mock Draft</strong> By Danny Kelly',
+            headline: `<strong>Mock Draft</strong> By ${this.league === 'nfl' ? "Danny Kelly" : "Kevin O'Connor"}`,
             content: this.$store.getters['page/settings'].mock_draft_intro,
             link: '/',
             linkText: this.$store.getters['page/settings'].mock_draft_link,
           }
         case 'team_needs':
           return {
-            headline: '<strong>Team Needs</strong>',
+            headline: `<strong>Team Needs</strong> ${this.league === 'nfl' ? "" : "By Matt Dollinger"}`,
             content: this.$store.getters['page/settings'].team_needs_intro,
             link: '/mock-draft',
             linkText: this.$store.getters['page/settings'].team_needs_link,
           }
         case 'draft_grades':
           return {
-            headline: '<strong>Draft Grades</strong> By Danny Kelly',
+            headline: `<strong>Draft Grades</strong> ${this.league === 'nfl' ? "By Danny Kelly" : "By Kevin O'Connor"}`,
             content: this.$store.getters['page/settings'].draft_results_intro,
             link: '/big-board',
             linkText: this.$store.getters['page/settings'].draft_results_link,
@@ -65,12 +65,25 @@ export default {
 <style lang="scss">
 .main-section__intro{
   margin-bottom:70px;
+  .app--nba & {
+    margin-bottom:45px;
+    @include mobile{
+      padding:0 30px;
+    }
+  }
   h3{
     text-transform:uppercase;
     font-weight:300;
     margin-bottom:15px;
     strong{
       font-weight:normal;
+    }
+    .app--nba & {
+      font-family: "GT America Condensed";
+      font-size: 32px;
+      strong{
+        font-weight: 500;
+      }
     }
   }
   h2{

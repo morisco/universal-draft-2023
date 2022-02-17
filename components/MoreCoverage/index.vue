@@ -38,6 +38,10 @@ export default {
   }
   @include mobile{
     margin-top:70px;
+    .app--nba & {
+      padding: 0 50px;
+      margin-top:100px;
+    }
   }
   &__credits{
     position: absolute;
@@ -47,6 +51,11 @@ export default {
     @include mobile{
       right:auto;
       left:0;
+      .app--nba & {
+        left:50px;
+        right:50px;
+        text-align:right;
+      }
     }
   }
   &__title{

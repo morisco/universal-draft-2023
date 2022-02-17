@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '~/components/PlayerCard/NFL/MetaBar/style.scss';
+  // @import '~/components/PlayerCard/NFL/MetaBar/style.scss';
   .team-card{
     &__meta-bar{
       padding:0 !important;

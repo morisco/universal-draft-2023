@@ -173,6 +173,7 @@ export default {
       this.setPlaying(true);
     },
     handleScroll() {
+      if(!this.activePodcast) return;
       if(window.scrollY > document.querySelector('.main-section__inner').offsetParent.offsetTop) {
         this.showMobile = true
       } else {
@@ -634,11 +635,13 @@ export default {
         display:flex;
         position:relative;
         width:100%;
-        @media(min-width:1200px)  and (max-height:580px){
-          display:none;
-        }
-        @include single-column{
-          display:none;
+        .sticky-podcast & {
+          @media(min-width:1200px)  and (max-height:580px){
+            display:none;
+          }
+          @include single-column{
+            display:none;
+          }
         }
 
         .album-art{
@@ -651,12 +654,14 @@ export default {
           .card-item & {
             width:80px;
           }
-          @media(min-width:1201px) and (max-width:1400px) {
+          .sticky-podcast & {
+            @media(min-width:1201px) and (max-width:1400px) {
               display:none;
             }
             @media(min-width:1200px)  and (max-height:650px){
               display:none;
             }
+          }
           &:after{
             content:'';
             display:block;
@@ -693,8 +698,10 @@ export default {
               margin-top:-3px;
             }
           }
-          @media(min-width:1200px)  and (max-height:650px){
-            margin-bottom:8px;
+          .sticky-podcast & {
+            @media(min-width:1200px)  and (max-height:650px){
+              margin-bottom:8px;
+            }
           }
         }
           .sticky-show-name{
@@ -715,8 +722,10 @@ export default {
             padding-bottom:3px;
             margin-bottom:4px;
             margin-top:-4px;
-            @media(min-width:1200px)  and (max-height:650px){
-              margin-bottom:5px;
+            .sticky-podcast & {
+              @media(min-width:1200px)  and (max-height:650px){
+                margin-bottom:5px;
+              }
             }
 
           }
@@ -724,8 +733,10 @@ export default {
             display:flex;
             align-items:center;
             margin-top:2px;
-            @media(min-width:1200px)  and (max-height:650px){
-              display:none;
+            .sticky-podcast & {
+              @media(min-width:1200px)  and (max-height:650px){
+                display:none;
+              }
             }
 
             .sticky-play-pause{

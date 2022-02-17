@@ -3,7 +3,13 @@
     <MainSectionIntro type="team_needs" />
     <transition-group name="player-card" class="mock-draft__inner main-section__inner" tag="div">
       <template v-for="(teamId, index) in teamNeedsIds">
-        <TeamCard 
+        <NFLTeamCard 
+          v-if="league === 'nfl'"
+          :teamId="teamId" 
+          :key="teamId" 
+        />
+        <NBATeamCard 
+          v-else-if="league === 'nba'"
           :teamId="teamId" 
           :key="teamId" 
         />
@@ -20,7 +26,8 @@
 </template>
 
 <script>
-import TeamCard from '~/components/TeamCard'
+import NFLTeamCard from '~/components/NFLTeamCard'
+import NBATeamCard from '~/components/NBATeamCard'
 import MainSectionIntro from '~/components/MainSectionIntro'
 import Interstitial from '~/components/Interstitial'
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
@@ -35,7 +42,7 @@ export default {
     mode:"out-in",
   },
   scrollToTop: false,
-  components: { MainSectionIntro, TeamCard, Interstitial, MoreCoverage },
+  components: { MainSectionIntro, NFLTeamCard, NBATeamCard, Interstitial, MoreCoverage },
   mounted() {
     if(!this.pageSettings.breakdown_by_team) {
       this.$router.push({
@@ -63,6 +70,9 @@ export default {
     clearTimeout(this.initTimeout);
   },
   computed: {
+    league() {
+      return process.env.PROJECT_LEAGUE.toLowerCase()
+    },
     pageSettings () {
       return this.$store.getters['page/settings'] || {}
     },
@@ -105,5 +115,12 @@ export default {
 <style scoped lang="scss">
 .team-needs{
    min-height:calc(100vh + 4px);
+   .mock-draft__inner{
+     .app--nba & {
+       width:calc(100vw - 40px);
+       max-width:100%;
+       margin:0 auto;
+     }
+   }
 }
 </style>

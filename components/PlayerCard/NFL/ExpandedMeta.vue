@@ -22,6 +22,37 @@ export default {
 
 <style lang="scss">
   .player-card{
+    .app--nfl & {
+      &__expanded-meta{
+        &-section{
+          p{
+          &:last-of-type{
+            margin-bottom:30px;
+          }
+        }
+        }
+      }
+      &__expanded-value{
+        > p {
+          @include player-card-body;
+          a{
+            text-decoration:underline;
+          }
+        }
+        &--last{
+          > p{
+            &:last-of-type{
+              margin-bottom:0;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<style lang="scss" scoped>
+  .player-card{
     &__expanded-meta{
       position:relative;
       display:flex;
@@ -46,11 +77,7 @@ export default {
         // }
       }
       &-section{
-        p{
-          &:last-of-type{
-            margin-bottom:30px;
-          }
-        }
+        
         @include mobile{
           margin-bottom:20px;
           &:last-of-type{

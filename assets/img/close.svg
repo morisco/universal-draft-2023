@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="13px" height="13px" viewbox="0 0 13 13" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="Group-11" transform="translate(0.5 0.5)">
+    <path d="M0.5 0.5L11.5 11.5" id="Line-2" fill="none" fill-rule="evenodd" stroke="#979797" stroke-width="1" stroke-linecap="square" />
+    <path d="M0.5 0.5L11.5 11.5" transform="matrix(-1 0 0 1 12 0)" id="Line-2" fill="none" fill-rule="evenodd" stroke="#979797" stroke-width="1" stroke-linecap="square" />
+  </g>
+</svg>

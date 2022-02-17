@@ -119,6 +119,8 @@ export default {
       padding:30px 30px 30px;
       background:$lightgray;
       border-radius:8px;
+      display:flex;
+      flex-direction:column;
       .sticky-podcast__player-top{
         display:flex;
       }
@@ -151,6 +153,7 @@ export default {
       -webkit-box-orient: vertical;  
       overflow: hidden;
       margin:10px 0 10px;
+      flex:1;
       p{
         display: -webkit-box;
         @include player-card-body;

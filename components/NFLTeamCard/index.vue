@@ -65,10 +65,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  @import '~/components/PlayerCard/NFL/nfl-card.scss';
-  @import '~/components/PlayerCard/NFL/ImageColumn/style.scss';
-  @import '~/components/PlayerCard/NFL/InfoColumn/style.scss';
+<style lang="scss" scoped>
+  // @import '~/components/PlayerCard/NFL/nfl-card.scss';
+  // @import '~/components/PlayerCard/NFL/ImageColumn/style.scss';
+  // @import '~/components/PlayerCard/NFL/InfoColumn/style.scss';
   .team-card{
     flex-direction:column;
     margin: 0 0 30px;

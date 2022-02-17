@@ -2,10 +2,10 @@
   <section class="main-section mock-draft" ref="mockDraft">
     <MainSectionIntro type="mock_draft" />
     <transition-group name="player-card" class="mock-draft__inner main-section__inner" tag="div">
-      <template v-for="(playerId, index) in mockDraftIds">
+      <template v-for="(card, index) in idsToDisplay">
         <PlayerCard 
-          :playerId="playerId" 
-          :key="playerId" 
+          :playerId="card.id" 
+          :key="card.id" 
           rankKey="order_mockdraft" 
           v-on:card-expanded="setCardExpanded" 
           :cardExpanded="cardExpanded" 
@@ -30,6 +30,7 @@ import MainSectionIntro from '~/components/MainSectionIntro'
 import Interstitial from '~/components/Interstitial';
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
+import { scrollIt } from '~/plugins/scroller'
 export default {
   name: 'MockDraft',
   transition: {
@@ -41,7 +42,8 @@ export default {
   data() {
     return {
       initTimeout: null,
-      showAll: this.$route.params.player_id ? true : false
+      showAll: this.$route.params.player_id ? true : false,
+      idsToDisplay: [],
     }
   },
   created() {
@@ -59,6 +61,9 @@ export default {
       this.$router.push({
         path: '/'
       })
+    }
+    if(this.mockDraftIds && this.interstitials){
+      this.makeData();
     }
   },
   computed: {
@@ -82,8 +87,11 @@ export default {
     },
     mockDraftIds () {
       const itemCount = this.viewDepth === 'compact' ? 10 : 4;
-      return this.showAll ? this.$store.getters['content/mockDraft'](this.viewPosition) : this.$store.getters['content/mockDraft'](this.viewPosition).slice(0,itemCount)
-    }
+      return this.showAll ? this.$store.getters['content/mockDraft'](this.viewPosition, this.viewStrength) : this.$store.getters['content/mockDraft'](this.viewPosition, this.viewStrength).slice(0,itemCount)
+    },
+    viewStrength() {
+      return this.$store.getters['viewOptions/strength']
+    },
   },
    methods: {
    ...mapActions({
@@ -93,6 +101,16 @@ export default {
       if(window.scrollY > this.$refs.mockDraft.offsetParent.offsetTop + this.$refs.mockDraft.offsetTop - window.innerHeight) {
         this.showAll = true;
       }
+    },
+    makeData () {
+      let dataObj = [];
+      this.mockDraftIds.forEach((playerId, index) => {
+        dataObj.push({type:'player', id: playerId});
+        if(this.interstitials[index+1] && this.viewStrength.length === 0 && this.viewPosition === 'all'){
+          dataObj.push({type:'interstitial', interKey:index+1})
+        }
+      })
+      this.idsToDisplay = [...dataObj];
     }
   },
   watch: {
@@ -101,6 +119,30 @@ export default {
         this.$router.push({
           path: '/'
         })
+      }
+    },
+    viewStrength () {
+      var offset = this.$mq === 'mobile' ? document.getElementById('mobile-navigation').offsetTop + 4 : this.$refs.mockDraft.offsetParent.offsetTop + this.$refs.mockDraft.offsetTop - 120
+      scrollIt(offset, 500, 'easeOutQuad')
+      if(this.interstitials && this.mockDraftIds){
+        this.makeData();
+      }
+    },
+    viewPosition () {
+      // var offset = this.$mq === 'mobile' ? document.getElementById('mobile-navigation').offsetTop + 4 : document.getElementById('navigation').offsetTop + 4
+      // scrollIt(offset, 500, 'easeOutQuad')
+      if(this.interstitials && this.mockDraftIds){
+        this.makeData();
+      }
+    },
+    mockDraftIds() {
+      if(this.interstitials){
+        this.makeData();
+      }
+    },
+    interstitials() {
+      if(this.mockDraftIds){
+        this.makeData();
       }
     }
   },

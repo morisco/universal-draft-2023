@@ -2,19 +2,23 @@
   <div 
     id="app" 
     class="app" 
-    :class="{
+    :class="['app--' + league, {
       'app--supports-hover': !($device.isMobile || $device.isTablet),
       'app--ready': siteReady
-    }"
+    }]"
   >
-    <Header />
+    <NFLHeader v-if="league === 'nfl'" />
+    <NBAHeader v-else-if="league === 'nba'" />
      <main v-if="pageSettings" id="main">
-      <Intro />
+      <NFLIntro v-if="league === 'nfl'" />
+      <NBAIntro v-else-if="league === 'nba'" />
       <mq-layout mq="tablet+">
-        <Navigation />
+        <NFLNavigation v-if="league === 'nfl'" />
+        <NBANavigation v-else-if="league === 'nba'" />
       </mq-layout>
       <mq-layout mq="mobile">
-        <MobileNavigation v-on:lock-scroll="lockScroll" v-on:unlock-scroll="unlockScroll" v-on:reset-list="resetList" />
+        <NFLMobileNavigation v-if="league === 'nfl'" v-on:lock-scroll="lockScroll" v-on:unlock-scroll="unlockScroll" v-on:reset-list="resetList" />
+        <NBAMobileNavigation v-else-if="league === 'nba'" v-on:lock-scroll="lockScroll" v-on:unlock-scroll="unlockScroll" v-on:reset-list="resetList" />
       </mq-layout>
       <div 
         class="app__content" 
@@ -40,17 +44,22 @@
 </template>
 
 <script>
-import Header from '~/components/Header'
+import NFLHeader from '~/components/NFLHeader'
+import NBAHeader from '~/components/NBAHeader'
 import Filters from '~/components/Filters'
 import Consent from '~/components/Consent'
-import MobileNavigation from '~/components/MobileNavigation'
+import NFLIntro from '~/components/NFLIntro'
+import NBAIntro from '~/components/NBAIntro'
+import NFLMobileNavigation from '~/components/NFLMobileNavigation'
+import NBAMobileNavigation from '~/components/NBAMobileNavigation'
 import PodcastController from '~/components/Podcast/GlobalController'
 import StickyPodcast from '~/components/StickyPodcast';
-import Navigation from '~/components/Navigation'
+import NFLNavigation from '~/components/NFLNavigation'
+import NBANavigation from '~/components/NBANavigation'
 import Footer from '~/components/Footer'
 
 export default {
-  components: { Header, Filters, MobileNavigation, Navigation, StickyPodcast, Footer, Consent },
+  components: { NFLHeader, NBAHeader, NFLIntro, NBAIntro, Filters, NFLMobileNavigation, NBAMobileNavigation, NFLNavigation, NBANavigation, StickyPodcast, Footer, Consent },
   computed: {
     pageSettings () {
       return this.$store.getters['page/settings']
@@ -60,13 +69,18 @@ export default {
     },
     showSticky() {
       return ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) >= 0;
+    },
+    league() {
+      return process.env.PROJECT_LEAGUE.toLowerCase()
     }
   },
   created () {
     if(process.client){
       this.$ga.page(this.$route.path);
     }
-    this.$store.dispatch('content/getContents')
+    this.$store.dispatch('content/getContents', {
+      teams: this.$store.getters['page/settings'].teams
+    })
   },
   mounted() {
     if(this.$refs.sizer){
@@ -144,6 +158,9 @@ export default {
     justify-content:flex-end;
     min-height:calc(100vh - 41px);
     z-index:0;
+    .app--nba & {
+      margin:120px auto 0;
+    }
     @include medium-desktop {
       width:calc(100% - 75px);
     }
@@ -157,6 +174,13 @@ export default {
     }
     @include mobile{
       width:calc(100% - 30px);
+    }
+  }
+  &--nba{
+    .app__content{
+      @include mobile{
+        width:100%;
+      }
     }
   }
 }

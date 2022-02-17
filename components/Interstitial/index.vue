@@ -18,11 +18,38 @@ import PodcastInter from './Podcast.vue';
 export default {
   components: { ArticleInter, ListInter, VideoInter, PodcastInter },
   props: ['list', 'interKey'],
+  data() {
+    return {
+      showInter: true
+    }
+  },
   computed: {
     interstitial() {
       return this.$store.getters['content/interstitial'](this.list, this.interKey);
+    },
+    viewPosition() {
+      return this.$store.getters['viewOptions/position']
+    },
+    viewStrength() {
+      return this.$store.getters['viewOptions/strength']
     }
-  }
+  },
+  watch: {
+    viewStrength() {
+      if(this.viewStrength.length > 0){
+        this.showInter = false
+      } else if(this.viewPosition === 'all'){
+        this.showInter = true;
+      }
+    },
+    viewPosition() {
+      if(this.viewPosition !== 'all'){
+        this.showInter = false
+      } else if(this.viewStrength.length === 0){
+        this.showInter = true;
+      }
+    }
+  },
 }
 </script>
 

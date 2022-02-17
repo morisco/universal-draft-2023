@@ -54,4 +54,25 @@ export default process.env.PROJECT_LEAGUE === 'NFL' ? [
     shortLabel: 'DB',
     positionKey: 'db'
   }
+] : process.env.PROJECT_LEAGUE === 'NBA'? [
+  {
+    fullLabel: 'All',
+    shortLabel: 'All',
+    positionKey: 'all'
+  },
+  {
+    fullLabel: 'Bigs',
+    shortLabel: 'Bigs',
+    positionKey: 'bigs'
+  },
+  {
+    fullLabel: 'Forwards',
+    shortLabel: 'Forwards',
+    positionKey: 'forwards'
+  },
+  {
+    fullLabel: 'Guards',
+    shortLabel: 'Guards',
+    positionKey: 'guards'
+  }
 ] : [];

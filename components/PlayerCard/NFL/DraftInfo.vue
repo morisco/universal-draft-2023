@@ -13,6 +13,21 @@ export default {
 </script>
 
 <style lang="scss">
+  .app--nfl {
+    .draft-info {
+      &__content{
+        p{
+          @include player-card-body;
+          &:last-of-type{
+            margin-bottom:0;
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<style lang="scss" scoped>
   .draft-info{
     // position:absolute;
     // border:1px solid $darkmediumgray;
@@ -28,6 +43,7 @@ export default {
     @include mobile{
       background:$lightgray;
       padding:15px 20px 30px;
+      margin-top:-20px;
       .player-card--expanded{
         padding:15px 20px 20px;
       }

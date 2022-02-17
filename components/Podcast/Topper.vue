@@ -1,10 +1,10 @@
 <template>
   <div class="sticky-podcast__player-top">
     <a v-if="content.type === 'full' && activePodcast.spotify_showLink" :href="activePodcast.spotify_showLink" class="album-art" target="_blank" rel="noreferrer" :class="{'album-art--player': content.start}">
-      <img  :src="content.image" :alt="content.show + ' Album Art'" />
+      <img :src="content.image" :alt="content.show + ' Album Art'" />
     </a>
     <div v-if="content.type !== 'full' || !activePodcast.spotify_showLink" class="album-art">
-      <img  :src="content.image" :alt="content.show + ' Album Art'" />
+      <img :src="content.image" :alt="content.show + ' Album Art'" />
     </div>
     <div class="sticky-podcast__player-top-content">
       <!-- <div class="album-show-name">

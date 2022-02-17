@@ -104,3 +104,78 @@
   font-style: italic;
   font-display: swap;
 }
+@font-face {
+  font-family: 'GT America Condensed';
+  src: url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedBold.eot');
+  src: url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedBold.eot?#iefix') format('embedded-opentype'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedBold.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedBold.woff') format('woff'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedBold.ttf') format('truetype'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedBold.svg#GTAmerica-CondensedBold') format('svg');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GT America Condensed';
+  src: url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedThin.eot');
+  src: url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedThin.eot?#iefix') format('embedded-opentype'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedThin.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedThin.woff') format('woff'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedThin.ttf') format('truetype'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedThin.svg#GTAmerica-CondensedThin') format('svg');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GT America Condensed';
+  src: url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedThinItalic.eot');
+  src: url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedThinItalic.eot?#iefix') format('embedded-opentype'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedThinItalic.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedThinItalic.woff') format('woff'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedThinItalic.ttf') format('truetype'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedThinItalic.svg#GTAmerica-CondensedThinItalic') format('svg');
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'GT America Condensed';
+  src: url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedMediumItalic.eot');
+  src: url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedMediumItalic.eot?#iefix') format('embedded-opentype'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedMediumItalic.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedMediumItalic.woff') format('woff'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedMediumItalic.ttf') format('truetype'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedMediumItalic.svg#GTAmerica-CondensedMediumItalic') format('svg');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'GT America Condensed';
+  src: url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedMedium.eot');
+  src: url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedMedium.eot?#iefix') format('embedded-opentype'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedMedium.woff2') format('woff2'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedMedium.woff') format('woff'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedMedium.ttf') format('truetype'),
+      url('~assets/webfonts/GTAmerica/hinted-GTAmerica-CondensedMedium.svg#GTAmerica-CondensedMedium') format('svg');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GT America Condensed';
+  src: url('~assets/webfonts/GTAmerica/GTAmerica-CondensedLight.woff2') format('woff2');
+  src: url('~assets/webfonts/GTAmerica/GTAmerica-CondensedLight.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GT America Condensed';
+  src: url('~assets/webfonts/GTAmerica/GTAmerica-CondensedLightItalic.woff2') format('woff2');
+  src: url('~assets/webfonts/GTAmerica/GTAmerica-CondensedLightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+}

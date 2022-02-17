@@ -2,10 +2,10 @@
   <section class="main-section big-board" ref="bigBoard">
     <MainSectionIntro type="big_board" />
     <transition-group name="player-card" class="big-board__inner main-section__inner" tag="div">
-      <template v-for="(playerId, index) in bigBoardIds">
+      <template v-for="(card, index) in idsToDisplay">
         <PlayerCard 
-          :playerId="playerId" 
-          :key="playerId" 
+          :playerId="card.id" 
+          :key="card.id" 
           rankKey="order" 
           v-on:card-expanded="setCardExpanded" 
           :cardExpanded="cardExpanded" 
@@ -30,6 +30,8 @@ import MainSectionIntro from '~/components/MainSectionIntro';
 import { mapActions } from 'vuex'
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
+import { scrollIt } from '~/plugins/scroller'
+
 export default {
   name: 'BigBoard',
   components: { MainSectionIntro, PlayerCard, MoreCoverage, Interstitial },
@@ -42,7 +44,8 @@ export default {
     return {
       initTimeout: null,
       scrollDelay: null,
-      showAll: this.$route.params.player_id ? true : false
+      showAll: this.$route.params.player_id ? true : false,
+      idsToDisplay: []
     }
   },
   created() {
@@ -68,6 +71,9 @@ export default {
     viewPosition () {
       return this.$store.getters['viewOptions/position']
     },
+    viewStrength() {
+      return this.$store.getters['viewOptions/strength']
+    },
     cardExpanded () {
       return this.$store.getters['page/cardExpanded']
     },
@@ -76,8 +82,11 @@ export default {
     },
     bigBoardIds () {
       const itemCount = this.viewDepth === 'compact' ? 10 : 4;
-      return this.showAll ? this.$store.getters['content/bigBoard'](this.viewPosition) : this.$store.getters['content/bigBoard'](this.viewPosition).slice(0,itemCount)
-    }
+      return this.showAll ? this.$store.getters['content/bigBoard'](this.viewPosition, this.viewStrength) : this.$store.getters['content/bigBoard'](this.viewPosition, this.viewStrength).slice(0,itemCount)
+    },
+    viewStrength() {
+      return this.$store.getters['viewOptions/strength']
+    },
   },
   methods: {
    ...mapActions({
@@ -86,6 +95,42 @@ export default {
     handleScroll() {
       if(this.bigBoardIds && window.scrollY > this.$refs.bigBoard.offsetParent.offsetTop + this.$refs.bigBoard.offsetTop - window.innerHeight) {
         this.showAll = true;
+      }
+    },
+     makeData () {
+      let dataObj = [];
+      this.bigBoardIds.forEach((playerId, index) => {
+        dataObj.push({type:'player', id: playerId});
+        if(this.interstitials[index+1] && this.viewStrength.length === 0 && this.viewPosition === 'all'){
+          dataObj.push({type:'interstitial', interKey:index+1})
+        }
+      })
+      this.idsToDisplay = [...dataObj];
+    }
+  },
+  watch: {
+    viewStrength () {
+      var offset = this.$mq === 'mobile' ? document.getElementById('mobile-navigation').offsetTop + 4 : this.$refs.bigBoard.offsetParent.offsetTop + this.$refs.bigBoard.offsetTop - 120
+      scrollIt(offset, 500, 'easeOutQuad')
+      if(this.interstitials && this.bigBoardIds){
+        this.makeData();
+      }
+    },
+    viewPosition () {
+      // var offset = this.$mq === 'mobile' ? document.getElementById('mobile-navigation').offsetTop + 4 : document.getElementById('navigation').offsetTop + 4
+      // scrollIt(offset, 500, 'easeOutQuad')
+      if(this.interstitials && this.bigBoardIds){
+        this.makeData();
+      }
+    },
+    bigBoardIds() {
+      if(this.interstitials){
+        this.makeData();
+      }
+    },
+    interstitials() {
+      if(this.bigBoardIds){
+        this.makeData();
       }
     }
   },

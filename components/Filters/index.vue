@@ -14,7 +14,9 @@
           <InfoBubble v-if="showInfoBubble">
             <span>
               See our full<br/>scouting reports<br/>in Deep<br/>Dive mode
-              <img src="@/assets/img/icons/down-left-arrow.svg" alt="Arrow pointing to deep dive mode" />
+              <img v-if="league === 'nfl'" src="@/assets/img/icons/down-left-arrow.svg" alt="Arrow pointing to deep dive mode" />
+              <img v-else-if="league === 'nba'" src="@/assets/img/icons/down-left-arrow-black.svg" alt="Arrow pointing to deep dive mode" />
+              
             </span>
           </InfoBubble>
         </transition>
@@ -66,6 +68,12 @@
         </button>
       </div>
     </div>
+    <div class="filters__section filters__section--strength" v-if="$mq !== 'mobile'">
+      <div class="filters__section-title filters__section-title--strength" @click="toggleBadges">
+        <span>Filter By Skill Set</span>
+      </div>
+    </div>
+    <BadgeSelector v-if="league === 'nba'" :strengthMap="strengthMap" :showBadges="showBadges" :closeBadgeSelector="closeBadgeSelector" />
     <StickyPodcast v-if="showSticky" />
   </div>
   <div class="filters__ghost"></div>
@@ -78,9 +86,10 @@ import { scrollIt } from '~/plugins/scroller'
 import InfoBubble     from '~/components/InfoBubble'
 import PodcastController     from '~/components/Podcast/GlobalController.vue'
 import StickyPodcast     from '~/components/StickyPodcast/index.vue'
+import BadgeSelector from './BadgeSelector.vue';
 import PositionMap from '~/plugins/positionMap';
 export default {
-  components: { InfoBubble, PodcastController, StickyPodcast },
+  components: { InfoBubble, PodcastController, StickyPodcast, BadgeSelector },
   data() {
     return {
       fixed: false,
@@ -89,6 +98,7 @@ export default {
       bubbleDismissed: false,
       showInfoBubble: false,
       disabled: this.$route.name === 'team-needs',
+      showBadges: false,
     }
   },
   computed: {
@@ -101,6 +111,9 @@ export default {
     activePosition () {
       return this.$store.getters['viewOptions/position']
     },
+    activeStrength () {
+      return this.$store.getters['viewOptions/strength']
+    },
     positionArrowTop () {
       const positions = this.positionMap.map(position => position.positionKey);
       const positionIndex = positions.indexOf(this.$store.getters['viewOptions/position']);
@@ -108,9 +121,35 @@ export default {
     },
     positionMap() {
       return PositionMap;
+    },
+    league() {
+      return process.env.PROJECT_LEAGUE.toLowerCase()
+    },
+    strengthArrowTop () {
+      const strengths = this.strengthMap.map(strength => strength.strengthKey);
+      const strengthIndex = strengths.indexOf(this.$store.getters['viewOptions/strength']);
+      return 18 * strengthIndex;
+    },
+    strengthMap() {
+      const badges = this.$store.getters['page/settings'].badges;
+      let strengthMap = Object.keys(badges).map((badgeId) => {
+        return {
+          strengthKey: badgeId,
+          shortLabel: badges[badgeId].label,
+          fullLabel: badges[badgeId].label,
+          image: badges[badgeId].image,
+        }
+      });
+      return strengthMap;
     }
   },
   methods: {
+    closeBadgeSelector() {
+      this.showBadges = false;
+    },
+    toggleBadges () {
+      this.showBadges = !this.showBadges
+    },
     handleScroll () {
       if(this.$mq === 'mobile') return;
       this.width = this.$refs.filters.offsetWidth;
@@ -233,6 +272,25 @@ export default {
     span{
       display:block;  
     }
+     &--strength{
+      span{
+        text-decoration:underline;
+        cursor:pointer;
+      }
+      button{
+        font-size:11px;
+        color:$mediumgray;
+        display:block;
+        text-decoration:none !important;
+        text-transform:uppercase;
+      }
+      @include single-column{
+        color:$white;
+        font-size:14px;
+        margin-top:13px;
+        margin-left:15px;
+      }
+    }
   }
   &__option{
     position:relative;
@@ -290,6 +348,10 @@ export default {
     top:-35px;
     left:45%;
     z-index:3;
+    .app--nba & {
+      background:$nbaorange;
+      color:#000;
+    }
     span{
       display:flex;
       flex-direction:column;
@@ -456,6 +518,17 @@ export default {
     }
     &__section-title{
       height:30px;
+      .app--nba & {
+        &--position{
+          width:50%;
+        }
+      }
+      &--strength{
+        min-width:100%;
+
+        position:absolute;
+        bottom:0;
+      }
     }
   }
 }

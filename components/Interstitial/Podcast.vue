@@ -62,6 +62,9 @@ export default {
 
 <style lang="scss">
   .podcast-inter{
+    @include mobile{
+      margin-bottom:45px;
+    }
     &.player-card{
       background:transparent;
       opacity:1;

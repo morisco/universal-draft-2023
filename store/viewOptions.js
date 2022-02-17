@@ -2,14 +2,16 @@
 const state = () => ({
   viewDepth:    'default',
   viewPosition: 'all',
-  viewCollapsed: false
+  viewCollapsed: false,
+  viewStrength: [],
 })
 
 // getters
 const getters = {
   depth:    (state) => state.viewDepth,
   position: (state) => state.viewPosition,
-  viewCollapsed: (state) => state.viewCollapsed
+  viewCollapsed: (state) => state.viewCollapsed,
+  strength: (state) => state.viewStrength,
 }
 
 // actions
@@ -22,6 +24,12 @@ const actions = {
   },
   setViewCollapsed ({ commit }) {
     commit('setViewCollapsed')
+  },
+  setViewStrength ({ commit }, strengths) {
+    commit('setViewStrength', strengths)
+  },
+  resetFilters ({commit}) {
+    commit('resetFilters')
   }
 }
 
@@ -35,7 +43,14 @@ const mutations = {
   },
   setViewCollapsed (state) {
     state.viewCollapsed = true;
-  }
+  },
+  setViewStrength (state, strengths) {
+    state.viewStrength = strengths;
+  },
+  resetFilters (state) {
+    state.viewPosition = 'all'
+    state.viewStrength = []
+  },
 }
 
 export default {

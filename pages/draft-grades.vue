@@ -2,10 +2,10 @@
   <section class="main-section draft-grades" ref="draftResults">
     <MainSectionIntro type="draft_grades" />
     <transition-group name="player-card" class="draft-results__inner main-section__inner" tag="div">
-      <template v-for="(playerId, index) in draftResultsIds">
+      <template v-for="(card, index) in idsToDisplay">
         <PlayerCard 
-          :playerId="playerId" 
-          :key="playerId" 
+          :playerId="card.id" 
+          :key="card.id" 
           rankKey="order_draftresults" 
           v-on:card-expanded="setCardExpanded" 
           :cardExpanded="cardExpanded" 
@@ -30,6 +30,8 @@ import Interstitial from '~/components/Interstitial';
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
 import MoreCoverage from '~/components/MoreCoverage'
+import { scrollIt } from '~/plugins/scroller'
+
 
 
 export default {
@@ -43,7 +45,8 @@ export default {
   data() {
     return {
       initTimeout: null,
-      showAll: this.$route.params.player_id ? true : false
+      showAll: this.$route.params.player_id ? true : false,
+      idsToDisplay: [],
     }
   },
   mounted() {
@@ -51,6 +54,10 @@ export default {
       this.$router.push({
         path: '/'
       })
+    }
+    if(this.draftResultsIds && this.interstitials){
+      console.log('in here');
+      this.makeData();
     }
   },
   created() {
@@ -76,12 +83,15 @@ export default {
     viewDepth () {
       return this.$store.getters['viewOptions/depth']
     },
+    viewStrength() {
+      return this.$store.getters['viewOptions/strength']
+    },
     viewPosition () {
       return this.$store.getters['viewOptions/position']
     },
     draftResultsIds () {
       const itemCount = this.viewDepth === 'compact' ? 10 : 4;
-      return this.showAll ? this.$store.getters['content/draftResults'](this.viewPosition) : this.$store.getters['content/draftResults'](this.viewPosition).slice(0,itemCount)
+      return this.showAll ? this.$store.getters['content/draftResults'](this.viewPosition, this.viewStrength) : this.$store.getters['content/draftResults'](this.viewPosition, this.viewStrength).slice(0,itemCount)
     },
     relatedArticles () {
       return this.$store.getters['content/relatedArticles'];
@@ -95,6 +105,17 @@ export default {
       if(this.$refs.draftResults && window.scrollY > this.$refs.draftResults.offsetParent.offsetTop + this.$refs.draftResults.offsetTop - window.innerHeight) {
         this.showAll = true;
       }
+    },
+    makeData () {
+      let dataObj = [];
+      console.log('making data');
+      this.draftResultsIds.forEach((playerId, index) => {
+        dataObj.push({type:'player', id: playerId});
+        if(this.interstitials[index+1] && this.viewStrength.length === 0 && this.viewPosition === 'all'){
+          dataObj.push({type:'interstitial', interKey:index+1})
+        }
+      })
+      this.idsToDisplay = [...dataObj];
     }
   },
   watch: {
@@ -103,6 +124,30 @@ export default {
         this.$router.push({
           path: '/'
         })
+      }
+    },
+    viewStrength () {
+      var offset = this.$mq === 'mobile' ? document.getElementById('mobile-navigation').offsetTop + 4 : this.$refs.draftResults.offsetParent.offsetTop + this.$refs.draftResults.offsetTop - 120
+      scrollIt(offset, 500, 'easeOutQuad')
+      if(this.interstitials && this.draftResultsIds){
+        this.makeData();
+      }
+    },
+    viewPosition () {
+      // var offset = this.$mq === 'mobile' ? document.getElementById('mobile-navigation').offsetTop + 4 : document.getElementById('navigation').offsetTop + 4
+      // scrollIt(offset, 500, 'easeOutQuad')
+      if(this.interstitials && this.draftResultsIds){
+        this.makeData();
+      }
+    },
+    draftResultsIds() {
+      if(this.interstitials){
+        this.makeData();
+      }
+    },
+    interstitials() {
+      if(this.draftResultsIds){
+        this.makeData();
       }
     }
   },
