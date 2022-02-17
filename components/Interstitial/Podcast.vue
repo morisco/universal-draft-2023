@@ -64,6 +64,11 @@ export default {
   .podcast-inter{
     @include mobile{
       margin-bottom:45px;
+      .app--nba & {
+        max-width: calc(100% - 30px);
+        margin-left: 15px;
+        margin-top:40px;
+      }
     }
     &.player-card{
       background:transparent;

@@ -111,3 +111,30 @@ export default {
     }
   }
 </style>
+
+<style lang="scss">
+  .app--nba {
+    .player-card{
+      &__expanded-value{
+        > ul li p {
+          @include player-card-body;
+          margin-bottom:0;
+          a{
+            text-decoration:underline;
+          }
+        }
+        &--last{
+          ul li{
+
+            &:last-of-type{
+              p{
+                margin-bottom:0;
+              }
+            }
+          
+          }
+        }
+      }
+    }
+  }
+</style>
