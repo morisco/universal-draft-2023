@@ -199,9 +199,8 @@ export default {
     }
     &__title{
       @include inter-title;
-      
       @include non-mobile{
-        max-width:95%;
+        max-width:95% !important;
       }
     }
     &__title-presented{
