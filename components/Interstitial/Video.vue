@@ -78,6 +78,13 @@ export default {
     border-radius:0.625rem;
     padding-top:56.25%;
     cursor:pointer;
+    @include mobile {
+      .app--nba & {
+        max-width: calc(100% - 30px);
+        margin-left: 15px;
+        padding-top: 51.75%;
+      }
+    }
     &.player-card{
       opacity:1;
       flex-direction:row;
@@ -133,6 +140,11 @@ export default {
       animation-fill-mode: forwards;
       @include mobile{
         padding:15px 0;
+        .app--nba & {
+          font-size: 29px;
+          line-height: 1.2;
+          max-width: 100%;
+        }
       }
       // @include tablet {
       //   font-size:32px;

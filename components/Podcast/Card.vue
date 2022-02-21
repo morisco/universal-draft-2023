@@ -4,8 +4,8 @@
     <div class="card-item__description" v-html="pod.spotify_episodeDescription" />
     <div class="card-item__controls">
       <button type="button" v-on:click="handlePlayClick" class="sticky-play-pause">
-        <img v-if=" ((currentPod.id === pod.id && currentPod.type === 'full' && podPlaying) || shouldPlay)" src="~/assets/img/icons/pause.svg" />
-        <img v-if="(currentPod.id !== pod.id || currentPod.type !== 'full' || !podPlaying) && !shouldPlay" src="~/assets/img/icons/play.svg" />
+        <img v-if=" (currentPod && (currentPod.id === pod.id && currentPod.type === 'full' && podPlaying) || shouldPlay)" src="~/assets/img/icons/pause.svg" />
+        <img v-if="!currentPod || (currentPod.id !== pod.id || currentPod.type !== 'full' || !podPlaying) && !shouldPlay" src="~/assets/img/icons/play.svg" />
       </button>
       <span class="card-item__controls-duration">
           {{format(pod.spotify_episodeDuration - currentTime)}}
@@ -46,7 +46,7 @@ export default {
       'setPlaying': 'page/setPlaying',
     }),
     handlePlayClick() {
-      if(this.currentPod.id === this.pod.id && this.currentPod.type === 'full') {
+      if(this.currentPod && this.currentPod.id === this.pod.id && this.currentPod.type === 'full') {
         if(!this.podPlaying) {
           this.shouldPlay = true;
           this.setPlaying(true);
@@ -97,11 +97,11 @@ export default {
         this.shouldPlay = false;
       }
       const self = this;
-      if(this.podPlaying && this.pod.id === this.currentPod.id && !this.currentPod.start) {
+      if(this.podPlaying && this.currentPod && this.pod.id === this.currentPod.id && !this.currentPod.start) {
         this.interval = setInterval(() => {
           self.currentTime = self.podTime
         }, 750);
-      } else if(!this.podPlaying && this.pod.id === this.currentPod.id) {
+      } else if(this.currentPod && !this.podPlaying && this.pod.id === this.currentPod.id) {
         clearInterval(this.interval);
       } else {
         clearInterval(this.interval);

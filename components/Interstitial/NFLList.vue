@@ -97,7 +97,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .list-inter{
     // overflow:hidden;
     // background:transparent;
@@ -219,13 +219,21 @@ export default {
         width:100%;
         height:1px;
       }
-      p{
-        @include mobile {
+    }
+  }
+</style>
+
+
+<style lang="scss">
+  .app--nfl {
+    .list-inter{
+      &__content{
+        p{
           @include player-card-body;
-        }
-        a{
-          text-decoration:underline;
-          // color:$highlight2;
+          a{
+            text-decoration:underline;
+            // color:$highlight2;
+          }
         }
       }
     }

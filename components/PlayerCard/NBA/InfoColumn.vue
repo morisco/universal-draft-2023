@@ -41,7 +41,7 @@
       <ExpandedMeta v-if="player.pluses_minuses" :player="player" />
       <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile' && (playerVideo || player.player_podcast || player.player_articles)">
         <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" :expanded="expanded" :activeCard="activeCard" v-if="playerVideo" />
-        <PodcastCardPlayer v-if="player.player_podcast" :playerId="player.id" :playerPodcast="player.player_podcast" :infoHeight="topHeight" />
+        <PodcastCardPlayer v-if="player.player_podcast" :playerId="playerId" :playerPodcast="player.player_podcast" :player="player" :infoHeight="topHeight" :podcast="player.player_podcast" />
         <RelatedArticles :articles="player.player_articles" v-if="player.player_articles" />
       </div>
     </div>
@@ -58,7 +58,7 @@ import VideoThumb from './VideoThumb'
 import DraftInfo from './DraftInfo'
 import RelatedArticles from './RelatedArticles'
 import NBAMeta from './NBAMeta'
-import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
+import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 
 export default {
   props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
@@ -110,7 +110,8 @@ export default {
         age: playerData.player_meta.age,
         height: playerData.player_meta.height,
         weight: playerData.player_meta.weight,
-        shadesOf: playerData.player_meta.shades_of
+        shadesOf: playerData.player_meta.shades_of,
+        player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false,
       };
     },
   },
