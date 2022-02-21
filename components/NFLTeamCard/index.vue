@@ -65,103 +65,103 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-  // @import '~/components/PlayerCard/NFL/nfl-card.scss';
-  // @import '~/components/PlayerCard/NFL/ImageColumn/style.scss';
-  // @import '~/components/PlayerCard/NFL/InfoColumn/style.scss';
-  .team-card{
-    flex-direction:column;
-    margin: 0 0 30px;
-    border-radius: .625rem !important;
-    background:$lightgray;
-    border:1px solid $mediumgray;
-    max-height:100%;
-    opacity:1 !important;
-    overflow:hidden;
-    h5{
-      @include expanded-label;
-      line-height:15px;
-      text-transform:uppercase;
-      margin-bottom:5px;
-    }
-    @include tablet{
-      padding:0 !important;
-    }
-    .player-card__top-data{
-      // padding-bottom:0;
-    }
-    .player-card__image-info{
-      &:before{
-        content:'';
-        display:block;
-        width:1px;
-        position:absolute;
-        top:30px;
-        bottom:30px;
-        left:315px;
-        background:$darkmediumgray;
-        z-index:5;
+<style lang="scss" >
+  .app--nfl {
+
+    .team-card{
+      flex-direction:column;
+      margin: 0 0 30px;
+      border-radius: .625rem !important;
+      background:$lightgray;
+      border:1px solid $mediumgray;
+      max-height:100%;
+      opacity:1 !important;
+      overflow:hidden;
+      h5{
+        @include expanded-label;
+        line-height:15px;
+        text-transform:uppercase;
+        margin-bottom:5px;
+      }
+      @include tablet{
+        padding:0 !important;
+      }
+      .player-card__top-data{
+        // padding-bottom:0;
+      }
+      .player-card__image-info{
+        &:before{
+          content:'';
+          display:block;
+          width:1px;
+          position:absolute;
+          top:30px;
+          bottom:30px;
+          left:315px;
+          background:$darkmediumgray;
+          z-index:5;
+          @include tablet{
+            display:none;
+          }
+        }
+      }
+      &__headline{
+        margin-top:30px;
+        p{
+          font-size:20px;
+          &:last-of-type{
+            margin-bottom:0;
+          }
+          &:empty{
+            display:none;
+          }
+          strong{
+            text-transform:uppercase;
+            @include expanded-label;
+            font-family:'Decima';
+            font-weight:500;
+          }
+        }
+      }
+      &__image-column{
+        padding-bottom:30px;
         @include tablet{
-          display:none;
+          min-height:0;
+          min-width:100%;
+          max-width:100%;
+          background:transparent !important;
         }
       }
-    }
-    &__headline{
-      margin-top:30px;
+      &__logo-wrapper{
+        width:100%;
+        display:flex;
+        justify-content:center;
+      }
+      &__logo{
+        width:75%;
+        margin: 30px 0;
+        justify-self:center;
+      }
+      .player-card__headline-selling{
+        @include tablet{
+        padding:0;
+        }
+      }
+      @include single-column{
+        padding:30px 25px;
+      }
+      @include tablet{
+        padding:25px;
+      }
       p{
-        font-size:20px;
-        &:last-of-type{
-          margin-bottom:0;
-        }
-        &:empty{
-          display:none;
-        }
-        strong{
-          text-transform:uppercase;
-          @include expanded-label;
-          font-family:'Decima';
-          font-weight:500;
-        }
+        font-size:16px;
       }
-    }
-    &__image-column{
-      padding-bottom:30px;
-      @include tablet{
-        min-height:0;
-        min-width:100%;
-        max-width:100%;
-        background:transparent !important;
-      }
-    }
-    &__logo-wrapper{
-      width:100%;
-      display:flex;
-      justify-content:center;
-    }
-    &__logo{
-      width:75%;
-      margin: 30px 0;
-      justify-self:center;
-    }
-    .player-card__headline-selling{
-      @include tablet{
-      padding:0;
-      }
-    }
-    @include single-column{
-      padding:30px 25px;
-    }
-    @include tablet{
-      padding:25px;
-    }
-    p{
-      font-size:16px;
-    }
-    .player-card__info-column{
-      background:$lightgray !important;
-      padding: 0 20px 0;
-      @include mobile{
-        padding:30px 20px 0;
+      .player-card__info-column{
+        background:$lightgray !important;
+        padding: 0 20px 0;
+        @include mobile{
+          padding:30px 20px 0;
+        }
       }
     }
   }
