@@ -56,7 +56,6 @@ export default {
       })
     }
     if(this.draftResultsIds && this.interstitials){
-      console.log('in here');
       this.makeData();
     }
   },
@@ -108,7 +107,6 @@ export default {
     },
     makeData () {
       let dataObj = [];
-      console.log('making data');
       this.draftResultsIds.forEach((playerId, index) => {
         dataObj.push({type:'player', id: playerId});
         if(this.interstitials[index+1] && this.viewStrength.length === 0 && this.viewPosition === 'all'){

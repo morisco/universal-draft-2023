@@ -23,9 +23,6 @@ export default {
       delayAnimateTimeout: null
     }
   },
-  mounted() {
-    console.log(this.teamNameLogo);
-  },
   watch: {
     infoHeight() {
       this.delayAnimateTimeout = setTimeout(() => {
