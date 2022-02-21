@@ -47,7 +47,7 @@ import ExpandedMeta from '../ExpandedMeta';
 import MetaBar from '../MetaBar';
 import VideoThumb from '../VideoThumb'
 import RelatedArticles from '../RelatedArticles'
-import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
+import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import DraftInfo from '../DraftInfo';
 export default {
   props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],

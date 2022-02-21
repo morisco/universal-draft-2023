@@ -378,7 +378,7 @@ export default {
         }
         .player-card--expanded & {
           transition:padding 0.5s ease-in-out 0s;
-          padding: 15px 50px 0;
+          padding: 15px 50px 15px;
         }
       }
       &:after{
