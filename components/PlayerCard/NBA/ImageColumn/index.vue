@@ -24,7 +24,7 @@
 
 <script>
 import DraftTeam from '../DraftTeam'
-import PodcastCardPlayer from '~/components/Podcast/CardPlayer'
+import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import VideoThumb from '../VideoThumb'
 import RelatedArticles from '../RelatedArticles'
 import Stats from '../Stats';
