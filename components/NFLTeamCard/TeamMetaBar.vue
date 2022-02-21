@@ -1,9 +1,9 @@
 <template>
 <div class="player-card__meta-bar team-card__meta-bar" ref="metaBar">
-  <div class="player-card__meta-bar-name-school player-card__image-column">
+  <div class="player-card__meta-bar-name-school player-card__image-column team-card__meta-bar-name-school team-card__image-column">
     <img :src="team.image.medium" class="team-card__meta-bar-logo" />
   </div>
-  <div class="player-card__meta-bar-details" v-if="['mobile', 'tablet'].indexOf($mq) < 0">
+  <div class="player-card__meta-bar-details team-card__meta-bar-details" v-if="['mobile', 'tablet'].indexOf($mq) < 0">
     <TeamPlayers :teamId="teamId" v-if="['mobile', 'tablet'].indexOf($mq) < 0" :maxPlayers="3" />
     <!-- <div class="player-card__meta-bar-details-column" v-if="$mq !== 'tablet'">
       <div class="player-card__meta-bar-details-row">
@@ -19,7 +19,7 @@
 import TeamPlayers from './TeamPlayers';
 export default {
   name: 'TeamMetaBar',
-  componetns: {TeamPlayers},
+  components: {TeamPlayers},
   props: ['team', 'teamId'],
   computed: {
     rank() {
@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss">
-  // @import '~/components/PlayerCard/NFL/MetaBar/style.scss';
+  @import '~/components/PlayerCard/NFL/MetaBar/style.scss';
   .team-card{
     &__meta-bar{
       padding:0 !important;
@@ -84,6 +84,7 @@ export default {
           align-items:center;
           height:175px;
           width:100% !important;
+          position:relative;
         }
       }
       .player-card__meta-bar-details{

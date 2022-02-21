@@ -4,23 +4,25 @@
       <span>{{label}}</span>
     </div>
     <div class="team-card__player-picks" :class="['team-card__player-picks--' + players.length]" v-if="players">
-      <NuxtLink tag="a" target="_blank" :to="'/' + player.id_string" v-for="player in players.slice(0,maxPlayers)" :key="teamId + '-'  + player.title" class="team-card__player-pick">
-        <div class="player-card__image-column-img-wrapper"> 
-          <img :src="player.image.small" :alt="player.imageAlt" />
-          <img src="@/assets/img/icons/offense-o-2021.svg" v-if="player.offenseDefense === 'offense'" class="player-x-o" data-not-lazy />
-          <img src="@/assets/img/icons/defense-x-2021.svg" v-if="player.offenseDefense === 'defense'" class="player-x-o" data-not-lazy />
-        </div>
-        <div class="team-card__player-pick-content">
-          <span class="team-card__player-name">
-            <span>{{player.firstName}}</span>
-            <span>{{player.lastName}}</span>
-          </span>
-          <span class="team-card__player-position-school">
-            <span>{{player.position}},</span>
-            <span>{{player.school}}</span>
-          </span>
-        </div>
-      </NuxtLink>
+      <template v-for="player in players.slice(0,maxPlayers)">
+        <NuxtLink v-if="player && player.title" tag="a" target="_blank" :to="'/' + player.id_string"  :key="teamId + '-'  + player.title" class="team-card__player-pick">
+          <div class="player-card__image-column-img-wrapper team-card__image-column-img-wrapper"> 
+            <img :src="player.image.small" :alt="player.imageAlt" />
+            <img src="@/assets/img/icons/offense-o-2021.svg" v-if="player.offenseDefense === 'offense'" class="player-x-o" data-not-lazy />
+            <img src="@/assets/img/icons/defense-x-2021.svg" v-if="player.offenseDefense === 'defense'" class="player-x-o" data-not-lazy />
+          </div>
+          <div class="team-card__player-pick-content">
+            <span class="team-card__player-name">
+              <span>{{player.firstName}}</span>
+              <span>{{player.lastName}}</span>
+            </span>
+            <span class="team-card__player-position-school">
+              <span>{{player.position}},</span>
+              <span>{{player.school}}</span>
+            </span>
+          </div>
+        </NuxtLink>
+      </template>
     </div>
   </div>  
 </template>
@@ -33,16 +35,26 @@ export default {
       return this.players ? 'Friendly Suggestions' : 'No picks in the first two rounds'
     },
     players() {
+      console.log('tp', this.$store.getters['content/team'](this.teamId).players);
       if(!this.$store.getters['content/team'](this.teamId).players || this.$store.getters['content/team'](this.teamId).players.length === 0){
         return false;
       }
       if(this.$store.getters['content/team'](this.teamId).players[0].player){
-        return this.$store.getters['content/team'](this.teamId).players.map((player) => {
+        const tps = [...this.$store.getters['content/team'](this.teamId).players];
+        tps.filter((p) => {console.log(p.title); return p.title});
+        // console.log(tps);
+        return tps.map((player) => {
+          // console.log('ppp', player);
           return this.$store.getters['content/teamPlayer'](player.player)
         });
       } else {
         return false
       }
+    }
+  },
+  watch: {
+    players() {
+      console.log("PLAYERS", this.players);
     }
   }
 }

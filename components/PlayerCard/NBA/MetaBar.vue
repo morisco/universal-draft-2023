@@ -58,7 +58,6 @@ export default {
     },
     playerMeta() {
       let playerData = this.player
-      console.log('position-label', playerData.position_label);
       return {
         firstName: playerData.first_name,
         lastName: playerData.last_name,

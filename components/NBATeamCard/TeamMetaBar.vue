@@ -17,7 +17,6 @@
 
 <script>
 import NBATeamPlayers from './TeamPlayers.vue';
-console.log(NBATeamPlayers);
 export default {
   name: 'NBATeamMetaBar',
   components: { NBATeamPlayers },
