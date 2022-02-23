@@ -1,16 +1,24 @@
 <template>
-  <a :href="article.link" target="_blank" class="related-article">
+  <a
+    :href="article.link"
+    target="_blank"
+    class="related-article"
+  >
     <div class="related-article__image">
-      <img :src="article.image.medium" :alt="article.title" />
+      <img
+        :src="article.image.medium"
+        :alt="article.title"
+      >
     </div>
     <div class="related-article__title">
-      {{article.title}}
+      {{ article.title }}
     </div>
   </a>
 </template>
 
 <script>
 export default {
+  name: "MoreCoverageArticle",
   props: ['article']
 }
 </script>

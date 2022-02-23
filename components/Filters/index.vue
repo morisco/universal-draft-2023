@@ -1,95 +1,152 @@
 <template>
-<div 
-  class="filters" 
-  :class="{
-    'filters--fixed': fixed,
-    'filters--disabled': disabled
-  }" 
-  ref="filters"
->
-  <div class="filters__sticky" v-bind:style="{width: width + 'px', left: left + 'px'}">
-    <client-only>
-      <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-        <transition name="info-bubble--animated">
-          <InfoBubble v-if="showInfoBubble">
-            <span>
-              See our full<br/>scouting reports<br/>in Deep<br/>Dive mode
-              <img v-if="league === 'nfl'" src="@/assets/img/icons/down-left-arrow.svg" alt="Arrow pointing to deep dive mode" />
-              <img v-else-if="league === 'nba'" src="@/assets/img/icons/down-left-arrow-black.svg" alt="Arrow pointing to deep dive mode" />
+  <div 
+    ref="filters" 
+    class="filters" 
+    :class="{
+      'filters--fixed': fixed,
+      'filters--disabled': disabled
+    }"
+  >
+    <div
+      class="filters__sticky"
+      :style="{width: width + 'px', left: left + 'px'}"
+    >
+      <client-only>
+        <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+          <transition name="info-bubble--animated">
+            <InfoBubble v-if="showInfoBubble">
+              <span>
+                See our full<br>scouting reports<br>in Deep<br>Dive mode
+                <img
+                  v-if="league === 'nfl'"
+                  src="@/assets/img/icons/down-left-arrow.svg"
+                  alt="Arrow pointing to deep dive mode"
+                >
+                <img
+                  v-else-if="league === 'nba'"
+                  src="@/assets/img/icons/down-left-arrow-black.svg"
+                  alt="Arrow pointing to deep dive mode"
+                >
               
-            </span>
-          </InfoBubble>
-        </transition>
-      </mq-layout>
-    </client-only>
-    <div class="filters__section">
-      <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-        <div class="filters__section-title">
-          <span>How much do you</span> <span> want to know?</span>
-        </div>
-      </mq-layout>
-      <button class="filters__option" :class="{active: activeDepth === 'compact'}" v-on:click="setViewDepth($event,'compact')">
-        <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-          <transition name="filters__option-emoji">
-            <img v-if="activeDepth === 'compact'" class="filters__option-emoji" src="@/assets/img/emoji/compact.png" />
+              </span>
+            </InfoBubble>
           </transition>
         </mq-layout>
-        <span>Skim</span>
-      </button>
-      <button class="filters__option" :class="{active: activeDepth === 'default'}" v-on:click="setViewDepth($event,'default')">
+      </client-only>
+      <div class="filters__section">
         <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-          <transition name="filters__option-emoji">
-            <img v-if="activeDepth === 'default'" class="filters__option-emoji" src="@/assets/img/emoji/default.png" />
-          </transition>
+          <div class="filters__section-title">
+            <span>How much do you</span> <span> want to know?</span>
+          </div>
         </mq-layout>
-        <span>Peruse</span>
-      </button>
-      <button class="filters__option" :class="{active: activeDepth === 'detailed'}" v-on:click="setViewDepth($event,'detailed')">
-        <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-          <transition name="filters__option-emoji">
-            <img v-if="activeDepth === 'detailed'" class="filters__option-emoji" src="@/assets/img/emoji/detailed.png" />
-          </transition>
-        </mq-layout>
-        <span>Deep Dive</span>
-      </button>
-    </div>
-    <div class="filters__section filters__section--position">
-      <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-        <div class="filters__section-title">
-          <span v-html="$mq === 'mobile' ? 'Filter By<br/>Position' : 'Filter By Position'"></span>
-        </div>
-      </mq-layout>
-      <div class="filters__section-list">
-        <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-          <img src="@/assets/img/emoji/point-right.png" alt="Right Pointer" class="filters__sticky-emoji" v-bind:style="{top: positionArrowTop + 'px'}" />
-        </mq-layout>
-        <button v-for="position in positionMap" :key="position.positionKey" class="filters__option" :class="{active: activePosition === position.positionKey}" v-on:click="handlePositionFilter($event, position.positionKey)">
-          <span>{{['mobile', 'medium_desktop', 'large_desktop'].indexOf($mq) === -1 ? position.shortLabel : position.fullLabel}}</span>
+        <button
+          class="filters__option"
+          :class="{active: activeDepth === 'compact'}"
+          @click="setViewDepth($event,'compact')"
+        >
+          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+            <transition name="filters__option-emoji">
+              <img
+                v-if="activeDepth === 'compact'"
+                class="filters__option-emoji"
+                src="@/assets/img/emoji/compact.png"
+              >
+            </transition>
+          </mq-layout>
+          <span>Skim</span>
+        </button>
+        <button
+          class="filters__option"
+          :class="{active: activeDepth === 'default'}"
+          @click="setViewDepth($event,'default')"
+        >
+          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+            <transition name="filters__option-emoji">
+              <img
+                v-if="activeDepth === 'default'"
+                class="filters__option-emoji"
+                src="@/assets/img/emoji/default.png"
+              >
+            </transition>
+          </mq-layout>
+          <span>Peruse</span>
+        </button>
+        <button
+          class="filters__option"
+          :class="{active: activeDepth === 'detailed'}"
+          @click="setViewDepth($event,'detailed')"
+        >
+          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+            <transition name="filters__option-emoji">
+              <img
+                v-if="activeDepth === 'detailed'"
+                class="filters__option-emoji"
+                src="@/assets/img/emoji/detailed.png"
+              >
+            </transition>
+          </mq-layout>
+          <span>Deep Dive</span>
         </button>
       </div>
-    </div>
-    <div class="filters__section filters__section--strength" v-if="$mq !== 'mobile'">
-      <div class="filters__section-title filters__section-title--strength" @click="toggleBadges">
-        <span>Filter By Skill Set</span>
+      <div class="filters__section filters__section--position">
+        <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+          <div class="filters__section-title">
+            <span v-html="$mq === 'mobile' ? 'Filter By<br/>Position' : 'Filter By Position'" />
+          </div>
+        </mq-layout>
+        <div class="filters__section-list">
+          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+            <img
+              src="@/assets/img/emoji/point-right.png"
+              alt="Right Pointer"
+              class="filters__sticky-emoji"
+              :style="{top: positionArrowTop + 'px'}"
+            >
+          </mq-layout>
+          <button
+            v-for="position in positionMap"
+            :key="position.positionKey"
+            class="filters__option"
+            :class="{active: activePosition === position.positionKey}"
+            @click="handlePositionFilter($event, position.positionKey)"
+          >
+            <span>{{ ['mobile', 'medium_desktop', 'large_desktop'].indexOf($mq) === -1 ? position.shortLabel : position.fullLabel }}</span>
+          </button>
+        </div>
       </div>
+      <div
+        v-if="$mq !== 'mobile'"
+        class="filters__section filters__section--strength"
+      >
+        <div
+          class="filters__section-title filters__section-title--strength"
+          @click="toggleBadges"
+        >
+          <span>Filter By Skill Set</span>
+        </div>
+      </div>
+      <BadgeSelector
+        v-if="league === 'nba'"
+        :strength-map="strengthMap"
+        :show-badges="showBadges"
+        :close-badge-selector="closeBadgeSelector"
+      />
+      <StickyPodcast v-if="showSticky" />
     </div>
-    <BadgeSelector v-if="league === 'nba'" :strengthMap="strengthMap" :showBadges="showBadges" :closeBadgeSelector="closeBadgeSelector" />
-    <StickyPodcast v-if="showSticky" />
+    <div class="filters__ghost" />
   </div>
-  <div class="filters__ghost"></div>
-</div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import { scrollIt } from '~/plugins/scroller'
 import InfoBubble     from '~/components/InfoBubble'
-import PodcastController     from '~/components/Podcast/GlobalController.vue'
 import StickyPodcast     from '~/components/StickyPodcast/index.vue'
 import BadgeSelector from './BadgeSelector.vue';
 import PositionMap from '~/plugins/positionMap';
 export default {
-  components: { InfoBubble, PodcastController, StickyPodcast, BadgeSelector },
+  name: "SidebarFilters",
+  components: { InfoBubble, StickyPodcast, BadgeSelector },
   data() {
     return {
       fixed: false,
@@ -142,6 +199,27 @@ export default {
       });
       return strengthMap;
     }
+  },
+  watch: {
+    activeDepth () {
+      this.bubbleDismissed = true;
+      this.showInfoBubble = false
+    },
+    $route (newRoute) {
+      this.disabled = newRoute.name === 'team-needs'
+      this.showInfoBubble = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) < 0 && !this.bubbleDismissed && newRoute.name !== 'team-needs'
+    }
+  },
+  created () {
+    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.handleScroll);
+  },
+  mounted () {
+    this.width = this.$mq === 'mobile' ?  null : this.$refs.filters.offsetWidth;
+  },
+  unmounted () {
+    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.handleScroll);
   },
   methods: {
     closeBadgeSelector() {
@@ -205,27 +283,6 @@ export default {
       'setViewPosition': 'viewOptions/setViewPosition'
     })
   },
-  created () {
-    window.addEventListener('scroll', this.handleScroll);
-    window.addEventListener('resize', this.handleScroll);
-  },
-  mounted () {
-    this.width = this.$mq === 'mobile' ?  null : this.$refs.filters.offsetWidth;
-  },
-  destroyed () {
-    window.removeEventListener('scroll', this.handleScroll);
-    window.removeEventListener('resize', this.handleScroll);
-  },
-  watch: {
-    activeDepth () {
-      this.bubbleDismissed = true;
-      this.showInfoBubble = false
-    },
-    $route (newRoute) {
-      this.disabled = newRoute.name === 'team-needs'
-      this.showInfoBubble = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) < 0 && !this.bubbleDismissed && newRoute.name !== 'team-needs'
-    }
-  }
 }
 </script>
 

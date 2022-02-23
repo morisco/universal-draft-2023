@@ -8,6 +8,7 @@
 
 <script>
 export default {
+  name: "InfoBubble",
   props: ['content']
 }
 </script>

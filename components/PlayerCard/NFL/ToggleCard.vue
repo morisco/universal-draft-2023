@@ -1,19 +1,54 @@
 <template>
-  <div class="player-card__toggle" v-on:click="$emit('toggle-card', $event)">
+  <div
+    class="player-card__toggle"
+    @click="$emit('toggle-card', $event)"
+  >
     <svg viewBox="0 0 39.5 39.5">
-      <path d="M19.75,39.5A19.75,19.75,0,1,1,39.5,19.75,19.75,19.75,0,0,1,19.75,39.5Zm0-38A18.25,18.25,0,1,0,38,19.75,18.25,18.25,0,0,0,19.75,1.5Z"></path>
-      <circle cx="19.75" cy="19.75" r="19.75"></circle>
-      <rect x="19" y="11.75" width="1.5" height="15"></rect>
-      <rect x="18.77" y="22.59" width="8.15" height="1.5" transform="translate(-9.81 22.99) rotate(-45)"></rect>
-      <rect x="15.89" y="19.26" width="1.5" height="8.15" transform="translate(-11.63 18.6) rotate(-45)"></rect>
+      <path d="M19.75,39.5A19.75,19.75,0,1,1,39.5,19.75,19.75,19.75,0,0,1,19.75,39.5Zm0-38A18.25,18.25,0,1,0,38,19.75,18.25,18.25,0,0,0,19.75,1.5Z" />
+      <circle
+        cx="19.75"
+        cy="19.75"
+        r="19.75"
+      />
+      <rect
+        x="19"
+        y="11.75"
+        width="1.5"
+        height="15"
+      />
+      <rect
+        x="18.77"
+        y="22.59"
+        width="8.15"
+        height="1.5"
+        transform="translate(-9.81 22.99) rotate(-45)"
+      />
+      <rect
+        x="15.89"
+        y="19.26"
+        width="1.5"
+        height="8.15"
+        transform="translate(-11.63 18.6) rotate(-45)"
+      />
     </svg>
-    <transition name="player-card__toggle-span" mode="out-in">
-      <span class="player-card__toggle-span" v-if="expanded" key="less">{{lessText}}</span>
-      <span class="player-card__toggle-span" v-else key="more">{{moreText}}</span>
+    <transition
+      name="player-card__toggle-span"
+      mode="out-in"
+    >
+      <span
+        v-if="expanded"
+        key="less"
+        class="player-card__toggle-span"
+      >{{ lessText }}</span>
+      <span
+        v-else
+        key="more"
+        class="player-card__toggle-span"
+      >{{ moreText }}</span>
     </transition>
     <transition name="info-bubble">
       <InfoBubble v-if="false && !cardExpanded && $mq !== 'mobile'">
-        Read our full<br/>
+        Read our full<br>
         scouting report
       </InfoBubble>
     </transition>
@@ -23,6 +58,7 @@
 <script>
 import InfoBubble from '~/components/InfoBubble'
 export default {
+  name: "NFLInfoBubble",
   components: { InfoBubble },
   props: ['offenseDefense', 'toggleCard', 'expanded', 'cardExpanded', 'openText', 'closeText'],
   computed: {

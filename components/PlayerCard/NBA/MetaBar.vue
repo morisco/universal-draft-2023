@@ -1,38 +1,70 @@
 <template>
-<div class="player-card__meta-bar" ref="metaBar">
-  <div class="player-card__meta-bar-rank" v-if="rank && $mq !== 'mobile'" >
-    <span>{{rank}}</span>
-  </div>
-  <DraftTeam v-if="['mock-draft', 'draft-grades'].indexOf($route.name) >= 0 && teamNameLogo && $mq !== 'mobile'" :teamNameLogo="teamNameLogo" />
-  <Trend v-if="player.player_updates" :trend="player.player_updates.rank_movement" />
-  <div class="player-card__meta-bar-name-school player-card__image-column" ref="nameDiv">
-    <h3 class="h3">
-      <transition name="mobile-collapsed-rank">
-        <span v-if="$mq === 'mobile' && collapsed && !expanded" class="mobile-collapsed-rank">{{collapsedRank}}.</span>
-      </transition>
-      <span>{{playerMeta.firstName}}</span>
-      <span>{{playerMeta.lastName}}</span>
-    </h3>
-    <div class="player-card__meta-bar-position-school">
-      <span class="position">{{playerMeta.position}}</span>
-      <span class="school">{{playerMeta.school}}<span v-if="false && $mq !== 'mobile'">{{playerMeta.year && ', ' + playerMeta.year}}</span></span>
+  <div
+    ref="metaBar"
+    class="player-card__meta-bar"
+  >
+    <div
+      v-if="rank && $mq !== 'mobile'"
+      class="player-card__meta-bar-rank"
+    >
+      <span>{{ rank }}</span>
     </div>
-  </div>
-  <div class="player-card__meta-bar-details" ref="detailDiv" v-if="$mq !== 'mobile'">
-    <div class="player-card__meta-bar-details-column player-card__meta-bar-details-column--shades">
-      <div class="player-card__meta-bar-details-row">
-        <div class="shades-of-icon">
-          <img src="@/assets/img/icons/shades-of.svg" alt="Venn Diagaram Icon" data-not-lazy class="hover" />
-          <img src="@/assets/img/icons/shades-of-icon-black.svg" alt="Venn Diagaram Icon" data-not-lazy class="non-hover" />
+    <DraftTeam
+      v-if="['mock-draft', 'draft-grades'].indexOf($route.name) >= 0 && teamNameLogo && $mq !== 'mobile'"
+      :team-name-logo="teamNameLogo"
+    />
+    <Trend
+      v-if="player.player_updates"
+      :trend="player.player_updates.rank_movement"
+    />
+    <div
+      ref="nameDiv"
+      class="player-card__meta-bar-name-school player-card__image-column"
+    >
+      <h3 class="h3">
+        <transition name="mobile-collapsed-rank">
+          <span
+            v-if="$mq === 'mobile' && collapsed && !expanded"
+            class="mobile-collapsed-rank"
+          >{{ collapsedRank }}.</span>
+        </transition>
+        <span>{{ playerMeta.firstName }}</span>
+        <span>{{ playerMeta.lastName }}</span>
+      </h3>
+      <div class="player-card__meta-bar-position-school">
+        <span class="position">{{ playerMeta.position }}</span>
+        <span class="school">{{ playerMeta.school }}<span v-if="false && $mq !== 'mobile'">{{ playerMeta.year && ', ' + playerMeta.year }}</span></span>
+      </div>
+    </div>
+    <div
+      v-if="$mq !== 'mobile'"
+      ref="detailDiv"
+      class="player-card__meta-bar-details"
+    >
+      <div class="player-card__meta-bar-details-column player-card__meta-bar-details-column--shades">
+        <div class="player-card__meta-bar-details-row">
+          <div class="shades-of-icon">
+            <img
+              src="@/assets/img/icons/shades-of.svg"
+              alt="Venn Diagaram Icon"
+              data-not-lazy
+              class="hover"
+            >
+            <img
+              src="@/assets/img/icons/shades-of-icon-black.svg"
+              alt="Venn Diagaram Icon"
+              data-not-lazy
+              class="non-hover"
+            >
+          </div>
+          <span class="label">Shades Of</span>
         </div>
-        <span class="label">Shades Of</span>
-      </div>
-      <div class="player-card__meta-bar-details-row player-card__meta-bar-details-row--shade-value">
-        {{playerMeta.shadesOf}}
+        <div class="player-card__meta-bar-details-row player-card__meta-bar-details-row--shade-value">
+          {{ playerMeta.shadesOf }}
+        </div>
       </div>
     </div>
-  </div>
-</div>  
+  </div>  
 </template>
 
 <script>
@@ -43,9 +75,6 @@ export default {
   name: 'NBAMetaBar',
   components: {DraftTeam, Trend},
   props: ['player', 'rankKey', 'collapsed', 'expanded'],
-  mounted() {
-    this.$emit('setHeight',this.$refs.metaBar.offsetHeight);
-  },
   computed: {
     rank() {
       return this.rankKey ? this.player[this.rankKey] + 1 : null;
@@ -81,6 +110,9 @@ export default {
     collapsed () {
       this.$emit('setHeight',this.$refs.metaBar.offsetHeight)
     }
+  },
+  mounted() {
+    this.$emit('setHeight',this.$refs.metaBar.offsetHeight);
   }
 }
 </script>
@@ -210,10 +242,6 @@ export default {
         }
         &:hover{
           background-color: $mediumgray;
-        }
-        .player-card--expanded &{
-          // opacity:0;
-          // transition:opacity 0.25s linear;
         }
         .player-card--collapsed & {
           right: 25px;
@@ -369,14 +397,7 @@ export default {
             .player-card--collapsed & {
               padding:15px 0 10px;
             }
-            .player-card--expanded & {
-              // padding:0 10px;
-            }
             min-height:0;
-            .player-card--active &{
-              // color:$white;
-              // background-color:$darkgray;
-            }
             .player-card--expanded & {
               padding: 15px 0 15px;
               transition:all 0.5s linear 0.25s, padding 0.25s linear 0s;

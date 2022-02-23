@@ -1,11 +1,15 @@
 <template>
   <div class="player-card__headline-selling">
-    <div class="player-card__headline" v-html="headline"></div>
+    <div
+      class="player-card__headline"
+      v-html="headline"
+    />
   </div>
 </template>
 
 <script>
 export default {
+  name: "NFLHeadline",
   props: ['headline', 'selling']
 }
 </script>

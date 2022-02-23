@@ -2,12 +2,12 @@
   <div class="image-column__meta">
     <div class="image-column__meta-inner">
       <div class="image-column__meta-column">
-        <span class="image-column__meta-row"><strong>Height</strong> {{playerMeta.height}}</span>
-        <span class="image-column__meta-row"><strong>Weight</strong> {{playerMeta.weight}}</span>
+        <span class="image-column__meta-row"><strong>Height</strong> {{ playerMeta.height }}</span>
+        <span class="image-column__meta-row"><strong>Weight</strong> {{ playerMeta.weight }}</span>
       </div>
       <div class="image-column__meta-column">
-        <span class="image-column__meta-row"><strong>Age</strong> {{playerMeta.age}}</span>
-        <span class="image-column__meta-row"><strong>Year</strong> {{playerMeta.year}}</span>
+        <span class="image-column__meta-row"><strong>Age</strong> {{ playerMeta.age }}</span>
+        <span class="image-column__meta-row"><strong>Year</strong> {{ playerMeta.year }}</span>
       </div>
     </div>
   </div>
@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  name: 'NBAMeta',
   props: ['playerMeta']
 }
 </script>

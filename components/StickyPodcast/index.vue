@@ -6,13 +6,32 @@
       'sticky-podcast--show-mobile': showMobile,
     }"
   >
-    <div class="sticky-podcast__trigger" v-if="activePodcast">
-      <a :href="activePodcast.spotify_episodeSpotify" target="_blank">
-        <img src="~/assets/img/icons/spotify.svg" alt="Spotify" />
+    <div
+      v-if="activePodcast"
+      class="sticky-podcast__trigger"
+    >
+      <a
+        :href="activePodcast.spotify_episodeSpotify"
+        target="_blank"
+      >
+        <img
+          src="~/assets/img/icons/spotify.svg"
+          alt="Spotify"
+        >
       </a>
     </div>
-    <div class="sticky-podcast__player" v-if="activePodcast">
-      <Topper :content="currentPod" :readyToPlay="readyToPlay" :activePodcast="activePodcast" :duration="duration" :podPlaying="podPlaying || shouldPlay" :playPause="togglePlay" />
+    <div
+      v-if="activePodcast"
+      class="sticky-podcast__player"
+    >
+      <Topper
+        :content="currentPod"
+        :ready-to-play="readyToPlay"
+        :active-podcast="activePodcast"
+        :duration="duration"
+        :pod-playing="podPlaying || shouldPlay"
+        :play-pause="togglePlay"
+      />
       <div
         class="sticky-podcast__player-mini-controls" 
         :class="{
@@ -21,44 +40,106 @@
         }"
       >
         <div class="mini-controls-inner">
-          <button class="mini-controls-back" type="button" v-on:click="skipBack">
-            <img src="~/assets/img/icons/skip-back.svg" alt="Skip Back" />
+          <button
+            class="mini-controls-back"
+            type="button"
+            @click="skipBack"
+          >
+            <img
+              src="~/assets/img/icons/skip-back.svg"
+              alt="Skip Back"
+            >
           </button>
-          <button class="mini-controls-forward" type="button" v-on:click="skipForward">
-            <img src="~/assets/img/icons/skip-forward.svg" alt="Skip Forward" />
+          <button
+            class="mini-controls-forward"
+            type="button"
+            @click="skipForward"
+          >
+            <img
+              src="~/assets/img/icons/skip-forward.svg"
+              alt="Skip Forward"
+            >
           </button>
           <div class="mini-controls-logo-meta">
-            <a :href="activePodcast.spotify_episodeSpotify" target="_blank">
-              <img src="~/assets/img/icons/spotify.svg" alt="Spotify" />
+            <a
+              :href="activePodcast.spotify_episodeSpotify"
+              target="_blank"
+            >
+              <img
+                src="~/assets/img/icons/spotify.svg"
+                alt="Spotify"
+              >
             </a>
             <div class="mini-controls-meta">
-              <button type="button" v-on:click="togglePlay" class="sticky-play-pause">
-                <img v-if="podPlaying || shouldPlay" src="~/assets/img/icons/pause.svg" />
-                <img v-if="!podPlaying && !shouldPlay" src="~/assets/img/icons/play.svg" />
+              <button
+                type="button"
+                class="sticky-play-pause"
+                @click="togglePlay"
+              >
+                <img
+                  v-if="podPlaying || shouldPlay"
+                  src="~/assets/img/icons/pause.svg"
+                >
+                <img
+                  v-if="!podPlaying && !shouldPlay"
+                  src="~/assets/img/icons/play.svg"
+                >
               </button>
-              <div class="sticky-episode-title">{{ currentPod.title }}</div>
+              <div class="sticky-episode-title">
+                {{ currentPod.title }}
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="sticky-podcast__player-controls">
-        <button type="button" v-on:click="skipBack">
-          <img src="~/assets/img/icons/skip-back.svg" alt="Skip Back" />
+        <button
+          type="button"
+          @click="skipBack"
+        >
+          <img
+            src="~/assets/img/icons/skip-back.svg"
+            alt="Skip Back"
+          >
         </button>
-        <div class="sticky-podcast__player-controls-progress" v-on:click="progressClick">
+        <div
+          class="sticky-podcast__player-controls-progress"
+          @click="progressClick"
+        >
           <div class="sticky-podcast__player-controls-progress-inner">
-            <div class="sticky-podcast__player-controls-progress-bar" :style="{ maxWidth: progress + '%' }"></div>
+            <div
+              class="sticky-podcast__player-controls-progress-bar"
+              :style="{ maxWidth: progress + '%' }"
+            />
           </div>
         </div>
-        <button type="button" v-on:click="skipForward">
-          <img src="~/assets/img/icons/skip-forward.svg" alt="Skip Forward" />
+        <button
+          type="button"
+          @click="skipForward"
+        >
+          <img
+            src="~/assets/img/icons/skip-forward.svg"
+            alt="Skip Forward"
+          >
         </button>
       </div>
-              <div class="mini-controls-progress" :style="{'max-width': progress + '%'}" />
-
+      <div
+        class="mini-controls-progress"
+        :style="{'max-width': progress + '%'}"
+      />
     </div>
-    <audio preload="auto" ref="audioPlayer" v-on:canplay="audioCanPlay" v-on:timeupdate="watchTime" v-on:ended="podcastEnded"  data-not-lazy>
-      <source :src="activePodcast && activePodcast.spotify_episodeMP3" type="audio/mpeg">
+    <audio
+      ref="audioPlayer"
+      preload="auto"
+      data-not-lazy
+      @canplay="audioCanPlay"
+      @timeupdate="watchTime"
+      @ended="podcastEnded"
+    >
+      <source
+        :src="activePodcast && activePodcast.spotify_episodeMP3"
+        type="audio/mpeg"
+      >
     </audio>
   </div>
 </template>
@@ -69,17 +150,8 @@ import _ from 'lodash'
 import Topper from '~/components/Podcast/Topper.vue';
 
 export default {
+  name: "StickyPodcast",
   components: { Topper },
-  mounted() {
-    this.handleScroll();
-    window.addEventListener('scroll', this.handleScroll);
-    if(!this.activePodcast && this.pods && this.currentPod) {
-      this.activePodcast = this.pods[this.currentPod.id];
-    }
-  },
-  destroyed() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
   data() {
     return {
       activePodcast: null,
@@ -127,6 +199,90 @@ export default {
     defaultPod() {
       return this.$store.getters['page/defaultPod']
     },
+  },
+  watch : {
+    currentTime() {
+      this.setPodTime(this.currentTime);
+      if(this.currentPod.start){
+        this.progress = ((this.currentTime - this.currentPod.start)/(this.currentPod.end - this.currentPod.start)) * 100;
+        if(this.currentTime >= this.currentPod.end) {
+          this.setPlaying(false);
+          this.ended = true;
+        }
+      } else {
+        this.progress = (this.currentTime/this.duration) * 100;
+      }
+
+    },
+    podPlaying() {
+      this.handlePlayPause();
+    },
+    readyToPlay() {
+      if(this.readyToPlay) {
+        this.$refs.audioPlayer.currentTime = this.currentPod.start ? this.currentPod.start : 0;
+      }
+      this.handlePlayPause();
+    },
+    shouldPlay() {
+      this.handlePlayPause();
+    },
+    currentPod(newVal, oldVal) {
+      if(this.activePodcast) {
+        this.shouldPlay = true
+      }
+      this.podUpdate = true
+      if(this.currentPod && this.activePodcast && this.currentPod.id !== this.activePodcast.id) {
+        this.readyToPlay = false
+      }
+      if(this.currentPod && this.pods) {
+        this.activePodcast = this.pods[this.currentPod.id];
+      }
+      this.setPlaying(false);
+      this.currentTime = 0;
+      this.ended = false;
+    },
+    activePodcast() {
+      this.podUpdate = true;
+      // if(this.activePodcast && this.$refs.audioPlayer) {
+      //   // this.$refs.audioPlayer.load();
+      // }
+    },
+    pods() {
+      if(this.pods && this.defaultPod) {
+        this.setCurrentPod({
+          id: this.defaultPod,
+          start: 0,
+          end:null,
+          title: this.pods[this.defaultPod].title,
+          image: this.pods[this.defaultPod].spotify_showImage,
+          show: this.pods[this.defaultPod].spotify_showName,
+          type: "full"
+        })
+      }
+    },
+    podUpdate() {
+      if(!this.podUpdate) return;
+      this.podUpdate = false;
+      if(this.currentPod.start) {
+        this.duration = this.currentPod.end - this.currentPod.start;
+        this.$refs.audioPlayer.currentTime = this.currentPod.start;
+      } else {
+        this.duration = this.activePodcast.spotify_episodeDuration;
+         if(this.$refs.audioPlayer) {
+          this.$refs.audioPlayer.currentTime = 0;
+         }
+      }
+    }
+  },
+  mounted() {
+    this.handleScroll();
+    window.addEventListener('scroll', this.handleScroll);
+    if(!this.activePodcast && this.pods && this.currentPod) {
+      this.activePodcast = this.pods[this.currentPod.id];
+    }
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
     ...mapActions({
@@ -209,80 +365,6 @@ export default {
       
       this.setPlaying(!this.podPlaying);
     },
-  },
-  watch : {
-    currentTime() {
-      this.setPodTime(this.currentTime);
-      if(this.currentPod.start){
-        this.progress = ((this.currentTime - this.currentPod.start)/(this.currentPod.end - this.currentPod.start)) * 100;
-        if(this.currentTime >= this.currentPod.end) {
-          this.setPlaying(false);
-          this.ended = true;
-        }
-      } else {
-        this.progress = (this.currentTime/this.duration) * 100;
-      }
-
-    },
-    podPlaying() {
-      this.handlePlayPause();
-    },
-    readyToPlay() {
-      if(this.readyToPlay) {
-        this.$refs.audioPlayer.currentTime = this.currentPod.start ? this.currentPod.start : 0;
-      }
-      this.handlePlayPause();
-    },
-    shouldPlay() {
-      this.handlePlayPause();
-    },
-    currentPod(newVal, oldVal) {
-      if(this.activePodcast) {
-        this.shouldPlay = true
-      }
-      this.podUpdate = true
-      if(this.currentPod && this.activePodcast && this.currentPod.id !== this.activePodcast.id) {
-        this.readyToPlay = false
-      }
-      if(this.currentPod && this.pods) {
-        this.activePodcast = this.pods[this.currentPod.id];
-      }
-      this.setPlaying(false);
-      this.currentTime = 0;
-      this.ended = false;
-    },
-    activePodcast() {
-      this.podUpdate = true;
-      // if(this.activePodcast && this.$refs.audioPlayer) {
-      //   // this.$refs.audioPlayer.load();
-      // }
-    },
-    pods() {
-      if(this.pods && this.defaultPod) {
-        this.setCurrentPod({
-          id: this.defaultPod,
-          start: 0,
-          end:null,
-          title: this.pods[this.defaultPod].title,
-          image: this.pods[this.defaultPod].spotify_showImage,
-          show: this.pods[this.defaultPod].spotify_showName,
-          type: "full"
-        })
-      }
-    },
-    podUpdate() {
-      if(!this.podUpdate) return;
-      this.podUpdate = false;
-      if(this.currentPod.start) {
-        this.duration = this.currentPod.end - this.currentPod.start;
-        this.$refs.audioPlayer.currentTime = this.currentPod.start;
-      } else {
-        this.duration = this.activePodcast.spotify_episodeDuration;
-         if(this.$refs.audioPlayer) {
-          this.$refs.audioPlayer.currentTime = 0;
-         }
-      }
-    }
   },
 }
 </script>

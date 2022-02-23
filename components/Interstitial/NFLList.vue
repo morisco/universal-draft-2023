@@ -1,32 +1,55 @@
 <template>
-  <div class="player-card list-inter" :class="{'player-card--expanded': expanded}" ref="card">
-    <div class="list-inter__image player-card__image-column" v-if="false">
-      <img :src="interstitial.image.small" />
+  <div
+    ref="card"
+    class="player-card list-inter"
+    :class="{'player-card--expanded': expanded}"
+  >
+    <div
+      v-if="false"
+      class="list-inter__image player-card__image-column"
+    >
+      <img :src="interstitial.image.small">
     </div>
-    <div class="list-inter__info player-card__info-column" :style="{'maxHeight': maxHeight + 'px'}">
-      <div class="list-inter__top-data" ref="topData">
+    <div
+      class="list-inter__info player-card__info-column"
+      :style="{'maxHeight': maxHeight + 'px'}"
+    >
+      <div
+        ref="topData"
+        class="list-inter__top-data"
+      >
         <div class="list-inter__title-presnted">
-          <div class="list-inter__title" v-html="interstitial.title_html"></div>
+          <div
+            class="list-inter__title"
+            v-html="interstitial.title_html"
+          />
         </div>
         <div class="list-inter__byline">
-          By {{interstitial.byline}}
+          By {{ interstitial.byline }}
         </div>
         <div class="list-inter__presented-by">
           <!-- <span>Presented By</span>
           <img src="@/assets/img/state-farm-red.svg" alt="State Farm Logo" data-not-lazy /> -->
         </div>
-        <div class="list-inter__content" v-html="firstParagraph"></div>
+        <div
+          class="list-inter__content"
+          v-html="firstParagraph"
+        />
       </div>
-      <div class="list-inter__remaining-content" ref="bottomData" v-html="remainingContent"></div>
+      <div
+        ref="bottomData"
+        class="list-inter__remaining-content"
+        v-html="remainingContent"
+      />
     </div>
     <ToggleCard 
-        :offenseDefense="''" 
-        :expanded="expanded" 
-        :cardExpanded="cardExpanded"
-        v-on:toggle-card="toggleCard"
-        :openText="'Read More'"
-        :closeText="'Read Less'"
-      />
+      :offense-defense="''" 
+      :expanded="expanded" 
+      :card-expanded="cardExpanded"
+      :open-text="'Read More'"
+      :close-text="'Read Less'"
+      @toggle-card="toggleCard"
+    />
   </div>
 </template>
 
@@ -34,8 +57,9 @@
 import ToggleCard from '~/components/PlayerCard/NFL/ToggleCard';
 import { scrollIt } from '~/plugins/scroller'
 export default {
-  props: ['interstitial'],
+  name: "InterstitialNFLList",
   components: { ToggleCard },
+  props: ['interstitial'],
   data() {
     return {
       firstParagraph: '',
@@ -44,27 +68,24 @@ export default {
       maxHeight: null
     }
   },
+  watch:{
+    expanded() {
+      if(!this.$refs.topData) return
+      let scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop - (this.$mq === 'mobile' ? 60 : self.collapsed ? 75 : 85);
+      scrollIt(scrollDestination, 500, 'linear');
+      if(this.expanded){
+        this.maxHeight = this.$refs.topData.offsetHeight + this.$refs.bottomData.offsetHeight;
+      } else {
+        this.maxHeight = this.$refs.topData.offsetHeight;
+      }
+    }
+  },
   mounted() {
     const self = this;
     setTimeout(() => {
       if(!self.$refs.topData) return;
       self.maxHeight = self.$refs.topData.offsetHeight;
     }, 500)
-  },
-  methods: {
-    toggleCard() {
-      if(!this.expanded){
-        this.$ga.event({
-          eventCategory: 'list-interstitial',
-          eventAction: 'expanded',
-          eventLabel: this.interstitial.title_html
-        });
-      }
-      this.expanded = !this.expanded;
-    },
-    cardExpanded() {
-      // this.expanded = !this.expanded;
-    }
   },
   created() {
     if(process.client){
@@ -82,16 +103,19 @@ export default {
       this.remainingContent = rest;
     }
   },
-  watch:{
-    expanded() {
-      if(!this.$refs.topData) return
-      let scrollDestination = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop - (this.$mq === 'mobile' ? 60 : self.collapsed ? 75 : 85);
-      scrollIt(scrollDestination, 500, 'linear');
-      if(this.expanded){
-        this.maxHeight = this.$refs.topData.offsetHeight + this.$refs.bottomData.offsetHeight;
-      } else {
-        this.maxHeight = this.$refs.topData.offsetHeight;
+  methods: {
+    toggleCard() {
+      if(!this.expanded){
+        this.$ga.event({
+          eventCategory: 'list-interstitial',
+          eventAction: 'expanded',
+          eventLabel: this.interstitial.title_html
+        });
       }
+      this.expanded = !this.expanded;
+    },
+    cardExpanded() {
+      // this.expanded = !this.expanded;
     }
   }
 }
@@ -141,9 +165,6 @@ export default {
     @include mobile{
       padding:30px 20px 40px;
     }
-    .app__content--collapsed & {
-      // margin-bottom:15px;
-    }
     &__image{
       img{
         object-fit:contain;
@@ -170,12 +191,6 @@ export default {
       @include non-mobile{
         max-width:80%;
       }
-    }
-    &__title-presnted{
-      // display:flex;
-      // align-items:flex-start;
-      // justify-content:space-between;
-
     }
     &__remaining-content{
       opacity:0;

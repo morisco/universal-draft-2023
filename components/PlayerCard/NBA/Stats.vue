@@ -1,35 +1,43 @@
 <template>
-<div class="player-card__stats">
-  <div class="player-card__stats-detail" v-if="player.stat_details">
-    *Statistics are from {{player.stat_details.year}} season
-  </div>
-  <ul class="player-card__stats-list" :class="{'player-card__stats-list--full' : statArray.length === 5}">
-    <li v-for="stat in player.player_position_stats.stats" :key="stat.key">
-      <div class="player-card__stat-tooltip">{{stat.tooltip}}</div>
-      <div class="player-card__stat">
-        <span class="player-card__stat-title">{{stat.label}}</span>
-        <span class="player-card__stat-value">
-          <span>
-            <span>{{stat.value}}</span>
-            <span class="player-card__stat-detail">{{stat.detail}}</span>
+  <div class="player-card__stats">
+    <div
+      v-if="player.stat_details"
+      class="player-card__stats-detail"
+    >
+      *Statistics are from {{ player.stat_details.year }} season
+    </div>
+    <ul
+      class="player-card__stats-list"
+      :class="{'player-card__stats-list--full' : statArray.length === 5}"
+    >
+      <li
+        v-for="stat in player.player_position_stats.stats"
+        :key="stat.key"
+      >
+        <div class="player-card__stat-tooltip">
+          {{ stat.tooltip }}
+        </div>
+        <div class="player-card__stat">
+          <span class="player-card__stat-title">{{ stat.label }}</span>
+          <span class="player-card__stat-value">
+            <span>
+              <span>{{ stat.value }}</span>
+              <span class="player-card__stat-detail">{{ stat.detail }}</span>
+            </span>
           </span>
-        </span>
-      </div>
-    </li>
-  </ul>
-</div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-import { parseStats } from '~/plugins/contentProcessor'
 export default {
   name:'NBAStats',
   props: ['player'],
   computed: {
     statArray() {
       return [];
-      // const parsedStats = parseStats(this.player.player_position_stats);
-      // return parsedStats;
     }
   }  
 }
@@ -241,32 +249,6 @@ export default {
     @include tooltip;
     background-color:$nbaorange;
     z-index:3;
-
-    // .player-card--offense & {
-    //   background-color: $offense;
-    // }
-    // .player-card--defense & {
-    //   background-color: $defense;
-    // }
-    // &:after{
-    //   content: '';
-    //   display: block;
-    //   position: absolute;
-    //   left: 5px;
-    //   transform: rotate(-45deg);
-    //   top: -5px;
-    //   height: 10px;
-    //   width: 10px;
-    //   z-index: -1;
-    //   background-color:$highlight2;
-    //   // .player-card--offense & {
-    //   //   background-color: $offense;
-    //   // }
-    //   // .player-card--defense & {
-    //   //   background-color: $defense;
-    //   // }
-    // }
   }
-
 }
 </style>

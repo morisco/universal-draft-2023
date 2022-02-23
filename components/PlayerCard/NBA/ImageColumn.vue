@@ -1,25 +1,67 @@
 <template>
-  <div class="player-card__image-column"  :style="{'maxHeight': collapsed && !expanded ? 0 : maxHeight + 'px', 'minHeight' : maxHeight || collapsed ? 0 : null}">
-    <div class="player-card__image-column-inner" ref="imageColumn"> 
-      <div class="player-card__image-column-img-wrapper" :style="{'maxHeight': imageHeight + 'px'}"> 
+  <div
+    class="player-card__image-column"
+    :style="{'maxHeight': collapsed && !expanded ? 0 : maxHeight + 'px', 'minHeight' : maxHeight || collapsed ? 0 : null}"
+  >
+    <div
+      ref="imageColumn"
+      class="player-card__image-column-inner"
+    > 
+      <div
+        class="player-card__image-column-img-wrapper"
+        :style="{'maxHeight': imageHeight + 'px'}"
+      > 
         <div class="player-card__image-column-img-wrapper-inner">
-          <img :src="player.image" :alt="player.imageAlt" />
-          <img :src="player.imageHover" class="hover-image" :alt="player.imageAlt" />
+          <img
+            :src="player.image"
+            :alt="player.imageAlt"
+          >
+          <img
+            :src="player.imageHover"
+            class="hover-image"
+            :alt="player.imageAlt"
+          >
         </div>
-        <NBAMeta :playerMeta="playerMeta" v-if="$mq !== 'mobile'" />
+        <NBAMeta
+          v-if="$mq !== 'mobile'"
+          :player-meta="playerMeta"
+        />
       </div>
       <div class="player-card__image-column-content">
         <div v-if="$mq !== 'mobile'">
           <Stats :player="fullPlayer" />
-          <VideoThumb :playVideo="playVideo" :videoSettings="videoSettings" :playerVideo="playerVideo" :activeCard="activeCard" v-if="playerVideo" v-on:resetVideoSettings="$emit('resetVideoSettings')" />
-          <PodcastCardPlayer v-if="player.player_podcast && $mq !== 'mobile'" :playerId="playerId" :playerPodcast="player.player_podcast" :player="player" :infoHeight="topHeight" :podcast="player.player_podcast" />
-          <RelatedArticles :articles="fullPlayer.player_articles" v-if="fullPlayer.player_articles" />
+          <VideoThumb
+            v-if="playerVideo"
+            :play-video="playVideo"
+            :video-settings="videoSettings"
+            :player-video="playerVideo"
+            :active-card="activeCard"
+            @reset-video-settings="$emit('resetVideoSettings')"
+          />
+          <PodcastCardPlayer
+            v-if="player.player_podcast && $mq !== 'mobile'"
+            :player-id="playerId"
+            :player-podcast="player.player_podcast"
+            :player="player"
+            :info-height="topHeight"
+            :podcast="player.player_podcast"
+          />
+          <RelatedArticles
+            v-if="fullPlayer.player_articles"
+            :articles="fullPlayer.player_articles"
+          />
         </div>
       </div>
     </div>
-    <DraftTeam v-if="['mock-draft', 'draft-grades'].indexOf($route.name) >= 0 && teamNameLogo && $mq === 'mobile'" :teamNameLogo="teamNameLogo" />
-    <div class="player-card__rank" v-if="$mq === 'mobile'">
-      <span>{{rank+1}}</span>
+    <DraftTeam
+      v-if="['mock-draft', 'draft-grades'].indexOf($route.name) >= 0 && teamNameLogo && $mq === 'mobile'"
+      :team-name-logo="teamNameLogo"
+    />
+    <div
+      v-if="$mq === 'mobile'"
+      class="player-card__rank"
+    >
+      <span>{{ rank+1 }}</span>
     </div>
   </div>
 </template>
@@ -32,8 +74,10 @@ import RelatedArticles from './RelatedArticles'
 import NBAMeta from './NBAMeta'
 import Stats from './Stats'
 export default {
-  props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight', 'playVideo', 'setImageColHeight', 'expanded', 'videoSettings', 'activeCard'],
+  name: "NBAImageColumn",
   components: {DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles, Stats, NBAMeta},
+  props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight', 'playVideo', 'setImageColHeight', 'expanded', 'videoSettings', 'activeCard'],
+  emits: ['resetVideoSettings'],
   data() {
     return {
       maxHeight: false,
@@ -78,24 +122,6 @@ export default {
       return this.fullPlayer.player_video && this.fullPlayer.player_video.video_id ? this.fullPlayer.player_video : false
     }
   },
-  methods: {
-    setHeights() {
-      if(this.expanded) {
-        let interiorHeight = 30;
-        this.$refs.imageColumn.children.forEach((child) => interiorHeight += child.offsetHeight);
-        this.setImageColHeight(interiorHeight);
-        this.maxHeight = this.$mq === 'mobile' ? 250 : interiorHeight;
-        if(this.$mq !== 'mobile'){
-          this.imageHeight = this.topHeight + 20
-        }
-      } else {
-        this.maxHeight = this.$mq === 'mobile' ? 250 : this.topHeight;
-        if(this.$mq !== 'mobile'){
-          this.imageHeight = this.topHeight
-        }
-      }
-    }
-  },
   watch:{
     expanded() {
       if(!this.$refs.imageColumn) return;
@@ -118,6 +144,24 @@ export default {
   mounted () {
     if(this.$mq !== 'mobile'){
       this.imageHeight = this.topHeight
+    }
+  },
+  methods: {
+    setHeights() {
+      if(this.expanded) {
+        let interiorHeight = 30;
+        this.$refs.imageColumn.children.forEach((child) => interiorHeight += child.offsetHeight);
+        this.setImageColHeight(interiorHeight);
+        this.maxHeight = this.$mq === 'mobile' ? 250 : interiorHeight;
+        if(this.$mq !== 'mobile'){
+          this.imageHeight = this.topHeight + 20
+        }
+      } else {
+        this.maxHeight = this.$mq === 'mobile' ? 250 : this.topHeight;
+        if(this.$mq !== 'mobile'){
+          this.imageHeight = this.topHeight
+        }
+      }
     }
   }
 }

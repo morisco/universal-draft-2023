@@ -46,7 +46,7 @@ export const statMap = statsMap;
 
 export const positionLabelMap = { "qb": 'Quarterback',  "wr": "Wide Receiver", "t": "Tackle",  "rb": "Running Back", "c": "Center", "g": "Guard", "te": "Tight End", "de": 'Edge Rusher', "lb": "Linebacker", "db": "Defensive Back", "idl": "Interior Defensive Lineman", "s": "Safety"}
 
-export const positionMap = {
+export const positionMap =  process.env.PROJECT_LEAUGE === 'NBA' ? {
   'all-offense': ['qb', 'rb', 'wr', 'te', 'c', 't', 'g'],
   'all-defense': ['de', 'ilb', 'lb', 'db', 's'],
   'qb': ['qb'],
@@ -57,6 +57,10 @@ export const positionMap = {
   'db': ['db', 's'],
   'ol': ['t', 'c', 'g'],
   'pc': ['wr', 'te']
+} : {
+  'bigs': ['bigs'],
+  'guards': ['guards'],
+  'forwards': ['forwards'],
 }
 
 export const offensePositions = ["qb",  "wr", "t",  "rb", "c", "g", "te"]

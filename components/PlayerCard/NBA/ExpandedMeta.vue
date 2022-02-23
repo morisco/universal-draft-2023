@@ -1,24 +1,44 @@
 <template>
   <div class="player-card__expanded-meta">
     <div class="player-card__expanded-meta-section">
-      <div class="player-card__expanded-label">PLUSES</div>
+      <div class="player-card__expanded-label">
+        PLUSES
+      </div>
       <div class="player-card__expanded-value">
         <ul class="player-card__expanded-value-list">
-          <li v-for="(plus, index) in player.pluses_minuses.pluses" :key="'Plus' + index" v-html="plus.text"></li>
+          <li
+            v-for="(plus, index) in player.pluses_minuses.pluses"
+            :key="'Plus' + index"
+            v-html="plus.text"
+          />
         </ul>
       </div>
     </div>
     <div class="player-card__expanded-meta-section">
-      <div class="player-card__expanded-label">MINUSES</div>
+      <div class="player-card__expanded-label">
+        MINUSES
+      </div>
       <div class="player-card__expanded-value">
         <ul class="player-card__expanded-value-list">
-          <li v-for="(minus, index) in player.pluses_minuses.minuses" :key="'Minus' + index" v-html="minus.text"></li>
+          <li
+            v-for="(minus, index) in player.pluses_minuses.minuses"
+            :key="'Minus' + index"
+            v-html="minus.text"
+          />
         </ul>
       </div>
     </div>
-    <div class="player-card__expanded-meta-section" v-if="player.staff_insight">
-      <div class="player-card__expanded-label">STAFF OPINION</div>
-      <div class="player-card__expanded-value player-card__expanded-value--last" v-html="player.staff_insight"></div>
+    <div
+      v-if="player.staff_insight"
+      class="player-card__expanded-meta-section"
+    >
+      <div class="player-card__expanded-label">
+        STAFF OPINION
+      </div>
+      <div
+        class="player-card__expanded-value player-card__expanded-value--last"
+        v-html="player.staff_insight"
+      />
     </div>
   </div>
 </template>

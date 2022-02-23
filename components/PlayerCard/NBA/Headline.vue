@@ -1,15 +1,26 @@
 <template>
   <div class="player-card__headline-selling">
-    <div class="player-card__headline" v-html="headline"></div>
-    <div class="player-card__headline-shades" v-if="$mq === 'mobile'">
+    <div
+      class="player-card__headline"
+      v-html="headline"
+    />
+    <div
+      v-if="$mq === 'mobile'"
+      class="player-card__headline-shades"
+    >
       <div class="shades-lockup">
         <div class="shades-of-icon">
-          <img src="@/assets/img/icons/shades-of-icon-black.svg" alt="Venn Diagaram Icon" data-not-lazy class="non-hover" />
+          <img
+            src="@/assets/img/icons/shades-of-icon-black.svg"
+            alt="Venn Diagaram Icon"
+            data-not-lazy
+            class="non-hover"
+          >
         </div>
         <span class="label">Shades Of</span>
       </div>
       <div class="player-card__meta-bar-details-row player-card__meta-bar-details-row--shade-value">
-        {{playerMeta.shadesOf}}
+        {{ playerMeta.shadesOf }}
       </div>
     </div>
   </div>
@@ -17,6 +28,7 @@
 
 <script>
 export default {
+  name: "NBAHeadline",
   props: ['headline', 'selling', 'player', 'playerMeta'],
 }
 </script>

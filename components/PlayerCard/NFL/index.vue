@@ -1,60 +1,78 @@
 <template>
-  <article class="player-card" :data-player="player.id_string" :class="{
-    'player-card--offense': player.offenseDefense === 'offense', 
-    'player-card--defense': player.offenseDefense === 'defense', 
-    'player-card--expanded': expanded, 
-    'player-card--expanding': expanding, 
-    'player-card--collapsed': collapsed,
-    'player-card--collapsing': collapsing,
-    'player-card--animated': animateHeight,
-    'player-card--loaded': maxHeight > 0,
-    'player-card--active': activeCard,
-    'player-card--all-cards-set': this.infoHeight
-  }" 
-  v-bind:style="
-    [maxHeight] ? {
-      maxHeight: maxHeight + 'px', 
-      zIndex: zIndex
-    } : { zIndex: zIndex }"
-  v-on:click="openCard"
-  ref="card">
-    <MetaBar :player="player" :rankKey="rankKey" ref="metaBar" :collapsed="collapsed" v-if="$mq !== 'mobile'" />
+  <article
+    ref="card"
+    class="player-card"
+    :data-player="player.id_string" 
+    :class="{
+      'player-card--offense': player.offenseDefense === 'offense', 
+      'player-card--defense': player.offenseDefense === 'defense', 
+      'player-card--expanded': expanded, 
+      'player-card--expanding': expanding, 
+      'player-card--collapsed': collapsed,
+      'player-card--collapsing': collapsing,
+      'player-card--animated': animateHeight,
+      'player-card--loaded': maxHeight > 0,
+      'player-card--active': activeCard,
+      'player-card--all-cards-set': infoHeight
+    }"
+    :style="
+      [maxHeight] ? {
+        maxHeight: maxHeight + 'px', 
+        zIndex: zIndex
+      } : { zIndex: zIndex }"
+    @click="openCard"
+  >
+    <MetaBar
+      v-if="$mq !== 'mobile'"
+      ref="metaBar"
+      :player="player"
+      :rank-key="rankKey"
+      :collapsed="collapsed"
+    />
     <div class="player-card__image-info">
       <ImageColumn 
-        :playerId="playerId" 
+        :player-id="playerId" 
         :expanded="expanded"
         :collapsed="collapsed" 
         :rank="rank"
-        :infoHeight="infoHeight"
-        :topHeight="topHeight"
-        :rankKey="rankKey"
-        :playVideo="playVideo"
-        :setImageColHeight="setImageColHeight"
-        :videoSettings="videoSettings"
-        :activeCard="activeCard"
-        v-on:resetVideoSettings="resetVideoSettings"
+        :info-height="infoHeight"
+        :top-height="topHeight"
+        :rank-key="rankKey"
+        :play-video="playVideo"
+        :set-image-col-height="setImageColHeight"
+        :video-settings="videoSettings"
+        :active-card="activeCard"
+        @reset-video-settings="resetVideoSettings"
       />
       <InfoColumn 
-        :playerId="playerId" 
+        :player-id="playerId" 
         :expanded="expanded" 
         :collapsed="collapsed" 
-        :rankKey="rankKey"
-        :setMaxHeight="setMaxHeight"
-        :setAnimateHeight="setAnimateHeight"
-        :playVideo="playVideo"
-        :activeCard="activeCard"
-        v-on:set-info-height="setInfoHeight"
-        v-on:set-top-height="setTopHeight"
-        v-on:setMetaHeight="setMetaHeight"
+        :rank-key="rankKey"
+        :set-max-height="setMaxHeight"
+        :set-animate-height="setAnimateHeight"
+        :play-video="playVideo"
+        :active-card="activeCard"
+        @set-info-height="setInfoHeight"
+        @set-top-height="setTopHeight"
+        @set-meta-height="setMetaHeight"
       />
     </div>
-      <ToggleCard 
-        :offenseDefense="player.offenseDefense" 
-        :expanded="expanded" 
-        :cardExpanded="cardExpanded"
-        v-on:toggle-card="toggleCard"
-      />
-    <VideoViewer :displayVideo="displayVideo" :closeVideo="closeVideo" :player="player" :playerVideo="playerVideo" :expanded="expanded" v-if="playerVideo" v-on:collapseVideo="collapseVideo" />
+    <ToggleCard 
+      :offense-defense="player.offenseDefense" 
+      :expanded="expanded" 
+      :card-expanded="cardExpanded"
+      @toggle-card="toggleCard"
+    />
+    <VideoViewer
+      v-if="playerVideo"
+      :display-video="displayVideo"
+      :close-video="closeVideo"
+      :player="player"
+      :player-video="playerVideo"
+      :expanded="expanded"
+      @collapseVideo="collapseVideo"
+    />
   </article>
 </template>
 
@@ -67,8 +85,9 @@ import ToggleCard  from './ToggleCard.vue'
 import { scrollIt } from '~/plugins/scroller'
 
 export default {
-  props: ['playerId', 'rankKey', 'cardExpanded', 'playerId'],
+  name: "NFLPlayerCard",
   components: { ImageColumn, InfoColumn, ToggleCard, MetaBar, VideoViewer },
+  props: ['playerId', 'rankKey', 'cardExpanded'],
   data() {
     return {
       openTimeout:          null,
@@ -90,10 +109,6 @@ export default {
       videoSettings:        null,
       metaHeight:           null
     }
-  },
-  created () {
-    this.expanded   = this.viewDepth === 'detailed'
-    this.collapsed  = this.viewDepth === 'compact'
   },
   computed: {
     rank () {
@@ -124,12 +139,6 @@ export default {
           return 200 - this.rank;
       }
     },
-  },
-  destroyed() {
-    window.clearTimeout(this.transitioningTimeout);
-    window.clearTimeout(this.openTimeout);
-    window.clearTimeout(this.scrollTimeout);
-    window.removeEventListener('scroll', this.watchScroll);
   },
   watch: {
     infoHeight() {
@@ -203,6 +212,16 @@ export default {
         this.resetVideoSettings();
       }
     }
+  },
+  created () {
+    this.expanded   = this.viewDepth === 'detailed'
+    this.collapsed  = this.viewDepth === 'compact'
+  },
+  unmounted() {
+    window.clearTimeout(this.transitioningTimeout);
+    window.clearTimeout(this.openTimeout);
+    window.clearTimeout(this.scrollTimeout);
+    window.removeEventListener('scroll', this.watchScroll);
   },
   mounted() {
     window.addEventListener('scroll', this.watchScroll, {passive: true});
