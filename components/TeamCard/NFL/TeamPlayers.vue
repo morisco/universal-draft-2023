@@ -60,16 +60,13 @@ export default {
       return this.players ? 'Friendly Suggestions' : 'No picks in the first two rounds'
     },
     players() {
-      console.log('tp', this.$store.getters['content/team'](this.teamId).players);
       if(!this.$store.getters['content/team'](this.teamId).players || this.$store.getters['content/team'](this.teamId).players.length === 0){
         return false;
       }
       if(this.$store.getters['content/team'](this.teamId).players[0].player){
         const tps = [...this.$store.getters['content/team'](this.teamId).players];
-        tps.filter((p) => {console.log(p.title); return p.title});
-        // console.log(tps);
+        tps.filter((p) => p.title);
         return tps.map((player) => {
-          // console.log('ppp', player);
           return this.$store.getters['content/teamPlayer'](player.player)
         });
       } else {

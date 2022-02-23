@@ -30,7 +30,6 @@ import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
 import MoreCoverage from '~/components/MoreCoverage'
 
-
 export default {
   name: 'TeamNeeds',
   components: { MainSectionIntro, TeamCard, MoreCoverage },
@@ -97,8 +96,10 @@ export default {
   },
   methods: {
     handleScroll() {
-      if(this.$refs.teamNeeds && (window.scrollY > this.$refs.teamNeeds.offsetParent.offsetTop + this.$refs.teamNeeds.offsetTop - window.innerHeight)) {
-        this.showAll = true;
+      if(this.$refs.teamNeeds) {
+        if((window.scrollY > this.$refs.teamNeeds.offsetParent.offsetTop + this.$refs.teamNeeds.offsetTop - window.innerHeight)) {
+          this.showAll = true;
+        }
       }
     }
   }

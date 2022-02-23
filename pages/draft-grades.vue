@@ -150,9 +150,6 @@ export default {
       let dataObj = [];
       this.draftResultsIds.forEach((playerId, index) => {
         dataObj.push({type:'player', id: playerId});
-        if(this.interstitials[index+1] && this.viewStrength.length === 0 && this.viewPosition === 'all'){
-          dataObj.push({type:'interstitial', interKey:index+1})
-        }
       })
       this.idsToDisplay = [...dataObj];
     }

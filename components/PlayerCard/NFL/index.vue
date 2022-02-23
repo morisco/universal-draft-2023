@@ -248,6 +248,7 @@ export default {
       this.imageHeight = height;
     },
     watchScroll() {
+      if (!this.$refs.card) return;
       const cardOffset = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop;
       const cardHeight = this.$refs.card.offsetHeight;
       const scrollTop = window.scrollY;
