@@ -5,9 +5,11 @@
   >
     <MainSectionIntro type="draft_grades" />
     <transition-group
-      name="player-card"
       class="draft-results__inner main-section__inner"
-      tag="div"
+      :css="false"
+      @before-enter="onBeforeEnter"
+      @enter="onEnter"
+      @leave="onLeave"
     >
       <PlayerCard 
         v-for="(card, index) in idsToDisplay"
@@ -35,6 +37,7 @@ import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
 import MoreCoverage from '~/components/MoreCoverage'
 import { scrollIt } from '~/plugins/scroller'
+import gsap from 'gsap/all';
 
 export default {
   name: 'DraftResults',
@@ -141,6 +144,27 @@ export default {
    ...mapActions({
       'setCardExpanded': 'page/setCardExpanded',
     }),
+    onBeforeEnter(el) {
+      el.style.opacity = 0;
+      el.style.height = 0;
+    },
+    onEnter(el, done) {
+      el.style.height = 'auto';
+      gsap.to(el, {
+        opacity: 1,
+        delay: 0.5,
+        onComplete: done
+      })
+    },
+    onLeave(el, done) {
+      gsap.to(el, {
+        opacity: 0,
+        onComplete: () => {
+          done();
+          el.style.height = 0;
+        }
+      })
+    },
     handleScroll() {
       if(this.$refs.draftResults && window.scrollY > this.$refs.draftResults.offsetParent.offsetTop + this.$refs.draftResults.offsetTop - window.innerHeight) {
         this.showAll = true;

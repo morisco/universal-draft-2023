@@ -82,8 +82,9 @@ import ImageColumn  from './ImageColumn.vue'
 import InfoColumn   from './InfoColumn.vue'
 import MetaBar      from './MetaBar.vue'
 import VideoViewer  from './VideoViewer.vue'
-import ToggleCard  from './ToggleCard.vue'
+import ToggleCard   from './ToggleCard.vue'
 import { scrollIt } from '~/plugins/scroller'
+import gsap         from 'gsap';
 
 export default {
   name: 'NBAPlayerCard',

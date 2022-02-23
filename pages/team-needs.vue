@@ -4,10 +4,12 @@
     class="main-section team-needs"
   >
     <MainSectionIntro type="team_needs" />
-    <transition-group
-      name="player-card"
+    <TransitionGroup
       class="mock-draft__inner main-section__inner"
-      tag="div"
+      :css="false"
+      @before-enter="onBeforeEnter"
+      @enter="onEnter"
+      @leave="onLeave"
     >
       <TeamCard 
         v-for="(teamId, index) in teamNeedsIds"
@@ -15,7 +17,7 @@
         :team-id="teamId"
         :index="index" 
       />
-    </transition-group>
+    </TransitionGroup>
     <MoreCoverage
       v-if="showAll"
       :articles="relatedArticles"
@@ -29,6 +31,7 @@ import MainSectionIntro from '~/components/MainSectionIntro'
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
 import MoreCoverage from '~/components/MoreCoverage'
+import gsap from 'gsap/all';
 
 export default {
   name: 'TeamNeeds',
@@ -101,7 +104,28 @@ export default {
           this.showAll = true;
         }
       }
-    }
+    },
+     onBeforeEnter(el) {
+      el.style.opacity = 0;
+      el.style.height = 0;
+    },
+    onEnter(el, done) {
+      el.style.height = 'auto';
+      gsap.to(el, {
+        opacity: 1,
+        delay: 0.5,
+        onComplete: done
+      })
+    },
+    onLeave(el, done) {
+      gsap.to(el, {
+        opacity: 0,
+        onComplete: () => {
+          done();
+          el.style.height = 0;
+        }
+      })
+    },
   }
 }
 </script>
