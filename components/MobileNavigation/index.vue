@@ -1,15 +1,15 @@
 <template>
   <NFLMobileNavigation 
     v-if="league === 'nfl'"
-    @lock-scroll="lockScroll"
-    @unlock-scroll="unlockScroll"
-    @reset-list="resetlist"
+    @lock-scroll="$emit('lock-scroll')"
+    @unlock-scroll="$emit('unlock-scroll')"
+    @reset-list="$emit('reset-list')"
   />
   <NBAMobileNavigation
     v-else-if="league === 'nba'"
-    @lock-scroll="lockScroll"
-    @unlock-scroll="unlockScroll"
-    @reset-list="resetlist"
+    @lock-scroll="$emit('lock-scroll')"
+    @unlock-scroll="$emit('unlock-scroll')"
+    @reset-list="$emit('reset-list')"
   />
 </template>
 
@@ -19,7 +19,6 @@ import NBAMobileNavigation from './NBA';
 export default {
   name: "MobileNavigation",
   components: { NFLMobileNavigation, NBAMobileNavigation },
-  props: ['lockScroll', 'unlockScroll', 'resetList'],
   computed: {
     league(){
       return process.env.PROJECT_LEAGUE.toLowerCase()
