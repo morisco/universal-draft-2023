@@ -142,17 +142,16 @@ export default {
       'setCardExpanded': 'page/setCardExpanded',
     }),
     handleScroll() {
-      if(window.scrollY > this.$refs.mockDraft.offsetParent.offsetTop + this.$refs.mockDraft.offsetTop - window.innerHeight) {
-        this.showAll = true;
+      if(this.$refs.mockDraft) {
+        if(window.scrollY > this.$refs.mockDraft.offsetParent.offsetTop + this.$refs.mockDraft.offsetTop - window.innerHeight) {
+          this.showAll = true;
+        }
       }
     },
     makeData () {
       let dataObj = [];
       this.mockDraftIds.forEach((playerId, index) => {
         dataObj.push({type:'player', id: playerId});
-        if(this.interstitials[index+1] && this.viewStrength.length === 0 && this.viewPosition === 'all'){
-          dataObj.push({type:'interstitial', interKey:index+1})
-        }
       })
       this.idsToDisplay = [...dataObj];
     }
