@@ -38,6 +38,7 @@ export default {
   name: "NBAVideoThumb",
   components: { VideoPlayer },
   props: ['playVideo', 'expanded', 'activeCard', 'playerVideo', 'videoSettings'],
+  emits: ['reset-video-settings'],
   data() {
     return { 
       mobilePlay: false,
@@ -93,7 +94,7 @@ export default {
     },
     closeVideo() {
       this.mobilePlay = false;
-      this.$emit('resetVideoSettings');
+      this.$emit('reset-video-settings');
     },
   }
 }

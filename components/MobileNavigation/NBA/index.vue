@@ -31,6 +31,7 @@ import Filters from '~/components/Filters'
 export default {
   name: 'MobileNavigationNBA',
   components: { MobileNavToggleBar, MobileNavLists, Filters },
+  emits: ['lock-scroll', 'unlock-scroll', 'reset-list'],
   data () {
     return {
       fixed: false,

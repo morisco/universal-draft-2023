@@ -71,7 +71,7 @@
       :player="player"
       :player-video="playerVideo"
       :expanded="expanded"
-      @collapseVideo="collapseVideo"
+      @collapse-video="collapseVideo"
     />
   </article>
 </template>
@@ -88,6 +88,7 @@ export default {
   name: "NFLPlayerCard",
   components: { ImageColumn, InfoColumn, ToggleCard, MetaBar, VideoViewer },
   props: ['playerId', 'rankKey', 'cardExpanded'],
+  emits: ['card-expanded'],
   data() {
     return {
       openTimeout:          null,

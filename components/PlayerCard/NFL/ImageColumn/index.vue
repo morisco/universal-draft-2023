@@ -42,7 +42,7 @@
             :video-settings="videoSettings"
             :player-video="playerVideo"
             :active-card="activeCard"
-            @resetVideoSettings="$emit('resetVideoSettings')"
+            @reset-video-settings="$emit('reset-video-settings')"
           />
           <PodcastCardPlayer
             v-if="player.player_podcast && $mq !== 'mobile'"
@@ -78,6 +78,7 @@ export default {
   name: "NFLImageColumn",
   components: {DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles, Stats},
   props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight', 'playVideo', 'setImageColHeight', 'expanded', 'videoSettings', 'activeCard'],
+  emits: ['reset-video-settings'],
   data() {
     return {
       maxHeight: false

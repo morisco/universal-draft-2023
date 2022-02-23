@@ -32,6 +32,7 @@ export default {
   name: "PlayerCard",
   components: { NFLPlayerCard, NBAPlayerCard, Interstitial },
   props: ['playerId', 'rankKey', 'cardExpanded', 'setCardExpanded', 'index', 'list'],
+  emits: ['card-expanded'],
   computed: {
     interstitials() {
       return this.$store.getters['content/interstitials'](this.list)

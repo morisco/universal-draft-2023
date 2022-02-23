@@ -19,6 +19,7 @@ import NBAMobileNavigation from './NBA';
 export default {
   name: "MobileNavigation",
   components: { NFLMobileNavigation, NBAMobileNavigation },
+  emits: ['lock-scroll', 'unlock-scroll', 'reset-list'],
   computed: {
     league(){
       return process.env.PROJECT_LEAGUE.toLowerCase()

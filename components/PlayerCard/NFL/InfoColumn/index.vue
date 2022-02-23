@@ -116,6 +116,7 @@ export default {
   name: "NFLInfoColumn",
   components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo },
   props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
+  emits: ['set-meta-height', 'set-top-height', 'set-info-height'],
   data () {
     return {
       mounted: false,
@@ -184,7 +185,7 @@ export default {
       this.setHeights();
     },
     setMetaHeight(height) {
-      this.$emit('setMetaHeight', height);
+      this.$emit('set-meta-height', height);
     },
     setHeights() {
       const self = this;

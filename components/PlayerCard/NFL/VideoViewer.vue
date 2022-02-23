@@ -43,6 +43,7 @@ export default {
   name: "NFLVideoViewer",
   components: { VideoPlayer },
   props: ['videoParams', 'displayVideo', 'closeVideo', 'playerVideo', 'expanded'],
+  emits: ['collapse-video'],
   data() {
     return {
       isMounted: false,
@@ -81,7 +82,7 @@ export default {
       })
       this.closeVideo();
       this.$store.commit('viewOptions/setViewCollapsed');
-      setTimeout(() => this.$emit('collapseVideo', this.currentTime), 500);
+      setTimeout(() => this.$emit('collapse-video', this.currentTime), 500);
     },
     trackTime(currentTime){
       this.currentTime = currentTime;
