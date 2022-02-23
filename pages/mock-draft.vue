@@ -4,10 +4,12 @@
     class="main-section mock-draft"
   >
     <MainSectionIntro type="mock_draft" />
-    <transition-group
-      name="player-card"
+    <TransitionGroup
       class="mock-draft__inner main-section__inner"
-      tag="div"
+      :css="false"
+      @before-enter="onBeforeEnter"
+      @enter="onEnter"
+      @leave="onLeave"
     >
       <PlayerCard 
         v-for="(card, index) in idsToDisplay"
@@ -19,7 +21,7 @@
         list="mockDraft"
         @card-expanded="setCardExpanded"
       />
-    </transition-group>
+    </TransitionGroup>
     <MoreCoverage
       v-if="showAll"
       :articles="relatedArticles"
@@ -35,6 +37,7 @@ import MainSectionIntro from '~/components/MainSectionIntro'
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
 import { scrollIt } from '~/plugins/scroller'
+import gsap from 'gsap/all';
 export default {
   name: 'MockDraft',
   components: { MainSectionIntro, PlayerCard, MoreCoverage },
@@ -141,6 +144,27 @@ export default {
    ...mapActions({
       'setCardExpanded': 'page/setCardExpanded',
     }),
+    onBeforeEnter(el) {
+      el.style.opacity = 0;
+      el.style.height = 0;
+    },
+    onEnter(el, done) {
+      el.style.height = 'auto';
+      gsap.to(el, {
+        opacity: 1,
+        delay: 0.5,
+        onComplete: done
+      })
+    },
+    onLeave(el, done) {
+      gsap.to(el, {
+        opacity: 0,
+        onComplete: () => {
+          done();
+          el.style.height = 0;
+        }
+      })
+    },
     handleScroll() {
       if(this.$refs.mockDraft) {
         if(window.scrollY > this.$refs.mockDraft.offsetParent.offsetTop + this.$refs.mockDraft.offsetTop - window.innerHeight) {
