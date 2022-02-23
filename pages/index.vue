@@ -7,7 +7,10 @@
     <TransitionGroup
       name="player-card"
       class="big-board__inner main-section__inner"
-      tag="div"
+      :css="false"
+      @before-enter="onBeforeEnter"
+      @enter="onEnter"
+      @leave="onLeave"
     >
       <PlayerCard 
         v-for="(card, index) in idsToDisplay"
@@ -35,6 +38,7 @@ import { mapActions } from 'vuex'
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
 import { scrollIt } from '~/plugins/scroller'
+import gsap from 'gsap/all';
 
 export default {
   name: 'BigBoard',
@@ -128,6 +132,27 @@ export default {
    ...mapActions({
       'setCardExpanded': 'page/setCardExpanded',
     }),
+    onBeforeEnter(el) {
+      el.style.opacity = 0;
+      el.style.height = 0;
+    },
+    onEnter(el, done) {
+      el.style.height = 'auto';
+      gsap.to(el, {
+        opacity: 1,
+        delay: 0.5,
+        onComplete: done
+      })
+    },
+    onLeave(el, done) {
+      gsap.to(el, {
+        opacity: 0,
+        onComplete: () => {
+          done();
+          el.style.height = 0;
+        }
+      })
+    },
     handleScroll() {
       if(this.$refs.bigBoard) {
         if(this.bigBoardIds && window.scrollY > this.$refs.bigBoard.offsetParent.offsetTop + this.$refs.bigBoard.offsetTop - window.innerHeight) {

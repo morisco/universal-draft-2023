@@ -21,6 +21,7 @@
     "cookie-universal-nuxt": "2.1.4",
     "core-js": "3.6.5",
     "fibers": "5.0.0",
+    "gsap": "^3.9.1",
     "lodash": "4.17.20",
     "nuxt": "2.15.2",
     "nuxt-lazy-load": "1.2.5",

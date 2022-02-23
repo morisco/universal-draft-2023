@@ -94,6 +94,7 @@ export default {
   border-radius:8px;
   overflow:auto;
   max-height:calc(100vh - 135px);
+  z-index:1;
   @include single-column{
     top:30px;
     border-radius:0;
