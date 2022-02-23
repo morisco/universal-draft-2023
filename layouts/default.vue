@@ -87,8 +87,9 @@ export default {
       this.setCSSHeight();
     },
      async $route(to, from) {
+       const self = this;
        setTimeout(() => {
-         window.scrollTo({top: this.$refs.appContent.offsetTop - document.getElementById('navigation').offsetHeight - 40, left:0, behavior: 'smooth'});
+         window.scrollTo({top: self.$refs.appContent.offsetTop - document.getElementById('navigation').offsetHeight - 40, left:0, behavior: 'smooth'});
        }, 500);
     },
   },
