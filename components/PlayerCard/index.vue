@@ -14,12 +14,18 @@
       :card-expanded="cardExpanded"
       @card-expanded="$emit('card-expanded')"
     />
-    <Interstitial 
-      v-if="interstitials[index+1] && viewPosition === 'all'" 
-      :key="'interstitial-' + (index+1)" 
-      :list="list" 
-      :inter-key="index+1" 
-    />
+    <Transition
+      @before-enter="onBeforeEnter" 
+      @enter="onEnter" 
+      @leave="onLeave" 
+    >
+      <Interstitial 
+        v-if="interstitials[index+1] && viewPosition === 'all'"
+        :key="'interstitial-' + (index+1)"
+        :list="list"
+        :inter-key="index+1"
+      />
+    </Transition>
   </div>
 </template>
 
@@ -27,7 +33,7 @@
 import NFLPlayerCard from './NFL';
 import NBAPlayerCard from './NBA';
 import Interstitial from '../Interstitial';
-
+import gsap from 'gsap/all';
 export default {
   name: "PlayerCard",
   components: { NFLPlayerCard, NBAPlayerCard, Interstitial },
@@ -41,6 +47,27 @@ export default {
     },
     viewPosition () {
       return this.$store.getters['viewOptions/position']
+    },
+  },
+  methods: {
+    onBeforeEnter(el) {
+      el.style.maxHeight = '0px';
+      el.style.opacity = '0';
+    },
+    onEnter(el, done) {
+      gsap.to(el, {
+        maxHeight: '100%',
+        opacity: 1,
+        onComplete: done,
+      });
+    },
+    onLeave(el, done) {
+      gsap.to(el, {
+        maxHeight: '0px',
+        opacity: 0,
+        onComplete: done,
+        delay: 0.5
+      });
     },
   }
 }
