@@ -1,18 +1,42 @@
 <template>
   <div class="podcast-inter__item card-item">
-    <Topper :activePodcast="pod" :podPlaying="podPlaying || shouldPlay" :content="topperContent" />
-    <div class="card-item__description" v-html="pod.spotify_episodeDescription" />
+    <Topper
+      :active-podcast="pod"
+      :pod-playing="podPlaying || shouldPlay"
+      :content="topperContent"
+    />
+    <div
+      class="card-item__description"
+      v-html="pod.spotify_episodeDescription"
+    />
     <div class="card-item__controls">
-      <button type="button" v-on:click="handlePlayClick" class="sticky-play-pause">
-        <img v-if=" (currentPod && (currentPod.id === pod.id && currentPod.type === 'full' && podPlaying) || shouldPlay)" src="~/assets/img/icons/pause.svg" />
-        <img v-if="!currentPod || (currentPod.id !== pod.id || currentPod.type !== 'full' || !podPlaying) && !shouldPlay" src="~/assets/img/icons/play.svg" />
+      <button
+        type="button"
+        class="sticky-play-pause"
+        @click="handlePlayClick"
+      >
+        <img
+          v-if=" (currentPod && (currentPod.id === pod.id && currentPod.type === 'full' && podPlaying) || shouldPlay)"
+          src="~/assets/img/icons/pause.svg"
+        >
+        <img
+          v-if="!currentPod || (currentPod.id !== pod.id || currentPod.type !== 'full' || !podPlaying) && !shouldPlay"
+          src="~/assets/img/icons/play.svg"
+        >
       </button>
       <span class="card-item__controls-duration">
-          {{format(pod.spotify_episodeDuration - currentTime)}}
-          <span>Play In-Page</span>
+        {{ format(pod.spotify_episodeDuration - currentTime) }}
+        <span>Play In-Page</span>
       </span>
-      <a :href="pod.spotify_episodeSpotify" target="_blank" class="card-item__controls-link">
-        <img src="~/assets/img/spotify-logo.png" alt="Spotify Logo" />
+      <a
+        :href="pod.spotify_episodeSpotify"
+        target="_blank"
+        class="card-item__controls-link"
+      >
+        <img
+          src="~/assets/img/spotify-logo.png"
+          alt="Spotify Logo"
+        >
       </a>
     </div>
   </div>
@@ -23,8 +47,9 @@ import { mapActions } from 'vuex'
 import Topper from '~/components/Podcast/Topper'
 
 export default {
-  props: ['pod'],
+  name: "PodcastCard",
   components: { Topper },
+  props: ['pod'],
   data() {
     return {
       shouldPlay: false,

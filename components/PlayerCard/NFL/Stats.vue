@@ -1,26 +1,47 @@
 <template>
-<div class="player-card__stats" v-if="statArray.length">
-  <div class="player-card__stats-detail" v-if="player.stat_details">
-    <div class="player-card__stats-detail-year">{{player.stat_details.year}} STATS</div>
-    <div class="player-card__stats-detail-games">Based on {{player.stat_details.games}} games played</div>
-  </div>
-  <ul class="player-card__stats-list" :class="{'player-card__stats-list--full' : statArray.length === 5}">
-    <li v-for="stat in statArray" :key="stat.key">
-      <div class="player-card__stat-tooltip">{{stat.tooltip}}</div>
-      <div class="player-card__stat" :class="{'player-card__stat--long-rtg': stat.label === 'RTG' && stat.value.length > 4 }">
-        <span class="player-card__stat-value"><span>{{stat.value}}</span></span>
-        <span class="player-card__stat-title">{{stat.label}}</span>
+  <div
+    v-if="statArray.length"
+    class="player-card__stats"
+  >
+    <div
+      v-if="player.stat_details"
+      class="player-card__stats-detail"
+    >
+      <div class="player-card__stats-detail-year">
+        {{ player.stat_details.year }} STATS
       </div>
-    </li>
-  </ul>
-</div>
+      <div class="player-card__stats-detail-games">
+        Based on {{ player.stat_details.games }} games played
+      </div>
+    </div>
+    <ul
+      class="player-card__stats-list"
+      :class="{'player-card__stats-list--full' : statArray.length === 5}"
+    >
+      <li
+        v-for="stat in statArray"
+        :key="stat.key"
+      >
+        <div class="player-card__stat-tooltip">
+          {{ stat.tooltip }}
+        </div>
+        <div
+          class="player-card__stat"
+          :class="{'player-card__stat--long-rtg': stat.label === 'RTG' && stat.value.length > 4 }"
+        >
+          <span class="player-card__stat-value"><span>{{ stat.value }}</span></span>
+          <span class="player-card__stat-title">{{ stat.label }}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
 import { parseStats } from '~/plugins/contentProcessor'
 export default {
+  name: 'NFLStats',
   props: ['player'],
-  name: 'Stats',
   computed: {
     statArray() {
       const parsedStats = parseStats(this.player.player_position_stats);

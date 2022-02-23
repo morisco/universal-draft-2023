@@ -1,27 +1,41 @@
 <template>
-  <div class="m-privacy-consent" :class="{
-    'm-privacy-consent--displayed': requiresConsent,
-  }"  v-if="requiresConsent && !dismissed">
-  <div class="m-privacy-consent__inner">
-      <h2 class="sr-only" id="privacy-consent-heading-label">Cookie banner</h2>
-  <p>We use cookies and other tracking technologies to improve your browsing experience on our site, show personalized content and targeted ads, analyze site traffic, and understand where our audiences come from. To learn more or opt-out, read our <a href="https://www.theringer.com/legal/cookie-policy">Cookie Policy</a>. Please also read our <a href="https://www.theringer.com/legal/privacy-notice">Privacy Notice</a> and <a href="https://www.theringer.com/legal/terms-of-use">Terms of Use</a>, which became effective December 20, 2019.</p>
-  <div class="m-privacy-consent-lockup">
-  <p>By choosing <b>I Accept</b>, you consent to our use of cookies and other tracking technologies.</p>
+  <div
+    v-if="requiresConsent && !dismissed"
+    class="m-privacy-consent"
+    :class="{
+      'm-privacy-consent--displayed': requiresConsent,
+    }"
+  >
+    <div class="m-privacy-consent__inner">
+      <h2
+        id="privacy-consent-heading-label"
+        class="sr-only"
+      >
+        Cookie banner
+      </h2>
+      <p>We use cookies and other tracking technologies to improve your browsing experience on our site, show personalized content and targeted ads, analyze site traffic, and understand where our audiences come from. To learn more or opt-out, read our <a href="https://www.theringer.com/legal/cookie-policy">Cookie Policy</a>. Please also read our <a href="https://www.theringer.com/legal/privacy-notice">Privacy Notice</a> and <a href="https://www.theringer.com/legal/terms-of-use">Terms of Use</a>, which became effective December 20, 2019.</p>
+      <div class="m-privacy-consent-lockup">
+        <p>By choosing <b>I Accept</b>, you consent to our use of cookies and other tracking technologies.</p>
 
-    <button type="button" id="privacy-consent-button" v-on:click="giveConsent">
-      <div class="m-privacy-consent__button-content">
-        <div class="m-privacy-consent__hourglass"></div>
-          I Accept
+        <button
+          id="privacy-consent-button"
+          type="button"
+          @click="giveConsent"
+        >
+          <div class="m-privacy-consent__button-content">
+            <div class="m-privacy-consent__hourglass" />
+            I Accept
+          </div>
+        </button>
       </div>
-    </button>
     </div>
   </div>
-</div>
 </template>
 
 <script>
 import inEU from '@segment/in-eu'
 export default {
+  name: "CookieConsent",
   data() {
     return {
       dismissed: false,

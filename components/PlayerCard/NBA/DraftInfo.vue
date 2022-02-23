@@ -1,13 +1,16 @@
 <template>
   <div class="draft-info">
-    <span class="draft-info__name">{{teamNameLogo.teamName}}</span>
-    <div class="draft-info__content" v-html="infoText || 'PLACEHOLDER There’s still a possibility that the Timberwolves trade down with the Hornets, who would likely take James Wiseman with the first pick. If they did, the Wolves could still possibly select Edwards third. Regardless, Edwards is the top prospect who makes the most sense in Minnesota, as he’s the best positional fit next to D’Angelo Russell and Karl-Anthony Towns.'">
-    </div>
+    <span class="draft-info__name">{{ teamNameLogo.teamName }}</span>
+    <div
+      class="draft-info__content"
+      v-html="infoText || 'PLACEHOLDER There’s still a possibility that the Timberwolves trade down with the Hornets, who would likely take James Wiseman with the first pick. If they did, the Wolves could still possibly select Edwards third. Regardless, Edwards is the top prospect who makes the most sense in Minnesota, as he’s the best positional fit next to D’Angelo Russell and Karl-Anthony Towns.'"
+    />
   </div>
 </template>
 
 <script>
 export default {
+  name: "NBADraftInfo",
   props: ['teamNameLogo', 'infoText'],
 }
 </script>

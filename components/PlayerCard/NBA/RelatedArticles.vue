@@ -1,11 +1,17 @@
 <template>
   <div class="player-card__related-articles">
-    <a v-for="article in articles" target="_blank" :key="article.title" :href="article.article_link">{{article.article_title}}</a>
+    <a
+      v-for="article in articles"
+      :key="article.title"
+      target="_blank"
+      :href="article.article_link"
+    >{{ article.article_title }}</a>
   </div>  
 </template>
 
 <script>
 export default {
+  name: "NBARelatedArticles",
   props: ['articles']
 }
 </script>

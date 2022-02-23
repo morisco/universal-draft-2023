@@ -1,18 +1,45 @@
 <template>
   <div class="player-card__trend">
-    <svg class="player-card__trend-down" v-if="trend === 'down'" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	    viewBox="0 0 48 34" style="enable-background:new 0 0 48 34;" xml:space="preserve">
-      <polygon class="player-card__trend-poly" points="28,28 37,25 24,12 16,20 0,4 4,0 16,12 24,4 41,21 44,12 48,34 "/>
+    <svg
+      v-if="trend === 'down'"
+      class="player-card__trend-down"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      x="0px"
+      y="0px"
+      viewBox="0 0 48 34"
+      style="enable-background:new 0 0 48 34;"
+      xml:space="preserve"
+    >
+      <polygon
+        class="player-card__trend-poly"
+        points="28,28 37,25 24,12 16,20 0,4 4,0 16,12 24,4 41,21 44,12 48,34 "
+      />
     </svg>
-    <svg class="player-card__trend-up" v-if="trend === 'up'" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	    viewBox="0 0 48 34" style="enable-background:new 0 0 48 34;" xml:space="preserve">
-      <polygon class="player-card__trend-poly" points="48,0 44,22 41,13 24,30 16,22 4,34 0,30 16,14 24,22 37,9 28,6 "/>
+    <svg
+      v-if="trend === 'up'"
+      class="player-card__trend-up"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      x="0px"
+      y="0px"
+      viewBox="0 0 48 34"
+      style="enable-background:new 0 0 48 34;"
+      xml:space="preserve"
+    >
+      <polygon
+        class="player-card__trend-poly"
+        points="48,0 44,22 41,13 24,30 16,22 4,34 0,30 16,14 24,22 37,9 28,6 "
+      />
     </svg>
   </div>
 </template>
 
 <script>
 export default {
+  name: "NFLTrend",
   props: ['trend']
 }
 </script>

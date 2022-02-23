@@ -1,16 +1,27 @@
 <template>
-<div class="main-section__intro">
-  <h3 v-html="introData.headline"></h3>
-  <div class="main-section__intro-content" v-if="type !== 'team_needs'" v-html="introData.content"></div>
-  <p class="main-section__intro-link" v-on:click="scrollToTop" v-if="introData.linkText">
-    <NuxtLink :to="introData.link">{{introData.linkText}}</NuxtLink>
-  </p>
-</div>
+  <div class="main-section__intro">
+    <h3 v-html="introData.headline" />
+    <div
+      v-if="type !== 'team_needs'"
+      class="main-section__intro-content"
+      v-html="introData.content"
+    />
+    <p
+      v-if="introData.linkText"
+      class="main-section__intro-link"
+      @click="scrollToTop"
+    >
+      <NuxtLink :to="introData.link">
+        {{ introData.linkText }}
+      </NuxtLink>
+    </p>
+  </div>
 </template>
 
 <script>
 import { scrollIt } from '~/plugins/scroller';
 export default {
+  name: "MainSectionIntro",
   props: ['type'],
   computed: {
     introData() {

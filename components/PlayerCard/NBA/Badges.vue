@@ -1,12 +1,23 @@
 <template>
   <ul class="player-card__badges">
-    <li v-for="badge in badgeArray" :key="player.title + badge.id">
+    <li
+      v-for="badge in badgeArray"
+      :key="player.title + badge.id"
+    >
       <div class="player-card__badge-image">
-        <img :src="badge.image" :alt="badge.label + 'badge'" />
+        <img
+          :src="badge.image"
+          :alt="badge.label + 'badge'"
+        >
       </div>
       <span class="player-card__badge-label">
-        <span>{{badge.label}}</span>
-        <img src="@/assets/img/state-farm-red.svg" alt="State Farm Logo" data-not-lazy v-if="badge.sponsored" />
+        <span>{{ badge.label }}</span>
+        <img
+          v-if="badge.sponsored"
+          src="@/assets/img/state-farm-red.svg"
+          alt="State Farm Logo"
+          data-not-lazy
+        >
       </span>
     </li>
   </ul>

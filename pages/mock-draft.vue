@@ -1,24 +1,29 @@
 <template>
-  <section class="main-section mock-draft" ref="mockDraft">
+  <section
+    ref="mockDraft"
+    class="main-section mock-draft"
+  >
     <MainSectionIntro type="mock_draft" />
-    <transition-group name="player-card" class="mock-draft__inner main-section__inner" tag="div">
-      <template v-for="(card, index) in idsToDisplay">
-        <PlayerCard 
-          :playerId="card.id" 
-          :key="card.id" 
-          rankKey="order_mockdraft" 
-          v-on:card-expanded="setCardExpanded" 
-          :cardExpanded="cardExpanded" 
-        />
-        <Interstitial 
-          v-if="interstitials[index+1]" 
-          :key="'interstitial-' + (index+1)" 
-          :list="'mockDraft'" 
-          :interKey="index+1" 
-        />
-      </template>
+    <transition-group
+      name="player-card"
+      class="mock-draft__inner main-section__inner"
+      tag="div"
+    >
+      <PlayerCard 
+        v-for="(card, index) in idsToDisplay"
+        :key="card.id + '-' + index" 
+        :player-id="card.id" 
+        rank-key="order_mockdraft" 
+        :card-expanded="cardExpanded" 
+        :index="index" 
+        list="mockDraft"
+        @card-expanded="setCardExpanded"
+      />
     </transition-group>
-    <MoreCoverage :articles="relatedArticles" v-if="showAll" />
+    <MoreCoverage
+      v-if="showAll"
+      :articles="relatedArticles"
+    />
   </section>
 </template>
 
@@ -27,18 +32,21 @@ import { mapActions } from 'vuex'
 import MoreCoverage from '~/components/MoreCoverage'
 import PlayerCard from '~/components/PlayerCard'
 import MainSectionIntro from '~/components/MainSectionIntro'
-import Interstitial from '~/components/Interstitial';
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
 import { scrollIt } from '~/plugins/scroller'
 export default {
   name: 'MockDraft',
+  components: { MainSectionIntro, PlayerCard, MoreCoverage },
+  scrollToTop: false,
   transition: {
     name:"main-section",
     mode:"out-in",
   },
-  scrollToTop: false,
-  components: { MainSectionIntro, PlayerCard, MoreCoverage, Interstitial },
+  asyncData({$axios, store, route}) {
+    return asyncDataProcessor({$axios, store, route});
+  },
+  
   data() {
     return {
       initTimeout: null,
@@ -46,25 +54,8 @@ export default {
       idsToDisplay: [],
     }
   },
-  created() {
-    if(process.client){
-      window.addEventListener('scroll', this.handleScroll, {passive: true});
-    }
-  },
-  destroyed() {
-    if(process.client){
-      window.removeEventListener('scroll', this.handleScroll);
-    }
-  },
-  mounted() {
-    if(!this.pageSettings.enable_mock) {
-      this.$router.push({
-        path: '/'
-      })
-    }
-    if(this.mockDraftIds && this.interstitials){
-      this.makeData();
-    }
+  head()  {
+    return headeBuilder(this);
   },
   computed: {
     pageSettings () {
@@ -92,26 +83,6 @@ export default {
     viewStrength() {
       return this.$store.getters['viewOptions/strength']
     },
-  },
-   methods: {
-   ...mapActions({
-      'setCardExpanded': 'page/setCardExpanded',
-    }),
-    handleScroll() {
-      if(window.scrollY > this.$refs.mockDraft.offsetParent.offsetTop + this.$refs.mockDraft.offsetTop - window.innerHeight) {
-        this.showAll = true;
-      }
-    },
-    makeData () {
-      let dataObj = [];
-      this.mockDraftIds.forEach((playerId, index) => {
-        dataObj.push({type:'player', id: playerId});
-        if(this.interstitials[index+1] && this.viewStrength.length === 0 && this.viewPosition === 'all'){
-          dataObj.push({type:'interstitial', interKey:index+1})
-        }
-      })
-      this.idsToDisplay = [...dataObj];
-    }
   },
   watch: {
     pageSettings() {
@@ -146,12 +117,46 @@ export default {
       }
     }
   },
-  asyncData({$axios, store, route}) {
-    return asyncDataProcessor({$axios, store, route});
+  created() {
+    if(process.client){
+      window.addEventListener('scroll', this.handleScroll, {passive: true});
+    }
   },
-  head()  {
-    return headeBuilder(this);
-  }
+  unmounted() {
+    if(process.client){
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+  },
+  mounted() {
+    if(!this.pageSettings.enable_mock) {
+      this.$router.push({
+        path: '/'
+      })
+    }
+    if(this.mockDraftIds && this.interstitials){
+      this.makeData();
+    }
+  },
+  methods: {
+   ...mapActions({
+      'setCardExpanded': 'page/setCardExpanded',
+    }),
+    handleScroll() {
+      if(window.scrollY > this.$refs.mockDraft.offsetParent.offsetTop + this.$refs.mockDraft.offsetTop - window.innerHeight) {
+        this.showAll = true;
+      }
+    },
+    makeData () {
+      let dataObj = [];
+      this.mockDraftIds.forEach((playerId, index) => {
+        dataObj.push({type:'player', id: playerId});
+        if(this.interstitials[index+1] && this.viewStrength.length === 0 && this.viewPosition === 'all'){
+          dataObj.push({type:'interstitial', interKey:index+1})
+        }
+      })
+      this.idsToDisplay = [...dataObj];
+    }
+  },
 }
 </script>
 

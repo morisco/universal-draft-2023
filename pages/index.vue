@@ -1,31 +1,35 @@
 <template>
-  <section class="main-section big-board" ref="bigBoard">
+  <section
+    ref="bigBoard"
+    class="main-section big-board"
+  >
     <MainSectionIntro type="big_board" />
-    <transition-group name="player-card" class="big-board__inner main-section__inner" tag="div">
-      <template v-for="(card, index) in idsToDisplay">
-        <PlayerCard 
-          :playerId="card.id" 
-          :key="card.id" 
-          rankKey="order" 
-          v-on:card-expanded="setCardExpanded" 
-          :cardExpanded="cardExpanded" 
-        />
-        <Interstitial 
-          v-if="interstitials[index+1] && viewPosition === 'all'" 
-          :key="'interstitial-' + (index+1)" 
-          :list="'bigBoard'" 
-          :interKey="index+1" 
-        />
-      </template>
-    </transition-group>
-    <MoreCoverage :articles="relatedArticles" v-if="showAll" />
+    <TransitionGroup
+      name="player-card"
+      class="big-board__inner main-section__inner"
+      tag="div"
+    >
+      <PlayerCard 
+        v-for="(card, index) in idsToDisplay"
+        :key="card.id + '-' + index" 
+        :player-id="card.id" 
+        rank-key="order" 
+        :card-expanded="cardExpanded" 
+        :index="index" 
+        list="bigBoard"
+        @card-expanded="setCardExpanded"
+      />
+    </TransitionGroup>
+    <MoreCoverage
+      v-if="showAll"
+      :articles="relatedArticles"
+    />
   </section>
 </template>
 
 <script>
 import MoreCoverage from '~/components/MoreCoverage';
 import PlayerCard from '~/components/PlayerCard';
-import Interstitial from '~/components/Interstitial';
 import MainSectionIntro from '~/components/MainSectionIntro';
 import { mapActions } from 'vuex'
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
@@ -34,12 +38,15 @@ import { scrollIt } from '~/plugins/scroller'
 
 export default {
   name: 'BigBoard',
-  components: { MainSectionIntro, PlayerCard, MoreCoverage, Interstitial },
+  components: { MainSectionIntro, PlayerCard, MoreCoverage },
+  scrollToTop: false,
   transition: {
     name:"main-section",
     mode:"out-in",
   },
-  scrollToTop: false,
+  asyncData({$axios, store, route}) {
+    return asyncDataProcessor({$axios, store, route});
+  },
   data() {
     return {
       initTimeout: null,
@@ -48,18 +55,8 @@ export default {
       idsToDisplay: []
     }
   },
-  created() {
-    if(process.client){
-      this.scrollDelay = setTimeout(() => {
-        window.addEventListener('scroll', this.handleScroll, {passive: true});
-      }, 1000);
-    }
-  },
-  destroyed() {
-    if(process.client){
-      clearTimeout(this.scrollDelay);
-      window.removeEventListener('scroll', this.handleScroll, {passive: true});
-    }
+  head()  {
+    return headeBuilder(this);
   },
   computed: {
     interstitials() {
@@ -84,29 +81,6 @@ export default {
       const itemCount = this.viewDepth === 'compact' ? 10 : 4;
       return this.showAll ? this.$store.getters['content/bigBoard'](this.viewPosition, this.viewStrength) : this.$store.getters['content/bigBoard'](this.viewPosition, this.viewStrength).slice(0,itemCount)
     },
-    viewStrength() {
-      return this.$store.getters['viewOptions/strength']
-    },
-  },
-  methods: {
-   ...mapActions({
-      'setCardExpanded': 'page/setCardExpanded',
-    }),
-    handleScroll() {
-      if(this.bigBoardIds && window.scrollY > this.$refs.bigBoard.offsetParent.offsetTop + this.$refs.bigBoard.offsetTop - window.innerHeight) {
-        this.showAll = true;
-      }
-    },
-     makeData () {
-      let dataObj = [];
-      this.bigBoardIds.forEach((playerId, index) => {
-        dataObj.push({type:'player', id: playerId});
-        if(this.interstitials[index+1] && this.viewStrength.length === 0 && this.viewPosition === 'all'){
-          dataObj.push({type:'interstitial', interKey:index+1})
-        }
-      })
-      this.idsToDisplay = [...dataObj];
-    }
   },
   watch: {
     viewStrength () {
@@ -134,12 +108,42 @@ export default {
       }
     }
   },
-  asyncData({$axios, store, route}) {
-    return asyncDataProcessor({$axios, store, route});
+  created() {
+    if(process.client){
+      this.scrollDelay = setTimeout(() => {
+        window.addEventListener('scroll', this.handleScroll, {passive: true});
+      }, 1000);
+    }
   },
-  head()  {
-    return headeBuilder(this);
-  }
+  unmounted() {
+    if(process.client){
+      clearTimeout(this.scrollDelay);
+      window.removeEventListener('scroll', this.handleScroll, {passive: true});
+    }
+  },
+  mounted() {
+    this.makeData();
+  },
+  methods: {
+   ...mapActions({
+      'setCardExpanded': 'page/setCardExpanded',
+    }),
+    handleScroll() {
+      if(this.bigBoardIds && window.scrollY > this.$refs.bigBoard.offsetParent.offsetTop + this.$refs.bigBoard.offsetTop - window.innerHeight) {
+        this.showAll = true;
+      }
+    },
+     makeData () {
+      let dataObj = [];
+      this.bigBoardIds.forEach((playerId, index) => {
+        dataObj.push({type:'player', id: playerId});
+        if(this.interstitials[index+1] && this.viewStrength.length === 0 && this.viewPosition === 'all'){
+          dataObj.push({type:'interstitial', interKey:index+1})
+        }
+      })
+      this.idsToDisplay = [...dataObj];
+    }
+  },
 }
 </script>
 

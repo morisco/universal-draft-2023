@@ -1,65 +1,86 @@
 <template>
-<div class="player-card__meta-bar" ref="metaBar">
-  <div class="player-card__meta-bar-rank" v-if="rank">
-    <span>{{rank}}</span>
-  </div>
-  <DraftTeam v-if="['mock-draft', 'draft-grades'].indexOf($route.name) >= 0 && teamNameLogo && collapsed" :teamNameLogo="teamNameLogo" />
-  <Trend v-if="player.player_updates" :trend="player.player_updates.rank_movement" />
-  <div class="player-card__meta-bar-name-school player-card__image-column">
-    <h3>
-      <span>{{playerMeta.firstName}}</span>
-      <span>{{playerMeta.lastName}}</span>
-    </h3>
-    <div class="player-card__meta-bar-position-school">
-      <span class="position">{{playerMeta.position}}</span>
-      <span class="school">{{playerMeta.school}}</span>
+  <div
+    ref="metaBar"
+    class="player-card__meta-bar"
+  >
+    <div
+      v-if="rank"
+      class="player-card__meta-bar-rank"
+    >
+      <span>{{ rank }}</span>
     </div>
-  </div>
-  <div class="player-card__meta-bar-details">
-    <div class="player-card__meta-bar-details-column player-card__meta-bar-details-column--shades">
-      <div class="player-card__meta-bar-details-row">
-        <span class="label">Shades Of</span>
-      </div>
-      <div class="player-card__meta-bar-details-row player-card__meta-bar-details-row--shade-value">
-        {{playerMeta.shadesOf}}
-      </div>
-    </div>
-    <div class="player-card__meta-bar-details-column" v-if="$mq !== 'tablet'">
-      <div class="player-card__meta-bar-details-row">
-        <span class="label">Year</span> {{playerMeta.year}}
-      </div>
-      <div class="player-card__meta-bar-details-row">
-        <span class="label">Age</span> {{playerMeta.age || "--"}}
+    <DraftTeam
+      v-if="['mock-draft', 'draft-grades'].indexOf($route.name) >= 0 && teamNameLogo && collapsed"
+      :team-name-logo="teamNameLogo"
+    />
+    <Trend
+      v-if="player.player_updates"
+      :trend="player.player_updates.rank_movement"
+    />
+    <div class="player-card__meta-bar-name-school player-card__image-column">
+      <h3>
+        <span>{{ playerMeta.firstName }}</span>
+        <span>{{ playerMeta.lastName }}</span>
+      </h3>
+      <div class="player-card__meta-bar-position-school">
+        <span class="position">{{ playerMeta.position }}</span>
+        <span class="school">{{ playerMeta.school }}</span>
       </div>
     </div>
-    <div class="player-card__meta-bar-details-column" v-if="$mq !== 'tablet'">
-      <div class="player-card__meta-bar-details-row">
-        <span class="label">Height</span> {{playerMeta.height}}
+    <div class="player-card__meta-bar-details">
+      <div class="player-card__meta-bar-details-column player-card__meta-bar-details-column--shades">
+        <div class="player-card__meta-bar-details-row">
+          <span class="label">Shades Of</span>
+        </div>
+        <div class="player-card__meta-bar-details-row player-card__meta-bar-details-row--shade-value">
+          {{ playerMeta.shadesOf }}
+        </div>
       </div>
-      <div class="player-card__meta-bar-details-row">
-        <span class="label">Weight</span> {{playerMeta.weight}}
+      <div
+        v-if="$mq !== 'tablet'"
+        class="player-card__meta-bar-details-column"
+      >
+        <div class="player-card__meta-bar-details-row">
+          <span class="label">Year</span> {{ playerMeta.year }}
+        </div>
+        <div class="player-card__meta-bar-details-row">
+          <span class="label">Age</span> {{ playerMeta.age || "--" }}
+        </div>
+      </div>
+      <div
+        v-if="$mq !== 'tablet'"
+        class="player-card__meta-bar-details-column"
+      >
+        <div class="player-card__meta-bar-details-row">
+          <span class="label">Height</span> {{ playerMeta.height }}
+        </div>
+        <div class="player-card__meta-bar-details-row">
+          <span class="label">Weight</span> {{ playerMeta.weight }}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="player-card__meta-bar-tablet" v-if="$mq === 'tablet'">
-    <div class="player-card__meta-bar-details-column">
-      <div class="player-card__meta-bar-details-row">
-        <span class="label">Year</span> {{playerMeta.year}}
+    <div
+      v-if="$mq === 'tablet'"
+      class="player-card__meta-bar-tablet"
+    >
+      <div class="player-card__meta-bar-details-column">
+        <div class="player-card__meta-bar-details-row">
+          <span class="label">Year</span> {{ playerMeta.year }}
+        </div>
+        <div class="player-card__meta-bar-details-row">
+          <span class="label">Age</span> {{ playerMeta.age }}
+        </div>
       </div>
-      <div class="player-card__meta-bar-details-row">
-        <span class="label">Age</span> {{playerMeta.age}}
+      <div class="player-card__meta-bar-details-column">
+        <div class="player-card__meta-bar-details-row">
+          <span class="label">Height</span> {{ playerMeta.height }}
+        </div>
+        <div class="player-card__meta-bar-details-row">
+          <span class="label">Weight</span> {{ playerMeta.weight }}
+        </div>
       </div>
     </div>
-    <div class="player-card__meta-bar-details-column">
-      <div class="player-card__meta-bar-details-row">
-        <span class="label">Height</span> {{playerMeta.height}}
-      </div>
-      <div class="player-card__meta-bar-details-row">
-        <span class="label">Weight</span> {{playerMeta.weight}}
-      </div>
-    </div>
-  </div>
-</div>  
+  </div>  
 </template>
 
 <script>
@@ -70,9 +91,6 @@ export default {
   name: 'NFLMetaBar',
   components: {DraftTeam, Trend},
   props: ['player', 'rankKey', 'collapsed'],
-  mounted() {
-    this.$emit('setHeight',this.$refs.metaBar.offsetHeight);
-  },
   computed: {
     rank() {
       return this.rankKey ? this.player[this.rankKey] + 1 : null;
@@ -102,6 +120,9 @@ export default {
     viewDepth() {
       this.$emit('setHeight',this.$refs.metaBar.offsetHeight);
     }
+  },
+  mounted() {
+    this.$emit('setHeight',this.$refs.metaBar.offsetHeight);
   }
 }
 </script>
@@ -393,11 +414,11 @@ export default {
           }
 
           .label{
-            font-size:19px;
+            font-size:16px;
             line-height:1.15;
           }
           .player-card__meta-bar-details-row--shade-value{
-            font-size:19px;
+            font-size:16px;
             line-height:1.15;
           }
           
@@ -405,7 +426,7 @@ export default {
           .shades-of-icon{
             position:absolute;
             top:0;
-            left:15px;
+            // left:15px;
             width:30px;
             img{
               position:absolute;

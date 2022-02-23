@@ -1,26 +1,58 @@
 <template>
   <div class="sticky-podcast__player-top">
-    <a v-if="content.type === 'full' && activePodcast.spotify_showLink" :href="activePodcast.spotify_showLink" class="album-art" target="_blank" rel="noreferrer" :class="{'album-art--player': content.start}">
-      <img :src="content.image" :alt="content.show + ' Album Art'" />
+    <a
+      v-if="content.type === 'full' && activePodcast.spotify_showLink"
+      :href="activePodcast.spotify_showLink"
+      class="album-art"
+      target="_blank"
+      rel="noreferrer"
+      :class="{'album-art--player': content.start}"
+    >
+      <img
+        :src="content.image"
+        :alt="content.show + ' Album Art'"
+      >
     </a>
-    <div v-if="content.type !== 'full' || !activePodcast.spotify_showLink" class="album-art">
-      <img :src="content.image" :alt="content.show + ' Album Art'" />
+    <div
+      v-if="content.type !== 'full' || !activePodcast.spotify_showLink"
+      class="album-art"
+    >
+      <img
+        :src="content.image"
+        :alt="content.show + ' Album Art'"
+      >
     </div>
     <div class="sticky-podcast__player-top-content">
       <!-- <div class="album-show-name">
         <div class="sticky-show-name">{{ content.show }}</div>
       </div> -->
-      <div class="sticky-episode-title">{{ content.title }}</div>
+      <div class="sticky-episode-title">
+        {{ content.title }}
+      </div>
       <div class="sticky-play-meta">
-        <button v-if="playPause" type="button" v-on:click="playPause" class="sticky-play-pause">
-          <img v-if="podPlaying" src="~/assets/img/icons/pause.svg" />
-          <img v-if="!podPlaying" src="~/assets/img/icons/play.svg" />
+        <button
+          v-if="playPause"
+          type="button"
+          class="sticky-play-pause"
+          @click="playPause"
+        >
+          <img
+            v-if="podPlaying"
+            src="~/assets/img/icons/pause.svg"
+          >
+          <img
+            v-if="!podPlaying"
+            src="~/assets/img/icons/play.svg"
+          >
         </button>
-        <div v-if="playPause" class="sticky-meta-duration">
-          {{readyToPlay || currentPod.type === "full" ? format(duration - this.currentTime) : '--:--'}}
+        <div
+          v-if="playPause"
+          class="sticky-meta-duration"
+        >
+          {{ readyToPlay || currentPod.type === "full" ? format(duration - currentTime) : '--:--' }}
         </div>
         <div class="sticky-meta-release">
-          {{$moment(activePodcast.spotify_episodeReleaseDate).format('MMM. DD')}}
+          {{ $moment(activePodcast.spotify_episodeReleaseDate).format('MMM. DD') }}
         </div>
       </div>
     </div>
@@ -29,6 +61,7 @@
 
 <script>
 export default {
+  name: "PodcastTopper",
   props: ['activePodcast', 'podPlaying', 'playPause', 'duration', 'content', 'readyToPlay'],
   data() {
     return {
@@ -43,6 +76,17 @@ export default {
     currentPod() {
       return this.$store.getters['page/currentPod']
     },
+  },
+  watch: {
+    podPlaying() {
+      this.updatePod();
+    },
+    currentPod() {
+      this.updatePod();
+    },
+    podTime() {
+      this.updatePod();
+    }
   },
   methods: {
     format(time) {   
@@ -75,17 +119,6 @@ export default {
         clearInterval(this.interval);
         this.currentTime = 0;
       }
-    }
-  },
-  watch: {
-    podPlaying() {
-      this.updatePod();
-    },
-    currentPod() {
-      this.updatePod();
-    },
-    podTime() {
-      this.updatePod();
     }
   }
 }

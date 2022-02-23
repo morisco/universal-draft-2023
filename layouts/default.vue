@@ -7,22 +7,26 @@
       'app--ready': siteReady
     }]"
   >
-    <NFLHeader v-if="league === 'nfl'" />
-    <NBAHeader v-else-if="league === 'nba'" />
-     <main v-if="pageSettings" id="main">
-      <NFLIntro v-if="league === 'nfl'" />
-      <NBAIntro v-else-if="league === 'nba'" />
+    <Header />
+    <main
+      v-if="pageSettings"
+      id="main"
+    >
+      <Intro />
       <mq-layout mq="tablet+">
-        <NFLNavigation v-if="league === 'nfl'" />
-        <NBANavigation v-else-if="league === 'nba'" />
+        <Navigation />
       </mq-layout>
       <mq-layout mq="mobile">
-        <NFLMobileNavigation v-if="league === 'nfl'" v-on:lock-scroll="lockScroll" v-on:unlock-scroll="unlockScroll" v-on:reset-list="resetList" />
-        <NBAMobileNavigation v-else-if="league === 'nba'" v-on:lock-scroll="lockScroll" v-on:unlock-scroll="unlockScroll" v-on:reset-list="resetList" />
+        <MobileNavigation
+          @lock-scroll="lockScroll"
+          @unlock-scroll="unlockScroll"
+          @reset-list="resetList"
+        />
       </mq-layout>
       <div 
-        class="app__content" 
-        id="app__content"
+        id="app__content" 
+        ref="appContent"
+        class="app__content"
         :class="{
           'app__content--collapsed': collapsed
         }"
@@ -35,31 +39,35 @@
       </div>
     </main>
     <Footer />
-    <client-only >
+    <client-only>
       <Consent />
     </client-only>
-    <div ref="sizer" class="app__sizer"></div> 
+    <div
+      ref="sizer"
+      class="app__sizer"
+    /> 
   </div>
-
 </template>
 
 <script>
-import NFLHeader from '~/components/NFLHeader'
-import NBAHeader from '~/components/NBAHeader'
+import Header from '~/components/Header'
 import Filters from '~/components/Filters'
 import Consent from '~/components/Consent'
-import NFLIntro from '~/components/NFLIntro'
-import NBAIntro from '~/components/NBAIntro'
-import NFLMobileNavigation from '~/components/NFLMobileNavigation'
-import NBAMobileNavigation from '~/components/NBAMobileNavigation'
-import PodcastController from '~/components/Podcast/GlobalController'
+import Intro from '~/components/Intro'
+import MobileNavigation from '~/components/MobileNavigation'
 import StickyPodcast from '~/components/StickyPodcast';
-import NFLNavigation from '~/components/NFLNavigation'
-import NBANavigation from '~/components/NBANavigation'
-import Footer from '~/components/Footer'
+import Footer from '~/components/Footer';
+import Navigation from '~/components/Navigation';
 
 export default {
-  components: { NFLHeader, NBAHeader, NFLIntro, NBAIntro, Filters, NFLMobileNavigation, NBAMobileNavigation, NFLNavigation, NBANavigation, StickyPodcast, Footer, Consent },
+  name: "AppLayout",
+  components: { Header, Intro, Filters, MobileNavigation, Navigation, StickyPodcast, Footer, Consent },
+  data () {
+    return {
+      preLockScrollPos: null,
+      siteReady: false,
+    }
+  },
   computed: {
     pageSettings () {
       return this.$store.getters['page/settings']
@@ -73,6 +81,16 @@ export default {
     league() {
       return process.env.PROJECT_LEAGUE.toLowerCase()
     }
+  },
+  watch: {
+    '$mq'() {
+      this.setCSSHeight();
+    },
+     async $route(to, from) {
+       setTimeout(() => {
+         window.scrollTo({top: this.$refs.appContent.offsetTop - document.getElementById('navigation').offsetHeight - 40, left:0, behavior: 'smooth'});
+       }, 500);
+    },
   },
   created () {
     if(process.client){
@@ -90,12 +108,6 @@ export default {
       this.siteReady = true;
     }
     document.addEventListener('resize', this.setCSSHeight)
-  },
-  data () {
-    return {
-      preLockScrollPos: null,
-      siteReady: false,
-    }
   },
   methods: {
     lockScroll() {
@@ -120,11 +132,6 @@ export default {
         document.documentElement.style.setProperty('--vh', `${vh}px`);
       }, 250);
     },
-  },
-  watch: {
-    '$mq'() {
-      this.setCSSHeight();
-    }
   }
 }
 </script>

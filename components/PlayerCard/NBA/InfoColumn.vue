@@ -3,46 +3,127 @@
     class="player-card__info-column" 
     :class="{
       'player-card__info-column--expanded': expanded,
-      'player-card__info-column--mounted':  mounted,
-      'player-card__info-column--animate':  animateHeight
+      'player-card__info-column--mounted': mounted,
+      'player-card__info-column--animate': animateHeight
     }"
-    v-bind:style="[maxHeight] ? {maxHeight: maxHeight + 'px'}: []"
+    :style="[maxHeight] ? {maxHeight: maxHeight + 'px'}: []"
   >
     <!-- <div class="player-card__info-rule" v-bind:style="[ruleHeight] ? {maxHeight: (ruleHeight) + 'px', top: ruleTop + 'px'}: []" v-if="$mq !== 'mobile'"/> -->
-    <div class="player-card__top-data" ref="topData">
-      <MetaBar :player="player" :rankKey="rankKey" :collapsed="collapsed" :expanded="expanded" ref="metaBar" v-if="$mq === 'mobile'" v-on:setHeight="setMetaHeight" />
+    <div
+      ref="topData"
+      class="player-card__top-data"
+    >
+      <MetaBar
+        v-if="$mq === 'mobile'"
+        ref="metaBar"
+        :player="player"
+        :rank-key="rankKey"
+        :collapsed="collapsed"
+        :expanded="expanded"
+        @set-height="setMetaHeight"
+      />
       <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) >= 0">
         <div ref="peruseContent">
-          <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo" :infoText="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) >= 0 ? player.mock_insight : player.results_insight" />
+          <DraftInfo
+            v-if="teamNameLogo"
+            :team-name-logo="teamNameLogo"
+            :info-text="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) >= 0 ? player.mock_insight : player.results_insight"
+          />
         </div>
       </template>
       <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) === -1">
-        <transition name="player-card__info-column-mobile-expand" duration="5000">
-          <div class="player-card__info-column-mobile-expand" v-if="expanded && $mq === 'mobile'">
-            <NBAMeta :playerMeta="playerMeta" />
-            <Stats  :player="player" />
+        <transition
+          name="player-card__info-column-mobile-expand"
+          duration="5000"
+        >
+          <div
+            v-if="expanded && $mq === 'mobile'"
+            class="player-card__info-column-mobile-expand"
+          >
+            <NBAMeta :player-meta="playerMeta" />
+            <Stats :player="player" />
           </div>
         </transition>
-        <div class="player-card__peruse-content" ref="peruseContent">
-          <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" :player="player" :playerMeta="playerMeta" />
-          <Badges :player="player" v-if="player.badges && player.badges.length > 0 && $mq !== 'mobile'" />
+        <div
+          ref="peruseContent"
+          class="player-card__peruse-content"
+        >
+          <Headline
+            :headline="player.player_description"
+            :selling="player.player_meta.main_selling_point"
+            :player="player"
+            :player-meta="playerMeta"
+          />
+          <Badges
+            v-if="player.badges && player.badges.length > 0 && $mq !== 'mobile'"
+            :player="player"
+          />
         </div>
       </template>
     </div>
-    <div class="player-card__bottom-data" ref="bottomData">
+    <div
+      ref="bottomData"
+      class="player-card__bottom-data"
+    >
       <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) >= 0">
-        <Stats v-if="$mq === 'mobile'" :player="player" />
-        <NBAMeta v-if="$mq === 'mobile'" :playerMeta="playerMeta" />
-        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" :playerMeta="playerMeta" v-if="$mq !== 'mobile'" :player="player" />
-        <Badges :player="player" v-if="player.badges && player.badges.length > 0 && $mq !== 'mobile'" />
-        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" :playerMeta="playerMeta" v-if="$mq === 'mobile'" :player="player" />
+        <Stats
+          v-if="$mq === 'mobile'"
+          :player="player"
+        />
+        <NBAMeta
+          v-if="$mq === 'mobile'"
+          :player-meta="playerMeta"
+        />
+        <Headline
+          v-if="$mq !== 'mobile'"
+          :headline="player.player_description"
+          :selling="player.player_meta.main_selling_point"
+          :player-meta="playerMeta"
+          :player="player"
+        />
+        <Badges
+          v-if="player.badges && player.badges.length > 0 && $mq !== 'mobile'"
+          :player="player"
+        />
+        <Headline
+          v-if="$mq === 'mobile'"
+          :headline="player.player_description"
+          :selling="player.player_meta.main_selling_point"
+          :player-meta="playerMeta"
+          :player="player"
+        />
       </template>
-      <Badges :player="player" v-if="player.badges && player.badges.length > 0 && $mq === 'mobile'" />
-      <ExpandedMeta v-if="player.pluses_minuses" :player="player" />
-      <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile' && (playerVideo || player.player_podcast || player.player_articles)">
-        <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" :expanded="expanded" :activeCard="activeCard" v-if="playerVideo" />
-        <PodcastCardPlayer v-if="player.player_podcast" :playerId="playerId" :playerPodcast="player.player_podcast" :player="player" :infoHeight="topHeight" :podcast="player.player_podcast" />
-        <RelatedArticles :articles="player.player_articles" v-if="player.player_articles" />
+      <Badges
+        v-if="player.badges && player.badges.length > 0 && $mq === 'mobile'"
+        :player="player"
+      />
+      <ExpandedMeta
+        v-if="player.pluses_minuses"
+        :player="player"
+      />
+      <div
+        v-if="$mq === 'mobile' && (playerVideo || player.player_podcast || player.player_articles)"
+        class="player-card__bottom-data-extended"
+      >
+        <VideoThumb
+          v-if="playerVideo"
+          :play-video="playVideo"
+          :player-video="playerVideo"
+          :expanded="expanded"
+          :active-card="activeCard"
+        />
+        <PodcastCardPlayer
+          v-if="player.player_podcast"
+          :player-id="playerId"
+          :player-podcast="player.player_podcast"
+          :player="player"
+          :info-height="topHeight"
+          :podcast="player.player_podcast"
+        />
+        <RelatedArticles
+          v-if="player.player_articles"
+          :articles="player.player_articles"
+        />
       </div>
     </div>
   </div>
@@ -61,8 +142,10 @@ import NBAMeta from './NBAMeta'
 import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 
 export default {
-  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
+  name: "NBAInfoColumn",
   components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, NBAMeta },
+  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
+  emits: ['set-top-height','set-info-height','set-meta-height'],
   data () {
     return {
       mounted: false,
@@ -73,18 +156,6 @@ export default {
       ruleHeight: null,
       ruleTop: null
     }
-  },
-  mounted() {
-    const self = this;
-    this.ruleHeight = this.$refs.peruseContent ? this.$refs.peruseContent.offsetHeight - 2 : 0
-    this.ruleTop = this.$refs.peruseContent ? this.$refs.peruseContent.offsetTop + 2 : 0
-    setTimeout(() => {
-      self.mounted = true;
-    }, 500);
-    window.addEventListener('resize', this.windowResized);
-  },
-  destroyed(){
-    window.removeEventListener('resize', this.windowResized);
   },
   computed: {
     player () {
@@ -115,35 +186,6 @@ export default {
       };
     },
   },
-  methods: {
-    windowResized () {
-      this.setHeights();
-    },
-    setMetaHeight(height) {
-      this.$emit('setMetaHeight', height);
-    },
-    setHeights() {
-      const self = this;
-      if(!this.mounted) return
-      if(this.expanded || this.viewDepth === 'deep'){
-        this.maxHeight = this.topHeight + this.$refs.bottomData.offsetHeight + (this.$mq === 'mobile' ? 160 : 15)
-        this.ruleHeight = this.maxHeight - 45 - this.ruleTop
-      } else if(this.collapsed){
-        this.maxHeight = this.$mq === 'mobile' ? this.topHeight : 125
-        this.ruleHeight = this.$refs.peruseContent.offsetHeight
-      } else {
-        this.maxHeight = this.topHeight
-        this.ruleHeight = this.$refs.peruseContent.offsetHeight
-      }
-      this.setMaxHeight(this.maxHeight);
-      this.$emit('set-top-height', this.topHeight)
-      this.$emit('set-info-height', this.maxHeight);
-      setTimeout(() => {
-        this.setAnimateHeight(true);
-        self.animateHeight = true;
-      }, 500);
-    }
-  },
   watch : {
     viewDepth(newDepth) {
       this.setHeights();
@@ -171,6 +213,51 @@ export default {
       setTimeout(() => {
         self.topHeight = this.$refs.topData.offsetHeight
         self.setHeights();
+      }, 500);
+    }
+  },
+  mounted() {
+    const self = this;
+    this.ruleHeight = this.$refs.peruseContent ? this.$refs.peruseContent.offsetHeight - 2 : 0
+    this.ruleTop = this.$refs.peruseContent ? this.$refs.peruseContent.offsetTop + 2 : 0
+    setTimeout(() => {
+      self.mounted = true;
+    }, 500);
+    window.addEventListener('resize', this.windowResized);
+  },
+  unmounted(){
+    window.removeEventListener('resize', this.windowResized);
+  },
+  methods: {
+    windowResized () {
+      this.setHeights();
+    },
+    setMetaHeight(height) {
+      this.$emit('set-meta-height', height);
+    },
+    setHeights() {
+      const self = this;
+      if(!this.mounted) return
+      if(this.expanded || this.viewDepth === 'deep'){
+        this.maxHeight = this.topHeight + this.$refs.bottomData.offsetHeight + (this.$mq === 'mobile' ? 160 : 15)
+        this.ruleHeight = this.maxHeight - 45 - this.ruleTop
+      } else if(this.collapsed){
+        this.maxHeight = this.$mq === 'mobile' ? this.topHeight : 125
+        if (this.$refs.peruseContent) {
+          this.ruleHeight = this.$refs.peruseContent.offsetHeight
+        }
+      } else {
+        this.maxHeight = this.topHeight
+        if (this.$refs.peruseContent) {
+          this.ruleHeight = this.$refs.peruseContent.offsetHeight
+        }
+      }
+      this.setMaxHeight(this.maxHeight);
+      this.$emit('set-top-height', this.topHeight)
+      this.$emit('set-info-height', this.maxHeight);
+      setTimeout(() => {
+        this.setAnimateHeight(true);
+        self.animateHeight = true;
       }, 500);
     }
   }
