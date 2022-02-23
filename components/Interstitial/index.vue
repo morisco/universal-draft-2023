@@ -1,11 +1,26 @@
 <template>
   <div class="interstitial">
     <client-only>
-      <NFLListInter v-if="league === 'nfl' && interstitial.category === 'list_inter'" :interstitial="interstitial" />
-      <NBAListInter v-else-if="league === 'nba' && interstitial.category === 'list_inter'" :interstitial="interstitial" />
-      <VideoInter v-if="interstitial.category === 'video_inter'" :interstitial="interstitial" />
-      <ArticleInter v-if="interstitial.category === 'article_inter'" :interstitial="interstitial" />
-      <PodcastInter v-if="interstitial.category === 'podcast_inter'" :interstitial="interstitial" />
+      <NFLListInter
+        v-if="league === 'nfl' && interstitial.category === 'list_inter'"
+        :interstitial="interstitial"
+      />
+      <NBAListInter
+        v-else-if="league === 'nba' && interstitial.category === 'list_inter'"
+        :interstitial="interstitial"
+      />
+      <VideoInter
+        v-if="interstitial.category === 'video_inter'"
+        :interstitial="interstitial"
+      />
+      <ArticleInter
+        v-if="interstitial.category === 'article_inter'"
+        :interstitial="interstitial"
+      />
+      <PodcastInter
+        v-if="interstitial.category === 'podcast_inter'"
+        :interstitial="interstitial"
+      />
     </client-only>
   </div>
 </template>
@@ -18,6 +33,7 @@ import ArticleInter from './Article.vue';
 import PodcastInter from './Podcast.vue';
 
 export default {
+  name: "InterstitialWrapper",
   components: { ArticleInter, NFLListInter, NBAListInter, VideoInter, PodcastInter },
   props: ['list', 'interKey'],
   data() {

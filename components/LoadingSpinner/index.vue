@@ -1,16 +1,23 @@
 <template>
-<transition name="sk-folding-cube" :duration="55000">
-  <div class="sk-folding-cube" v-if="!loaded">
-    <div class="sk-cube1 sk-cube"></div>
-    <div class="sk-cube2 sk-cube"></div>
-    <div class="sk-cube4 sk-cube"></div>
-    <div class="sk-cube3 sk-cube"></div>
-  </div>
-</transition>
+  <transition
+    name="sk-folding-cube"
+    :duration="55000"
+  >
+    <div
+      v-if="!loaded"
+      class="sk-folding-cube"
+    >
+      <div class="sk-cube1 sk-cube" />
+      <div class="sk-cube2 sk-cube" />
+      <div class="sk-cube4 sk-cube" />
+      <div class="sk-cube3 sk-cube" />
+    </div>
+  </transition>
 </template>
 
 <script>
 export default {
+  name: "LoadingSpinner",
   props: ['loaded']
 }
 </script>

@@ -1,13 +1,16 @@
 <template>
   <div class="draft-info">
-    <span class="draft-info__name">{{teamNameLogo.teamName}}</span>
-    <div class="draft-info__content" v-html="infoText">
-    </div>
+    <span class="draft-info__name">{{ teamNameLogo.teamName }}</span>
+    <div
+      class="draft-info__content"
+      v-html="infoText"
+    />
   </div>
 </template>
 
 <script>
 export default {
+  name: "NFLDraftInfo",
   props: ['teamNameLogo', 'infoText'],
 }
 </script>

@@ -6,16 +6,20 @@
       'draft-team--loaded': infoHeight > 0
     }"
   >
-    <img v-if="teamNameLogo.logo" :src="teamNameLogo.logo.small" />
+    <img
+      v-if="teamNameLogo.logo"
+      :src="teamNameLogo.logo.small"
+    >
     <span class="draft-team__name">
-      {{teamNameLogo.teamName}}
-      <span v-if="teamNameLogo.via">({{teamNameLogo.via}})</span>
+      {{ teamNameLogo.teamName }}
+      <span v-if="teamNameLogo.via">({{ teamNameLogo.via }})</span>
     </span>
   </div>
 </template>
 
 <script>
 export default {
+  name: "NBADraftTeam",
   props: ['teamNameLogo', 'infoHeight'],
   data () {
     return {

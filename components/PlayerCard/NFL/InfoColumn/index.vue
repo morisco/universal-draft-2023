@@ -3,37 +3,100 @@
     class="player-card__info-column" 
     :class="{
       'player-card__info-column--expanded': expanded,
-      'player-card__info-column--mounted':  mounted,
-      'player-card__info-column--animate':  animateHeight
+      'player-card__info-column--mounted': mounted,
+      'player-card__info-column--animate': animateHeight
     }"
-    v-bind:style="[maxHeight] ? {maxHeight: maxHeight + 'px'}: []"
+    :style="[maxHeight] ? {maxHeight: maxHeight + 'px'}: []"
   >
-    <div class="player-card__top-data" ref="topData">
-      <MetaBar :player="player" :rankKey="rankKey" :collapsed="collapsed" ref="metaBar" v-if="$mq === 'mobile'" v-on:setHeight="setMetaHeight" />
+    <div
+      ref="topData"
+      class="player-card__top-data"
+    >
+      <MetaBar
+        v-if="$mq === 'mobile'"
+        ref="metaBar"
+        :player="player"
+        :rank-key="rankKey"
+        :collapsed="collapsed"
+        @set-height="setMetaHeight"
+      />
       <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) >= 0">
-        <DraftInfo :teamNameLogo="teamNameLogo" v-if="teamNameLogo" :infoText="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) >= 0 ? player.mock_insight : player.results_insight" />
+        <DraftInfo
+          v-if="teamNameLogo"
+          :team-name-logo="teamNameLogo"
+          :info-text="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) >= 0 ? player.mock_insight : player.results_insight"
+        />
       </template>
       <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) === -1">
-        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile'" />
-        <Badges :player="player" v-if="player.badges && player.badges.length > 0" />
-        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile'" />
+        <Headline
+          v-if="$mq !== 'mobile'"
+          :headline="player.player_description"
+          :selling="player.player_meta.main_selling_point"
+        />
+        <Badges
+          v-if="player.badges && player.badges.length > 0"
+          :player="player"
+        />
+        <Headline
+          v-if="$mq === 'mobile'"
+          :headline="player.player_description"
+          :selling="player.player_meta.main_selling_point"
+        />
       </template>
-
     </div>
-    <div class="player-card__bottom-data" ref="bottomData">
+    <div
+      ref="bottomData"
+      class="player-card__bottom-data"
+    >
       <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) >= 0">
-        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq !== 'mobile'"  />
-        <Badges :player="player" v-if="player.badges && player.badges.length > 0" />
-        <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile'" />
+        <Headline
+          v-if="$mq !== 'mobile'"
+          :headline="player.player_description"
+          :selling="player.player_meta.main_selling_point"
+        />
+        <Badges
+          v-if="player.badges && player.badges.length > 0"
+          :player="player"
+        />
+        <Headline
+          v-if="$mq === 'mobile'"
+          :headline="player.player_description"
+          :selling="player.player_meta.main_selling_point"
+        />
       </template>
-      <Stats :player="player" v-if="$mq === 'mobile'" />
+      <Stats
+        v-if="$mq === 'mobile'"
+        :player="player"
+      />
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
-      <ExpandedMeta :player="player" v-if="player.deep_dives" />
+      <ExpandedMeta
+        v-if="player.deep_dives"
+        :player="player"
+      />
 
-      <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile' && (playerVideo || player.player_podcast || player.player_articles)">
-        <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" :expanded="expanded" :activeCard="activeCard" v-if="playerVideo" />
-        <PodcastCardPlayer v-if="player.player_podcast" :playerId="playerId" :playerPodcast="player.player_podcast" :player="player" :infoHeight="topHeight" :podcast="player.player_podcast" />
-        <RelatedArticles :articles="player.player_articles" v-if="player.player_articles" />
+      <div
+        v-if="$mq === 'mobile' && (playerVideo || player.player_podcast || player.player_articles)"
+        class="player-card__bottom-data-extended"
+      >
+        <VideoThumb
+          v-if="playerVideo"
+          :play-video="playVideo"
+          :player-video="playerVideo"
+          :expanded="expanded"
+          :active-card="activeCard"
+        />
+        <PodcastCardPlayer
+          v-if="player.player_podcast"
+          :player-id="playerId"
+          :player-podcast="player.player_podcast"
+          :player="player"
+          :info-height="topHeight"
+          :podcast="player.player_podcast"
+        />
+        <RelatedArticles
+          v-if="player.player_articles"
+          :articles="player.player_articles"
+        />
       </div>
     </div>
   </div>
@@ -50,8 +113,9 @@ import RelatedArticles from '../RelatedArticles'
 import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import DraftInfo from '../DraftInfo';
 export default {
-  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
+  name: "NFLInfoColumn",
   components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo },
+  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
   data () {
     return {
       mounted: false,
@@ -60,16 +124,6 @@ export default {
       maxHeight: null,
       animateHeight: false
     }
-  },
-  mounted() {
-    const self = this;
-    setTimeout(() => {
-      self.mounted = true;
-    }, 500);
-    window.addEventListener('resize', this.windowResized);
-  },
-  destroyed(){
-    window.removeEventListener('resize', this.windowResized);
   },
   computed: {
     player () {
@@ -83,33 +137,6 @@ export default {
     },
     viewDepth () {
       return this.$store.getters['viewOptions/depth'];
-    }
-  },
-  methods: {
-    windowResized () {
-      this.setHeights();
-    },
-    setMetaHeight(height) {
-      this.$emit('setMetaHeight', height);
-    },
-    setHeights() {
-      const self = this;
-      if(!this.mounted) return
-
-      if(this.expanded || this.viewDepth === 'deep'){
-        this.maxHeight = this.topHeight + this.$refs.bottomData.offsetHeight
-      } else if(this.collapsed){
-        this.maxHeight = this.$mq === 'mobile' ? this.topHeight : 125
-      } else {
-        this.maxHeight = this.topHeight
-      }
-      this.setMaxHeight(this.maxHeight);
-      this.$emit('set-top-height', this.topHeight)
-      this.$emit('set-info-height', this.maxHeight);
-      setTimeout(() => {
-        this.setAnimateHeight(true);
-        self.animateHeight = true;
-      }, 500);
     }
   },
   watch : {
@@ -139,6 +166,43 @@ export default {
       setTimeout(() => {
         self.topHeight = this.$refs.topData.offsetHeight
         self.setHeights();
+      }, 500);
+    }
+  },
+  mounted() {
+    const self = this;
+    setTimeout(() => {
+      self.mounted = true;
+    }, 500);
+    window.addEventListener('resize', this.windowResized);
+  },
+  unmounted(){
+    window.removeEventListener('resize', this.windowResized);
+  },
+  methods: {
+    windowResized () {
+      this.setHeights();
+    },
+    setMetaHeight(height) {
+      this.$emit('setMetaHeight', height);
+    },
+    setHeights() {
+      const self = this;
+      if(!this.mounted) return
+
+      if(this.expanded || this.viewDepth === 'deep'){
+        this.maxHeight = this.topHeight + this.$refs.bottomData.offsetHeight
+      } else if(this.collapsed){
+        this.maxHeight = this.$mq === 'mobile' ? this.topHeight : 125
+      } else {
+        this.maxHeight = this.topHeight
+      }
+      this.setMaxHeight(this.maxHeight);
+      this.$emit('set-top-height', this.topHeight)
+      this.$emit('set-info-height', this.maxHeight);
+      setTimeout(() => {
+        this.setAnimateHeight(true);
+        self.animateHeight = true;
       }, 500);
     }
   }

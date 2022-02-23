@@ -7,9 +7,12 @@
       Combine Results
     </div>
     <ul class="player-card__combine-results-list">
-      <li v-for="result in results" :key="result.combine_label + result.combine_value">
-        <span class="player-card__combine__results-label">{{result.combine_label}}</span>
-        <span class="player-card__combine__results-value">{{result.combine_value}}</span>
+      <li
+        v-for="result in results"
+        :key="result.combine_label + result.combine_value"
+      >
+        <span class="player-card__combine__results-label">{{ result.combine_label }}</span>
+        <span class="player-card__combine__results-value">{{ result.combine_value }}</span>
       </li>
     </ul>
   </div>
@@ -17,6 +20,7 @@
 
 <script>
 export default {
+  name: "NFLCombineResults",
   props: ['results', 'topHeight'],
 }
 </script>

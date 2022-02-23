@@ -1,10 +1,19 @@
 <template>
   <transition name="badge-selector">
-    <div v-if="showBadges" class="badge-selector">
-      <button class="badge-select" :class="{'badge-select--active': strengths.indexOf(strength.strengthKey) >= 0}" v-for="strength in strengthMap" :key="'badge-select-' + strength.strengthKey" @click="() => toggleBadge(strength.strengthKey)">
-        <img :src="strength.image" />
+    <div
+      v-if="showBadges"
+      class="badge-selector"
+    >
+      <button
+        v-for="strength in strengthMap"
+        :key="'badge-select-' + strength.strengthKey"
+        class="badge-select"
+        :class="{'badge-select--active': strengths.indexOf(strength.strengthKey) >= 0}"
+        @click="() => toggleBadge(strength.strengthKey)"
+      >
+        <img :src="strength.image">
         <span>
-          {{strength.fullLabel}}
+          {{ strength.fullLabel }}
         </span>
       </button>
     </div>
@@ -19,14 +28,6 @@ export default {
     return {
       clickEvent: null
     }
-  },
-  mounted () {
-    const self = this;
-    window.addEventListener('scroll', () => {
-      if(window.scrollY > document.body.offsetHeight - window.innerHeight - 680){
-        self.closeBadgeSelector()
-      }
-    })
   },
   computed: {
     strengths() {
@@ -44,6 +45,14 @@ export default {
         }, true)
       }
     }
+  },
+  mounted () {
+    const self = this;
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > document.body.offsetHeight - window.innerHeight - 680){
+        self.closeBadgeSelector()
+      }
+    })
   },
   methods: {
     ...mapActions({

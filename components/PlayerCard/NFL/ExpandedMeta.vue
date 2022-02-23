@@ -1,21 +1,37 @@
 <template>
   <div class="player-card__expanded-meta">
     <div class="player-card__expanded-meta-section">
-      <div class="player-card__expanded-label">SCOUTING REPORT</div>
-      <div class="player-card__expanded-value" v-html="player.deep_dives.scouting_report"></div>
+      <div class="player-card__expanded-label">
+        SCOUTING REPORT
+      </div>
+      <div
+        class="player-card__expanded-value"
+        v-html="player.deep_dives.scouting_report"
+      />
     </div>
     <div class="player-card__expanded-meta-section">
-      <div class="player-card__expanded-label">WHY HE COULD RISE</div>
-      <div class="player-card__expanded-value" v-html="player.deep_dives.why_rise"></div>
+      <div class="player-card__expanded-label">
+        WHY HE COULD RISE
+      </div>
+      <div
+        class="player-card__expanded-value"
+        v-html="player.deep_dives.why_rise"
+      />
     </div>
     <div class="player-card__expanded-meta-section">
-      <div class="player-card__expanded-label">WHY HE COULD FALL</div>
-      <div class="player-card__expanded-value player-card__expanded-value--last" v-html="player.deep_dives.why_fall"></div>
+      <div class="player-card__expanded-label">
+        WHY HE COULD FALL
+      </div>
+      <div
+        class="player-card__expanded-value player-card__expanded-value--last"
+        v-html="player.deep_dives.why_fall"
+      />
     </div>
   </div>
 </template>
 <script>
 export default {
+  name: "NFLExpandedMeta",
   props: ['player']
 }
 </script>

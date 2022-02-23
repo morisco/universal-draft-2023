@@ -1,11 +1,22 @@
 <template>
-  <a :href="interstitial.link" target="_blank" class="article-inter player-card" v-on:click="trackArticleOpen">
-    <div class="article-inter__image" v-if="false">
-      <img :src="interstitial.image.medium" :alt="interstitial.title" />
+  <a
+    :href="interstitial.link"
+    target="_blank"
+    class="article-inter player-card"
+    @click="trackArticleOpen"
+  >
+    <div
+      v-if="false"
+      class="article-inter__image"
+    >
+      <img
+        :src="interstitial.image.medium"
+        :alt="interstitial.title"
+      >
     </div>
     <div class="article-inter__content">
-      <div class="article-inter__slug">{{interstitial.slug}}</div>
-      <div class="article-inter__headline">{{interstitial.title}}</div>
+      <div class="article-inter__slug">{{ interstitial.slug }}</div>
+      <div class="article-inter__headline">{{ interstitial.title }}</div>
       <div class="article-inter__link">READ IT NOW</div>
     </div>
   </a>
@@ -13,6 +24,7 @@
 
 <script>
 export default {
+  name: "InterstitialArticle",
   props: ['interstitial'],
   methods: {
     trackArticleOpen() {

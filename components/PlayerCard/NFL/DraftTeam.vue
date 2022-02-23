@@ -6,16 +6,17 @@
       'draft-team--loaded': infoHeight > 0
     }"
   >
-    <img :src="teamNameLogo.logo.small" />
+    <img :src="teamNameLogo.logo.small">
     <span class="draft-team__name">
-      {{teamNameLogo.teamName}}
-      <span v-if="teamNameLogo.via">({{teamNameLogo.via}})</span>
+      {{ teamNameLogo.teamName }}
+      <span v-if="teamNameLogo.via">({{ teamNameLogo.via }})</span>
     </span>
   </div>
 </template>
 
 <script>
 export default {
+  name: "NFLDrafTeam",
   props: ['teamNameLogo', 'infoHeight'],
   data () {
     return {
