@@ -37,7 +37,7 @@ import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
 import MoreCoverage from '~/components/MoreCoverage'
 import { scrollIt } from '~/plugins/scroller'
-import gsap from 'gsap/all';
+import gsap from 'gsap';
 
 export default {
   name: 'DraftResults',

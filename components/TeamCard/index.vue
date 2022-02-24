@@ -29,7 +29,7 @@
 import NFLTeamCard from './NFL';
 import NBATeamCard from './NBA';
 import Interstitial from '../Interstitial';
-import gsap from 'gsap/all';
+import gsap from 'gsap';
 export default {
   name: "TeamCard",
   components: { NFLTeamCard, NBATeamCard, Interstitial },
