@@ -5,7 +5,6 @@
   >
     <MainSectionIntro type="big_board" />
     <TransitionGroup
-      name="player-card"
       class="big-board__inner main-section__inner"
       :css="false"
       @before-enter="onBeforeEnter"
@@ -38,7 +37,7 @@ import { mapActions } from 'vuex'
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
 import { scrollIt } from '~/plugins/scroller'
-import gsap from 'gsap/all';
+import gsap from 'gsap';
 
 export default {
   name: 'BigBoard',
