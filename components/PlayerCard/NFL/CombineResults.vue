@@ -32,8 +32,9 @@ export default {
       left:0;
       right:0;
       bottom:0;
-      opacity:0;
+      opacity:1;
       transition:opacity 0.25s linear;
+      margin-top:30px;
       
       .player-card__image-column &{
         margin-bottom:30px;
@@ -65,11 +66,13 @@ export default {
 
             &:first-of-type{
               padding-right:3px;
-              @include mobile-nav-label;
+              @include player-card-body;
+              margin-bottom: 0 !important;
             }
             &:last-of-type{
               padding-left:4px;
-              @include stat-title;
+              @include player-card-body;
+              margin-bottom: 0 !important;
             }
           }
           &:before{

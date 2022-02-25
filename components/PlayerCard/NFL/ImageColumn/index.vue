@@ -36,6 +36,7 @@
         />
         <div v-if="$mq !== 'mobile'">
           <Stats :player="fullPlayer" />
+          <CombineResults :results="player.combine_results" />
           <VideoThumb
             v-if="playerVideo"
             :play-video="playVideo"
@@ -72,11 +73,12 @@
 import DraftTeam from '../DraftTeam'
 import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import VideoThumb from '../VideoThumb'
+import CombineResults from '../CombineResults.vue';
 import RelatedArticles from '../RelatedArticles'
 import Stats from '../Stats';
 export default {
   name: "NFLImageColumn",
-  components: {DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles, Stats},
+  components: {DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles, Stats, CombineResults},
   props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight', 'playVideo', 'setImageColHeight', 'expanded', 'videoSettings', 'activeCard'],
   emits: ['reset-video-settings'],
   data() {
@@ -97,7 +99,8 @@ export default {
         imageAlt: playerData.title,
         results_via: playerData.results_via,
         title: playerData.title,
-        player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false
+        player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false,
+        combine_results: playerData.combine_results
       }
     },
     teamNameLogo () {
