@@ -99,7 +99,7 @@ export default {
         opacity:0;
         transition:opacity 0.25s linear;
         @include mobile {
-          margin:-20px 0 0;
+          margin:-30px 0 0;
           padding:15px 20px;
           background:$lightgray;
           &:before{
@@ -107,8 +107,15 @@ export default {
             display:block;
             width:100%;
             height:1px;
-            background:$darkmediumgray;
+            background:$mediumgray;
             margin-bottom:20px;
+          }
+          &:after{
+            content:'';
+            display:block;
+            max-width:calc(100% -40px);
+            margin:20px auto 15px;
+            border-bottom:1px solid $mediumgray;
           }
         }
         .player-card--expanded & {
