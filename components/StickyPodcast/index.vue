@@ -74,7 +74,7 @@
               <button
                 type="button"
                 class="sticky-play-pause"
-                @click="togglePlay"
+                @click="playClicked"
               >
                 <img
                   v-if="podPlaying || shouldPlay"
@@ -169,6 +169,9 @@ export default {
     }
   },
   computed: {
+    podClicked() {
+      return this.$store.getters['page/podClicked']
+    },
     activeMP3() {
       return this.$store.getters['podcast/activeMP3']
     },
@@ -293,10 +296,14 @@ export default {
       'setPlaying': 'page/setPlaying',
       'setCurrentPod': 'page/setCurrentPod',
       'setPodTime': 'page/setPodTime',
+      'setPodClicked': 'page/setPodClicked',
     }),
+    playClicked() {
+      this.setPodClicked(true);
+      this.togglePlay();
+    },
     audioCanPlay() {
       this.readyToPlay = true;
-
     },
     toggleOpen() {
       this.isOpen = !this.isOpen
@@ -329,7 +336,7 @@ export default {
       this.setPlaying(true);
     },
     handleScroll() {
-      if(!this.activePodcast) return;
+      if(!this.activePodcast || !document.querySelector('.main-section__inner') || !document.querySelector('.main-section__inner').offsetParent) return;
       if(window.scrollY > document.querySelector('.main-section__inner').offsetParent.offsetTop) {
         this.showMobile = true
       } else {
@@ -337,6 +344,7 @@ export default {
       }
     },
     handlePlayPause() {
+      if(!this.podClicked) return;
       if(this.podPlaying) {
         if(this.readyToPlay) {
           this.$ga.event({
@@ -362,7 +370,6 @@ export default {
       }
     },
     togglePlay() {
-      
       this.setPlaying(!this.podPlaying);
     },
   },

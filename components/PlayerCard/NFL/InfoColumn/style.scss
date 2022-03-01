@@ -73,6 +73,9 @@
       border-radius: 0 0 0.625rem 0.625rem;
       min-height:0;
       overflow:hidden;
+      .player-card--expanded & {
+        margin-bottom:0;
+      }
     }
   }
   &__meta-stats{

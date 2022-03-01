@@ -36,7 +36,7 @@
             :video-settings="videoSettings"
             :player-video="playerVideo"
             :active-card="activeCard"
-            @reset-video-settings="$emit('resetVideoSettings')"
+            @reset-video-settings="$emit('reset-video-settings')"
           />
           <PodcastCardPlayer
             v-if="player.player_podcast && $mq !== 'mobile'"
@@ -77,7 +77,7 @@ export default {
   name: "NBAImageColumn",
   components: {DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles, Stats, NBAMeta},
   props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight', 'playVideo', 'setImageColHeight', 'expanded', 'videoSettings', 'activeCard'],
-  emits: ['resetVideoSettings'],
+  emits: ['reset-video-settings'],
   data() {
     return {
       maxHeight: false,
@@ -174,7 +174,6 @@ export default {
       flex-direction:column;
       position:relative;
       padding:0 0 0;  
-      // max-width: calc(100% - 800px);
       width:300px;
       min-width:300px;
       flex:0 0 auto;
@@ -183,11 +182,6 @@ export default {
       padding-right:30px;
       padding-left:30px;
       opacity:1;
-      
-     
-      // @include tablet-portrait-only{
-      //   max-width:17.5%;
-      // }
       
       @include mobile {
         padding-top:0;

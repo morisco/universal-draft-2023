@@ -1,12 +1,16 @@
-  <template>
+<template>
   <section class="intro">
-    <div class="intro__inner" v-html="intro"></div>
+    <div
+      class="intro__inner"
+      v-html="intro"
+    />
   </section>
 </template>
 
 <script>
 // import Nav from './Nav.vue';
 export default {
+  name: 'NFLIntro',
   computed: {
     intro () {
       return this.$store.getters['page/settings'].intro

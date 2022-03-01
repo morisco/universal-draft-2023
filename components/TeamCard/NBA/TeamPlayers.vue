@@ -21,8 +21,6 @@
             :src="player.image.small"
             :alt="player.imageAlt"
           >
-          <!-- <img src="@/assets/img/icons/offense-o-2021.svg" v-if="player.offenseDefense === 'offense'" class="player-x-o" data-not-lazy />
-          <img src="@/assets/img/icons/defense-x-2021.svg" v-if="player.offenseDefense === 'defense'" class="player-x-o" data-not-lazy /> -->
         </div>
         <div class="team-card__player-pick-content">
           <span class="team-card__player-name">

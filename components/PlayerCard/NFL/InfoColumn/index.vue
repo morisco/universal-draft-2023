@@ -68,6 +68,7 @@
         v-if="$mq === 'mobile'"
         :player="player"
       />
+      <CombineResults :results="player.combine_results" />
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
       <ExpandedMeta
         v-if="player.deep_dives"
@@ -112,10 +113,12 @@ import VideoThumb from '../VideoThumb'
 import RelatedArticles from '../RelatedArticles'
 import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import DraftInfo from '../DraftInfo';
+import CombineResults from '../CombineResults.vue'
 export default {
   name: "NFLInfoColumn",
-  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo },
+  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, CombineResults },
   props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
+  emits: ['set-meta-height', 'set-top-height', 'set-info-height'],
   data () {
     return {
       mounted: false,
@@ -184,7 +187,7 @@ export default {
       this.setHeights();
     },
     setMetaHeight(height) {
-      this.$emit('setMetaHeight', height);
+      this.$emit('set-meta-height', height);
     },
     setHeights() {
       const self = this;

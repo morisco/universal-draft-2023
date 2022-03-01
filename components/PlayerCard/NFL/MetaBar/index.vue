@@ -91,6 +91,7 @@ export default {
   name: 'NFLMetaBar',
   components: {DraftTeam, Trend},
   props: ['player', 'rankKey', 'collapsed'],
+  emits: ['set-height'],
   computed: {
     rank() {
       return this.rankKey ? this.player[this.rankKey] + 1 : null;
@@ -118,11 +119,11 @@ export default {
   },
   watch: {
     viewDepth() {
-      this.$emit('setHeight',this.$refs.metaBar.offsetHeight);
+      this.$emit('set-height',this.$refs.metaBar.offsetHeight);
     }
   },
   mounted() {
-    this.$emit('setHeight',this.$refs.metaBar.offsetHeight);
+    this.$emit('set-height',this.$refs.metaBar.offsetHeight);
   }
 }
 </script>

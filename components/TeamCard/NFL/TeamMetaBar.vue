@@ -18,12 +18,6 @@
         :team-id="teamId"
         :max-players="3"
       />
-    <!-- <div class="player-card__meta-bar-details-column" v-if="$mq !== 'tablet'">
-      <div class="player-card__meta-bar-details-row">
-        <span class="label">Team Needs</span><br/>
-        <span class="value">{{teamNeeds}}</span> 
-      </div>
-    </div> -->
     </div>
   </div>  
 </template>
@@ -34,6 +28,7 @@ export default {
   name: 'NFLTeamMetaBar',
   components: {TeamPlayers},
   props: ['team', 'teamId'],
+  emits: ['set-height'],
   computed: {
     rank() {
       return this.rankKey ? this.player[this.rankKey] + 1 : null;
@@ -56,7 +51,7 @@ export default {
   },
   watch: {
     viewDepth() {
-      this.$emit('setHeight',this.$refs.metaBar.offsetHeight);
+      this.$emit('set-height', this.$refs.metaBar.offsetHeight);
     }
   }
 }
@@ -64,7 +59,6 @@ export default {
 
 <style lang="scss">
   .app--nfl {
-
     @import '~/components/PlayerCard/NFL/MetaBar/style.scss';
     .team-card{
       &__meta-bar{
