@@ -228,7 +228,7 @@ export default {
     },
     teamArrowTop() {
       const teamSort = this.$store.getters['viewOptions/teamSort'];
-      return teamSort === 'order' ? window.innerWidth < 768 ? 3 : 0 : window.innerWidth < 768 ? 25 : 18;
+      return teamSort === 'order' ? window.innerWidth < 768 ? 3 : 1 : window.innerWidth < 768 ? 25 : 19;
     },
     positionMap() {
       return PositionMap;
