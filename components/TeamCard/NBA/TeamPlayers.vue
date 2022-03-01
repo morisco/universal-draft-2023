@@ -24,8 +24,8 @@
         </div>
         <div class="team-card__player-pick-content">
           <span class="team-card__player-name">
-            <span class="non-mobile">{{ player.firstName }}</span>
-            <span class="mobile">{{ player.firstName.charAt(0) }}.</span>
+            <span v-if="$mq !== 'mobile' && (player.firstName + player.lastName).length <= 15">{{ player.firstName }}</span>
+            <span v-if="$mq === 'mobile' || (player.firstName + player.lastName).length > 15">{{ player.firstName.charAt(0) }}.</span>
             <span>{{ player.lastName }}</span>
           </span>
           <span class="team-card__player-position-school">
@@ -110,18 +110,6 @@ export default {
       line-height:17px;
       padding-bottom:0;
       margin-bottom:0;
-      .mobile{
-        display:none;
-      }
-      @include mobile{
-        .mobile{
-          display:inline;
-        }
-        .non-mobile{
-          display:none;
-        }
-      }
-
       span{
         display:inline;
         @include mobile{
