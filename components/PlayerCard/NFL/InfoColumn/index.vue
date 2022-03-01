@@ -68,7 +68,10 @@
         v-if="$mq === 'mobile'"
         :player="player"
       />
-      <CombineResults :results="player.combine_results" />
+      <CombineResults
+        v-if="$mq === 'mobile'"
+        :results="player.combine_results"
+      />
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
       <ExpandedMeta
         v-if="player.deep_dives"

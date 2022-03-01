@@ -351,6 +351,12 @@ export default {
       display:flex;
       align-items:center;
       font-size:15px;
+      .player-card--collapsed & {
+        .mock-draft &,
+        .draft-grades & {
+          padding-right:40px;
+        }
+      }
       @include non-mobile{
         margin-bottom:-3px;
       }

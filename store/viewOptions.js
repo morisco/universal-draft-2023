@@ -41,7 +41,6 @@ const actions = {
 // mutations
 const mutations = {
   setTeamSort (state, sort) {
-    console.log('sort value', sort);
     state.teamSort = sort
   },
   setDepth (state, depth) {

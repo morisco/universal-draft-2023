@@ -111,7 +111,6 @@ export default {
   },
   methods: {
     setTeams() {
-      console.log('in here');
       if(this.teamSort && this.teamNeedsIds){
         if(this.teamSort === 'order') {
           this.sortedTeams = this.teamNeedsIds;
