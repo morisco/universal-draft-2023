@@ -4,7 +4,6 @@
     class="filters" 
     :class="{
       'filters--fixed': fixed,
-      'filters--disabled': disabled
     }"
   >
     <div
@@ -33,98 +32,144 @@
           </transition>
         </mq-layout>
       </client-only>
-      <div class="filters__section">
-        <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-          <div class="filters__section-title">
-            <span>How much do you</span> <span> want to know?</span>
-          </div>
-        </mq-layout>
-        <button
-          class="filters__option"
-          :class="{active: activeDepth === 'compact'}"
-          @click="setViewDepth($event,'compact')"
-        >
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <transition name="filters__option-emoji">
-              <img
-                v-if="activeDepth === 'compact'"
-                class="filters__option-emoji"
-                src="@/assets/img/emoji/compact.png"
-              >
-            </transition>
-          </mq-layout>
-          <span>Skim</span>
-        </button>
-        <button
-          class="filters__option"
-          :class="{active: activeDepth === 'default'}"
-          @click="setViewDepth($event,'default')"
-        >
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <transition name="filters__option-emoji">
-              <img
-                v-if="activeDepth === 'default'"
-                class="filters__option-emoji"
-                src="@/assets/img/emoji/default.png"
-              >
-            </transition>
-          </mq-layout>
-          <span>Peruse</span>
-        </button>
-        <button
-          class="filters__option"
-          :class="{active: activeDepth === 'detailed'}"
-          @click="setViewDepth($event,'detailed')"
-        >
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <transition name="filters__option-emoji">
-              <img
-                v-if="activeDepth === 'detailed'"
-                class="filters__option-emoji"
-                src="@/assets/img/emoji/detailed.png"
-              >
-            </transition>
-          </mq-layout>
-          <span>Deep Dive</span>
-        </button>
-      </div>
-      <div class="filters__section filters__section--position">
-        <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-          <div class="filters__section-title">
-            <span v-html="$mq === 'mobile' ? 'Filter By<br/>Position' : 'Filter By Position'" />
-          </div>
-        </mq-layout>
-        <div class="filters__section-list">
-          <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-            <img
-              src="@/assets/img/emoji/point-right.png"
-              alt="Right Pointer"
-              class="filters__sticky-emoji"
-              :style="{top: positionArrowTop + 'px'}"
-            >
-          </mq-layout>
-          <button
-            v-for="position in positionMap"
-            :key="position.positionKey"
-            class="filters__option"
-            :class="{active: activePosition === position.positionKey}"
-            @click="handlePositionFilter($event, position.positionKey)"
-          >
-            <span>{{ ['mobile', 'medium_desktop', 'large_desktop'].indexOf($mq) === -1 ? position.shortLabel : position.fullLabel }}</span>
-          </button>
-        </div>
-      </div>
-      <div
-        v-if="$mq !== 'mobile'"
-        class="filters__section filters__section--strength"
+      <TransitionGroup
+        tag="div"
+        class="filters__transition-group"
+        @before-enter="onBeforeMainEnter"
+        @enter="onMainEnter"
+        @leave="onMainLeave"
       >
         <div
-          class="filters__section-title filters__section-title--strength"
-          @click="toggleBadges"
+          v-if="showMainFilters"
+          key="main"
         >
-          <span>Filter By Skill Set</span>
+          <div class="filters__section">
+            <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+              <div class="filters__section-title">
+                <span>How much do you</span> <span> want to know?</span>
+              </div>
+            </mq-layout>
+            <button
+              class="filters__option"
+              :class="{active: activeDepth === 'compact'}"
+              @click="setViewDepth($event,'compact')"
+            >
+              <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+                <transition name="filters__option-emoji">
+                  <img
+                    v-if="activeDepth === 'compact'"
+                    class="filters__option-emoji"
+                    src="@/assets/img/emoji/compact.png"
+                  >
+                </transition>
+              </mq-layout>
+              <span>Skim</span>
+            </button>
+            <button
+              class="filters__option"
+              :class="{active: activeDepth === 'default'}"
+              @click="setViewDepth($event,'default')"
+            >
+              <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+                <transition name="filters__option-emoji">
+                  <img
+                    v-if="activeDepth === 'default'"
+                    class="filters__option-emoji"
+                    src="@/assets/img/emoji/default.png"
+                  >
+                </transition>
+              </mq-layout>
+              <span>Peruse</span>
+            </button>
+            <button
+              class="filters__option"
+              :class="{active: activeDepth === 'detailed'}"
+              @click="setViewDepth($event,'detailed')"
+            >
+              <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+                <transition name="filters__option-emoji">
+                  <img
+                    v-if="activeDepth === 'detailed'"
+                    class="filters__option-emoji"
+                    src="@/assets/img/emoji/detailed.png"
+                  >
+                </transition>
+              </mq-layout>
+              <span>Deep Dive</span>
+            </button>
+          </div>
+          <div class="filters__section filters__section--position">
+            <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+              <div class="filters__section-title">
+                <span v-html="$mq === 'mobile' ? 'Filter By<br/>Position' : 'Filter By Position'" />
+              </div>
+            </mq-layout>
+            <div class="filters__section-list">
+              <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+                <img
+                  src="@/assets/img/emoji/point-right.png"
+                  alt="Right Pointer"
+                  class="filters__sticky-emoji"
+                  :style="{top: positionArrowTop + 'px'}"
+                >
+              </mq-layout>
+              <button
+                v-for="position in positionMap"
+                :key="position.positionKey"
+                class="filters__option"
+                :class="{active: activePosition === position.positionKey}"
+                @click="handlePositionFilter($event, position.positionKey)"
+              >
+                <span>{{ ['mobile', 'medium_desktop', 'large_desktop'].indexOf($mq) === -1 ? position.shortLabel : position.fullLabel }}</span>
+              </button>
+            </div>
+          </div>
+          <div
+            v-if="$mq !== 'mobile'"
+            class="filters__section filters__section--strength"
+          >
+            <div
+              class="filters__section-title filters__section-title--strength"
+              @click="toggleBadges"
+            >
+              <span>Filter By Skill Set</span>
+            </div>
+          </div>
         </div>
-      </div>
+        <div
+          v-if="!showMainFilters"
+          key="tn"
+          class="filters__section filters__section--team-needs"
+        >
+          <div class="filters__section-title filters__section-title--team-needs">
+            Order By
+          </div>
+          <div class="filters__section-list">
+            <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
+              <img
+                src="@/assets/img/emoji/team-arrow.png"
+                alt="Red down arrow"
+                class="filters__sticky-emoji filters__sticky-emoji--team"
+                :style="{top: teamArrowTop + 'px'}"
+              >
+            </mq-layout>
+            <button
+              class="filters__option"
+              :class="{active: teamSort === 'order'}"
+              @click="setTeamSort('order')"
+            >
+              Draft Order
+            </button>
+            <button
+              class="filters__option"
+              :class="{active: teamSort === 'alpha'}"
+              @click="setTeamSort('alpha')"
+            >
+              Alphabetical
+            </button>
+          </div>
+        </div>
+      </TransitionGroup>
       <BadgeSelector
         v-if="league === 'nba'"
         :strength-map="strengthMap"
@@ -144,6 +189,7 @@ import InfoBubble     from '~/components/InfoBubble'
 import StickyPodcast     from '~/components/StickyPodcast/index.vue'
 import BadgeSelector from './BadgeSelector.vue';
 import PositionMap from '~/plugins/positionMap';
+import gsap from 'gsap';
 export default {
   name: "SidebarFilters",
   components: { InfoBubble, StickyPodcast, BadgeSelector },
@@ -156,6 +202,7 @@ export default {
       showInfoBubble: false,
       disabled: this.$route.name === 'team-needs',
       showBadges: false,
+      showMainFilters: this.$route.name !== 'team-needs'
     }
   },
   computed: {
@@ -171,10 +218,17 @@ export default {
     activeStrength () {
       return this.$store.getters['viewOptions/strength']
     },
+    teamSort () {
+      return this.$store.getters['viewOptions/teamSort']
+    },
     positionArrowTop () {
       const positions = this.positionMap.map(position => position.positionKey);
       const positionIndex = positions.indexOf(this.$store.getters['viewOptions/position']);
       return 18 * positionIndex;
+    },
+    teamArrowTop() {
+      const teamSort = this.$store.getters['viewOptions/teamSort'];
+      return teamSort === 'order' ? window.innerWidth < 768 ? 3 : 0 : window.innerWidth < 768 ? 25 : 18;
     },
     positionMap() {
       return PositionMap;
@@ -206,8 +260,11 @@ export default {
       this.showInfoBubble = false
     },
     $route (newRoute) {
-      this.disabled = newRoute.name === 'team-needs'
+      this.showMainFilters = newRoute.name !== 'team-needs'
       this.showInfoBubble = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) < 0 && !this.bubbleDismissed && newRoute.name !== 'team-needs'
+    },
+    teamSort() {
+      console.log('team sort', this.teamSort);
     }
   },
   created () {
@@ -222,6 +279,27 @@ export default {
     window.removeEventListener('resize', this.handleScroll);
   },
   methods: {
+    onBeforeMainEnter(el) {
+      el.style.opacity = 0;
+      el.style.transform = 'translateY(10px)';
+    },
+    onMainEnter(el, done) {
+      gsap.to(el, {
+        opacity: 1,
+        transform: 'translateY(0)',
+        duration: 0.5,
+        onComplete: done,
+        delay: 0.5
+      })
+    },
+    onMainLeave(el, done) {
+      gsap.to(el, {
+        opacity: 0,
+        transform: 'translateY(-10px)',
+        duration: 0.5,
+        onComplete: done,
+      })
+    },
     closeBadgeSelector() {
       this.showBadges = false;
     },
@@ -280,7 +358,8 @@ export default {
     },
     ...mapActions({
       'storeViewDepth': 'viewOptions/setViewDepth',
-      'setViewPosition': 'viewOptions/setViewPosition'
+      'setViewPosition': 'viewOptions/setViewPosition',
+      'setTeamSort': 'viewOptions/setTeamSort'
     })
   },
 }
@@ -295,6 +374,18 @@ export default {
   max-width: 180px;
   z-index:55555;
   transition:opacity 0.25s linear;
+  &__transition-group{
+    @include mobile{
+      width:100%;
+      > div{
+        display:flex;
+        flex-direction:row-reverse;
+        &.filters__section--team-needs{
+          display:block;
+        }
+      }
+    }
+  }
   &--disabled{
     .filters{
       &__section{
@@ -398,6 +489,10 @@ export default {
     width:20px;
     transition:top 0.25s ease-in-out;
     transform:translateY(-1px);
+    &--team{
+      left:-20px;
+      width:15px;
+    }
   }
   .info-bubble{
     position:absolute;
@@ -568,13 +663,16 @@ export default {
 
     }
     &__section{
-      width:40%;
+      width:45%;
       &--position{
         width:60%;
       }
     }
     &__section-title{
       height:30px;
+      &--team-needs{
+        height:auto;
+      }
       .app--nba & {
         &--position{
           width:50%;

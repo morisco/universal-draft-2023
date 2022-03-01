@@ -1,15 +1,46 @@
 <template>
   <nav class="nav">
-    <a href="https://theringer.com" class="nav__logo">
-      <img src="~/assets/img/logo.png" alt="The Ringer Logo" data-not-lazy />
+    <a
+      href="https://theringer.com"
+      class="nav__logo"
+    >
+      <img
+        src="~/assets/img/logo.png"
+        alt="The Ringer Logo"
+        data-not-lazy
+      >
     </a>
     <ul class="nav__links">
-      <li><a class="nav__link" href="https://www.theringer.com/pages/podcasts" target="_blank">Podcasts</a></li>
-      <li><a class="nav__link" href="https://www.theringer.com/nfl" target="_blank">NFL</a></li>
-      <li><a class="nav__link" href="https://www.theringer.com/college-football" target="_blank">College Football</a></li>
+      <li>
+        <a
+          class="nav__link"
+          href="https://www.theringer.com/pages/podcasts"
+          target="_blank"
+        >Podcasts</a>
+      </li>
+      <li>
+        <a
+          class="nav__link"
+          href="https://www.theringer.com/nfl"
+          target="_blank"
+        >NFL</a>
+      </li>
+      <li>
+        <a
+          class="nav__link"
+          href="https://www.theringer.com/college-football"
+          target="_blank"
+        >College Football</a>
+      </li>
     </ul>
   </nav>
 </template>
+
+<script>
+export default {
+  name: "NFLNav"
+}
+</script>
 
 <style scoped lang="scss">
 .nav{

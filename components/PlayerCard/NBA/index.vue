@@ -363,10 +363,6 @@ export default {
     &--all-cards-set{
       opacity:1;
     }
-    
-    // @include single-column{
-    //   margin-bottom:15px;
-    // }
     @include mobile{
       border:0px;
       margin-bottom:55px;
@@ -379,7 +375,6 @@ export default {
       }
       &--expanded{
         background-color:$cardback;
-        
       }
     }
     &__image-info{

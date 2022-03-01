@@ -34,6 +34,7 @@ export default {
   name: 'NBATeamMetaBar',
   components: { NBATeamPlayers },
   props: ['team', 'teamId'],
+  emits: ['set-height'],
   computed: {
     rank() {
       return this.rankKey ? this.player[this.rankKey] + 1 : null;
@@ -56,7 +57,7 @@ export default {
   },
   watch: {
     viewDepth() {
-      this.$emit('setHeight',this.$refs.metaBar.offsetHeight);
+      this.$emit('set-height', this.$refs.metaBar.offsetHeight);
     }
   }
 }
@@ -64,8 +65,6 @@ export default {
 
 <style lang="scss">
   .app--nba{
-
-    // @import '~/components/PlayerCard/NFL/MetaBar/style.scss';
     .team-card{
       &__meta-bar{
         display:flex;
