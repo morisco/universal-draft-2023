@@ -114,6 +114,10 @@ export default {
       max-height:100%;
       opacity:1 !important;
       overflow:hidden;
+      @include mobile{
+        max-width:calc(100% - 40px);
+        margin: 0 auto 30px;
+      }
       &__info-column{
         padding-top:0 !important;
         background:#f0f0f0 !important;
