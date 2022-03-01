@@ -74,6 +74,7 @@ export default {
   },
   watch: {
     teamSort() {
+      this.showAll = true;
       this.setTeams();
     },
     teamNeedsIds() {
