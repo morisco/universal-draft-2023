@@ -21,7 +21,6 @@ const state = () => ({
 })
 
 const filterPlayers = (state, allIds, selectedPosition, selectedStrengths) => {
-  console.log(selectedPosition, positionMap);
   const activePositionArray = positionMap[selectedPosition];
   let filteredPlayers = allIds.filter((playerId) => {
     const position = state.playerData[playerId].position;
