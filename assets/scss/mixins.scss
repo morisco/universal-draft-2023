@@ -146,6 +146,9 @@
   margin-top:1px;
   font-weight:normal;
   letter-spacing:.025em;
+  .app--nba & {
+    font-family:"GT America Condensed";
+  }
 }
 
 @mixin stat-title{

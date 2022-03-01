@@ -32,8 +32,9 @@ export default {
       left:0;
       right:0;
       bottom:0;
-      opacity:0;
+      opacity:1;
       transition:opacity 0.25s linear;
+      margin-top:30px;
       
       .player-card__image-column &{
         margin-bottom:30px;
@@ -65,18 +66,24 @@ export default {
 
             &:first-of-type{
               padding-right:3px;
-              @include mobile-nav-label;
+              @include player-card-body;
+              color:$headlinegray;
+              margin-bottom: 0 !important;
             }
             &:last-of-type{
               padding-left:4px;
-              @include stat-title;
+              @include player-card-body;
+              color:$headlinegray;
+              margin-bottom: 0 !important;
             }
           }
           &:before{
             content:'..........................................................................................................................................................................................................................................................................................................................................';
+            font-family: 'Decima';
             display:block;
             position:absolute;
-            bottom:-2px;
+            bottom:-0.11em;
+            color:$headlinegray;
             left:0;
             right:0;
             overflow:hidden;
@@ -96,7 +103,7 @@ export default {
         opacity:0;
         transition:opacity 0.25s linear;
         @include mobile {
-          margin:-20px 0 0;
+          margin:-30px 0 0;
           padding:15px 20px;
           background:$lightgray;
           &:before{
@@ -104,8 +111,15 @@ export default {
             display:block;
             width:100%;
             height:1px;
-            background:$darkmediumgray;
+            background:$mediumgray;
             margin-bottom:20px;
+          }
+          &:after{
+            content:'';
+            display:block;
+            max-width:calc(100% -40px);
+            margin:20px auto 15px;
+            border-bottom:1px solid $mediumgray;
           }
         }
         .player-card--expanded & {

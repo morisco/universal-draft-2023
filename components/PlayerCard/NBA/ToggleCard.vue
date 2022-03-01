@@ -61,6 +61,7 @@ export default {
   name: 'NBAToggleCard',
   components: { InfoBubble },
   props: ['offenseDefense', 'toggleCard', 'expanded', 'cardExpanded', 'openText', 'closeText'],
+  emits: ['toggle-card'],
   computed: {
     moreText() {
       return this.openText ? this.openText : this.$mq === 'mobile' ? 'Read the full scouting report.' : 'Read the full scouting report.';

@@ -1,16 +1,36 @@
 <template>
   <nav class="nav">
-    <a href="https://theringer.com" class="nav__logo">
-      <img src="~/assets/img/logo.png" alt="The Ringer Logo" data-not-lazy />
+    <a
+      href="https://theringer.com"
+      class="nav__logo"
+    >
+      <img
+        src="~/assets/img/logo.png"
+        alt="The Ringer Logo"
+        data-not-lazy
+      >
     </a>
-    <ul class="nav__links" v-if="$mq !== 'mobile'">
-      <li v-for="link in navLinks" :key="link.url"><a class="nav__link" :href="link.url" target="_blank">{{link.label}}</a></li>
+    <ul
+      v-if="$mq !== 'mobile'"
+      class="nav__links"
+    >
+      <li
+        v-for="link in navLinks"
+        :key="link.url"
+      >
+        <a
+          class="nav__link"
+          :href="link.url"
+          target="_blank"
+        >{{ link.label }}</a>
+      </li>
     </ul>
   </nav>
 </template>
 
 <script>
 export default {
+  name: 'NBANav',
   computed: {
     navLinks() {
       return this.$mq === 'mobile' ? this.$store.getters['page/settings'].nav_links.slice(0,2) : this.$store.getters['page/settings'].nav_links;

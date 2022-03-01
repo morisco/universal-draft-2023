@@ -166,7 +166,7 @@ export default {
       })
     },
     handleScroll() {
-      if(this.$refs.mockDraft) {
+      if(this.$refs.mockDraft && this.$refs.mockDraft.offsetParent) {
         if(window.scrollY > this.$refs.mockDraft.offsetParent.offsetTop + this.$refs.mockDraft.offsetTop - window.innerHeight) {
           this.showAll = true;
         }
