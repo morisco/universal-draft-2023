@@ -121,7 +121,6 @@ export default {
     changeList(event) {
       event.stopPropagation();
       const self = this;
-      console.log('changing list');
       self.$emit('reset-list');
       this.toggleNavTimeout = setTimeout(() => {
         self.$emit('toggle-navigation');

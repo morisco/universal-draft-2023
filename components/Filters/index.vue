@@ -262,9 +262,6 @@ export default {
     $route (newRoute) {
       this.showMainFilters = newRoute.name !== 'team-needs'
       this.showInfoBubble = ['mobile', 'tablet', 'small_desktop'].indexOf(this.$mq) < 0 && !this.bubbleDismissed && newRoute.name !== 'team-needs'
-    },
-    teamSort() {
-      console.log('team sort', this.teamSort);
     }
   },
   created () {
