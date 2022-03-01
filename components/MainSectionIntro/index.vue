@@ -76,6 +76,9 @@ export default {
 <style lang="scss">
 .main-section__intro{
   margin-bottom:70px;
+  .team-needs & {
+    margin-bottom:30px;
+  }
   .app--nba & {
     margin-bottom:45px;
     @include mobile{
