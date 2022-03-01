@@ -166,7 +166,7 @@ export default {
       })
     },
     handleScroll() {
-      if(this.$refs.draftResults && window.scrollY > this.$refs.draftResults.offsetParent.offsetTop + this.$refs.draftResults.offsetTop - window.innerHeight) {
+      if(this.$refs.draftResults && this.$refs.draftResults.offsetParent && this.$refs.draftResults.offsetParent && window.scrollY > this.$refs.draftResults.offsetParent.offsetTop + this.$refs.draftResults.offsetTop - window.innerHeight) {
         this.showAll = true;
       }
     },

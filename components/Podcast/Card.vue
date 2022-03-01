@@ -69,8 +69,10 @@ export default {
     ...mapActions({
       'setCurrentPod': 'page/setCurrentPod',
       'setPlaying': 'page/setPlaying',
+      'setPodClicked': 'page/setPodClicked',
     }),
     handlePlayClick() {
+      this.setPodClicked(true);
       if(this.currentPod && this.currentPod.id === this.pod.id && this.currentPod.type === 'full') {
         if(!this.podPlaying) {
           this.shouldPlay = true;

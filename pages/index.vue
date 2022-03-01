@@ -153,7 +153,7 @@ export default {
       })
     },
     handleScroll() {
-      if(this.$refs.bigBoard) {
+      if(this.$refs.bigBoard && this.$refs.bigBoard.offsetParent) {
         if(this.bigBoardIds && window.scrollY > this.$refs.bigBoard.offsetParent.offsetTop + this.$refs.bigBoard.offsetTop - window.innerHeight) {
           this.showAll = true;
         }

@@ -4,7 +4,6 @@
     @click="toggleNavigation"
   >
     <a
-      v-if="league === 'nfl'"
       href="https://theringer.com"
       target="_blank"
       class="mobile-navigation__ringer-logo"
@@ -20,23 +19,17 @@
       :class="{'mobile-navigation__toggle-label--transition': transition}"
     >
       <span class="mobile-navigation__toggle-label-current">
-        <span
-          class="mobile-navigation__toggle-label-current-closed"
-          v-html="currentLabel"
-        />
-        <span class="mobile-navigation__toggle-label-current-open">The Ringer's 2021 NBA Draft Guide</span>
+        <span class="mobile-navigation__toggle-label-current-closed">{{ currentLabel }}</span>
+        <span class="mobile-navigation__toggle-label-current-open">{{ league === 'nfl' ? "The Ringer's 2022 NFL Draft Guide" : "The Ringer's 2022 NBA Draft Guide" }}</span>
       </span>
-      <span
-        class="mobile-navigation__toggle-label-new"
-        v-html="newLabel"
-      />
+      <span class="mobile-navigation__toggle-label-new">{{ newLabel }}</span>
     </div>
     <div class="mobile-navigation__toggle-caret" />
   </button>
 </template>
 <script>
 export default {
-  name: "MobileNavToggleBarNBA",
+  name: "MobileNavToggleBarNFL",
   props: ['toggleNavigation'],
   data() {
     return {
@@ -46,7 +39,7 @@ export default {
     }
   },
   computed: {
-    league () {
+    league() {
       return process.env.PROJECT_LEAGUE.toLowerCase()
     }
   },
@@ -54,11 +47,12 @@ export default {
     $route() {
       const newLabel = this.getCurrentLabel(this.$route.name);
       this.newLabel = newLabel;
-      this.transition = true;
+      // this.transition = true;
       this.transitionTimeout = setTimeout(() => {
         this.currentLabel = this.newLabel;
         this.newLabel = '';
         this.transition = false;
+        // this.toggleNavigation();
       }, 1000);
     }
   },
@@ -70,16 +64,24 @@ export default {
       switch(name){
         case 'index':
         case 'big_board_player_share':
-          return 'Big Board <span style="font-weight:300">by Kevin O\'Connor</span>'
+          return process.env.PROJECT_LEAGUE === 'NFL' 
+            ? 'Big Board by Danny Kelly'
+            : "Big Board by Kevin O'Connor"
         case 'mock-draft':
         case 'mock_draft_player_share':
-          return 'Mock Draft <span style="font-weight:300">by Kevin O\'Connor</span>'
+          return process.env.PROJECT_LEAGUE === 'NFL'
+            ? 'Mock Draft by Danny Kelly'
+            : "Mock Draft by Kevin O'Connor"
         case 'team-needs':
         case 'team_needs_team_share':          
-          return 'Team Needs <span style="font-weight:300">by Matt Dollinger</span>'
+          return process.env.PROJECT_LEAGUE === 'NFL' 
+            ? 'Team Needs by Danny Heifetz'
+            : 'Team Needs by Matt Dollinger'
         case 'draft-grades':
-        case 'draft_results_player_share':
-          return 'Draft Results'
+        case 'draft_grades_player_share':
+          return process.env.PROJECT_LEAGUE === 'NFL' 
+            ? 'Draft Grades by Danny Kelly'
+            : "Draft Grades by Kevin O'Connor"
       }
     }
   }
@@ -91,15 +93,14 @@ export default {
     display:flex;
     align-items:center;
     background:$highlight2;
-    padding:0 30px;
+    padding:0 15px;
     width:calc(100% + 30px);
-    margin:0 ;
+    margin:0 -15px;
     height:45px;
     position:relative;
     color:$white;
     .app--nba & {
-      width:100%;
-      background:$black;
+      background:black;
     }
   }
   &__toggle-icon{
@@ -112,25 +113,20 @@ export default {
     margin-right:15px;
   }
   &__toggle-label{
-    font-family: $font;
-    font-size:18px;
-    text-transform:uppercase;
-    letter-spacing:0.03em;
-    font-weight:500;
+    @include mobile-nav-label;
     transform:translateY(0);
     opacity:1;
     width:100%;
     text-align:left;
-    > span{
-      font-size:500;
-    }
-  
     &-current{
       position:relative;
-      // transform:translateY(2px);
+      transform:translateY(2px);
       opacity:1;
       display:block;
       flex:1;
+      .app--nba & {
+        transform:translateY(0);
+      }
       &-closed{
         opacity:1;
         transition:opacity 0.25s linear 0.25s;  
@@ -143,6 +139,9 @@ export default {
         opacity:0;
         transform:translateY(0);
         transition:opacity 0.25s linear;
+        .app--nba & {
+          left:20px;
+        }
       }
       .mobile-navigation--expanded & {
         &-open{
@@ -207,8 +206,7 @@ export default {
     transition:all 0.25s ease-in-out 0.25s;
     img{
       width:100%;
-      margin-top:3px;
-      vertical-align:bottom;
+      margin-top:2px;
     }
     .mobile-navigation--expanded & {
       margin-left:-40px;

@@ -12,7 +12,7 @@
       @leave="onLeave"
     >
       <TeamCard 
-        v-for="(teamId, index) in teamNeedsIds"
+        v-for="(teamId, index) in sortedTeams"
         :key="teamId + '-' + index" 
         :team-id="teamId"
         :index="index" 
@@ -47,7 +47,8 @@ export default {
   data() {
     return {
       initTimeout: null,
-      showAll: this.$route.params.team_id ? true : false
+      showAll: this.$route.params.team_id ? true : false,
+      sortedTeams: [],
     }
   },
   head()  {
@@ -67,8 +68,17 @@ export default {
     relatedArticles () {
       return this.$store.getters['content/relatedArticles'];
     },
+    teamSort() {
+      return this.$store.getters['viewOptions/teamSort'];
+    }
   },
   watch: {
+    teamSort() {
+      this.setTeams();
+    },
+    teamNeedsIds() {
+      this.setTeams();
+    },
     pageSettings() {
       if(!this.pageSettings.breakdown_by_team) {
         this.$router.push({
@@ -83,6 +93,7 @@ export default {
         path: '/'
       })
     }
+    this.setTeams();
   },
   created() {
     if(process.client){
@@ -98,8 +109,25 @@ export default {
     clearTimeout(this.initTimeout);
   },
   methods: {
+    setTeams() {
+      console.log('in here');
+      if(this.teamSort && this.teamNeedsIds){
+        if(this.teamSort === 'order') {
+          this.sortedTeams = this.teamNeedsIds;
+        } else {
+          const teamsToSort = [...this.teamNeedsIds];
+          this.sortedTeams = teamsToSort.sort((a, b) => {
+            const teamA = this.$store.getters['content/team'](a)
+            const teamB = this.$store.getters['content/team'](b)
+            if(teamA && teamB){
+              return teamA.title < teamB.title ? -1 : 1;
+            }
+          });
+        }
+      }
+    },
     handleScroll() {
-      if(this.$refs.teamNeeds) {
+      if(this.$refs.teamNeeds && this.$refs.teamNeeds.offsetParent) {
         if((window.scrollY > this.$refs.teamNeeds.offsetParent.offsetTop + this.$refs.teamNeeds.offsetTop - window.innerHeight)) {
           this.showAll = true;
         }

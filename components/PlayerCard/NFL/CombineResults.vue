@@ -67,19 +67,23 @@ export default {
             &:first-of-type{
               padding-right:3px;
               @include player-card-body;
+              color:$headlinegray;
               margin-bottom: 0 !important;
             }
             &:last-of-type{
               padding-left:4px;
               @include player-card-body;
+              color:$headlinegray;
               margin-bottom: 0 !important;
             }
           }
           &:before{
             content:'..........................................................................................................................................................................................................................................................................................................................................';
+            font-family: 'Decima';
             display:block;
             position:absolute;
-            bottom:-2px;
+            bottom:-0.11em;
+            color:$headlinegray;
             left:0;
             right:0;
             overflow:hidden;

@@ -7,6 +7,7 @@ const state = () => ({
   currentPod: null,
   podPlaying: null,
   podTime: 0,
+  podClicked: false,
 })
 
 // getters
@@ -18,13 +19,17 @@ const getters = {
   defaultPod: (state) => state.settings.default_podcast,
   currentPod: (state) => state.currentPod,
   podPlaying: (state) => state.podPlaying,
-  podTime: (state) => state.podTime
+  podTime: (state) => state.podTime,
+  podClicked: (state) => state.podClicked,
 }
 
 // actions
 const actions = {
   setCardExpanded ({commit}) {
     commit('setCardExpanded', true);
+  },
+  setPodClicked ({commit}) {
+    commit('setPodClicked', true);
   },
   setCurrentPod ({commit}, podId) {
     commit('setCurrentPod', podId);
@@ -39,6 +44,9 @@ const actions = {
 
 // mutations
 const mutations = {
+  setPodClicked (state, clicked) {
+    state.podClicked = clicked;
+  },
   setPage (state, page) {
     let badges = {};
     page.badges.forEach((badge) => badges[badge.id] = badge);
