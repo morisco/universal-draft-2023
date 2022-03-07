@@ -100,7 +100,9 @@
           </div>
           <div class="filters__section filters__section--position">
             <mq-layout :mq="['mobile', 'medium_desktop', 'large_desktop']">
-              <div class="filters__section-title">
+              <div
+                class="filters__section-title"
+              >
                 <span v-html="$mq === 'mobile' ? 'Filter By<br/>Position' : 'Filter By Position'" />
               </div>
             </mq-layout>
@@ -125,7 +127,7 @@
             </div>
           </div>
           <div
-            v-if="$mq !== 'mobile'"
+            v-if="$mq !== 'mobile' && league === 'nba'"
             class="filters__section filters__section--strength"
           >
             <div
