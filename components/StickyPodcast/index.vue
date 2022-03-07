@@ -165,7 +165,7 @@ export default {
       readyToPlay: false,
       shouldPlay: false,
       duration: 0,
-      podUpdate: false
+      podUpdate: false,
     }
   },
   computed: {
@@ -370,6 +370,7 @@ export default {
       }
     },
     togglePlay() {
+      this.setPodClicked(true);
       this.setPlaying(!this.podPlaying);
     },
   },
@@ -641,6 +642,7 @@ export default {
               position:absolute;
               right:16px;
               max-width:calc(100% - 90px);
+              width:100%;
               transition:all 0.25s ease-in-out;
             }
 
