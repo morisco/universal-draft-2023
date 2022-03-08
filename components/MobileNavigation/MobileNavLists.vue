@@ -27,7 +27,7 @@
         :disabled="!pageSettings.enable_mock"
         active-class="mobile-navigation__lists-button--active"
       >
-        <span class="mobile-navigation__lists-title">{{ listOptions.teamNeeds.subtitle }}</span>
+        <span class="mobile-navigation__lists-title">{{ listOptions.mockDraft.title }}</span>
         <span class="mobile-navigation__lists-updated">{{ listOptions.mockDraft.subtitle }}</span>
       </NuxtLink>
     </div>
