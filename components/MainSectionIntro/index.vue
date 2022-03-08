@@ -62,7 +62,10 @@ export default {
             linkText: ''
           }
       }
-    }
+    },
+    league() {
+      return process.env.PROJECT_LEAGUE.toLowerCase()
+    },
   },
   methods: {
     scrollToTop() {
