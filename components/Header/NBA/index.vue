@@ -14,7 +14,7 @@
           </div>
           <div class="header__graphic">
             <img
-              src="https://storage.googleapis.com/nbadraft-theringer-com-cms/public/media/ringernba2021/default/header-large.png"
+              :src="pageSettings.opener_image ? pageSettings.pageSettings : 'https://storage.googleapis.com/nfldraft-theringer-com-cms/public/media/ringernfl2022/players/ChetHolmgren-full.png'"
               alt="Image of player"
             >
           </div>
