@@ -62,12 +62,11 @@ export function processPlayers(players) {
       if(player.player_video){
         player.player_video.poster = processImages(player.player_video.poster);
       }
-      console.log(player.image_data);
       if(player.image_data){
         player.image_data.image = processImages(player.image_data.image);
-        // if(player.image_data.image_hover) {
-        //   player.image_data.imageHover = processImages(player.image_data.image_hover);
-        // }
+        if(player.image_data.image_hover) {
+          player.image_data.imageHover = processImages(player.image_data.image_hover);
+        }
       } else {
         player.image_data = { image: {} };
       }
