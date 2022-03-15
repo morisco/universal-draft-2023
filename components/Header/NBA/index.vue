@@ -22,7 +22,7 @@
             <div class="header__footer-sponsor">
               <span>Presented By</span>
               <img
-                src="@/assets/img/state-farm-red.svg"
+                src="@/assets/img/nba-statefarm.svg"
                 alt="State Farm Logo"
                 data-not-lazy
               >
@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .header{
   height:auto;
   width:100vw;
@@ -80,6 +80,7 @@ export default {
     font-size:42px;
     line-height:1;
     letter-spacing:0;
+    margin-top:-4px;
     @include tablet {
       font-size:8vw;
     }
@@ -117,7 +118,19 @@ export default {
     display:flex;
     width:100%;
     justify-content:space-between;
+    align-items:center;
     margin-top:15px;
+    .header__footer-sponsor{
+        display:flex;
+        align-items:center;
+        flex:1;
+        justify-content:flex-start;
+        color:white;
+        img{
+          width:200px;
+          margin-left:15px;
+        }
+      }
     @include tablet{
       flex-direction:column-reverse;
       position:absolute;
@@ -130,10 +143,7 @@ export default {
         max-width:100%;
         text-align:right;
       }
-      .header__footer-sponsor{
-        flex:1;
-        justify-content:flex-end;
-      }
+      
     }
   }
   &__wrapper,
