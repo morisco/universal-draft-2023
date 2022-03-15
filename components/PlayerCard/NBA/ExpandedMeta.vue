@@ -112,7 +112,7 @@ export default {
     &__expanded-value{
       > ul li p {
         @include player-card-body;
-        margin-bottom:0;
+        // margin-bottom:0;
         a{
           text-decoration:underline;
         }
@@ -136,9 +136,12 @@ export default {
   .app--nba {
     .player-card{
       &__expanded-value{
+        > ul {
+          margin-top: 5px;
+        }
         > ul li p {
           @include player-card-body;
-          margin-bottom:0;
+          margin-bottom:15px;
           a{
             text-decoration:underline;
           }

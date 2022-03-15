@@ -17,6 +17,7 @@
             :alt="player.imageAlt"
           >
           <img
+            v-if="player.imageHover"
             :src="player.imageHover"
             class="hover-image"
             :alt="player.imageAlt"
@@ -93,7 +94,7 @@ export default {
       return {
         offenseDefense: playerData.offenseDefense,
         image: playerData.image_data.image.medium,
-        imageHover: playerData.image_data.imageHover.medium,
+        imageHover: playerData.image_data.imageHover && playerData.image_data.imageHover.medium,
         imageAlt: playerData.title,
         player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false,
         drafted_team: playerData.drafted_team, 
@@ -380,11 +381,15 @@ export default {
       &-img-wrapper img{
         position:absolute;
         top:0;
-        width:170%;
+        width:100%;
         left:50%;
         transform:translateX(-50%);
         opacity:0;
         transition:opacity 0.25s linear 0.5s, filter 0.25s linear;
+        filter: grayscale(100%);
+        .player-card--active & {
+          filter: grayscale(0%);
+        }
         &.isLoaded {
           opacity:1;
         }

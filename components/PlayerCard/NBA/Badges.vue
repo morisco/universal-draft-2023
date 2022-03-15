@@ -12,12 +12,6 @@
       </div>
       <span class="player-card__badge-label">
         <span>{{ badge.label }}</span>
-        <img
-          v-if="badge.sponsored"
-          src="@/assets/img/state-farm-red.svg"
-          alt="State Farm Logo"
-          data-not-lazy
-        >
       </span>
     </li>
   </ul>
