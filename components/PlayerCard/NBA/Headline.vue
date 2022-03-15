@@ -33,6 +33,45 @@ export default {
 }
 </script>
 
+<style lang="scss">
+.app--nba {
+  .player-card{
+    // &__headline-selling{
+      &__headline{
+        p{
+          margin-bottom:15px;
+          @include player-headline;
+          color:$headlinegray;
+          letter-spacing: -0.025em; 
+          font-size: 25px; 
+          line-height:1.2;
+          // line-height:22px;
+          &:last-of-type{
+            margin-bottom:5px;
+          }
+          strong{
+            font-family: 'GT America';
+            display:inline;
+            text-transform:none;
+            font-weight:400;
+            color:$black;
+            font-size:25px;
+            letter-spacing:0;
+          }
+          @include mobile{
+            font-size:22px;
+            line-height:1.2;
+            strong{
+              font-size:22px;
+            }
+          }
+        }
+      }
+    // }
+  }
+}
+</style>
+
 <style lang="scss" scoped>
   .player-card{
     &__headline-selling{
@@ -134,34 +173,6 @@ export default {
       }
       @include tablet-portrait-only{
         max-width:100%;
-      }
-      p{
-        margin-bottom:15px;
-        @include player-headline;
-        color:$headlinegray;
-        letter-spacing: -0.025em; 
-        font-size: 25px; 
-        line-height:1.2;
-        // line-height:22px;
-        &:last-of-type{
-          margin-bottom:5px;
-        }
-        strong{
-          font-family: 'GT America';
-          display:inline;
-          text-transform:none;
-          font-weight:400;
-          color:$black;
-          font-size:25px;
-          letter-spacing:0;
-        }
-        @include mobile{
-          font-size:22px;
-          line-height:1.2;
-          strong{
-            font-size:22px;
-          }
-        }
       }
     }
     &__selling-point{

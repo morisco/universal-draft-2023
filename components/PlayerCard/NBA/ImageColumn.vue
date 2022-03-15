@@ -386,6 +386,10 @@ export default {
         transform:translateX(-50%);
         opacity:0;
         transition:opacity 0.25s linear 0.5s, filter 0.25s linear;
+        filter: grayscale(100%);
+        .player-card--active & {
+          filter: grayscale(0%);
+        }
         &.isLoaded {
           opacity:1;
         }
