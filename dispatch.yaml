@@ -1,0 +1,3 @@
+dispatch:
+  - url: "*/2021/*"
+    service: 2021
