@@ -88,7 +88,7 @@ export default {
       return this.pageSettings ? [
         {to: '/', title: 'Big Board', subtitle:'by Kevin O\'Connor', enabled: true, updated: this.pageSettings.players_to_watch_updated, routeNames: ['index', 'big_board_player_share']},
         {to: '/mock-draft', title: 'Mock Draft', subtitle:'by Kevin O\'Connor', enabled: this.pageSettings.enable_mock, updated: this.pageSettings.danny_updated, routeNames: ['mock-draft', 'mock_draft_player_share']},
-        {to: '/team-needs', title: 'Team Needs', subtitle:'by Matt Dollinger', enabled: this.pageSettings.breakdown_by_team, updated: this.pageSettings.breakdown_updated, routeNames: ['team-needs', 'team_needs_team_share']},
+        {to: '/team-needs', title: 'Team Needs', subtitle:'', enabled: this.pageSettings.breakdown_by_team, updated: this.pageSettings.breakdown_updated, routeNames: ['team-needs', 'team_needs_team_share']},
         {to: '/draft-grades', title: 'Draft Grades', subtitle:'by Kevin O\'Connor', enabled: this.pageSettings.enable_results, updated: this.pageSettings.draft_results_updated, routeNames: ['draft-grades', 'draft_results_player_share']}
       ] : null;
     }

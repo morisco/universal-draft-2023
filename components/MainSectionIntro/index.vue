@@ -42,7 +42,7 @@ export default {
           }
         case 'team_needs':
           return {
-            headline: `<strong>Team Needs</strong> ${this.league === 'nfl' ? "" : "By Matt Dollinger"}`,
+            headline: `<strong>Team Needs</strong> ${this.league === 'nfl' ? "" : ""}`,
             content: this.$store.getters['page/settings'].team_needs_intro,
             link: '/mock-draft',
             linkText: this.$store.getters['page/settings'].team_needs_link,
