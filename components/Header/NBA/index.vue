@@ -97,7 +97,7 @@ export default {
     
     @include tablet{
       height:65vh;
-      height: calc(var(--vh, 1vh) * 65);
+      height: calc(var(--vh, 1vh) * 60);
       flex: 0 0 auto;
       margin-bottom:8vw;
       background-size:auto 20px;
@@ -129,13 +129,16 @@ export default {
         img{
           width:200px;
           margin-left:15px;
+          @include mobile{
+            width:125px;
+          }
         }
       }
     @include tablet{
       flex-direction:column-reverse;
       position:absolute;
-      height: calc(calc(var(--vh, 1vh) * 15) - 20px);
-      top:calc(100% + calc(8vw + 10px));
+      height: calc(calc(var(--vh, 1vh) * 20) - 20px);
+      top:calc(100% + calc(8vw + 15px));
       margin-top:0;
       h2{
         font-size:8vw;
@@ -180,7 +183,7 @@ export default {
     flex:1;
     @include tablet{
       height:65vh;
-      height: calc(var(--vh, 1vh) * 65);
+      height: calc(var(--vh, 1vh) * 60);
       flex: 0 0 auto;
     }
   }
