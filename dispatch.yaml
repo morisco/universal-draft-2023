@@ -1,3 +1,11 @@
 dispatch:
   - url: "*/2021/*"
     service: 2021
+  - url: "*/2020/*"
+    service: 2020
+  - url: "*/2019/*"
+    service: 2019
+  - url: "*/2018/*"
+    service: 2018
+  - url: "*/2017/*"
+    service: 2017
