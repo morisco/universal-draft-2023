@@ -394,7 +394,7 @@ export default {
             color:$black;
             transition:all 0.5s linear 0s, padding 0.25s linear 0s;
             border-radius:0.625rem 0.625rem 0 0;
-            padding:15px 0 10px 0;
+            padding:15px 0 15px 0;
             .player-card--collapsed & {
               padding:15px 0 10px;
             }
