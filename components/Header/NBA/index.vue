@@ -110,7 +110,7 @@ export default {
       @include tablet{
         top:-16vw;
         height:calc(100% + 16vw);
-        right:-10%;
+        right:-3%;
       }
     }
   }
