@@ -65,8 +65,9 @@ export default {
       right:auto;
       left:0;
       .app--nba & {
-        left:50px;
-        right:50px;
+        position:relative;
+        // left:50px;
+        // right:50px;
         text-align:right;
       }
     }
