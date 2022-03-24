@@ -130,10 +130,7 @@ export function processTeams(teams, teamPlayers, pageTeams) {
     resultsIds.push(team.id);
   });
 
-  const teamsInOrder = pageTeams.split(',').map((teamName) => {
-    const team = teams.find((team) => {
-      return team.title === teamName;
-    })
+  const teamsInOrder = teams.map((team) => {
     return team;
   })
   let teamPicks = {} 
@@ -143,7 +140,7 @@ export function processTeams(teams, teamPlayers, pageTeams) {
 
 
   let resultsTeamPicks = JSON.parse(JSON.stringify({...teamPicks}));
-  const resultsTeamNameLogo = teamsInOrder.map((team, index) => {
+  const resultsTeamNameLogo = [...teams].sort((teamA, teamB) => parseInt(teamA.order_results,10) > parseInt(teamB.order_results,10) ? 1 : -1).map((team, index) => {
     let teamToUse = team;
     let via = '';
     const tradeToUse = Math.floor(index/29);
