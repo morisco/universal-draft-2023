@@ -99,8 +99,11 @@ export default {
     ...mapActions({
       'setCurrentPod': 'page/setCurrentPod',
       'setPlaying': 'page/setPlaying',
+      'setPodClicked': 'page/setPodClicked',
     }),
     playClip() {
+      this.setPodClicked(true);
+
       if(this.currentPod.id == this.podcast.podcast && this.currentPod.start === this.startTime){
         this.setPlaying(!this.podPlaying);
       } else {
