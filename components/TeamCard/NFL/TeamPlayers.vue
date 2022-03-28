@@ -1,6 +1,9 @@
 <template>
   <div class="team-card__players">
-    <div class="team-card__players-label">
+    <div
+      class="team-card__players-label"
+      :class="label === 'Friendly Suggestions' ? '' : 'no-players' "
+    >
       <span>{{ label }}</span>
     </div>
     <div
@@ -211,6 +214,9 @@ export default {
         flex: 0 1 auto;
         color:$black !important;
         margin-left:20px;
+        &.no-players{
+          margin-left:0;
+        }
         span{
           display:block;
           @include mobile{
