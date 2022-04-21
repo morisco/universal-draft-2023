@@ -21,9 +21,7 @@
         @enter="onMainEnter"
         @leave="onMainLeave"
       >
-        <div class="qb-intro" key="qb-intro" v-if="activePosition === 'qb'" ref="qbIntro">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non porta quam, ac porttitor ligula. Sed sit amet interdum sapien, in bibendum erat. Vivamus eleifend at odio sit amet viverra. Aliquam erat volutpat. Nullam quis lectus id ligula gravida dignissim. Nulla in accumsan tortor, a lacinia lectus. Nunc vel imperdiet ex, non tempor erat. Phasellus tortor turpis, luctus eu sagittis quis, eleifend id lectus. Mauris eu turpis scelerisque, luctus elit quis, luctus massa. Mauris blandit tellus diam, efficitur sollicitudin magna porta euismod. Sed facilisis ac lectus a posuere.</p> 
-        </div>
+        <div class="qb-intro" key="qb-intro" v-if="activePosition === 'qb'" ref="qbIntro" v-html="qbNote" />
       </TransitionGroup>
   </div>
 </template>
@@ -77,6 +75,9 @@ export default {
             linkText: ''
           }
       }
+    },
+    qbNote() {
+      return this.$store.getters['page/settings'].qb_note
     },
     league() {
       return process.env.PROJECT_LEAGUE.toLowerCase()
