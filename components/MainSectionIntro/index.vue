@@ -77,7 +77,7 @@ export default {
       }
     },
     qbNote() {
-      return this.$store.getters['page/settings'].qb_note
+      return this.$store.getters['page/settings'].qb_note.trim()
     },
     league() {
       return process.env.PROJECT_LEAGUE.toLowerCase()
@@ -186,6 +186,9 @@ export default {
       font-style:italic;
       @include non-mobile{
         max-width:78%;
+      }
+      &:last-of-type{
+        margin-bottom:0;
       }
     }
   }
