@@ -66,7 +66,7 @@
       </template>
       <Stats :player="player" v-if="$mq === 'mobile'" />
       <AdvancedQBStats
-        v-if="player.position === 'qb'"
+        v-if="player.position === 'qb' && player.qb_advanced_stats"
         :advanced-qb-stats="player.qb_advanced_stats"
       />
       <CombineResults
