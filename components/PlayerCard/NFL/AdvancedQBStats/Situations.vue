@@ -108,7 +108,6 @@ export default {
       }, 375);
     },
     setSituations() {
-      console.log(this.situations);
       this.options = this.situations.map(situation => {
         return {
           name: situation.label

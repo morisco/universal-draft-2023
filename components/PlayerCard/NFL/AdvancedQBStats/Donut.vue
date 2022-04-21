@@ -115,10 +115,11 @@
         }, 500);
       },
       setSections() {
-        const sects = Object.keys(this.donutData).map(key => {
+        const sects = ["escape_pressure", "scramble", "stand_and_deliver", "take_a_sack", "unchartable"].map(key => {
           return {
             label: this.labels[key],
             value: parseInt(this.donutData[key], 10),
+            color: this.donutData[`${key}_color`],
           };
         });
         this.sections = sects;

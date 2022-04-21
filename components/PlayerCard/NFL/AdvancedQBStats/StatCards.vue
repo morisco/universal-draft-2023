@@ -26,7 +26,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.statData);
     this.setCards();
   },
   methods: {
@@ -38,28 +37,12 @@ export default {
         "interceptable_percentage": "Interceptable %",
         "yac_percentage": "YAC %",
       }
-      this.cards = [
+      this.cards = Object.keys(this.statData).map((key) => (
         {
-          label: labels.accuracy_percentage,
-          value: this.statData.accuracy_percentage,
-        },
-        {
-          label: labels.air_yards_per_attempt,
-          value: this.statData.air_yards_per_attempt,
-        },
-        {
-          label: labels.drop_percentage,
-          value: this.statData.drop_percentage,
-        },
-        {
-          label: labels.interceptable_percentage,
-          value: this.statData.interceptable_percentage
-        },
-        {
-          label: labels.yac_percentage,
-          value: this.statData.yac_percentage,
-        },
-      ]
+          label: labels[key],
+          value: this.statData[key],
+        }
+      ));
     }
   }
 }

@@ -79,11 +79,6 @@ export default {
       mapRows: [],
     }
   },
-  watch: {
-    mapRows() {
-      console.log(this.mapRows);
-    }
-  },
   mounted() {
     this.setHeatMapData();
   },
@@ -191,7 +186,7 @@ export default {
       content:'';
       display:block;
       width:100%;
-      padding-top:71%;
+      padding-top:75px;
     }
   }
   &__label{

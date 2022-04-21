@@ -7,7 +7,7 @@
       v-html="advancedQbStats.summary"
     />
     <div class="player-card__advanced-qb__row">
-      <AdvancedQBStatCards :stat-data="advancedQbStats" />
+      <AdvancedQBStatCards :stat-data="advancedQbStats.advanced_stats" />
       <Donut :donut-data="advancedQbStats.pressure_response" />
     </div>
     <div class="player-card__advanced-qb__row">
@@ -30,9 +30,6 @@ export default {
       type: Object,
       required: true
     }
-  },
-  mounted() {
-    console.log(this.advancedQbStats);
   },
   data() {
     return {
