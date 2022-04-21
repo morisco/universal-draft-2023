@@ -115,11 +115,20 @@
         }, 500);
       },
       setSections() {
-        const sects = ["escape_pressure", "scramble", "stand_and_deliver", "take_a_sack", "unchartable"].map(key => {
+        const filteredData = ["escape_pressure", "scramble", "stand_and_deliver", "take_a_sack", "unchartable"].map((key) => {
+          return {value: parseInt(this.donutData[key],10), id: key};
+        })
+        console.log('FD', filteredData);
+        const sortedData = [...filteredData].sort((a,b) => {
+          return a.value > b.value ? 1 : -1;
+        })
+        console.log('SD',sortedData);
+        const sects = sortedData.map(datum => {
+          console.log('label', this.labels[datum.id]);
           return {
-            label: this.labels[key],
-            value: parseInt(this.donutData[key], 10),
-            color: this.donutData[`${key}_color`],
+            label: this.labels[datum.id],
+            value: datum.value,
+            color: this.donutData[`${datum.id}_color`],
           };
         });
         this.sections = sects;
