@@ -28,6 +28,7 @@ export default {
   plugins: [
     {src: '~/plugins/VueYoutube', mode: 'client'},
     {src: '~/plugins/analytics', mode: 'client'},
+    {src: '~/plugins/donut', mode: 'client'},
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

@@ -64,19 +64,18 @@
           :selling="player.player_meta.main_selling_point"
         />
       </template>
-      <Stats
-        v-if="$mq === 'mobile'"
-        :player="player"
+      <Stats :player="player" v-if="$mq === 'mobile'" />
+      <AdvancedQBStats
+        v-if="player.position === 'qb'"
+        :advanced-qb-stats="player.qb_advanced_stats"
       />
       <CombineResults
         v-if="$mq === 'mobile'"
         :results="player.combine_results"
       />
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
-      <ExpandedMeta
-        v-if="player.deep_dives"
-        :player="player"
-      />
+      <ExpandedMeta :player="player" v-if="player.deep_dives" />
+      
 
       <div
         v-if="$mq === 'mobile' && (playerVideo || player.player_podcast || player.player_articles)"
@@ -117,9 +116,10 @@ import RelatedArticles from '../RelatedArticles'
 import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import DraftInfo from '../DraftInfo';
 import CombineResults from '../CombineResults.vue'
+import AdvancedQBStats from '../AdvancedQBStats/index.vue';
 export default {
   name: "NFLInfoColumn",
-  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, CombineResults },
+  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, CombineResults, AdvancedQBStats },
   props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
   emits: ['set-meta-height', 'set-top-height', 'set-info-height'],
   data () {

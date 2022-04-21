@@ -11,6 +11,24 @@
   }
 }
 
+@mixin advanced-section-label{
+  font-family: "GT America";
+  font-weight:bold;
+  font-size:16px;
+  margin-bottom:10px;
+}
+
+@mixin advanced-situation-label{
+  font-weight:bold;
+  font-size:14px;
+  margin-bottom:5px;
+  line-height:1;
+}
+@mixin advanced-heatmap-label{
+  font-size:10px;
+  color:$darkgray;
+}
+
 @mixin podcast-show-name{
   font-family: "Decima";
   font-size: 15px;

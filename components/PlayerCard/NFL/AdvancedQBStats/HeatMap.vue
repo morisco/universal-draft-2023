@@ -1,29 +1,32 @@
 <template>
   <div class="heat-map">
     <h5>Accuracy Heat Map</h5>
-    <div class="heat-map__wrapper">
-      <div class="heat-map__wrapper-inner">
-        <div
-          v-for="row in mapRows"
-          :key="row.label"
-          class="heat-map__row"
-        >
-          <div
-            v-for="(cell, index) in row.cells"
-            :key="`${row.label}-${index}`"
-            class="heat-map__cell"
-            :style="{ backgroundColor: cell.color }"
-          >
-            <div class="heat-map__cell-content">
-              <span class="heat-map__cell-content__accuracy">{{ cell.accuracy }}%</span>
-              <span class="heat-map__cell-content__attempts">{{ cell.attempts }}<br>Attempts</span>
-            </div>
-          </div>
-          <div class="heat-map__label">
-            {{ row.label }}
+    <div
+      v-for="row in mapRows"
+      :key="row.label"
+      class="heat-map__row"
+    >
+      <div
+        v-for="(cell, index) in row.cells"
+        :key="`${row.label}-${index}`"
+        class="heat-map__cell"
+        :style="{ backgroundColor: cell.color }"
+      >
+        <div class="heat-map__cell-content">
+          <div>
+            <img src="@/assets/img/emoji/compact.png" alt="" />
+            <span class="heat-map__cell-content__accuracy">{{ cell.accuracy }}%</span>
           </div>
         </div>
       </div>
+      <div class="heat-map__label">
+        <span>{{ row.label }}</span>
+      </div>
+    </div>
+    <div class="heat-map__labels">
+      <span>Left</span>
+      <span>Center</span>
+      <span>Right</span>
     </div>
   </div>
 </template>
@@ -41,7 +44,7 @@ export default {
     return {
       rows: [
         {
-          label: '20+ YDS',
+          label: '20+',
           cells: [
             ['20_left_attempts', '20_left_accuracy'],
             ['20_center_attempts', '20_center_accuracy'],
@@ -49,7 +52,7 @@ export default {
           ]
         }, 
         {
-          label: '10-19 YDS',
+          label: '10-19',
           cells: [
             ['teens_left_attempts', 'teens_left_accuracy'],
             ['teens_center_attempts', 'teens_center_accuracy'],
@@ -57,7 +60,7 @@ export default {
           ]
         },
         {
-          label: '0-9 YDS',
+          label: '0-9',
           cells: [
             ['ones_left_attempts', 'ones_left_accuracy'],
             ['ones_center_attempts', 'ones_center_accuracy'],
@@ -65,7 +68,7 @@ export default {
           ]
         },
         {
-          label: '<0 YDS',
+          label: '<0',
           cells: [
             ['negative_left_attempts', 'negative_left_accuracy'],
             ['negative_center_attempts', 'negative_center_accuracy'],
@@ -74,6 +77,11 @@ export default {
         }
       ],
       mapRows: [],
+    }
+  },
+  watch: {
+    mapRows() {
+      console.log(this.mapRows);
     }
   },
   mounted() {
@@ -130,69 +138,46 @@ export default {
 .heat-map{
   display:flex;
   flex-direction:column;
-  margin-bottom:30px;
-  &__wrapper{
-    perspective:300px;
-    &-inner{
-      transform:rotateX(10deg);
-      transform-origin:center bottom;
-    }
+  h5{
+    @include advanced-section-label;
   }
   &__row{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    &:nth-of-type(1){
-      font-size:21px;
-      .heat-map__cell {
-        &:first-of-type{
-          border-top-left-radius:8px;
-        }
-        &:nth-of-type(3){
-          border-top-right-radius:8px;
-        }
-      }
-    }
+    position:relative;
+    padding-right:0;
     &:nth-of-type(2){
-      font-size:20px;
-    }
-    &:nth-of-type(3){
-      font-size:19px;
-    }
-    &:last-of-type{
-      font-size:18px;
-      .heat-map__cell {
-        &:first-of-type{
-          border-bottom-left-radius:8px;
-        }
-        &:nth-of-type(3){
-          border-bottom-right-radius:8px;
-        }
+      .heat-map__label{
+        margin-left:-5px;
+        span{}
       }
     }
   }
   &__cell{
     position:relative;
-    width:calc(28.333% - 10px);
+    width:calc(33.333%);
     background:$highlight2-light;
-    margin-bottom:10px;
-    
+    &:after{
 
-    &:nth-of-type(10){
-      border-bottom-left-radius:8px;
-    }
-    &:nth-of-type(12){
-      border-bottom-right-radius:8px;
     }
     &-content{
-      span{
+      div{
+        color:white;
         position:absolute;
+        top:50%;
         left:50%;
         transform:translate(-50%, -50%);
         text-align:center;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        img{
+          width:20px;
+          vertical-align:bottom;
+        }
       }
       &__accuracy{
-        top:50%;
         opacity:1;
         transition:all 0.25s ease-in-out 0.25s;
       }
@@ -202,30 +187,43 @@ export default {
         transition:all 0.25s ease-in-out;
       }
     }
-    &:hover{
-      .heat-map__cell-content{
-        &__accuracy{
-          opacity:0;
-          top:calc(50% - 10px);
-          transition: all 0.25s ease-in-out;
-        }
-        &__attempts{
-          opacity:1;
-          top:50%;
-          transition: all 0.25s ease-in-out 0.25s;
-        }
-      }
-    }
     &:after{
       content:'';
       display:block;
       width:100%;
-      padding-top:50%;
+      padding-top:71%;
     }
   }
   &__label{
-    width:15%;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:calc(100% + 10px);
     text-align:center;
+    vertical-align:bottom;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    span{
+      display:block;
+      height:0px;
+      white-space:nowrap;
+      line-height:1;
+      transform:rotate(90deg);
+      @include advanced-heatmap-label;
+    }
+    
+  }
+  &__labels{
+    display:flex;
+    width:100%;
+    margin-top:5px;
+    span{
+      display:block;
+      flex:1;
+      text-align:center;
+      @include advanced-heatmap-label;
+    }
   }
 }
 </style>
