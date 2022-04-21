@@ -27,8 +27,13 @@
         <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="$mq === 'mobile'" />
       </template>
       <Stats :player="player" v-if="$mq === 'mobile'" />
+      <AdvancedQBStats
+        v-if="player.position === 'qb'"
+        :advanced-qb-stats="player.qb_advanced_stats"
+      />
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
       <ExpandedMeta :player="player" v-if="player.deep_dives" />
+      
 
       <div class="player-card__bottom-data-extended" v-if="$mq === 'mobile' && (playerVideo || player.player_podcast || player.player_articles)">
         <VideoThumb :playVideo="playVideo" :playerVideo="playerVideo" :expanded="expanded" :activeCard="activeCard" v-if="playerVideo" />
@@ -49,9 +54,10 @@ import VideoThumb from '../VideoThumb'
 import RelatedArticles from '../RelatedArticles'
 import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import DraftInfo from '../DraftInfo';
+import AdvancedQBStats from '../AdvancedQBStats/index.vue';
 export default {
   props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
-  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo },
+  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, AdvancedQBStats },
   data () {
     return {
       mounted: false,
