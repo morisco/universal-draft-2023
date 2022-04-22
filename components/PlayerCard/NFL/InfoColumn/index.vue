@@ -64,17 +64,29 @@
           :selling="player.player_meta.main_selling_point"
         />
       </template>
-      <Stats :player="player" v-if="$mq === 'mobile'" />
+      <Stats
+        v-if="$mq === 'mobile'"
+        :player="player"
+      />
+      <ExpandedMeta
+        v-if="player.deep_dives && player.position === 'qb'"
+        :player="player"
+        :expanded="true"
+      />
       <AdvancedQBStats
-        v-if="player.position === 'qb' && player.qb_advanced_stats"
+        v-if="player.qb_advanced_stats"
         :advanced-qb-stats="player.qb_advanced_stats"
       />
+        
       <CombineResults
         v-if="$mq === 'mobile'"
         :results="player.combine_results"
       />
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
-      <ExpandedMeta :player="player" v-if="player.deep_dives" />
+      <ExpandedMeta
+        v-if="player.deep_dives && player.position !== 'qb'"
+        :player="player"
+      />
       
 
       <div

@@ -37,7 +37,7 @@ export default {
         "interceptable_percentage": "Interceptable %",
         "yac_percentage": "YAC %",
       }
-      this.cards = Object.keys(this.statData).map((key) => (
+      this.cards = Object.keys(labels).map((key) => (
         {
           label: labels[key],
           value: this.statData[key],

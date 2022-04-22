@@ -29,6 +29,12 @@
   color:$darkgray;
 }
 
+@mixin advanced-note{
+  font-family: 'GT America';
+  font-weight:300;
+  color:$highlight2;
+}
+
 @mixin podcast-show-name{
   font-family: "Decima";
   font-size: 15px;

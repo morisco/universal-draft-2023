@@ -1,15 +1,22 @@
 <template>
-  <div class="player-card__expanded-meta">
-    <div class="player-card__expanded-meta-section">
+  <div
+    class="player-card__expanded-meta"
+    :class="{'player-card__expanded-meta--qb' : expanded}"
+  >
+    <div
+      class="player-card__expanded-meta-section"
+    >
       <div class="player-card__expanded-label">
-        SCOUTING REPORT
+        SCOUTING REPORT BY DANNY KELLY
       </div>
       <div
         class="player-card__expanded-value"
         v-html="player.deep_dives.scouting_report"
       />
     </div>
-    <div class="player-card__expanded-meta-section">
+    <div
+      class="player-card__expanded-meta-section"
+    >
       <div class="player-card__expanded-label">
         WHY HE COULD RISE
       </div>
@@ -18,7 +25,9 @@
         v-html="player.deep_dives.why_rise"
       />
     </div>
-    <div class="player-card__expanded-meta-section">
+    <div
+      class="player-card__expanded-meta-section"
+    >
       <div class="player-card__expanded-label">
         WHY HE COULD FALL
       </div>
@@ -32,7 +41,7 @@
 <script>
 export default {
   name: "NFLExpandedMeta",
-  props: ['player']
+  props: ['player', 'expanded']
 }
 </script>
 
@@ -67,14 +76,18 @@ export default {
   }
 </style>
 
-<style lang="scss" scoped>
+<style lang="scss" >
   .player-card{
+    .app--nfl & {
     &__expanded-meta{
       position:relative;
       display:flex;
       flex-direction:column;
       margin: 0;
       padding:3px 0 60px;
+      &--qb{
+        padding:3px 0 30px;
+      }
       .mock-draft & {
         padding-top:30px;
       }
@@ -120,5 +133,6 @@ export default {
         }
       }
     }
+  }
   }
 </style>
