@@ -35,12 +35,12 @@ export default {
 <style lang="scss" scoped>
   .pie{
     max-width:240px;
-    @include mobile{
+    @include single-column{
       max-width:100%;
     }
     .chart{
       width:calc(100% + 60px);
-      @include mobile{
+      @include single-column{
         width:100%;
       }
     }

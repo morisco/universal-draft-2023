@@ -115,8 +115,10 @@ export default {
     &__advanced-qb{
       padding-right:20px;
       margin-bottom:30px;
-      @include mobile{
+      @include single-column{
         margin-top:30px;
+      }
+      @include mobile {
         padding:0 20px;
       }
       &__heading{
@@ -143,7 +145,7 @@ export default {
           right:0;
           top:8px;
           
-          @include mobile{
+          @include single-column{
             justify-content:space-between;
                         max-width:200px;
 
@@ -153,7 +155,7 @@ export default {
             position:relative;
             display:block;
             @include advanced-note;
-            @include mobile{
+            @include single-column{
               opacity:0;
             }
             &:after{
@@ -240,14 +242,18 @@ export default {
         &:nth-of-type(3){
           margin-bottom:15px;
         }
-        @include mobile{
+        @include single-column{
+          flex-direction:column;
+          margin-bottom:15px;
+        }
+        @include single-column{
           flex-direction:column;
           margin-bottom:15px;
         }
         > * {
           width:calc(50% - 15px);
           margin-bottom:15px;
-          @include mobile{
+          @include single-column{
             width:100%;
           }
         }

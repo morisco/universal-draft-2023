@@ -143,20 +143,20 @@ export default {
   display:flex;
   flex-direction:column;
   align-items:flex-end;
-  @include mobile{
+  @include single-column{
     align-items:flex-start;
   }
   h5{
     @include advanced-section-label;
     width:240px;
-    @include mobile {
+    @include single-column {
       width:100%;
     }
   }
   &__inner{
     position:relative;
     width:240px;
-    @include mobile {
+    @include single-column {
       width:calc(100% - 20px);
 
     }
@@ -171,7 +171,7 @@ export default {
   &__cell{
     position:relative;
     width:80px;
-    @include mobile {
+    @include single-column {
       width:calc(33.333%);
     }
     background:$highlight2-light;
