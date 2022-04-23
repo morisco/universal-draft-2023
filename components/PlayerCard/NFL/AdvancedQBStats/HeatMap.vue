@@ -1,32 +1,34 @@
 <template>
   <div class="heat-map">
     <h5>Accuracy Heat Map</h5>
-    <div
-      v-for="row in mapRows"
-      :key="row.label"
-      class="heat-map__row"
-    >
+    <div class="heat-map__inner">
       <div
-        v-for="(cell, index) in row.cells"
-        :key="`${row.label}-${index}`"
-        class="heat-map__cell"
-        :style="{ backgroundColor: cell.color || getColor(cell.accuracy) }"
+        v-for="row in mapRows"
+        :key="row.label"
+        class="heat-map__row"
       >
-        <div class="heat-map__cell-content">
-          <div>
-            <img :src="getImgUrl(cell.emoji)" alt="" />
-            <span class="heat-map__cell-content__accuracy">{{ cell.accuracy }}%</span>
+        <div
+          v-for="(cell, index) in row.cells"
+          :key="`${row.label}-${index}`"
+          class="heat-map__cell"
+          :style="{ backgroundColor: cell.color || getColor(cell.accuracy) }"
+        >
+          <div class="heat-map__cell-content">
+            <div>
+              <img :src="getImgUrl(cell.emoji)" alt="" />
+              <span class="heat-map__cell-content__accuracy">{{ cell.accuracy }}%</span>
+            </div>
           </div>
         </div>
+        <div class="heat-map__label">
+          <span>{{ row.label }}</span>
+        </div>
       </div>
-      <div class="heat-map__label">
-        <span>{{ row.label }}</span>
+      <div class="heat-map__labels">
+        <span>Left</span>
+        <span>Center</span>
+        <span>Right</span>
       </div>
-    </div>
-    <div class="heat-map__labels">
-      <span>Left</span>
-      <span>Center</span>
-      <span>Right</span>
     </div>
   </div>
 </template>
@@ -145,19 +147,38 @@ export default {
 .heat-map{
   display:flex;
   flex-direction:column;
+  align-items:flex-end;
+  @include mobile{
+    align-items:flex-start;
+  }
   h5{
     @include advanced-section-label;
+    width:240px;
+    @include mobile {
+      width:100%;
+    }
+  }
+  &__inner{
+    position:relative;
+    width:240px;
+    @include mobile {
+      width:calc(100% - 20px);
+
+    }
   }
   &__row{
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-start;
     align-items:center;
     position:relative;
     padding-right:0;
   }
   &__cell{
     position:relative;
-    width:calc(33.333%);
+    width:80px;
+    @include mobile {
+      width:calc(33.333%);
+    }
     background:$highlight2-light;
     &:after{
 
@@ -174,13 +195,15 @@ export default {
         flex-direction:column;
         align-items:center;
         img{
-          width:20px;
+          width:14px;
           vertical-align:bottom;
+          margin-bottom:5px;
         }
       }
       &__accuracy{
         opacity:1;
         transition:all 0.25s ease-in-out 0.25s;
+        @include advanced-situation-chart-label;
       }
       &__attempts{
         top:calc(50% + 10px);
@@ -192,7 +215,7 @@ export default {
       content:'';
       display:block;
       width:100%;
-      padding-top:75px;
+      padding-top:60px;
     }
   }
   &__label{

@@ -60,6 +60,8 @@ export default {
       &__expanded-value{
         > p {
           @include player-card-body;
+                      margin-bottom:15px;
+
           a{
             text-decoration:underline;
           }
@@ -121,6 +123,7 @@ export default {
     &__expanded-value{
       > p {
         @include player-card-body;
+        margin-bottom:15px;
         a{
           text-decoration:underline;
         }

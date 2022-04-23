@@ -412,6 +412,7 @@ export default {
   }
   &__section{
     margin-bottom:30px;
+    margin-left:-15px;
   }
   &__section-title{
     @include filter-section-title;

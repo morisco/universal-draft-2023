@@ -166,6 +166,9 @@ export default {
     justify-content:flex-end;
     min-height:calc(100vh - 41px);
     z-index:0;
+    .app--nfl & {
+      max-width:1160px;
+    }
     .app--nba & {
       margin:120px auto 0;
     }

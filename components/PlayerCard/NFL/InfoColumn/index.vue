@@ -75,12 +75,14 @@
       />
       <AdvancedQBStats
         v-if="player.qb_advanced_stats"
+        :id="player.id"
         :advanced-qb-stats="player.qb_advanced_stats"
       />
         
       <CombineResults
         v-if="$mq === 'mobile'"
         :results="player.combine_results"
+        :is-qb="player.position === 'qb'"
       />
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
       <ExpandedMeta

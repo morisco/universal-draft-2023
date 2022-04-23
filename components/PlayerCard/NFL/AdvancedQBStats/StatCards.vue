@@ -70,6 +70,9 @@ export default {
             align-items:center;
 
           }
+          &__label{
+            @include advanced-situation-chart-label;
+          }
         }
       }
     }

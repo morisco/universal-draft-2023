@@ -2,7 +2,7 @@
   <div class="player-card__advanced-qb">
     <div class="player-card__advanced-qb__heading">
       <h4>QB Charting by Ben SOlak</h4>
-      <button class="info">
+      <button class="info" :class="{'info--show': showNote}" @click="toggleNote">
         <span class="label">Our method</span>
         <span class="circle">?</span>
         <div class="message" v-html="cardQbNote" />
@@ -11,7 +11,8 @@
     
     <div class="player-card__advanced-qb__row">
       <AdvancedQBStatCards :stat-data="advancedQbStats.advanced_stats" />
-      <Donut :donut-data="advancedQbStats.pressure_response" />
+      <PieCharts :id="id" />
+      <!-- <Donut :donut  -data="advancedQbStats.pressure_response" /> -->
     </div>
     <div class="player-card__advanced-qb__row">
       <Situations :situations="advancedQbStats.situational_accuracy" />
@@ -29,19 +30,25 @@
 import Situations from './Situations.vue';
 import HeatMap from './HeatMap.vue';
 import Donut from './Donut.vue';
+import PieCharts from './PieCharts/index.vue';
 import AdvancedQBStatCards from './StatCards.vue';
 export default {
   name: 'AdvancedQBStats',
-  components: { Situations, HeatMap, Donut, AdvancedQBStatCards },
+  components: { Situations, HeatMap, Donut, AdvancedQBStatCards, PieCharts },
   props: {
     advancedQbStats: {
       type: Object,
+      required: true
+    },
+    id: {
+      type: String,
       required: true
     }
   },
   data() {
     return {
       selectedScenarioIndex: 0,
+      showNote: false
     }
   },
   watch: {
@@ -51,6 +58,27 @@ export default {
   computed: {
     cardQbNote() {
       return this.$store.getters['page/settings'].card_qb_note.trim()
+    }
+  },
+  methods: {
+    toggleNote () {
+      this.showNote = !this.showNote;
+    }
+  },
+  watch: {
+    showNote() {
+      const hideNote = () => {
+        console.log('here');
+        this.showNote = false;
+        window.removeEventListener('click', hideNote);
+      }
+      window.removeEventListener('click', hideNote);
+
+      if(this.showNote) {
+        setTimeout(() => {
+          window.addEventListener('click', hideNote);
+        }, 500);
+      }
     }
   }
 }
@@ -81,12 +109,14 @@ export default {
 <style lang="scss" scoped>
   .player-card{
     h4{
+      @include expanded-label;
       text-transform:uppercase;
-      font-size:16px;
     }
     &__advanced-qb{
       padding-right:20px;
+      margin-bottom:30px;
       @include mobile{
+        margin-top:30px;
         padding:0 20px;
       }
       &__heading{
@@ -98,7 +128,7 @@ export default {
         padding-top:10px;
         margin-bottom:15px;
         z-index:20;
-        button{
+        .info{
           position:relative;
           display:flex;
           justify-content:flex-end;
@@ -109,11 +139,23 @@ export default {
           display:flex;
           justify-content:space-between;
           transition:max-width 0.25s ease-in-out 0.25s;
+          position:absolute;
+          right:0;
+          top:8px;
+          
+          @include mobile{
+            justify-content:space-between;
+                        max-width:200px;
+
+          }
           .label{
             z-index:1;
             position:relative;
             display:block;
             @include advanced-note;
+            @include mobile{
+              opacity:0;
+            }
             &:after{
               content:"";
               display:block;
@@ -160,13 +202,28 @@ export default {
             }
 
           }
-          &:hover{
+          &--show{
             max-width:200px;
             transition:max-width 0.25s ease-in-out 0s;
+            .label{
+              opacity: 1;
+              transition:opacity 0.25s linear 0s;
+            }
             .message{
               opacity:1;
               pointer-events:auto;
-              transition:opacity 0.25s linear 0.375s;
+              transition:opacity 0.25s linear ;
+            }
+          }
+          @media (hover: hover) {
+            &:hover{
+              max-width:200px;
+              transition:max-width 0.25s ease-in-out 0s;
+              .message{
+                opacity:1;
+                pointer-events:auto;
+                transition:opacity 0.25s linear 0.375s;
+              }
             }
           }
         }

@@ -35,7 +35,7 @@
                 <div class="situational-accuracy__situation__chart__percentage__bar" :style="{ maxWidth: `${chart.percentage}%` }">
                   {{ chart.label }}
                 </div>
-                <span>{{ chart.percentage }}%</span>
+                <span class="percentage">{{ chart.percentage }}%</span>
               </div>
             </div>
           </div>
@@ -141,12 +141,13 @@ export default {
       position:relative;
       height:auto;
       width:100%;
+      margin-top:-5px;
     }
     &__situation{
       display:flex;
       flex-direction:column;
       width:100%;
-      margin-bottom:10px;
+      margin-bottom:7px;
 
       &__chart{
         display:flex;
@@ -162,7 +163,7 @@ export default {
           }
         }
         &__label{
-          @include player-card-body;
+          // @include player-card-body;
           margin-bottom:0;
           width:auto;
           margin-left:15px;
@@ -173,18 +174,23 @@ export default {
           justify-content:flex-start;
           align-items:center;
           flex:1;
-          margin-bottom:2px;
-          
+          margin-bottom:5px;
+          .percentage {
+              @include advanced-situation-chart-label;
+              padding-bottom:1px;
+            }
           &__bar{
             color:white;
             width:100%;
-            height:20px;
-            padding-left:8px;
-            margin-right:10px;
+            height:15px;
+            padding-left:5px;
+            margin-right:5px;
             white-space:nowrap;
             font-size:14px;
-            padding-top:0px;
-            min-width:110px;
+            padding-top:2px;
+            // min-width:110px;
+            @include advanced-situation-chart-label;
+            
             &__fill{
               height:100%;
               width:100%;
