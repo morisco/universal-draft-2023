@@ -24,11 +24,6 @@
           <span>{{ row.label }}</span>
         </div>
       </div>
-      <div class="heat-map__labels">
-        <span>Left</span>
-        <span>Center</span>
-        <span>Right</span>
-      </div>
     </div>
   </div>
 </template>
