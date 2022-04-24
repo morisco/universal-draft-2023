@@ -128,9 +128,7 @@
         })
 
         
-        console.log('SD',sortedData);
         const sects = sortedData.map(datum => {
-          console.log('label', this.labels[datum.id]);
           return {
             label: this.labels[datum.id],
             value: datum.value,

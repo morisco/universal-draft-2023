@@ -27,14 +27,14 @@ const filterPlayers = (state, allIds, selectedPosition, selectedStrengths) => {
     if(selectedPosition === 'all'){
       return playerId;
     } else {
-      if(activePositionArray.indexOf(position) >= 0){
+      if(!activePositionArray || activePositionArray.indexOf(position) >= 0){
         return playerId;
       }
     }
   })
   
   filteredPlayers = filteredPlayers.filter((playerId) => {
-    if(selectedStrengths.length === 0){
+    if(!selectedStrengths || selectedStrengths.length === 0){
       return playerId
     } else {
       const badges = state.playerData[playerId].badges || [];

@@ -114,12 +114,9 @@ export default {
         return {
           label: row.label,
           cells: row.cells.map((cell, index) => {
-            // console.log(cell + "_emoji"); 
             const accuracy = self.heatMapData[cell];
             const color = self.heatMapData[cell + '_color'];
             const emoji = self.heatMapData[cell + '_emoji'];
-            console.log(emoji);
-            // console.log(self.heatMapData);
             return {
               accuracy,
               color,
@@ -128,7 +125,6 @@ export default {
           })
         }
       });
-      console.log('maprows', this.mapRows);
     },
   },
   watch: {

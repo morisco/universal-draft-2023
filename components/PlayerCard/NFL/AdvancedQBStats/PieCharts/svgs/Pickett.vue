@@ -96,5 +96,4 @@ export default {
     @include advanced-situation-label;
     font-weight: normal; 
   }
-
 </style>

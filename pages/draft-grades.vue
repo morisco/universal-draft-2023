@@ -4,6 +4,12 @@
     class="main-section draft-grades"
   >
     <MainSectionIntro type="draft_grades" />
+    <div
+      v-if="idsToDisplay && idsToDisplay.length === 0"
+      class="placeholder"
+    >
+      Check back soon for live draft grades
+    </div>
     <transition-group
       class="draft-results__inner main-section__inner"
       :css="false"
@@ -54,7 +60,7 @@ export default {
     return {
       initTimeout: null,
       showAll: this.$route.params.player_id ? true : false,
-      idsToDisplay: [],
+      idsToDisplay: null,
     }
   },
   head()  {
@@ -184,5 +190,18 @@ export default {
 <style scoped lang="scss">
 .draft-grades{
    min-height:calc(100vh + 4px);
+   .placeholder{
+     @include inter-title;
+     background:$mediumgray;
+     max-width:100%;
+     width: 100%;
+     height:500px;
+     border-radius:20px;
+     display:flex;
+     justify-content:center;
+     align-items:center;
+     text-align:center;
+     color:$headlinegray;
+   }
 }
 </style>

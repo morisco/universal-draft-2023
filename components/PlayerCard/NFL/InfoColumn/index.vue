@@ -25,6 +25,7 @@
           v-if="teamNameLogo"
           :team-name-logo="teamNameLogo"
           :info-text="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) >= 0 ? player.mock_insight : player.results_insight"
+          :grade="['draft-grades', 'draft_grades_player_share'].indexOf($route.name) >= 0 ? player.results_grade : null"
         />
       </template>
       <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) === -1">

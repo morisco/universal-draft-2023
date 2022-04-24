@@ -68,7 +68,6 @@ export default {
   watch: {
     showNote() {
       const hideNote = () => {
-        console.log('here');
         this.showNote = false;
         window.removeEventListener('click', hideNote);
       }

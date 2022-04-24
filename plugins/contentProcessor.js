@@ -179,7 +179,7 @@ export function processTeams(teams, teamPlayers, pageTeams) {
     }
     teamNameLogoResults[teamToUse.id] =  {teamName: teamToUse.title, logo: teamToUse.image, via: via}
   });
-    return {
+  return {
     teamData: processedTeams,
     teamNeeds: teamIds,
     draftResults: resultsIds,
