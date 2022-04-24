@@ -182,7 +182,7 @@ $navHeight: 70px;
 .navigation{
   position:relative;
   width: calc(100% - 210px);
-  max-width:1172px;
+  max-width:1175px;
   margin:0 auto;
   z-index:555555;
 
