@@ -30,46 +30,46 @@
     <text transform="matrix(1 0 0 1 119.0203 180.6319)"><tspan
       x="0"
       y="0"
-      style="fill:#E4E4E4; font-family:'GTAmerica-Light'; font-size:12px;"
+      style="fill:#E4E4E4;"
     >Stand &amp; Deliver</tspan><tspan
       x="26.93"
       y="14.4"
-      style="fill:#E4E4E4; font-family:'GTAmerica-Light'; font-size:12px;"
+      style="fill:#E4E4E4;"
     >41.4%</tspan></text>
     <text transform="matrix(1 0 0 1 104.5961 36.7871)"><tspan
       x="0"
       y="0"
-      style="fill:#E4E4E4; font-family:'GTAmerica-Light'; font-size:12px;"
+      style="fill:#E4E4E4;"
     >Escape </tspan><tspan
       x="-2.38"
       y="14.4"
-      style="fill:#E4E4E4; font-family:'GTAmerica-Light'; font-size:12px;"
+      style="fill:#E4E4E4;"
     >Pressure</tspan><tspan
       x="6.52"
       y="28.8"
-      style="fill:#E4E4E4; font-family:'GTAmerica-Light'; font-size:12px;"
+      style="fill:#E4E4E4;"
     >17.8%</tspan></text>
     <text transform="matrix(1 0 0 1 39.9931 104.0265)"><tspan
       x="0"
       y="0"
-      style="fill:#E4E4E4; font-family:'GTAmerica-Light'; font-size:12px;"
+      style="fill:#E4E4E4;"
     >Take </tspan><tspan
       x="-3.55"
       y="14.4"
-      style="fill:#E4E4E4; font-family:'GTAmerica-Light'; font-size:12px;"
+      style="fill:#E4E4E4;"
     >a Sack</tspan><tspan
       x="-1.51"
       y="28.8"
-      style="fill:#E4E4E4; font-family:'GTAmerica-Light'; font-size:12px;"
+      style="fill:#E4E4E4;"
     >26.8%</tspan></text>
     <text transform="matrix(1 0 0 1 231.1391 43.14)"><tspan
       x="0"
       y="0"
-      style="fill:#010202; font-family:'GTAmerica-Light'; font-size:12px;"
+      style="fill:#010202;"
     >Scramble</tspan><tspan
       x="12.76"
       y="14.4"
-      style="fill:#010202; font-family:'GTAmerica-Light'; font-size:12px;"
+      style="fill:#010202;"
     >8.3%</tspan></text>
     <text transform="matrix(1 0 0 1 259.5014 88.2433)"><tspan
       x="0"
@@ -105,7 +105,7 @@ export default {
 
 <style lang="scss" scoped>
   text tspan{
-    @include advanced-situation-label;
+    @include advanced-bar-label;
     font-weight: normal; 
   }
 </style>

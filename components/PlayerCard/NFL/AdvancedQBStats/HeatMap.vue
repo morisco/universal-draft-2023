@@ -1,6 +1,6 @@
 <template>
   <div class="heat-map">
-    <h5>Accuracy Heat Map</h5>
+    <h5>Pinpoint % Heat Map</h5>
     <div class="heat-map__inner">
       <div
         v-for="row in mapRows"
@@ -11,11 +11,14 @@
           v-for="(cell, index) in row.cells"
           :key="`${row.label}-${index}`"
           class="heat-map__cell"
-          :style="{ backgroundColor: cell.color || getColor(cell.accuracy) }"
+          :style="{ backgroundColor: `rgba(15, 76, 63, ${cell.accuracy/100 + 0.2})` }"
         >
           <div class="heat-map__cell-content">
             <div>
-              <img :src="getImgUrl(cell.emoji)" alt="" />
+              <img
+                :src="getImgUrl(cell.emoji)"
+                alt=""
+              >
               <span class="heat-map__cell-content__accuracy">{{ cell.accuracy }}%</span>
             </div>
           </div>
@@ -76,6 +79,11 @@ export default {
       mapRows: [],
     }
   },
+  watch: {
+    heatMapData() {
+      this.setHeatMapData();
+    }
+  },
   mounted() {
     this.setHeatMapData();
   },
@@ -126,11 +134,6 @@ export default {
         }
       });
     },
-  },
-  watch: {
-    heatMapData() {
-      this.setHeatMapData();
-    }
   }
 }
 </script>
@@ -220,6 +223,7 @@ export default {
     display:flex;
     align-items:center;
     justify-content:flex-start;
+    @include advanced-bar-label;
     span{
       display:block;
       white-space:nowrap;

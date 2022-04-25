@@ -131,7 +131,7 @@ export default {
       &--last{
         > p{
           &:last-of-type{
-            margin-bottom:0;
+            margin-bottom:15px;
           }
         }
       }

@@ -58,7 +58,7 @@
     <text transform="matrix(1 0 0 1 243.1391 58.14)"><tspan
       x="0"
       y="0"
-      style="fill:#010202; font-family:'GTAmerica-Light'; font-size:12px;"
+      style="fill:#010202;"
     >Scramble</tspan><tspan
       x="12.89"
       y="14.4"
@@ -95,7 +95,7 @@ export default {
 
 <style lang="scss" scoped>
   text tspan{
-    @include advanced-situation-label;
+    @include advanced-bar-label;
     font-weight: normal; 
   }
 </style>

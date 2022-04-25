@@ -93,7 +93,7 @@ export default {
 
 <style lang="scss" scoped>
   text tspan{
-    @include advanced-situation-label;
+    @include advanced-bar-label;
     font-weight: normal; 
   }
 </style>

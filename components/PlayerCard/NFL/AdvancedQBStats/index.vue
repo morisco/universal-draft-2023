@@ -2,10 +2,17 @@
   <div class="player-card__advanced-qb">
     <div class="player-card__advanced-qb__heading">
       <h4>QB Charting by Ben SOlak</h4>
-      <button class="info" :class="{'info--show': showNote}" @click="toggleNote">
-        <span class="label">Our method</span>
+      <button
+        class="info"
+        :class="{'info--show': showNote}"
+        @click="toggleNote"
+      >
+        <span class="label">Our Method</span>
         <span class="circle">?</span>
-        <div class="message" v-html="cardQbNote" />
+        <div
+          class="message"
+          v-html="cardQbNote"
+        />
       </button>
     </div>
     
@@ -51,18 +58,13 @@ export default {
       showNote: false
     }
   },
-  watch: {
-    advancedQbStats() {
-    }
-  },
   computed: {
     cardQbNote() {
       return this.$store.getters['page/settings'].card_qb_note.trim()
     }
   },
-  methods: {
-    toggleNote () {
-      this.showNote = !this.showNote;
+  watch: {
+    advancedQbStats() {
     }
   },
   watch: {
@@ -78,6 +80,11 @@ export default {
           window.addEventListener('click', hideNote);
         }, 500);
       }
+    }
+  },
+  methods: {
+    toggleNote () {
+      this.showNote = !this.showNote;
     }
   }
 }
@@ -97,6 +104,9 @@ export default {
       &__summary{
         p {
           margin-bottom:15px;
+          &:last-of-type{
+            margin-bottom:45px;
+          }
         }
         
       }
@@ -112,7 +122,7 @@ export default {
       text-transform:uppercase;
     }
     &__advanced-qb{
-      padding-right:20px;
+      padding-right:35px;
       margin-bottom:30px;
       @include single-column{
         margin-top:30px;
