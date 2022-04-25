@@ -74,11 +74,11 @@
     <text transform="matrix(1 0 0 1 259.5014 88.2433)"><tspan
       x="0"
       y="0"
-      style="font-family:'GTAmerica-Light'; font-size:12px;"
+      style=""
     >Throwaway</tspan><tspan
       x="18.61"
       y="14.4"
-      style="font-family:'GTAmerica-Light'; font-size:12px;"
+      style=""
     >5.1%</tspan></text>
     <line
       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:10;"
