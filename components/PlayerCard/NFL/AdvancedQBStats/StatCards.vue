@@ -36,7 +36,7 @@ export default {
     setCards() {
       const labels = {
         "accuracy_percentage": "Pinpoint %",
-        "air_yards_per_attempt": "Air Yards Per Attempt",
+        "air_yards_per_attempt": "Air Yards per Attempt",
         "drop_percentage": "Drop %",
         "interceptable_percentage": "Interceptable %",
         "yac_percentage": "YAC %",
