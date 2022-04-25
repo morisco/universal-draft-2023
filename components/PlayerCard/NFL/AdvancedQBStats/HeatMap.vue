@@ -11,7 +11,7 @@
           v-for="(cell, index) in row.cells"
           :key="`${row.label}-${index}`"
           class="heat-map__cell"
-          :style="{ backgroundColor: `rgba(15, 76, 63, ${cell.accuracy/100 + 0.2})` }"
+          :style="{ backgroundColor: `rgba(22, 104, 86, ${cell.accuracy/100 + 0.2})` }"
         >
           <div class="heat-map__cell-content">
             <div>
@@ -191,13 +191,14 @@ export default {
         img{
           width:14px;
           vertical-align:bottom;
+          margin-top:3px;
           margin-bottom:5px;
         }
       }
       &__accuracy{
         opacity:1;
         transition:all 0.25s ease-in-out 0.25s;
-        @include advanced-situation-chart-label;
+        font-size:14px;
       }
       &__attempts{
         top:calc(50% + 10px);
