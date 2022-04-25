@@ -81,7 +81,8 @@ export default {
     },
     mockDraftIds () {
       const itemCount = this.viewDepth === 'compact' ? 10 : 4;
-      return this.showAll ? this.$store.getters['content/mockDraft'](this.viewPosition, this.viewStrength) : this.$store.getters['content/mockDraft'](this.viewPosition, this.viewStrength).slice(0,itemCount)
+      const mockLength = process.env.PROJECT_LEAGUE === 'NBA' ? 30 : 32;
+      return this.showAll ? this.$store.getters['content/mockDraft'](this.viewPosition, this.viewStrength).slice(0,mockLength) : this.$store.getters['content/mockDraft'](this.viewPosition, this.viewStrength).slice(0,itemCount)
     },
     viewStrength() {
       return this.$store.getters['viewOptions/strength']
