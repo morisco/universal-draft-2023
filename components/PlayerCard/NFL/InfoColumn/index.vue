@@ -25,6 +25,7 @@
           v-if="teamNameLogo"
           :team-name-logo="teamNameLogo"
           :info-text="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) >= 0 ? player.mock_insight : player.results_insight"
+          :grade="['draft-grades', 'draft_grades_player_share'].indexOf($route.name) >= 0 ? player.results_grade : null"
         />
       </template>
       <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) === -1">
@@ -68,15 +69,28 @@
         v-if="$mq === 'mobile'"
         :player="player"
       />
+      <ExpandedMeta
+        v-if="player.deep_dives && player.position === 'qb'"
+        :player="player"
+        :expanded="true"
+      />
+      <AdvancedQBStats
+        v-if="player.qb_advanced_stats"
+        :id="player.id"
+        :advanced-qb-stats="player.qb_advanced_stats"
+      />
+        
       <CombineResults
         v-if="$mq === 'mobile'"
         :results="player.combine_results"
+        :is-qb="player.position === 'qb'"
       />
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
       <ExpandedMeta
-        v-if="player.deep_dives"
+        v-if="player.deep_dives && player.position !== 'qb'"
         :player="player"
       />
+      
 
       <div
         v-if="$mq === 'mobile' && (playerVideo || player.player_podcast || player.player_articles)"
@@ -117,9 +131,10 @@ import RelatedArticles from '../RelatedArticles'
 import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import DraftInfo from '../DraftInfo';
 import CombineResults from '../CombineResults.vue'
+import AdvancedQBStats from '../AdvancedQBStats/index.vue';
 export default {
   name: "NFLInfoColumn",
-  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, CombineResults },
+  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, CombineResults, AdvancedQBStats },
   props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
   emits: ['set-meta-height', 'set-top-height', 'set-info-height'],
   data () {

@@ -182,7 +182,7 @@ $navHeight: 70px;
 .navigation{
   position:relative;
   width: calc(100% - 210px);
-  max-width:1270px;
+  max-width:1175px;
   margin:0 auto;
   z-index:555555;
 
@@ -190,7 +190,7 @@ $navHeight: 70px;
     display:flex;
     position:absolute;
     top:0;
-    left:50%;
+    left:calc(50% - 8px);
     width: 100%;
     max-width:1270px;
     height:$navHeight;

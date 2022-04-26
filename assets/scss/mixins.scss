@@ -11,6 +11,43 @@
   }
 }
 
+@mixin advanced-section-label{
+  font-family: "GT America";
+  font-size:14px;
+  margin-bottom:10px;
+  letter-spacing: .01em;
+  font-weight:500;
+}
+
+@mixin advanced-situation-label{
+  font-family: "GT America";
+  font-weight:500;
+  font-size:12px;
+  margin-bottom:5px;
+  line-height:1;
+}
+@mixin advanced-situation-chart-label{
+  font-family: "GT America";
+  font-size:14px;
+  line-height:1;
+}
+@mixin advanced-heatmap-label{
+  font-size:10px;
+  color:$darkgray;
+}
+
+@mixin advanced-bar-label{
+  font-family: "GT America";
+  font-size:12px;
+  line-height:1;
+}
+
+@mixin advanced-note{
+  font-family: 'GT America';
+  font-weight:300;
+  color:$highlight2;
+}
+
 @mixin podcast-show-name{
   font-family: "Decima";
   font-size: 15px;

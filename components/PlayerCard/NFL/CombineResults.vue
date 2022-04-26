@@ -1,7 +1,7 @@
 <template>
   <div 
     class="player-card__combine-results" 
-    :class="{'player-card__combine-results--ready': topHeight}"
+    :class="{'player-card__combine-results--ready': topHeight, 'player-card__combine-results--qb': isQb}"
   >
     <div class="player-card__combine-results-title">
       Combine Results
@@ -21,7 +21,7 @@
 <script>
 export default {
   name: "NFLCombineResults",
-  props: ['results', 'topHeight'],
+  props: ['results', 'topHeight', 'isQb'],
 }
 </script>
 
@@ -38,6 +38,15 @@ export default {
       
       .player-card__image-column &{
         margin-bottom:30px;
+      }
+      &--qb{
+        @include mobile{
+          margin-bottom: 0 !important;
+          &:after{
+            display:none !important;
+          }
+
+        }
       }
       &--ready{
         opacity:1;

@@ -1,6 +1,9 @@
 <template>
   <div class="draft-info">
-    <span class="draft-info__name">{{ teamNameLogo.teamName }}</span>
+    <span class="draft-info__name">{{ teamNameLogo.teamName }} <span
+      v-if="grade"
+      class="grade"
+    > {{ grade }}</span></span>
     <div
       class="draft-info__content"
       v-html="infoText"
@@ -11,7 +14,7 @@
 <script>
 export default {
   name: "NFLDraftInfo",
-  props: ['teamNameLogo', 'infoText'],
+  props: ['teamNameLogo', 'infoText', 'grade'],
 }
 </script>
 
@@ -42,6 +45,8 @@ export default {
     z-index:0;
     color:$black;
     // visibility:hidden;
+
+    
     
     @include mobile{
       background:$lightgray;
@@ -57,6 +62,19 @@ export default {
       margin-bottom:12px;
       display:block;
       @include expanded-label;
+      display:flex;
+      align-items:center;
+      .grade{
+        padding:6px 8px 4px;
+        margin-left:10px;
+        margin-bottom:2px;
+        border-radius: 4px;
+        background:$highlight2;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        color:white;
+      }
     }
     &__content{
       @include player-card-body;

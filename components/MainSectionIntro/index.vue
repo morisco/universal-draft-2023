@@ -15,15 +15,28 @@
         {{ introData.linkText }}
       </NuxtLink>
     </p>
+     <TransitionGroup
+        tag="div"
+        @before-enter="onBeforeMainEnter"
+        @enter="onMainEnter"
+        @leave="onMainLeave"
+      >
+        <div class="qb-intro" key="qb-intro" v-if="activePosition === 'qb'" ref="qbIntro" v-html="qbNote" />
+      </TransitionGroup>
   </div>
 </template>
 
 <script>
+  import gsap from 'gsap';
+
 import { scrollIt } from '~/plugins/scroller';
 export default {
   name: "MainSectionIntro",
   props: ['type'],
   computed: {
+    activePosition () {
+      return this.$store.getters['viewOptions/position']
+    },
     introData() {
       switch(this.type){
         case 'big_board':
@@ -63,11 +76,36 @@ export default {
           }
       }
     },
+    qbNote() {
+      return this.$store.getters['page/settings'].qb_note.trim()
+    },
     league() {
       return process.env.PROJECT_LEAGUE.toLowerCase()
     },
   },
   methods: {
+    onBeforeMainEnter(el) {
+      gsap.set(el, {
+        opacity: 0,
+        maxHeight:0
+      });
+    },
+    onMainEnter(el, done) {
+      gsap.to(el, {
+        opacity: 1,
+        maxHeight:el.scrollHeight,
+        onComplete: done,
+        delay: 0.125
+      });
+    },
+    onMainLeave(el, done) {
+      gsap.to(el, {
+        opacity: 0,
+        maxHeight:0,
+        duration: 0.25,
+        onComplete: done,
+      });
+    },
     scrollToTop() {
       var offset = this.$mq === 'mobile' ? document.getElementById('mobile-navigation').offsetTop + 4 : document.getElementById('navigation').offsetTop + 4
       scrollIt(offset, 500);
@@ -139,6 +177,19 @@ export default {
       // color:$highlight2;
       color:$darkmediumgray;
       text-decoration:underline;
+    }
+  }
+  .qb-intro{
+    opacity:0;
+    max-height:0;
+    p{
+      font-style:italic;
+      @include non-mobile{
+        max-width:78%;
+      }
+      &:last-of-type{
+        margin-bottom:0;
+      }
     }
   }
 }

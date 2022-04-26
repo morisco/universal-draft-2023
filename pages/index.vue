@@ -38,6 +38,7 @@ import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
 import { scrollIt } from '~/plugins/scroller'
 import gsap from 'gsap';
+import PositionMap from '~/plugins/positionMap';
 
 export default {
   name: 'BigBoard',
@@ -126,10 +127,14 @@ export default {
   },
   mounted() {
     this.makeData();
+    if(PositionMap.map(pm => pm.positionKey).includes(this.$route.query.position)){
+      this.setViewPosition(this.$route.query.position);
+    }
   },
   methods: {
    ...mapActions({
       'setCardExpanded': 'page/setCardExpanded',
+      'setViewPosition': 'viewOptions/setViewPosition',
     }),
     onBeforeEnter(el) {
       el.style.opacity = 0;
