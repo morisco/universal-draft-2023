@@ -14,16 +14,16 @@
 					c19.95,12.08,34.07,26.79,45.32,47.23L126.47,126.98z"
     />
     <path
-      style="fill:#176956;"
+      style="opacity:0.8;fill:#176956;"
       d="M126.47,126.98L57.94,20.72c42.02-27.1,91.22-27.8,133.99-1.91L126.47,126.98z"
     />
     <path
-      style="opacity:0.8;fill-rule:evenodd;clip-rule:evenodd;fill:#176956;"
+      style="opacity:0.9;fill-rule:evenodd;clip-rule:evenodd;fill:#176956;"
       d="M126.47,126.98l-95.69,82.65
 					C-14.87,156.78-9.03,76.93,43.82,31.29c4.12-3.56,9.54-7.62,14.12-10.57L126.47,126.98z"
     />
     <path
-      style="opacity:0.9;fill-rule:evenodd;clip-rule:evenodd;fill:#176956;"
+      style="fill-rule:evenodd;clip-rule:evenodd;fill:#176956;"
       d="M126.47,126.98l124.59-21.56
 					c11.91,68.81-34.22,134.24-103.03,146.15c-45.76,7.92-86.9-6.8-117.25-41.94L126.47,126.98z"
     />
@@ -74,11 +74,9 @@
     <text transform="matrix(1 0 0 1 259.5014 88.2433)"><tspan
       x="0"
       y="0"
-      style=""
     >Throwaway</tspan><tspan
       x="18.61"
       y="14.4"
-      style=""
     >5.1%</tspan></text>
     <line
       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:10;"
