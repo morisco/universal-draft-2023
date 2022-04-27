@@ -79,9 +79,9 @@ export default {
   //     sendHitTask: true
   //   }
   // },
-  server: {
-    host: '0.0.0.0' // default: localhost
-  },
+  // server: {
+  //   host: '0.0.0.0' // default: localhost
+  // },
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     '@nuxtjs/style-resources',
