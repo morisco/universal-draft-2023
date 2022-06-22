@@ -339,7 +339,7 @@ export default {
       }
     },
     openCard () {
-      if(!this.expanded){
+      if(!this.expanded && !this.player.no_expand){
         const self = this
         this.cardAction(() => {
           self.expanded = true
