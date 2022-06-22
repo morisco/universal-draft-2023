@@ -412,6 +412,7 @@ export default {
   }
   &__section{
     margin-bottom:30px;
+    margin-left:-15px;
   }
   &__section-title{
     @include filter-section-title;
@@ -644,6 +645,17 @@ export default {
   @include single-column{
     .sticky-podcast{
       display:none;
+    }
+    &__transition-group{
+      width:100%;
+      > div {
+        display:flex;
+        width:100%; 
+        justify-content:space-between;
+      }
+    }
+    &__section{
+      margin-left:0;
     }
   }
 

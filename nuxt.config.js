@@ -28,6 +28,7 @@ export default {
   plugins: [
     {src: '~/plugins/VueYoutube', mode: 'client'},
     {src: '~/plugins/analytics', mode: 'client'},
+    {src: '~/plugins/donut', mode: 'client'},
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -78,7 +79,9 @@ export default {
   //     sendHitTask: true
   //   }
   // },
-
+  // server: {
+  //   host: '0.0.0.0' // default: localhost
+  // },
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     '@nuxtjs/style-resources',
