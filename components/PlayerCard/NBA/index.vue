@@ -200,7 +200,7 @@ export default {
         }, 1000);
       }
       if(newDepth === 'detailed'){
-        this.expanded = true;
+        this.expanded = this.player.no_expand ? false : true;
         this.collapsed = false;
       } else {
         if(newDepth === 'compact'){
@@ -339,7 +339,7 @@ export default {
       }
     },
     openCard () {
-      if(!this.expanded && !this.player.no_expand){
+      if(!this.expanded){
         const self = this
         this.cardAction(() => {
           self.expanded = true

@@ -265,188 +265,200 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .player-card{
-    .app--nba & {
+<style lang="scss" >
+.app--nba {
 
-        // max-height:313px;
-        &__info-rule{
-          height:100%;
-          position:absolute;
-          left:0;
-          top:30px;
-          width:1px;
-          background-color:$darkmediumgray;
-          transition:max-height 0.375s ease-in-out;
+    // max-height:313px;
+    .player-card__info-rule{
+      height:100%;
+      position:absolute;
+      left:0;
+      top:30px;
+      width:1px;
+      background-color:$darkmediumgray;
+      transition:max-height 0.375s ease-in-out;
+    }
+    .player-card__info-column{
+      position:relative;
+      flex:1;
+      opacity:1;
+      overflow-x:visible;
+      overflow-y:hidden;
+        
+      &-mobile-expand{
+        max-height:160px;
+        overflow:hidden;
+        &-enter{
+          max-height:0;
+          opacity:0;
         }
-        &__info-column{
-          position:relative;
-          flex:1;
+        &-enter-to{
+          max-height:160px;
           opacity:1;
-          overflow-x:visible;
-          overflow-y:hidden;
-            
-          &-mobile-expand{
-            max-height:160px;
-            overflow:hidden;
-            &-enter{
-              max-height:0;
-              opacity:0;
-            }
-            &-enter-to{
-              max-height:160px;
-              opacity:1;
-              transition:all 0.5s ease-out;
-            }
-            &-leave{
-              max-height:160px;
-              opacity:1;
-            }
-            &-leave-to{
-              max-height:0;
-              opacity:0;
-              transition:all 0.5s ease-in;
-            }
-          }
-          &--animate{
-            transition:max-height 0.5s ease-out, max-width 0s linear 0.125s;
-            @include mobile { 
-              transition:max-height 0.5s linear, max-width 0s linear 0.125s;
-              .player-card--expanded & {
-                transition:max-height 0.5s ease-out, max-width 0s linear 0.125s;
-              }
-            }
-          }
-          // max-height:313px;
-          @include tablet-portrait-only{
-            // max-width:87.5%;
-          }
-          @include mobile {
-            width:100%;
-            max-width:100%;
-            background:transparent;
-            padding-bottom:30px;
-            .player-card--collapsed &{
-              overflow:visible;
-              padding-bottom:30px;
-              // padding-bottom:15px;
-              // border-radius:0.625rem;
-              .player-card--expanded & {
-                padding-bottom:0;
-              }
-            }
-            .player-card--expanded & {
-              &:after{
-                position:absolute;
-                left:0;
-                right:0;
-                bottom:15px;
-                content:'';
-                display:block;
-                height:1px;
-                background:$black;
-                margin-bottom:15px;
-              }
-            }
-          }
-          @include non-mobile{
-            .player-card--collapsed &{
-              max-width:84.5%;
-              transition:all 0.25s ease-in-out 0.125s, max-height 0.25s ease-in-out 0.125s;
-            }
-            .player-card--transitioning & {
-              transition:all 0.5s ease-in-out 0.125s, max-height 0.2s ease-in-out 0s;
-              .player-card__top-data,
-              .player-card__bottom-data{
-                -webkit-animation: infoColumn-collapse 0.75s 1 linear;
-                  animation: infoColumn-collapse 0.75s 1 linear;
-              }
-            }
-          }
+          transition:all 0.5s ease-out;
         }
-        &__meta-column{
-          display:flex;
-          flex-direction:column;
-          flex:1;
+        &-leave{
+          max-height:160px;
+          opacity:1;
         }
-        &__top-data{
-          position:relative;
-          z-index:0;
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-          padding:30px 30px 30px;
-          min-height:255px;
-          // .player-card--collapsed & {
-          //   min-height:0;
-          // }
-          @include tablet-portrait-only{
-            padding: 30px 20px 30px;
-          }
-          @include mobile {
-            padding:0;
-            flex-direction:column;
-            // border-radius: 0 0 0.625rem 0.625rem;
-            min-height:0;
-            overflow:visible;
-          }
+        &-leave-to{
+          max-height:0;
+          opacity:0;
+          transition:all 0.5s ease-in;
         }
-        &__meta-stats{
-          display:flex;
-          justify-content:space-between;
-          width:100%;
-          @include mobile {
-            flex-direction:column;
-          }
-        }
-        &__bottom-data{
-          position:relative;
-          z-index:1;
-          overflow-x:hidden;
-          > *{
-            opacity:0;
-            transition:opacity 0.25s linear 0s;
-          }
+      }
+      &--animate{
+        transition:max-height 0.5s ease-out, max-width 0s linear 0.125s;
+        @include mobile { 
+          transition:max-height 0.5s linear, max-width 0s linear 0.125s;
           .player-card--expanded & {
-            margin-top:0;
-            > *{
-              opacity:1;
-              transition:opacity 0.25s linear 0.5s;
-            }
-          }
-          @include non-mobile{
-            padding:0 30px 30px;
-          }
-          @include tablet-portrait-only{
-            padding:0 20px;
-          }
-    
-          @include mobile{
-            background:transparent;
-            padding: 0 0 60px;
-            margin:0 auto;
-            // border-radius:0 0 0.625rem 0.625rem;
-            .player-card--expanded & {
-              margin-top:0;
-            }
-            // padding-top:0.625rem;
-            // .mock-draft & {
-            //   padding-top:0;
-            // }
-            &-extended{
-              padding:0 0;
-              margin-top:30px;
-              &:before{
-                content:'';
-                display:block;
-                width:100%;
-                height:1px;
-                background:$black;
-                margin-bottom:20px;
-              }
-            }
+            transition:max-height 0.5s ease-out, max-width 0s linear 0.125s;
           }
         }
+      }
+      // max-height:313px;
+      @include tablet-portrait-only{
+        // max-width:87.5%;
+      }
+      @include mobile {
+        width:100%;
+        max-width:100%;
+        background:transparent;
+        padding-bottom:30px;
+        .player-card--collapsed &{
+          overflow:visible;
+          padding-bottom:30px;
+          // padding-bottom:15px;
+          // border-radius:0.625rem;
+          .player-card--expanded & {
+            padding-bottom:0;
+          }
+        }
+        .player-card--expanded & {
+          &:after{
+            position:absolute;
+            left:0;
+            right:0;
+            bottom:15px;
+            content:'';
+            display:block;
+            height:1px;
+            background:$black;
+            margin-bottom:15px;
+          }
+        }
+      }
+      @include non-mobile{
+        .player-card--collapsed &{
+          max-width:84.5%;
+          transition:all 0.25s ease-in-out 0.125s, max-height 0.25s ease-in-out 0.125s;
+        }
+        .player-card--transitioning & {
+          transition:all 0.5s ease-in-out 0.125s, max-height 0.2s ease-in-out 0s;
+          .player-card__top-data,
+          .player-card__bottom-data{
+            -webkit-animation: infoColumn-collapse 0.75s 1 linear;
+              animation: infoColumn-collapse 0.75s 1 linear;
+          }
+        }
+      }
+    }
+    .player-card__meta-column{
+      display:flex;
+      flex-direction:column;
+      flex:1;
+    }
+    .player-card__top-data{
+      position:relative;
+      z-index:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:30px 30px 30px;
+      min-height:255px;
+      // .player-card--collapsed & {
+      //   min-height:0;
+      // }
+      @include tablet-portrait-only{
+        padding: 30px 20px 30px;
+      }
+      @include mobile {
+        padding:0;
+        flex-direction:column;
+        // border-radius: 0 0 0.625rem 0.625rem;
+        min-height:0;
+        overflow:visible;
+      }
+    }
+    .player-card__meta-stats{
+      display:flex;
+      justify-content:space-between;
+      width:100%;
+      @include mobile {
+        flex-direction:column;
+      }
+    }
+    .player-card__bottom-data{
+      position:relative;
+      z-index:1;
+      overflow-x:hidden;
+      > *{
+        opacity:0;
+        transition:opacity 0.25s linear 0s;
+      }
+      // .player-card--expanded & {
+      //   margin-top:0;
+      //   > *{
+      //     opacity:1;
+      //     transition:opacity 0.25s linear 0.5s;
+      //   }
+      // }
+      @include non-mobile{
+        padding:0 30px 30px;
+      }
+      @include tablet-portrait-only{
+        padding:0 20px;
+      }
+
+      @include mobile{
+        background:transparent;
+        padding: 0 0 60px;
+        margin:0 auto;
+        // border-radius:0 0 0.625rem 0.625rem;
+        // .player-card--expanded & {
+        //   margin-top:0;
+        // }
+        // padding-top:0.625rem;
+        // .mock-draft & {
+        //   padding-top:0;
+        // }
+        &-extended{
+          padding:0 0;
+          margin-top:30px;
+          &:before{
+            content:'';
+            display:block;
+            width:100%;
+            height:1px;
+            background:$black;
+            margin-bottom:20px;
+          }
+        }
+      }
+    }
+    .player-card--expanded {
+      .player-card{
+        &__bottom-data{
+          margin-top:0;
+          > *{
+            opacity:1;
+            transition:opacity 0.25s linear 0.5s;
+          }
+          @include mobile{
+            margin-top:0;
+          }
+        }
+      }
     }
   }
   
