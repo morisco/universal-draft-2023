@@ -1,19 +1,44 @@
 <template>
-<div class="player-card__video-thumb" ref="videoThumb" :class="{'player-card__video-thumb--playing' : mobilePlay}">
-  <div class="player-card__video-thumb-title">Video: {{playerVideo.title}}</div>
-  <div class="player-card__video-thumb-player-wrapper">
-    <button class="player-card__video-thumb-player-poster" v-on:click="triggerVideo">
-      <img :src="playerVideo.poster.xsmall" :alt="playerVideo.title + ' Poster'" />
-      <img src="@/assets/img/icons/Triangle-play.svg" class="player-card__video-thumb-play-button" />
-    </button>
-    <VideoPlayer v-if="($mq === 'mobile' && expanded && videoWidth && activeCard) || (activeCard && collapsedVideoSettings)" :playerVideo="videoConfig" :triggerPlay="mobilePlay" :videoWidth="videoWidth" :closeVideo="closeVideo" />
-  </div>
-</div>  
+  <div
+    ref="videoThumb"
+    class="player-card__video-thumb"
+    :class="{'player-card__video-thumb--playing' : mobilePlay}"
+  >
+    <div class="player-card__video-thumb-title">
+      Video: {{ playerVideo.title }}
+    </div>
+    <div class="player-card__video-thumb-player-wrapper">
+      <button
+        class="player-card__video-thumb-player-poster"
+        @click="triggerVideo"
+      >
+        <img
+          :src="playerVideo.poster.xsmall"
+          :alt="playerVideo.title + ' Poster'"
+        >
+        <img
+          src="@/assets/img/icons/Triangle-play.svg"
+          class="player-card__video-thumb-play-button"
+        >
+      </button>
+      <VideoPlayer
+        v-if="($mq === 'mobile' && expanded && videoWidth && activeCard) || (activeCard && collapsedVideoSettings)"
+        :player-video="videoConfig"
+        :trigger-play="mobilePlay"
+        :video-width="videoWidth"
+        :close-video="closeVideo"
+      />
+    </div>
+  </div>  
 </template>
 
 <script>
 import VideoPlayer from '~/components/Video/Player'
 export default {
+  name: "NFLVideoThumb",
+  components: { VideoPlayer },
+  props: ['playVideo', 'expanded', 'activeCard', 'playerVideo', 'videoSettings'],
+  emits: ['reset-video-settings'],
   data() {
     return { 
       mobilePlay: false,
@@ -21,14 +46,29 @@ export default {
       collapsedVideoSettings: false
     }
   },
-  props: ['playVideo', 'expanded', 'activeCard', 'playerVideo', 'videoSettings'],
-  components: { VideoPlayer },
   computed: {
     videoConfig() {
       return {...this.playerVideo, ...this.videoSettings} 
     },
     viewCollapsed() {
       return this.$store.getters['viewOptions/viewCollapsed'];
+    }
+  },
+  watch: {
+    expanded() {
+      this.mobilePlay = false;
+    },
+    activeCard() {
+      if(!this.activeCard){
+        this.mobilePlay = false;
+        this.collapsedVideoSettings = false;
+      }
+    },
+    videoSettings() {
+      if(this.videoSettings){
+        this.mobilePlay = true;
+        this.collapsedVideoSettings = this.videoSettings
+      }
     }
   },
   mounted() {
@@ -55,25 +95,8 @@ export default {
     },
     closeVideo() {
       this.mobilePlay = false;
-      this.$emit('resetVideoSettings');
+      this.$emit('reset-video-settings');
     },
-  },
-  watch: {
-    expanded() {
-      this.mobilePlay = false;
-    },
-    activeCard() {
-      if(!this.activeCard){
-        this.mobilePlay = false;
-        this.collapsedVideoSettings = false;
-      }
-    },
-    videoSettings() {
-      if(this.videoSettings){
-        this.mobilePlay = true;
-        this.collapsedVideoSettings = this.videoSettings
-      }
-    }
   }
 }
 </script>

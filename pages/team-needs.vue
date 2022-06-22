@@ -1,68 +1,63 @@
 <template>
-  <section class="main-section team-needs" ref="teamNeeds">
+  <section
+    ref="teamNeeds"
+    class="main-section team-needs"
+  >
     <MainSectionIntro type="team_needs" />
-    <transition-group name="player-card" class="mock-draft__inner main-section__inner" tag="div">
-      <template v-for="(teamId, index) in teamNeedsIds">
-        <TeamCard 
-          :teamId="teamId" 
-          :key="teamId" 
-        />
-        <Interstitial 
-          v-if="interstitials[index+1]" 
-          :key="'interstitial-' + (index+1)" 
-          :list="'teamNeeds'" 
-          :interKey="index+1" 
-        />
-      </template>
-    </transition-group>
-    <MoreCoverage :articles="relatedArticles" v-if="showAll" />
+    <TransitionGroup
+      class="mock-draft__inner main-section__inner"
+      :css="false"
+      @before-enter="onBeforeEnter"
+      @enter="onEnter"
+      @leave="onLeave"
+    >
+      <TeamCard 
+        v-for="(teamId, index) in sortedTeams"
+        :key="teamId + '-' + index" 
+        :team-id="teamId"
+        :index="index" 
+      />
+    </TransitionGroup>
+    <MoreCoverage
+      v-if="showAll"
+      :articles="relatedArticles"
+    />
   </section>
 </template>
 
 <script>
 import TeamCard from '~/components/TeamCard'
 import MainSectionIntro from '~/components/MainSectionIntro'
-import Interstitial from '~/components/Interstitial'
 import asyncDataProcessor from '~/plugins/asyncDataProcessor';
 import headeBuilder from '~/plugins/headBuilder';
 import MoreCoverage from '~/components/MoreCoverage'
-
+import gsap from 'gsap';
 
 export default {
   name: 'TeamNeeds',
+  components: { MainSectionIntro, TeamCard, MoreCoverage },
+  scrollToTop: false,
   transition: {
     name:"main-section",
     mode:"out-in",
   },
-  scrollToTop: false,
-  components: { MainSectionIntro, TeamCard, Interstitial, MoreCoverage },
-  mounted() {
-    if(!this.pageSettings.breakdown_by_team) {
-      this.$router.push({
-        path: '/'
-      })
-    }
+  asyncData({$axios, store, route}) {
+    return asyncDataProcessor({$axios, store, route});
   },
   data() {
     return {
       initTimeout: null,
-      showAll: this.$route.params.team_id ? true : false
+      showAll: this.$route.params.team_id ? true : false,
+      sortedTeams: [],
     }
   },
-  created() {
-    if(process.client){
-      window.addEventListener('scroll', this.handleScroll, {passive: true});
-    }
-  },
-  destroyed() {
-    if(process.client){
-      window.removeEventListener('scroll', this.handleScroll, {passive: true});
-    }
-  },
-  destroyed() {
-    clearTimeout(this.initTimeout);
+  head()  {
+    return headeBuilder(this);
   },
   computed: {
+    league() {
+      return process.env.PROJECT_LEAGUE.toLowerCase()
+    },
     pageSettings () {
       return this.$store.getters['page/settings'] || {}
     },
@@ -70,21 +65,21 @@ export default {
       const itemCount = 4;
       return this.showAll ? this.$store.getters['content/teamNeeds'] : this.$store.getters['content/teamNeeds'].slice(0,itemCount)
     },
-    interstitials() {
-      return this.$store.getters['content/interstitials']('teamNeeds')
-    },
     relatedArticles () {
       return this.$store.getters['content/relatedArticles'];
     },
-  },
-  methods: {
-    handleScroll() {
-      if(window.scrollY > this.$refs.teamNeeds.offsetParent.offsetTop + this.$refs.teamNeeds.offsetTop - window.innerHeight) {
-        this.showAll = true;
-      }
+    teamSort() {
+      return this.$store.getters['viewOptions/teamSort'];
     }
   },
   watch: {
+    teamSort() {
+      this.showAll = true;
+      this.setTeams();
+    },
+    teamNeedsIds() {
+      this.setTeams();
+    },
     pageSettings() {
       if(!this.pageSettings.breakdown_by_team) {
         this.$router.push({
@@ -93,11 +88,72 @@ export default {
       }
     }
   },
-  asyncData({$axios, store, route}) {
-    return asyncDataProcessor({$axios, store, route});
+  mounted() {
+    if(!this.pageSettings.breakdown_by_team) {
+      this.$router.push({
+        path: '/'
+      })
+    }
+    this.setTeams();
   },
-  head()  {
-    return headeBuilder(this);
+  created() {
+    if(process.client){
+      window.addEventListener('scroll', this.handleScroll, {passive: true});
+    }
+  },
+  unmounted() {
+    if(process.client){
+      window.removeEventListener('scroll', this.handleScroll, {passive: true});
+    }
+  },
+  unmounted() {
+    clearTimeout(this.initTimeout);
+  },
+  methods: {
+    setTeams() {
+      if(this.teamSort && this.teamNeedsIds){
+        if(this.teamSort === 'order') {
+          this.sortedTeams = this.teamNeedsIds;
+        } else {
+          const teamsToSort = [...this.teamNeedsIds];
+          this.sortedTeams = teamsToSort.sort((a, b) => {
+            const teamA = this.$store.getters['content/team'](a)
+            const teamB = this.$store.getters['content/team'](b)
+            if(teamA && teamB){
+              return teamA.title < teamB.title ? -1 : 1;
+            }
+          });
+        }
+      }
+    },
+    handleScroll() {
+      if(this.$refs.teamNeeds && this.$refs.teamNeeds.offsetParent) {
+        if((window.scrollY > this.$refs.teamNeeds.offsetParent.offsetTop + this.$refs.teamNeeds.offsetTop - window.innerHeight)) {
+          this.showAll = true;
+        }
+      }
+    },
+     onBeforeEnter(el) {
+      el.style.opacity = 0;
+      el.style.height = 0;
+    },
+    onEnter(el, done) {
+      el.style.height = 'auto';
+      gsap.to(el, {
+        opacity: 1,
+        delay: 0.5,
+        onComplete: done
+      })
+    },
+    onLeave(el, done) {
+      gsap.to(el, {
+        opacity: 0,
+        onComplete: () => {
+          done();
+          el.style.height = 0;
+        }
+      })
+    },
   }
 }
 </script>
@@ -105,5 +161,12 @@ export default {
 <style scoped lang="scss">
 .team-needs{
    min-height:calc(100vh + 4px);
+   .mock-draft__inner{
+     .app--nba & {
+       width:calc(100vw - 40px);
+       max-width:100%;
+       margin:0 auto;
+     }
+   }
 }
 </style>

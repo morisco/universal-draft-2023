@@ -13,20 +13,39 @@
 
 @mixin advanced-section-label{
   font-family: "GT America";
-  font-weight:bold;
-  font-size:16px;
+  font-size:14px;
   margin-bottom:10px;
+  letter-spacing: .01em;
+  font-weight:500;
 }
 
 @mixin advanced-situation-label{
-  font-weight:bold;
-  font-size:14px;
+  font-family: "GT America";
+  font-weight:500;
+  font-size:12px;
   margin-bottom:5px;
+  line-height:1;
+}
+@mixin advanced-situation-chart-label{
+  font-family: "GT America";
+  font-size:14px;
   line-height:1;
 }
 @mixin advanced-heatmap-label{
   font-size:10px;
   color:$darkgray;
+}
+
+@mixin advanced-bar-label{
+  font-family: "GT America";
+  font-size:12px;
+  line-height:1;
+}
+
+@mixin advanced-note{
+  font-family: 'GT America';
+  font-weight:300;
+  color:$highlight2;
 }
 
 @mixin podcast-show-name{
@@ -62,15 +81,35 @@
   text-transform:uppercase;
   line-height:45px;
   max-width:70%;
+  .app--nba & {
+    font-family: "GT America Condensed",Arial,sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -.29px;
+    text-transform: normal;
+    line-height: 1.2;
+    max-width: 70%;
+    text-transform:none;
+  }
   @include single-column{
     font-size:36px;
     line-height:36px;
     max-width:80%;
+    .app--nba & {
+      font-size:36px;
+      line-height:36px;
+      max-width:80%;
+    }
   }
   @include mobile{
     font-size:19px;
     line-height:20px;
     max-width:100%;
+    .app--nba & {
+      font-size:19px;
+      line-height:20px;
+      max-width:100%;
+    }
   }
 }
 
@@ -80,6 +119,11 @@
   text-transform: uppercase;
   font-size: 18px;
   line-height: 125%;
+  .app--nba & {
+    font-family: "GT America Condensed";
+    font-weight:500;
+    letter-spacing:0.03em;
+  }
   @include single-column{
     font-size:22px;
     line-height:22px;
@@ -98,6 +142,12 @@
   line-height:18px;
   letter-spacing: 0;
   text-transform: none;
+  .app--nba & {
+    font-family: "GT America Condensed";
+    font-size:16px;
+    line-height:16px;
+    letter-spacing: .03em;
+  }
   @include single-column{
     // font-size:13px;
   }
@@ -111,6 +161,11 @@
   font-size: 17px;
   line-height: 17px;
   margin-bottom:5px;
+  .app--nba & {
+    font-family: "GT America Condensed";
+    font-size:16px;
+    letter-spacing:.03em;
+  }
 }
 
 @mixin filter-option{
@@ -128,6 +183,9 @@
   margin-top:1px;
   font-weight:normal;
   letter-spacing:.025em;
+  .app--nba & {
+    font-family:"GT America Condensed";
+  }
 }
 
 @mixin stat-title{
@@ -206,6 +264,9 @@
   font-weight: normal;
   line-height: 13px;
   margin-bottom:5px;
+  .app--nba & {
+    font-family: "GT America Condensed";
+  }
 }
 
 @mixin tooltip {
@@ -218,6 +279,9 @@
   font-size:15px;
   line-height:1.5;
   margin-bottom:30px;
+  .app--nba & {
+    letter-spacing:-0.01em;
+  }
   @include mobile{
     line-height:1.4;
     margin-bottom:10px;
@@ -241,11 +305,22 @@
   line-height:30px;
   color:$lightestgray;
   font-weight:300;
+  .app--nba & {
+    font-family: "GT America Condensed";
+  }
 }
 
 @mixin meta-bar-detail{
   font-size:17px;
   line-height:1.2;
+  .app--nba & {
+    font-family: "GT America Condensed";
+    font-size:16px;
+    line-height:1;
+    text-transform:uppercase;
+    font-weight:400;
+    letter-spacing: 0.03em;
+  }
   @include mobile{
     font-size:19px;
   }

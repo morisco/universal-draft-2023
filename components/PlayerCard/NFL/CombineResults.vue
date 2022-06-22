@@ -1,15 +1,18 @@
 <template>
   <div 
     class="player-card__combine-results" 
-    :class="{'player-card__combine-results--ready': topHeight}"
+    :class="{'player-card__combine-results--ready': topHeight, 'player-card__combine-results--qb': isQb}"
   >
     <div class="player-card__combine-results-title">
       Combine Results
     </div>
     <ul class="player-card__combine-results-list">
-      <li v-for="result in results" :key="result.combine_label + result.combine_value">
-        <span class="player-card__combine__results-label">{{result.combine_label}}</span>
-        <span class="player-card__combine__results-value">{{result.combine_value}}</span>
+      <li
+        v-for="result in results"
+        :key="result.combine_label + result.combine_value"
+      >
+        <span class="player-card__combine__results-label">{{ result.combine_label }}</span>
+        <span class="player-card__combine__results-value">{{ result.combine_value }}</span>
       </li>
     </ul>
   </div>
@@ -17,7 +20,8 @@
 
 <script>
 export default {
-  props: ['results', 'topHeight'],
+  name: "NFLCombineResults",
+  props: ['results', 'topHeight', 'isQb'],
 }
 </script>
 
@@ -28,11 +32,21 @@ export default {
       left:0;
       right:0;
       bottom:0;
-      opacity:0;
+      opacity:1;
       transition:opacity 0.25s linear;
+      margin-top:30px;
       
       .player-card__image-column &{
         margin-bottom:30px;
+      }
+      &--qb{
+        @include mobile{
+          margin-bottom: 0 !important;
+          &:after{
+            display:none !important;
+          }
+
+        }
       }
       &--ready{
         opacity:1;
@@ -61,18 +75,24 @@ export default {
 
             &:first-of-type{
               padding-right:3px;
-              @include mobile-nav-label;
+              @include player-card-body;
+              color:$headlinegray;
+              margin-bottom: 0 !important;
             }
             &:last-of-type{
               padding-left:4px;
-              @include stat-title;
+              @include player-card-body;
+              color:$headlinegray;
+              margin-bottom: 0 !important;
             }
           }
           &:before{
             content:'..........................................................................................................................................................................................................................................................................................................................................';
+            font-family: 'Decima';
             display:block;
             position:absolute;
-            bottom:-2px;
+            bottom:-0.11em;
+            color:$headlinegray;
             left:0;
             right:0;
             overflow:hidden;
@@ -92,7 +112,7 @@ export default {
         opacity:0;
         transition:opacity 0.25s linear;
         @include mobile {
-          margin:-20px 0 0;
+          margin:-30px 0 0;
           padding:15px 20px;
           background:$lightgray;
           &:before{
@@ -100,8 +120,15 @@ export default {
             display:block;
             width:100%;
             height:1px;
-            background:$darkmediumgray;
+            background:$mediumgray;
             margin-bottom:20px;
+          }
+          &:after{
+            content:'';
+            display:block;
+            max-width:calc(100% -40px);
+            margin:20px auto 15px;
+            border-bottom:1px solid $mediumgray;
           }
         }
         .player-card--expanded & {

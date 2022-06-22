@@ -1,6 +1,19 @@
 <template>
-  <div class="video-player" :class="{'video-player--ready': ready}" >
-    <youtube :video-id="videoId" :width="videoWidth" :height="videoHeight" :player-vars="playerVars"  ref="youtube" @playing="playing" @ready="videoReady" @ended="videoEnded" v-if="playerVars"></youtube>
+  <div
+    class="video-player"
+    :class="{'video-player--ready': ready}"
+  >
+    <youtube
+      v-if="playerVars"
+      ref="youtube"
+      :video-id="videoId"
+      :width="videoWidth"
+      :height="videoHeight"
+      :player-vars="playerVars"
+      @playing="playing"
+      @ready="videoReady"
+      @ended="videoEnded"
+    />
     <LoadingSpinner :loaded="loaded" />    
   </div>
 </template>
@@ -8,6 +21,7 @@
 <script>
 import LoadingSpinner from '~/components/LoadingSpinner'
 export default {
+  name: "VideoPlayer",
   components: {LoadingSpinner},
   props: ['videoWidth', 'closeVideo', 'triggerPlay', 'playerVideo', 'trackTime', 'videoType'],
   data() {
@@ -18,6 +32,47 @@ export default {
       timeUpdateInterval: false,
       isPlaying: false
     }
+  },
+  computed: {
+    player() {
+      return this.$refs.youtube.player
+    },
+    end() {
+      return this.playerVideo.end ? parseInt(this.playerVideo.end,10) : false
+    },
+    videoId() {
+      return this.playerVideo.video_id
+    },
+    playerVars() {
+      if(!this.videoWidth) return false
+      let pv = {
+        width: this.videoWidth,
+        autoplay: 0,
+        start: parseInt(this.playerVideo.start,10) || 0,
+        rel: 0,
+        controls:1,
+        modestbranding:1
+      }
+      if(this.playerVideo.end){
+        pv.end = this.playerVideo.end + 2
+      }
+      return pv
+    }
+  },
+  watch: {
+    triggerPlay() {
+      if(this.triggerPlay && !this.isPlaying){
+        this.player.unMute();
+        this.player.seekTo(300);
+        this.player.playVideo();
+      }
+    },
+    playerVars() {
+      this.videoHeight = this.videoWidth * 0.5625;
+    }
+  },
+  unmounted() {
+    clearInterval(this.timeUpdateInterval);
   },
   methods: {
     playVideo() {
@@ -84,45 +139,6 @@ export default {
       this.closeVideo();
       this.isPlaying = false;
       clearInterval(this.timeUpdateInterval);
-    }
-  },
-  destroyed() {
-    clearInterval(this.timeUpdateInterval);
-  },
-  computed: {
-    player() {
-      return this.$refs.youtube.player
-    },
-    end() {
-      return this.playerVideo.end ? parseInt(this.playerVideo.end,10) : false
-    },
-    videoId() {
-      return this.playerVideo.video_id
-    },
-    playerVars() {
-      if(!this.videoWidth) return false
-      this.videoHeight = this.videoWidth * 0.5625;
-      let pv = {
-        width: this.videoWidth,
-        autoplay: 0,
-        start: parseInt(this.playerVideo.start,10) || 0,
-        rel: 0,
-        controls:1,
-        modestbranding:1
-      }
-      if(this.playerVideo.end){
-        pv.end = this.playerVideo.end + 2
-      }
-      return pv
-    }
-  },
-  watch: {
-    triggerPlay() {
-      if(this.triggerPlay && !this.isPlaying){
-        this.player.unMute();
-        this.player.seekTo(300);
-        this.player.playVideo();
-      }
     }
   }
 }

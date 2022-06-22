@@ -50,11 +50,12 @@ export function processPlayers(players) {
   let teamPlayers = {};
   players.forEach((player) => {
     player = decodeContent(player);
-    if(process.env.PROJECT_LEAGUE === 'NBA'){
-      player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
-    } else {
+    // if(process.env.PROJECT_LEAGUE === 'NBA'){
+    //   player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
+    // } else {
       player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
       player.position = player.player_position_stats.position;
+      player.position_label = player.player_position_stats.position_label;
       if(playerPositions.indexOf(player.position) === -1){
         playerPositions.push(player.position);
       }
@@ -63,6 +64,9 @@ export function processPlayers(players) {
       }
       if(player.image_data){
         player.image_data.image = processImages(player.image_data.image);
+        if(player.image_data.image_hover) {
+          player.image_data.imageHover = processImages(player.image_data.image_hover);
+        }
       } else {
         player.image_data = { image: {} };
       }
@@ -79,7 +83,7 @@ export function processPlayers(players) {
         offenseDefense: player.offenseDefense
       }
       processedPlayers[player.id] = player;
-    }
+    // }
   });
   const orderedIds = processOrders(players);
   return {
@@ -106,7 +110,7 @@ export function parseStats(stats) {
   return positionArray;
 }
 
-export function processTeams(teams, teamPlayers) {
+export function processTeams(teams, teamPlayers, pageTeams) {
   let processedTeams = {};
   let teamIds = [];
   let resultsIds = [];
@@ -118,26 +122,49 @@ export function processTeams(teams, teamPlayers) {
     team.image = processImages(team.image);
     processedTeams[team.id] = team;
   });
-  const rTeams = [...teams];
-  rTeams.sort((teamA, teamB) => parseInt(teamA.order_results,10) > parseInt(teamB.order_results,10) ? 1 : -1);
-  rTeams.forEach((team) => {
+  teams.sort((teamA, teamB) => parseInt(teamA.order,10) > parseInt(teamB.order,10) ? 1 : -1);
+  let alphabeticTeams = [...teams]
+  alphabeticTeams.sort((teamA, teamB) => teamA.title > teamB.title ? 1 : -1);
+  alphabeticTeams = alphabeticTeams.map((team) => team.id);
+  teams.forEach((team) => {
     resultsIds.push(team.id);
   });
-  const resultsTeamNameLogo = rTeams.map((team) => {
+
+  const teamsInOrder = pageTeams.split(',').map((teamName) => {
+    const team = teams.find((team) => {
+      return team.title === teamName;
+    })
+    return team;
+  })
+  let teamPicks = {} 
+  teams.forEach((team) => {
+    teamPicks[team.id] = team.pick_trades;
+  })
+
+
+  let resultsTeamPicks = JSON.parse(JSON.stringify({...teamPicks}));
+  const resultsTeamNameLogo = teamsInOrder.map((team, index) => {
     let teamToUse = team;
     let via = '';
-    if(team.pick_trades_results && team.pick_trades_results[0]){
-      teamToUse = processedTeams[team.pick_trades_results[0].team];
-      via = team.pick_trades_results[0].via;
+    const tradeToUse = Math.floor(index/29);
+    if(resultsTeamPicks[team.id] && resultsTeamPicks[team.id].length && index+1 === parseInt(resultsTeamPicks[team.id][0].pick, 10)){      
+      teamToUse = processedTeams[resultsTeamPicks[team.id][0].team];
+      via = resultsTeamPicks[team.id][0].via;
+      resultsTeamPicks[team.id].shift();
     }
     return {teamName: teamToUse.title, logo: teamToUse.image, via: via}
   });
-  const teamNameLogo = teams.map((team) => {
+  
+  const teamNameLogo = teamsInOrder.map((team, index) => {
     let teamToUse = team;
     let via = '';
-    if(team.pick_trades && team.pick_trades[0]){
-      teamToUse = processedTeams[team.pick_trades[0].team];
-      via = team.pick_trades[0].via;
+    const tradeToUse = Math.floor(index/29);
+    if(teamPicks[team.id] && teamPicks[team.id].length){  
+      if(index+1 === parseInt(teamPicks[team.id][0].pick, 10)){
+        teamToUse = processedTeams[teamPicks[team.id][0].team];
+        via = teamPicks[team.id][0].via;
+        teamPicks[team.id].shift();
+      }
     }
     return {teamName: teamToUse.title, logo: teamToUse.image, via: via}
   });
@@ -152,14 +179,14 @@ export function processTeams(teams, teamPlayers) {
     }
     teamNameLogoResults[teamToUse.id] =  {teamName: teamToUse.title, logo: teamToUse.image, via: via}
   });
-
   return {
     teamData: processedTeams,
     teamNeeds: teamIds,
     draftResults: resultsIds,
     teamNameLogo: [...teamNameLogo, ...teamNameLogo],
     resultsTeamNameLogo: [...resultsTeamNameLogo, ...resultsTeamNameLogo],
-    teamNameLogoResults: teamNameLogoResults
+    teamNameLogoResults: teamNameLogoResults,
+    alphabeticTeams: alphabeticTeams
   }
 }
 
@@ -182,8 +209,8 @@ export function processInterstitials(contents) {
   };
   const listInters = contents.list_inter.content;
   const videoInters = contents.video_inter ? contents.video_inter.content : [];
-  const articleInters = contents.article_inter.content;
-  const podcastInters = contents.podcast_inter.content;
+  const articleInters = contents.article_inter ? contents.article_inter.content : [];
+  const podcastInters = contents.podcast_inter ? contents.podcast_inter.content : [];
 
   articleInters.forEach((article_inter) => {
     article_inter = decodeContent(article_inter);

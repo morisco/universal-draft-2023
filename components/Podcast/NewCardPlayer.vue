@@ -1,18 +1,30 @@
 <template>
-  <div class="player-podcast" @click="playClip">
+  <div
+    class="player-podcast"
+    @click="playClip"
+  >
     <div class="player-podcast__inner">
       <button type="button">
-        <img v-if="!playing" src="~/assets/img/icons/play.svg" />
-        <img v-if="playing" src="~/assets/img/icons/pause.svg" />
+        <img
+          v-if="!playing"
+          src="~/assets/img/icons/play.svg"
+        >
+        <img
+          v-if="playing"
+          src="~/assets/img/icons/pause.svg"
+        >
       </button>
       <span class="player-podcast-time">
-        {{format(totalTime - currentTime)}}
+        {{ format(totalTime - currentTime) }}
       </span>
       <span class="player-podcast-label">
-        {{podcast.label}}
+        {{ podcast.label }}
       </span>
     </div>
-    <span class="player-podcast-progress" :style="{'max-width': progress + '%'}" />
+    <span
+      class="player-podcast-progress"
+      :style="{'max-width': progress + '%'}"
+    />
   </div>
 </template>
 
@@ -20,6 +32,7 @@
 import { mapActions } from 'vuex'
 
 export default {
+  name: "NewCardPlayer",
   props: ['podcast', 'player'],
   data() {
     return{
@@ -43,12 +56,54 @@ export default {
       return this.$store.getters['page/podPlaying']
     }
   },
+  watch: {
+    currentPod() {
+      this.activePod = this.currentPod.id === this.podcast.podcast && this.currentPod.start === this.startTime
+      if(this.podPlaying && this.podcast.podcast === this.currentPod.id && this.currentPod.start === this.startTime) {
+        this.playing = true;
+      } else {
+        this.playing = false;
+      }
+    },
+    podTime() {
+      if(this.activePod) {
+        if(this.podTime >= this.startTime && this.podTime <= this.endTime){
+          this.currentTime = this.podTime - this.startTime;
+        } else {
+          this.currentTime = 0;
+        }
+      }
+    },
+    podPlaying() {
+      if(this.podPlaying && this.podcast.podcast === this.currentPod.id && this.currentPod.start === this.startTime) {
+        this.playing = true;
+      } else {
+        this.playing = false;
+      }
+    },
+    currentTime() {
+      this.progress = (this.currentTime/this.totalTime) * 100;
+    },
+    activePod() {
+      if(!this.activePod) {
+        this.currentTime = 0;
+      }
+    }
+  },
+  mounted() {
+    this.startTime = this.parseTime(this.podcast.podcast_start);
+    this.endTime = this.parseTime(this.podcast.podcast_end);
+    this.totalTime = this.endTime - this.startTime;
+  },
   methods: {
     ...mapActions({
       'setCurrentPod': 'page/setCurrentPod',
       'setPlaying': 'page/setPlaying',
+      'setPodClicked': 'page/setPodClicked',
     }),
     playClip() {
+      this.setPodClicked(true);
+
       if(this.currentPod.id == this.podcast.podcast && this.currentPod.start === this.startTime){
         this.setPlaying(!this.podPlaying);
       } else {
@@ -91,45 +146,6 @@ export default {
       ret += "" + secs;
       return ret;
     },
-  },
-  mounted() {
-    this.startTime = this.parseTime(this.podcast.podcast_start);
-    this.endTime = this.parseTime(this.podcast.podcast_end);
-    this.totalTime = this.endTime - this.startTime;
-  },
-  watch: {
-    currentPod() {
-      this.activePod = this.currentPod.id === this.podcast.podcast && this.currentPod.start === this.startTime
-      if(this.podPlaying && this.podcast.podcast === this.currentPod.id && this.currentPod.start === this.startTime) {
-        this.playing = true;
-      } else {
-        this.playing = false;
-      }
-    },
-    podTime() {
-      if(this.activePod) {
-        if(this.podTime >= this.startTime && this.podTime <= this.endTime){
-          this.currentTime = this.podTime - this.startTime;
-        } else {
-          this.currentTime = 0;
-        }
-      }
-    },
-    podPlaying() {
-      if(this.podPlaying && this.podcast.podcast === this.currentPod.id && this.currentPod.start === this.startTime) {
-        this.playing = true;
-      } else {
-        this.playing = false;
-      }
-    },
-    currentTime() {
-      this.progress = (this.currentTime/this.totalTime) * 100;
-    },
-    activePod() {
-      if(!this.activePod) {
-        this.currentTime = 0;
-      }
-    }
   },
 }
 </script>

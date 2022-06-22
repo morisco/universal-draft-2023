@@ -1,27 +1,59 @@
 <template>
-<button class="mobile-navigation__toggle-bar" v-on:click="toggleNavigation">
-  <a href="https://theringer.com" target="_blank" class="mobile-navigation__ringer-logo">
-    <img src="@/assets/img/logo-square.png" alt="The Ringer 'R' Logo" data-not-lazy />
-  </a>
-  <div class="mobile-navigation__toggle-label" :class="{'mobile-navigation__toggle-label--transition': transition}">
-    <span class="mobile-navigation__toggle-label-current">
-      <span class="mobile-navigation__toggle-label-current-closed">{{currentLabel}}</span>
-      <span class="mobile-navigation__toggle-label-current-open">The Ringer's 2022 NFL Draft Guide</span>
-    </span>
-    <span class="mobile-navigation__toggle-label-new">{{newLabel}}</span>
-  </div>
-  <div class="mobile-navigation__toggle-caret">
-  </div>
-</button>
+  <button
+    class="mobile-navigation__toggle-bar"
+    @click="toggleNavigation"
+  >
+    <a
+      href="https://theringer.com"
+      target="_blank"
+      class="mobile-navigation__ringer-logo"
+    >
+      <img
+        src="@/assets/img/logo-square.png"
+        alt="The Ringer 'R' Logo"
+        data-not-lazy
+      >
+    </a>
+    <div
+      class="mobile-navigation__toggle-label"
+      :class="{'mobile-navigation__toggle-label--transition': transition}"
+    >
+      <span class="mobile-navigation__toggle-label-current">
+        <span class="mobile-navigation__toggle-label-current-closed">{{ currentLabel }}</span>
+        <span class="mobile-navigation__toggle-label-current-open">{{ league === 'nfl' ? "The Ringer's 2022 NFL Draft Guide" : "The Ringer's 2022 NBA Draft Guide" }}</span>
+      </span>
+      <span class="mobile-navigation__toggle-label-new">{{ newLabel }}</span>
+    </div>
+    <div class="mobile-navigation__toggle-caret" />
+  </button>
 </template>
 <script>
 export default {
+  name: "MobileNavToggleBarNFL",
   props: ['toggleNavigation'],
   data() {
     return {
       currentLabel: null,
       newLabel: null,
       transition: false
+    }
+  },
+  computed: {
+    league() {
+      return process.env.PROJECT_LEAGUE.toLowerCase()
+    }
+  },
+  watch : {
+    $route() {
+      const newLabel = this.getCurrentLabel(this.$route.name);
+      this.newLabel = newLabel;
+      // this.transition = true;
+      this.transitionTimeout = setTimeout(() => {
+        this.currentLabel = this.newLabel;
+        this.newLabel = '';
+        this.transition = false;
+        // this.toggleNavigation();
+      }, 1000);
     }
   },
   created() {
@@ -32,29 +64,25 @@ export default {
       switch(name){
         case 'index':
         case 'big_board_player_share':
-          return 'Big Board by Danny Kelly'
+          return process.env.PROJECT_LEAGUE === 'NFL' 
+            ? 'Big Board by Danny Kelly'
+            : "Big Board by Kevin O'Connor"
         case 'mock-draft':
         case 'mock_draft_player_share':
-          return 'Mock Draft'
+          return process.env.PROJECT_LEAGUE === 'NFL'
+            ? 'Mock Draft by Danny Kelly'
+            : "Mock Draft by Kevin O'Connor"
         case 'team-needs':
         case 'team_needs_team_share':          
-          return 'Team Needs by Danny Heifetz'
+          return process.env.PROJECT_LEAGUE === 'NFL' 
+            ? 'Team Needs by Danny Heifetz'
+            : 'Team Needs by Matt Dollinger'
         case 'draft-grades':
         case 'draft_grades_player_share':
-          return 'Draft Grades by Danny Kelly'
+          return process.env.PROJECT_LEAGUE === 'NFL' 
+            ? 'Draft Grades by Danny Kelly'
+            : "Draft Grades by Kevin O'Connor"
       }
-    }
-  },
-  watch : {
-    $route() {
-      const newLabel = this.getCurrentLabel(this.$route.name);
-      this.newLabel = newLabel;
-      this.transition = true;
-      this.transitionTimeout = setTimeout(() => {
-        this.currentLabel = this.newLabel;
-        this.newLabel = '';
-        this.transition = false;
-      }, 1000);
     }
   }
 }
@@ -71,6 +99,9 @@ export default {
     height:45px;
     position:relative;
     color:$white;
+    .app--nba & {
+      background:black;
+    }
   }
   &__toggle-icon{
     height:20px;
@@ -93,6 +124,9 @@ export default {
       opacity:1;
       display:block;
       flex:1;
+      .app--nba & {
+        transform:translateY(0);
+      }
       &-closed{
         opacity:1;
         transition:opacity 0.25s linear 0.25s;  
@@ -105,6 +139,9 @@ export default {
         opacity:0;
         transform:translateY(0);
         transition:opacity 0.25s linear;
+        .app--nba & {
+          left:20px;
+        }
       }
       .mobile-navigation--expanded & {
         &-open{

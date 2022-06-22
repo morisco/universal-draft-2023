@@ -1,18 +1,39 @@
 <template>
   <div class="draft-info">
-    <span class="draft-info__name">{{teamNameLogo.teamName}}</span>
-    <div class="draft-info__content" v-html="infoText">
-    </div>
+    <span class="draft-info__name">{{ teamNameLogo.teamName }} <span
+      v-if="grade"
+      class="grade"
+    > {{ grade }}</span></span>
+    <div
+      class="draft-info__content"
+      v-html="infoText"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  props: ['teamNameLogo', 'infoText'],
+  name: "NFLDraftInfo",
+  props: ['teamNameLogo', 'infoText', 'grade'],
 }
 </script>
 
 <style lang="scss">
+  .app--nfl {
+    .draft-info {
+      &__content{
+        p{
+          @include player-card-body;
+          &:last-of-type{
+            margin-bottom:0;
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<style lang="scss" scoped>
   .draft-info{
     // position:absolute;
     // border:1px solid $darkmediumgray;
@@ -24,10 +45,13 @@ export default {
     z-index:0;
     color:$black;
     // visibility:hidden;
+
+    
     
     @include mobile{
       background:$lightgray;
       padding:15px 20px 30px;
+      margin-top:-20px;
       .player-card--expanded{
         padding:15px 20px 20px;
       }
@@ -38,6 +62,19 @@ export default {
       margin-bottom:12px;
       display:block;
       @include expanded-label;
+      display:flex;
+      align-items:center;
+      .grade{
+        padding:6px 8px 4px;
+        margin-left:10px;
+        margin-bottom:2px;
+        border-radius: 4px;
+        background:$highlight2;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        color:white;
+      }
     }
     &__content{
       @include player-card-body;

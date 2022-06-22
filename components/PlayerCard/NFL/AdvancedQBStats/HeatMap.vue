@@ -1,32 +1,32 @@
 <template>
   <div class="heat-map">
-    <h5>Accuracy Heat Map</h5>
-    <div
-      v-for="row in mapRows"
-      :key="row.label"
-      class="heat-map__row"
-    >
+    <h5>Pinpoint % Heat Map</h5>
+    <div class="heat-map__inner">
       <div
-        v-for="(cell, index) in row.cells"
-        :key="`${row.label}-${index}`"
-        class="heat-map__cell"
-        :style="{ backgroundColor: cell.color }"
+        v-for="row in mapRows"
+        :key="row.label"
+        class="heat-map__row"
       >
-        <div class="heat-map__cell-content">
-          <div>
-            <img src="@/assets/img/emoji/compact.png" alt="" />
-            <span class="heat-map__cell-content__accuracy">{{ cell.accuracy }}%</span>
+        <div
+          v-for="(cell, index) in row.cells"
+          :key="`${row.label}-${index}`"
+          class="heat-map__cell"
+          :style="{ backgroundColor: `rgba(22, 104, 86, ${cell.accuracy/100 + 0.2})` }"
+        >
+          <div class="heat-map__cell-content">
+            <div>
+              <img
+                :src="getImgUrl(cell.emoji)"
+                alt=""
+              >
+              <span class="heat-map__cell-content__accuracy">{{ cell.accuracy }}%</span>
+            </div>
           </div>
         </div>
+        <div class="heat-map__label">
+          <span>{{ row.label }}</span>
+        </div>
       </div>
-      <div class="heat-map__label">
-        <span>{{ row.label }}</span>
-      </div>
-    </div>
-    <div class="heat-map__labels">
-      <span>Left</span>
-      <span>Center</span>
-      <span>Right</span>
     </div>
   </div>
 </template>
@@ -46,33 +46,33 @@ export default {
         {
           label: '20+',
           cells: [
-            ['20_left_attempts', '20_left_accuracy'],
-            ['20_center_attempts', '20_center_accuracy'],
-            ['20_right_attempts', '20_right_accuracy'],
+            "20_left_accuracy",
+            '20_center_accuracy',
+            '20_right_accuracy',
           ]
         }, 
         {
           label: '10-19',
           cells: [
-            ['teens_left_attempts', 'teens_left_accuracy'],
-            ['teens_center_attempts', 'teens_center_accuracy'],
-            ['teens_right_attempts', 'teens_right_accuracy'],
+            'teens_left_accuracy',
+            'teens_center_accuracy',
+            'teens_right_accuracy',
           ]
         },
         {
           label: '0-9',
           cells: [
-            ['ones_left_attempts', 'ones_left_accuracy'],
-            ['ones_center_attempts', 'ones_center_accuracy'],
-            ['ones_right_attempts', 'ones_right_accuracy'],
+            'ones_left_accuracy',
+            'ones_center_accuracy',
+            'ones_right_accuracy',
           ]
         },
         {
           label: '<0',
           cells: [
-            ['negative_left_attempts', 'negative_left_accuracy'],
-            ['negative_center_attempts', 'negative_center_accuracy'],
-            ['negative_right_attempts', 'negative_right_accuracy'],
+            'negative_left_accuracy',
+            'negative_center_accuracy',
+            'negative_right_accuracy',
           ]
         }
       ],
@@ -80,14 +80,17 @@ export default {
     }
   },
   watch: {
-    mapRows() {
-      console.log(this.mapRows);
+    heatMapData() {
+      this.setHeatMapData();
     }
   },
   mounted() {
     this.setHeatMapData();
   },
   methods: {
+    getImgUrl(emoji) {
+      return require(`@/assets/img/emoji/${emoji ? emoji : 'bad'}.png`);
+    },
     getColor(accuracy) {
       switch(true) {
         case (accuracy < 10):
@@ -118,19 +121,19 @@ export default {
       this.mapRows = this.rows.map(row => {
         return {
           label: row.label,
-          cells: row.cells.map((cells, index) => {
-            const attempts = self.heatMapData[cells[0]];
-            const accuracy = self.heatMapData[cells[1]];
-            const color = self.getColor(accuracy);
+          cells: row.cells.map((cell, index) => {
+            const accuracy = self.heatMapData[cell];
+            const color = self.heatMapData[cell + '_color'];
+            const emoji = self.heatMapData[cell + '_emoji'];
             return {
-              attempts,
               accuracy,
-              color
+              color,
+              emoji
             }
           })
         }
       });
-    }
+    },
   }
 }
 </script>
@@ -138,25 +141,38 @@ export default {
 .heat-map{
   display:flex;
   flex-direction:column;
+  align-items:flex-end;
+  @include single-column{
+    align-items:flex-start;
+  }
   h5{
     @include advanced-section-label;
+    width:240px;
+    @include single-column {
+      width:100%;
+    }
+  }
+  &__inner{
+    position:relative;
+    width:240px;
+    @include single-column {
+      width:calc(100% - 20px);
+
+    }
   }
   &__row{
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-start;
     align-items:center;
     position:relative;
     padding-right:0;
-    &:nth-of-type(2){
-      .heat-map__label{
-        margin-left:-5px;
-        span{}
-      }
-    }
   }
   &__cell{
     position:relative;
-    width:calc(33.333%);
+    width:80px;
+    @include single-column {
+      width:calc(33.333%);
+    }
     background:$highlight2-light;
     &:after{
 
@@ -173,13 +189,16 @@ export default {
         flex-direction:column;
         align-items:center;
         img{
-          width:20px;
+          width:14px;
           vertical-align:bottom;
+          margin-top:3px;
+          margin-bottom:5px;
         }
       }
       &__accuracy{
         opacity:1;
         transition:all 0.25s ease-in-out 0.25s;
+        font-size:14px;
       }
       &__attempts{
         top:calc(50% + 10px);
@@ -191,7 +210,7 @@ export default {
       content:'';
       display:block;
       width:100%;
-      padding-top:71%;
+      padding-top:60px;
     }
   }
   &__label{
@@ -199,17 +218,18 @@ export default {
     top:0;
     bottom:0;
     left:calc(100% + 10px);
-    text-align:center;
+    text-align:left;
     vertical-align:bottom;
+    width:30px;
     display:flex;
     align-items:center;
-    justify-content:center;
+    justify-content:flex-start;
+    @include advanced-bar-label;
     span{
       display:block;
-      height:0px;
       white-space:nowrap;
       line-height:1;
-      transform:rotate(90deg);
+      // transform:rotate(90deg);
       @include advanced-heatmap-label;
     }
     

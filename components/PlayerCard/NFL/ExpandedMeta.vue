@@ -1,33 +1,95 @@
 <template>
-  <div class="player-card__expanded-meta">
-    <div class="player-card__expanded-meta-section">
-      <div class="player-card__expanded-label">SCOUTING REPORT</div>
-      <div class="player-card__expanded-value" v-html="player.deep_dives.scouting_report"></div>
+  <div
+    class="player-card__expanded-meta"
+    :class="{'player-card__expanded-meta--qb' : expanded}"
+  >
+    <div
+      class="player-card__expanded-meta-section"
+    >
+      <div class="player-card__expanded-label">
+        SCOUTING REPORT BY DANNY KELLY
+      </div>
+      <div
+        class="player-card__expanded-value"
+        v-html="player.deep_dives.scouting_report"
+      />
     </div>
-    <div class="player-card__expanded-meta-section">
-      <div class="player-card__expanded-label">WHY HE COULD RISE</div>
-      <div class="player-card__expanded-value" v-html="player.deep_dives.why_rise"></div>
+    <div
+      class="player-card__expanded-meta-section"
+    >
+      <div class="player-card__expanded-label">
+        WHY HE COULD RISE
+      </div>
+      <div
+        class="player-card__expanded-value"
+        v-html="player.deep_dives.why_rise"
+      />
     </div>
-    <div class="player-card__expanded-meta-section">
-      <div class="player-card__expanded-label">WHY HE COULD FALL</div>
-      <div class="player-card__expanded-value player-card__expanded-value--last" v-html="player.deep_dives.why_fall"></div>
+    <div
+      class="player-card__expanded-meta-section"
+    >
+      <div class="player-card__expanded-label">
+        WHY HE COULD FALL
+      </div>
+      <div
+        class="player-card__expanded-value player-card__expanded-value--last"
+        v-html="player.deep_dives.why_fall"
+      />
     </div>
   </div>
 </template>
 <script>
 export default {
-  props: ['player']
+  name: "NFLExpandedMeta",
+  props: ['player', 'expanded']
 }
 </script>
 
 <style lang="scss">
   .player-card{
+    .app--nfl & {
+      &__expanded-meta{
+        &-section{
+          p{
+          &:last-of-type{
+            margin-bottom:30px;
+          }
+        }
+        }
+      }
+      &__expanded-value{
+        > p {
+          @include player-card-body;
+                      margin-bottom:15px;
+
+          a{
+            text-decoration:underline;
+          }
+        }
+        &--last{
+          > p{
+            &:last-of-type{
+              margin-bottom:0;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<style lang="scss" >
+  .player-card{
+    .app--nfl & {
     &__expanded-meta{
       position:relative;
       display:flex;
       flex-direction:column;
       margin: 0;
       padding:3px 0 60px;
+      &--qb{
+        padding:3px 0 30px;
+      }
       .mock-draft & {
         padding-top:30px;
       }
@@ -46,11 +108,7 @@ export default {
         // }
       }
       &-section{
-        p{
-          &:last-of-type{
-            margin-bottom:30px;
-          }
-        }
+        
         @include mobile{
           margin-bottom:20px;
           &:last-of-type{
@@ -65,6 +123,7 @@ export default {
     &__expanded-value{
       > p {
         @include player-card-body;
+        margin-bottom:15px;
         a{
           text-decoration:underline;
         }
@@ -72,10 +131,11 @@ export default {
       &--last{
         > p{
           &:last-of-type{
-            margin-bottom:0;
+            margin-bottom:15px;
           }
         }
       }
     }
+  }
   }
 </style>

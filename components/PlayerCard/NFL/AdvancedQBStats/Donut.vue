@@ -10,7 +10,7 @@
         unit="%"
         :thickness="40"
         :sections="sections"
-        :total="100"
+        :total="101"
         @section-mouseenter="handleMousEnter"
         @section-mouseleave="handleMousLeave"
       />
@@ -64,6 +64,7 @@
         showToolTip: true,
         sections: null,
         selected: {},
+        total: 0,
         labels: {
           take_a_sack: 'Take a Sack',
           unchartable: 'Unchartable',
@@ -115,10 +116,23 @@
         }, 500);
       },
       setSections() {
-        const sects = Object.keys(this.donutData).map(key => {
+                let total = 0;
+
+        const filteredData = ["escape_pressure", "scramble", "stand_and_deliver", "take_a_sack", "unchartable"].map((key) => {
+          total += parseFloat(this.donutData[key]);
+          return {value: parseFloat(this.donutData[key]), id: key};
+        })
+        this.total = total;
+        const sortedData = [...filteredData].sort((a,b) => {
+          return a.value > b.value ? 1 : -1;
+        })
+
+        
+        const sects = sortedData.map(datum => {
           return {
-            label: this.labels[key],
-            value: parseInt(this.donutData[key], 10),
+            label: this.labels[datum.id],
+            value: datum.value,
+            color: this.donutData[`${datum.id}_color`],
           };
         });
         this.sections = sects;

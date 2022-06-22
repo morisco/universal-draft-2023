@@ -1,21 +1,24 @@
 <template>
-  <nav class="mobile-navigation" 
-    id="mobile-navigation"
-    ref="nav" 
+  <nav
+    id="mobile-navigation" 
+    ref="nav"
+    class="mobile-navigation" 
     :class="{
       'mobile-navigation--sticky': fixed,
       'mobile-navigation--expanded': open
     }" 
   >
     <div class="mobile-navigation__sticky">
-      <MobileNavToggleBar :toggleNavigation="toggleNavigation" />
+      <MobileNavToggleBar :toggle-navigation="toggleNavigation" />
       <div class="mobile-navigation__sticky-content">
-        <MobileNavLists v-on:toggle-navigation="toggleNavigation" v-on:reset-list="$emit('reset-list')" />
+        <MobileNavLists
+          @toggle-navigation="toggleNavigation"
+          @reset-list="$emit('reset-list')"
+        />
         <Filters />
       </div>
     </div>
-    <div class="mobile-navigation__ghost">
-    </div>
+    <div class="mobile-navigation__ghost" />
   </nav>  
 </template>
 
@@ -26,7 +29,9 @@ import MobileNavLists from './MobileNavLists.vue'
 import Filters from '~/components/Filters'
 
 export default {
+  name: "MobileNavigationNFL",
   components: { MobileNavToggleBar, MobileNavLists, Filters },
+  emits: ['reset-list', 'unlock-scroll', 'lock-scroll'],
   data () {
     return {
       fixed: false,
@@ -40,13 +45,27 @@ export default {
     },
     viewDepth() {
       return this.$store.getters['viewOptions/depth'];
+    },
+    teamSort() {
+      return this.$store.getters['viewOptions/teamSort'];
+    }
+  },
+  watch:{
+    viewPosition() {
+      this.toggleNavigation();
+    },
+    viewDepth() {
+      this.toggleNavigation();
+    },
+    teamSort() {
+      this.toggleNavigation();
     }
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll, {passive: true});
     this.handleScroll();
   },
-  destroyed() {
+  unmounted() {
     window.removeEventListener('scroll', this.handleScroll);
     clearTimeout(this.openTimeout);
   },
@@ -70,14 +89,6 @@ export default {
         }
         this.open = !this.open
       }, this.fixed ? 0 : 500);
-    }
-  },
-  watch:{
-    viewPosition() {
-      this.toggleNavigation();
-    },
-    viewDepth() {
-      this.toggleNavigation();
     }
   }
 }
@@ -108,6 +119,11 @@ export default {
     border-color: $black;
     overflow:hidden;
     z-index:2;
+    .app--nba & {
+      left:0;
+      right:0;
+      border-radius:0;
+    }
   }
   &__sticky-content{
     max-height:0;

@@ -1,6 +1,6 @@
 <template>
   <div class="situational-accuracy">
-    <h5>Situational Accuracy</h5>
+    <h5>Situational Pinpoint %</h5>
     <!-- <Dropdown
       v-if="selectedOption.name"
       class="situational-accuracy__dropdown"
@@ -18,28 +18,31 @@
         @enter="onEnter" 
         @leave="onLeave"
       > -->
-        <template
-          v-for="(situation) in situations"
+      <template
+        v-for="(situation) in situations"
+      >
+        <div
+          :key="situation.label"
+          class="situational-accuracy__situation"
         >
+          <h6>{{ situation.label }}</h6>
           <div
-            :key="situation.label"
-            class="situational-accuracy__situation"
+            v-for="(chart) in situation.charts"
+            :key="`${chart.label}-${chart.percentage}`"
+            class="situational-accuracy__situation__chart"
           >
-            <h6>{{situation.label}}</h6>
-            <div
-              v-for="(chart) in situation.charts"
-              :key="`${chart.label}-${chart.percentage}`"
-              class="situational-accuracy__situation__chart"
-            >
-              <div class="situational-accuracy__situation__chart__percentage">
-                <div class="situational-accuracy__situation__chart__percentage__bar" :style="{ maxWidth: `${chart.percentage}%` }">
-                  {{ chart.label }}
-                </div>
-                <span>{{ chart.percentage }}%</span>
+            <div class="situational-accuracy__situation__chart__percentage">
+              <div
+                class="situational-accuracy__situation__chart__percentage__bar"
+                :style="{ maxWidth: `calc(${chart.percentage}% + 15px)` }"
+              >
+                {{ chart.label }}
               </div>
+              <span class="percentage">{{ chart.percentage }}%</span>
             </div>
           </div>
-        </template>
+        </div>
+      </template>
       <!-- </TransitionGroup> -->
     </div>
   </div>
@@ -108,7 +111,6 @@ export default {
       }, 375);
     },
     setSituations() {
-      console.log(this.situations);
       this.options = this.situations.map(situation => {
         return {
           name: situation.label
@@ -142,12 +144,13 @@ export default {
       position:relative;
       height:auto;
       width:100%;
+      margin-top:-5px;
     }
     &__situation{
       display:flex;
       flex-direction:column;
       width:100%;
-      margin-bottom:10px;
+      margin-bottom:7px;
 
       &__chart{
         display:flex;
@@ -163,7 +166,7 @@ export default {
           }
         }
         &__label{
-          @include player-card-body;
+          // @include player-card-body;
           margin-bottom:0;
           width:auto;
           margin-left:15px;
@@ -175,17 +178,22 @@ export default {
           align-items:center;
           flex:1;
           margin-bottom:2px;
-          
+          .percentage {
+              @include advanced-bar-label;
+              padding-bottom:1px;
+            }
           &__bar{
             color:white;
             width:100%;
-            height:20px;
-            padding-left:8px;
-            margin-right:10px;
+            height:17px;
+            padding-left:5px;
+            margin-right:5px;
             white-space:nowrap;
             font-size:14px;
-            padding-top:0px;
-            min-width:110px;
+            padding-top:2px;
+            // min-width:110px;
+            @include advanced-bar-label;
+            
             &__fill{
               height:100%;
               width:100%;

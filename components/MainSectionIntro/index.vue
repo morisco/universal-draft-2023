@@ -1,44 +1,68 @@
 <template>
-<div class="main-section__intro">
-  <h3 v-html="introData.headline"></h3>
-  <div class="main-section__intro-content" v-if="type !== 'team_needs'" v-html="introData.content"></div>
-  <p class="main-section__intro-link" v-on:click="scrollToTop" v-if="introData.linkText">
-    <NuxtLink :to="introData.link">{{introData.linkText}}</NuxtLink>
-  </p>
-</div>
+  <div class="main-section__intro">
+    <h3 v-html="introData.headline" />
+    <div
+      v-if="type !== 'team_needs'"
+      class="main-section__intro-content"
+      v-html="introData.content"
+    />
+    <p
+      v-if="introData.linkText"
+      class="main-section__intro-link"
+      @click="scrollToTop"
+    >
+      <NuxtLink :to="introData.link">
+        {{ introData.linkText }}
+      </NuxtLink>
+    </p>
+     <TransitionGroup
+        tag="div"
+        @before-enter="onBeforeMainEnter"
+        @enter="onMainEnter"
+        @leave="onMainLeave"
+      >
+        <div class="qb-intro" key="qb-intro" v-if="activePosition === 'qb'" ref="qbIntro" v-html="qbNote" />
+      </TransitionGroup>
+  </div>
 </template>
 
 <script>
+  import gsap from 'gsap';
+
 import { scrollIt } from '~/plugins/scroller';
 export default {
+  name: "MainSectionIntro",
   props: ['type'],
   computed: {
+    activePosition () {
+      return this.$store.getters['viewOptions/position']
+    },
     introData() {
       switch(this.type){
         case 'big_board':
           return {
-            headline: '<strong>Big Board</strong> By Danny Kelly',
+            headline: `<strong>Big Board</strong> By ${this.league === 'nfl' ? "Danny Kelly" : "Kevin O'Connor"}`,
             content: this.$store.getters['page/settings'].big_board_intro,
             link: '/mock-draft',
             linkText: this.$store.getters['page/settings'].big_board_link,
           }
         case 'mock_draft':
           return {
-            headline: '<strong>Mock Draft</strong> By Danny Kelly',
+            headline: `<strong>Mock Draft</strong> By ${this.league === 'nfl' ? "Danny Kelly" : "Kevin O'Connor"}`,
             content: this.$store.getters['page/settings'].mock_draft_intro,
             link: '/',
             linkText: this.$store.getters['page/settings'].mock_draft_link,
           }
         case 'team_needs':
           return {
-            headline: '<strong>Team Needs</strong>',
+            headline: `<strong>Team Needs</strong> ${this.league === 'nfl' ? "" : "By Matt Dollinger"}`,
             content: this.$store.getters['page/settings'].team_needs_intro,
             link: '/mock-draft',
             linkText: this.$store.getters['page/settings'].team_needs_link,
           }
         case 'draft_grades':
           return {
-            headline: '<strong>Draft Grades</strong> By Danny Kelly',
+            headline: `<strong>Draft Grades</strong> ${this.league === 'nfl' ? "By Danny Kelly" : "By Kevin O'Connor"}`,
             content: this.$store.getters['page/settings'].draft_results_intro,
             link: '/big-board',
             linkText: this.$store.getters['page/settings'].draft_results_link,
@@ -51,9 +75,37 @@ export default {
             linkText: ''
           }
       }
-    }
+    },
+    qbNote() {
+      return this.$store.getters['page/settings'].qb_note.trim()
+    },
+    league() {
+      return process.env.PROJECT_LEAGUE.toLowerCase()
+    },
   },
   methods: {
+    onBeforeMainEnter(el) {
+      gsap.set(el, {
+        opacity: 0,
+        maxHeight:0
+      });
+    },
+    onMainEnter(el, done) {
+      gsap.to(el, {
+        opacity: 1,
+        maxHeight:el.scrollHeight,
+        onComplete: done,
+        delay: 0.125
+      });
+    },
+    onMainLeave(el, done) {
+      gsap.to(el, {
+        opacity: 0,
+        maxHeight:0,
+        duration: 0.25,
+        onComplete: done,
+      });
+    },
     scrollToTop() {
       var offset = this.$mq === 'mobile' ? document.getElementById('mobile-navigation').offsetTop + 4 : document.getElementById('navigation').offsetTop + 4
       scrollIt(offset, 500);
@@ -65,12 +117,28 @@ export default {
 <style lang="scss">
 .main-section__intro{
   margin-bottom:70px;
+  .team-needs & {
+    margin-bottom:30px;
+  }
+  .app--nba & {
+    margin-bottom:45px;
+    @include mobile{
+      padding:0 30px;
+    }
+  }
   h3{
     text-transform:uppercase;
     font-weight:300;
     margin-bottom:15px;
     strong{
       font-weight:normal;
+    }
+    .app--nba & {
+      font-family: "GT America Condensed";
+      font-size: 32px;
+      strong{
+        font-weight: 500;
+      }
     }
   }
   h2{
@@ -109,6 +177,19 @@ export default {
       // color:$highlight2;
       color:$darkmediumgray;
       text-decoration:underline;
+    }
+  }
+  .qb-intro{
+    opacity:0;
+    max-height:0;
+    p{
+      font-style:italic;
+      @include non-mobile{
+        max-width:78%;
+      }
+      &:last-of-type{
+        margin-bottom:0;
+      }
     }
   }
 }

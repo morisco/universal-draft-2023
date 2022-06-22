@@ -1,23 +1,70 @@
 <template>
-  <div class="player-card__image-column"  :style="{'maxHeight': collapsed && !expanded ? 0 : maxHeight + 'px', 'minHeight' : maxHeight || collapsed ? 0 : null}">
-    <div class="player-card__image-column-inner" ref="imageColumn"> 
-      <div class="player-card__image-column-img-wrapper" :style="{'maxHeight': topHeight + 'px'}"> 
-        <img :src="player.image" :alt="player.imageAlt" />
-        <img src="@/assets/img/icons/offense-o-2021.svg" v-if="player.offenseDefense === 'offense'" class="player-x-o" data-not-lazy />
-        <img src="@/assets/img/icons/defense-x-2021.svg" v-if="player.offenseDefense === 'defense'" class="player-x-o" data-not-lazy />
+  <div
+    class="player-card__image-column"
+    :style="{'maxHeight': collapsed && !expanded ? 0 : maxHeight + 'px', 'minHeight' : maxHeight || collapsed ? 0 : null}"
+  >
+    <div
+      ref="imageColumn"
+      class="player-card__image-column-inner"
+    > 
+      <div
+        class="player-card__image-column-img-wrapper"
+        :style="{'maxHeight': topHeight + 'px'}"
+      > 
+        <img
+          :src="player.image"
+          :alt="player.imageAlt"
+        >
+        <img
+          v-if="player.offenseDefense === 'offense'"
+          src="@/assets/img/icons/offense-o-2021.svg"
+          class="player-x-o"
+          data-not-lazy
+        >
+        <img
+          v-if="player.offenseDefense === 'defense'"
+          src="@/assets/img/icons/defense-x-2021.svg"
+          class="player-x-o"
+          data-not-lazy
+        >
       </div>
       <div class="player-card__image-column-content">
-        <DraftTeam :teamNameLogo="teamNameLogo" v-if="teamNameLogo && ['order_mockdraft', 'order_draftresults'].indexOf(rankKey) >= 0" :infoHeight="infoHeight" />
+        <DraftTeam
+          v-if="teamNameLogo && ['order_mockdraft', 'order_draftresults'].indexOf(rankKey) >= 0"
+          :team-name-logo="teamNameLogo"
+          :info-height="infoHeight"
+        />
         <div v-if="$mq !== 'mobile'">
           <Stats :player="fullPlayer" />
-          <VideoThumb :playVideo="playVideo" :videoSettings="videoSettings" :playerVideo="playerVideo" :activeCard="activeCard" v-if="playerVideo" v-on:resetVideoSettings="$emit('resetVideoSettings')" />
-          <PodcastCardPlayer v-if="player.player_podcast && $mq !== 'mobile'" :playerId="playerId" :playerPodcast="player.player_podcast" :player="player" :infoHeight="topHeight" :podcast="player.player_podcast" />
-          <RelatedArticles :articles="fullPlayer.player_articles" v-if="fullPlayer.player_articles" />
+          <CombineResults :results="player.combine_results" />
+          <VideoThumb
+            v-if="playerVideo"
+            :play-video="playVideo"
+            :video-settings="videoSettings"
+            :player-video="playerVideo"
+            :active-card="activeCard"
+            @reset-video-settings="$emit('reset-video-settings')"
+          />
+          <PodcastCardPlayer
+            v-if="player.player_podcast && $mq !== 'mobile'"
+            :player-id="playerId"
+            :player-podcast="player.player_podcast"
+            :player="player"
+            :info-height="topHeight"
+            :podcast="player.player_podcast"
+          />
+          <RelatedArticles
+            v-if="fullPlayer.player_articles"
+            :articles="fullPlayer.player_articles"
+          />
         </div>
       </div>
     </div>
-    <div class="player-card__rank" v-if="$mq === 'mobile'">
-      <span>{{rank+1}}</span>
+    <div
+      v-if="$mq === 'mobile'"
+      class="player-card__rank"
+    >
+      <span>{{ rank+1 }}</span>
     </div>
   </div>
 </template>
@@ -26,11 +73,14 @@
 import DraftTeam from '../DraftTeam'
 import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import VideoThumb from '../VideoThumb'
+import CombineResults from '../CombineResults.vue';
 import RelatedArticles from '../RelatedArticles'
 import Stats from '../Stats';
 export default {
+  name: "NFLImageColumn",
+  components: {DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles, Stats, CombineResults},
   props: ['playerId', 'collapsed', 'rank', 'infoHeight', 'rankKey', 'topHeight', 'playVideo', 'setImageColHeight', 'expanded', 'videoSettings', 'activeCard'],
-  components: {DraftTeam, PodcastCardPlayer, VideoThumb, RelatedArticles, Stats},
+  emits: ['reset-video-settings'],
   data() {
     return {
       maxHeight: false
@@ -49,7 +99,8 @@ export default {
         imageAlt: playerData.title,
         results_via: playerData.results_via,
         title: playerData.title,
-        player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false
+        player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false,
+        combine_results: playerData.combine_results
       }
     },
     teamNameLogo () {
@@ -57,18 +108,6 @@ export default {
     },
     playerVideo() {
       return this.fullPlayer.player_video && this.fullPlayer.player_video.video_id ? this.fullPlayer.player_video : false
-    }
-  },
-  methods: {
-    setHeights() {
-      if(this.expanded) {
-        let interiorHeight = 30;
-        this.$refs.imageColumn.children.forEach((child) => interiorHeight += child.offsetHeight);
-        this.setImageColHeight(interiorHeight);
-        this.maxHeight = this.$mq === 'mobile' ? 250 : interiorHeight;
-      } else {
-        this.maxHeight = this.$mq === 'mobile' ? 250 : this.topHeight;
-      }
     }
   },
   watch:{
@@ -86,10 +125,22 @@ export default {
     '$mq'() {
       this.setHeights();
     }
+  },
+  methods: {
+    setHeights() {
+      if(this.expanded) {
+        let interiorHeight = 30;
+        this.$refs.imageColumn.children.forEach((child) => interiorHeight += child.offsetHeight);
+        this.setImageColHeight(interiorHeight);
+        this.maxHeight = this.$mq === 'mobile' ? 250 : interiorHeight;
+      } else {
+        this.maxHeight = this.$mq === 'mobile' ? 250 : this.topHeight;
+      }
+    }
   }
 }
 </script>
 
-<style lang="scss">
-  @import './style.scss'
+<style lang="scss" scoped>
+  @import './style.scss';
 </style>

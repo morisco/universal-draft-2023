@@ -63,8 +63,7 @@ export default {
   buildModules: [
     '@nuxtjs/moment',
     ['@nuxtjs/dotenv', { 
-      filename: '.env.staging',
-      // filename: '.env' 
+      filename: '.env' 
     }],
     // '@nuxtjs/google-analytics',
   ],
@@ -80,7 +79,9 @@ export default {
   //     sendHitTask: true
   //   }
   // },
-
+  // server: {
+  //   host: '0.0.0.0' // default: localhost
+  // },
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     '@nuxtjs/style-resources',

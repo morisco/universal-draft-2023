@@ -20,6 +20,35 @@ const state = () => ({
   pods: [],
 })
 
+const filterPlayers = (state, allIds, selectedPosition, selectedStrengths) => {
+  const activePositionArray = positionMap[selectedPosition];
+  let filteredPlayers = allIds.filter((playerId) => {
+    const position = state.playerData[playerId].position;
+    if(selectedPosition === 'all'){
+      return playerId;
+    } else {
+      if(!activePositionArray || activePositionArray.indexOf(position) >= 0){
+        return playerId;
+      }
+    }
+  })
+  
+  filteredPlayers = filteredPlayers.filter((playerId) => {
+    if(!selectedStrengths || selectedStrengths.length === 0){
+      return playerId
+    } else {
+      const badges = state.playerData[playerId].badges || [];
+      const badgeIndex = badges.findIndex((badge) => {
+        return selectedStrengths.indexOf(badge.badge) >= 0;
+      });
+      if(badgeIndex >= 0){
+        return playerId;
+      }
+    }
+  });
+  return filteredPlayers;
+}
+
 // getters
 const getters = {
   podcastInters: (state => state.podcast_inters),
@@ -28,44 +57,14 @@ const getters = {
   teamPlayer: (state) => (playerId) => {
     return state.teamPlayers[playerId]
   },
-  bigBoard: (state) => (selectedPosition) => {
-    const activePositionArray = positionMap[selectedPosition];
-    return state.bigBoard.filter((playerId) => {
-      const position = state.playerData[playerId].position;
-      if(selectedPosition === 'all'){
-        return playerId;
-      } else {
-        if(activePositionArray.indexOf(position) >= 0){
-          return playerId;
-        }
-      }
-    })
+  bigBoard: (state) => (selectedPosition, selectedStrength) => {
+    return filterPlayers(state, state.bigBoard, selectedPosition, selectedStrength);
   },
-  mockDraft: (state) => (selectedPosition) => {
-    const activePositionArray = positionMap[selectedPosition];
-    return state.mockDraft.filter((playerId) => {
-      const position = state.playerData[playerId].position;
-      if(selectedPosition === 'all'){
-        return playerId;
-      } else {
-        if(activePositionArray.indexOf(position) >= 0){
-          return playerId;
-        }
-      }
-    })
+  mockDraft: (state) => (selectedPosition, selectedStrength) => {
+    return filterPlayers(state, state.mockDraft, selectedPosition, selectedStrength);
   },
-  draftResults: (state) => (selectedPosition) => {
-    const activePositionArray = positionMap[selectedPosition];
-    return state.draftResults.filter((playerId) => {
-      const position = state.playerData[playerId].position;
-      if(selectedPosition === 'all'){
-        return playerId;
-      } else {
-        if(activePositionArray.indexOf(position) >= 0){
-          return playerId;
-        }
-      }
-    })
+  draftResults: (state) => (selectedPosition, selectedStrength) => {
+    return filterPlayers(state, state.draftResults, selectedPosition, selectedStrength);
   },
   playerByShare: (state) => (shareId) => {
     var sharedPlayerId = Object.keys(state.playerData).find((id) => {
@@ -110,7 +109,7 @@ const getters = {
 
 // actions
 const actions = {
-  getContents ({commit}) {
+  getContents ({commit}, { teams }) {
     var d = new Date();
     var t = d.getTime();
     axios.get("https://storage.googleapis.com/" + process.env.GCS_BUCKET + "/hardrefresh/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
@@ -124,9 +123,9 @@ const actions = {
       const contents = response.data.contents;
       const processedPlayers = processPlayers(contents.players.content);
       const processedInters = processInterstitials(contents);
-      const processedTeams = processTeams(contents.teams.content, processedPlayers.teamPlayers);
+      const processedTeams = processTeams(contents.teams.content, processedPlayers.teamPlayers, teams);
       const processedRelated = processRelated(contents.coverage.content);
-      commit('setPodcastsData', contents.podcast.content)
+      commit('setPodcastsData', contents.podcast ? contents.podcast.content : [])
       commit('setInterstitialData', processedInters);
       commit('setPlayerData', processedPlayers)
       commit('setTeamData', processedTeams)

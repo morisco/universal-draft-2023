@@ -1,12 +1,31 @@
 <template>
   <div class="player-card__advanced-qb-stats__stat-cards">
     <h5>Advanced Stats</h5>
-    <div class="card" v-for="card in cards" :key="card.label">
+    <<<<<<< HEAD
+    <div
+      v-for="card in cards"
+      :key="card.label"
+      class="card"
+    >
       <div class="card__value">
-        {{card.value}}
+        {{ card.value }}
       </div>
       <div class="card__label">
-        {{card.label}}
+        {{ card.label }}
+        =======
+        <div
+          v-for="card in cards"
+          :key="card.label"
+          class="card"
+        >
+          <div class="card__value">
+            {{ card.value }}
+          </div>
+          <div class="card__label">
+            {{ card.label }}
+            >>>>>>> nfl
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -26,40 +45,23 @@ export default {
     }
   },
   mounted() {
-    console.log(this.statData);
     this.setCards();
   },
   methods: {
     setCards() {
       const labels = {
-        "accuracy_percentage": "Accuracy %",
-        "air_yards_per_attempt": "Air Yards Per Attempt",
+        "accuracy_percentage": "Pinpoint %",
+        "air_yards_per_attempt": "Air Yards per Attempt",
         "drop_percentage": "Drop %",
         "interceptable_percentage": "Interceptable %",
         "yac_percentage": "YAC %",
       }
-      this.cards = [
+      this.cards = Object.keys(labels).map((key) => (
         {
-          label: labels.accuracy_percentage,
-          value: this.statData.accuracy_percentage,
-        },
-        {
-          label: labels.air_yards_per_attempt,
-          value: this.statData.air_yards_per_attempt,
-        },
-        {
-          label: labels.drop_percentage,
-          value: this.statData.drop_percentage,
-        },
-        {
-          label: labels.interceptable_percentage,
-          value: this.statData.interceptable_percentage
-        },
-        {
-          label: labels.yac_percentage,
-          value: this.statData.yac_percentage,
-        },
-      ]
+          label: labels[key],
+          value: this.statData[key],
+        }
+      ));
     }
   }
 }
@@ -85,7 +87,15 @@ export default {
             display:flex;
             justify-content:center;
             align-items:center;
+            font-family: "Decima";
+    font-size: 26px;
+    line-height: .77;
+    font-weight: 300;
+padding-top:3px;
 
+          }
+          &__label{
+            @include advanced-situation-chart-label;
           }
         }
       }

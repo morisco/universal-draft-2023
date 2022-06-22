@@ -47,7 +47,7 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
       const contents = response.data.contents;
       const processedPlayers = processPlayers(contents.players.content);
       const processedInters = processInterstitials(contents);
-      const processedTeams = processTeams(contents.teams.content, processedPlayers.teamPlayers);
+      const processedTeams = processTeams(contents.teams.content, processedPlayers.teamPlayers, pageSettings.teams);
       const processedRelated = processRelated(contents.coverage.content);
       store.commit('content/setInterstitialData', processedInters);
       store.commit('content/setPlayerData', processedPlayers)

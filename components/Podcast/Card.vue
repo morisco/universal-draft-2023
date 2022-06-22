@@ -1,18 +1,42 @@
 <template>
   <div class="podcast-inter__item card-item">
-    <Topper :activePodcast="pod" :podPlaying="podPlaying || shouldPlay" :content="topperContent" />
-    <div class="card-item__description" v-html="pod.spotify_episodeDescription" />
+    <Topper
+      :active-podcast="pod"
+      :pod-playing="podPlaying || shouldPlay"
+      :content="topperContent"
+    />
+    <div
+      class="card-item__description"
+      v-html="pod.spotify_episodeDescription"
+    />
     <div class="card-item__controls">
-      <button type="button" v-on:click="handlePlayClick" class="sticky-play-pause">
-        <img v-if=" ((currentPod.id === pod.id && currentPod.type === 'full' && podPlaying) || shouldPlay)" src="~/assets/img/icons/pause.svg" />
-        <img v-if="(currentPod.id !== pod.id || currentPod.type !== 'full' || !podPlaying) && !shouldPlay" src="~/assets/img/icons/play.svg" />
+      <button
+        type="button"
+        class="sticky-play-pause"
+        @click="handlePlayClick"
+      >
+        <img
+          v-if=" (currentPod && (currentPod.id === pod.id && currentPod.type === 'full' && podPlaying) || shouldPlay)"
+          src="~/assets/img/icons/pause.svg"
+        >
+        <img
+          v-if="!currentPod || (currentPod.id !== pod.id || currentPod.type !== 'full' || !podPlaying) && !shouldPlay"
+          src="~/assets/img/icons/play.svg"
+        >
       </button>
       <span class="card-item__controls-duration">
-          {{format(pod.spotify_episodeDuration - currentTime)}}
-          <span>Play In-Page</span>
+        {{ format(pod.spotify_episodeDuration - currentTime) }}
+        <span>Play In-Page</span>
       </span>
-      <a :href="pod.spotify_episodeSpotify" target="_blank" class="card-item__controls-link">
-        <img src="~/assets/img/spotify-logo.png" alt="Spotify Logo" />
+      <a
+        :href="pod.spotify_episodeSpotify"
+        target="_blank"
+        class="card-item__controls-link"
+      >
+        <img
+          src="~/assets/img/spotify-logo.png"
+          alt="Spotify Logo"
+        >
       </a>
     </div>
   </div>
@@ -23,8 +47,9 @@ import { mapActions } from 'vuex'
 import Topper from '~/components/Podcast/Topper'
 
 export default {
-  props: ['pod'],
+  name: "PodcastCard",
   components: { Topper },
+  props: ['pod'],
   data() {
     return {
       shouldPlay: false,
@@ -44,9 +69,11 @@ export default {
     ...mapActions({
       'setCurrentPod': 'page/setCurrentPod',
       'setPlaying': 'page/setPlaying',
+      'setPodClicked': 'page/setPodClicked',
     }),
     handlePlayClick() {
-      if(this.currentPod.id === this.pod.id && this.currentPod.type === 'full') {
+      this.setPodClicked(true);
+      if(this.currentPod && this.currentPod.id === this.pod.id && this.currentPod.type === 'full') {
         if(!this.podPlaying) {
           this.shouldPlay = true;
           this.setPlaying(true);
@@ -97,11 +124,11 @@ export default {
         this.shouldPlay = false;
       }
       const self = this;
-      if(this.podPlaying && this.pod.id === this.currentPod.id && !this.currentPod.start) {
+      if(this.podPlaying && this.currentPod && this.pod.id === this.currentPod.id && !this.currentPod.start) {
         this.interval = setInterval(() => {
           self.currentTime = self.podTime
         }, 750);
-      } else if(!this.podPlaying && this.pod.id === this.currentPod.id) {
+      } else if(this.currentPod && !this.podPlaying && this.pod.id === this.currentPod.id) {
         clearInterval(this.interval);
       } else {
         clearInterval(this.interval);
@@ -119,6 +146,8 @@ export default {
       padding:30px 30px 30px;
       background:$lightgray;
       border-radius:8px;
+      display:flex;
+      flex-direction:column;
       .sticky-podcast__player-top{
         display:flex;
       }
@@ -151,6 +180,7 @@ export default {
       -webkit-box-orient: vertical;  
       overflow: hidden;
       margin:10px 0 10px;
+      flex:1;
       p{
         display: -webkit-box;
         @include player-card-body;

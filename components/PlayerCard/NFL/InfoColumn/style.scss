@@ -68,10 +68,14 @@
     }
     @include mobile {
       padding:0;
+      margin-bottom:30px;
       flex-direction:column;
       border-radius: 0 0 0.625rem 0.625rem;
       min-height:0;
       overflow:hidden;
+      .player-card--expanded & {
+        margin-bottom:0;
+      }
     }
   }
   &__meta-stats{
@@ -99,7 +103,7 @@
       }
     }
     @include non-mobile{
-      padding:0 30px;
+      padding:0 70px 0 30px;
     }
     @include tablet-portrait-only{
       padding:0 20px;
@@ -108,7 +112,7 @@
     @include mobile{
       background:$lightgray;
       padding-top:0;
-      padding-bottom:40px;
+      padding-bottom:20px;
       border-radius:0 0 0.625rem 0.625rem;
       .player-card--expanded & {
         margin-top:-15px;
@@ -119,14 +123,14 @@
       // }
       &-extended{
         padding:0 20px;
-        margin-top:30px;
+        margin-top:0;
         &:before{
           content:'';
           display:block;
           width:100%;
           height:1px;
-          background:#bdbdbd;
-          margin-bottom:30px;
+          background:$mediumgray;
+          margin-bottom:20px;
         }
       }
     }

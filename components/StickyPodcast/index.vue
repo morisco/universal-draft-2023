@@ -6,13 +6,32 @@
       'sticky-podcast--show-mobile': showMobile,
     }"
   >
-    <div class="sticky-podcast__trigger" v-if="activePodcast">
-      <a :href="activePodcast.spotify_episodeSpotify" target="_blank">
-        <img src="~/assets/img/icons/spotify.svg" alt="Spotify" />
+    <div
+      v-if="activePodcast"
+      class="sticky-podcast__trigger"
+    >
+      <a
+        :href="activePodcast.spotify_episodeSpotify"
+        target="_blank"
+      >
+        <img
+          src="~/assets/img/icons/spotify.svg"
+          alt="Spotify"
+        >
       </a>
     </div>
-    <div class="sticky-podcast__player" v-if="activePodcast">
-      <Topper :content="currentPod" :readyToPlay="readyToPlay" :activePodcast="activePodcast" :duration="duration" :podPlaying="podPlaying || shouldPlay" :playPause="togglePlay" />
+    <div
+      v-if="activePodcast"
+      class="sticky-podcast__player"
+    >
+      <Topper
+        :content="currentPod"
+        :ready-to-play="readyToPlay"
+        :active-podcast="activePodcast"
+        :duration="duration"
+        :pod-playing="podPlaying || shouldPlay"
+        :play-pause="togglePlay"
+      />
       <div
         class="sticky-podcast__player-mini-controls" 
         :class="{
@@ -21,44 +40,106 @@
         }"
       >
         <div class="mini-controls-inner">
-          <button class="mini-controls-back" type="button" v-on:click="skipBack">
-            <img src="~/assets/img/icons/skip-back.svg" alt="Skip Back" />
+          <button
+            class="mini-controls-back"
+            type="button"
+            @click="skipBack"
+          >
+            <img
+              src="~/assets/img/icons/skip-back.svg"
+              alt="Skip Back"
+            >
           </button>
-          <button class="mini-controls-forward" type="button" v-on:click="skipForward">
-            <img src="~/assets/img/icons/skip-forward.svg" alt="Skip Forward" />
+          <button
+            class="mini-controls-forward"
+            type="button"
+            @click="skipForward"
+          >
+            <img
+              src="~/assets/img/icons/skip-forward.svg"
+              alt="Skip Forward"
+            >
           </button>
           <div class="mini-controls-logo-meta">
-            <a :href="activePodcast.spotify_episodeSpotify" target="_blank">
-              <img src="~/assets/img/icons/spotify.svg" alt="Spotify" />
+            <a
+              :href="activePodcast.spotify_episodeSpotify"
+              target="_blank"
+            >
+              <img
+                src="~/assets/img/icons/spotify.svg"
+                alt="Spotify"
+              >
             </a>
             <div class="mini-controls-meta">
-              <button type="button" v-on:click="togglePlay" class="sticky-play-pause">
-                <img v-if="podPlaying || shouldPlay" src="~/assets/img/icons/pause.svg" />
-                <img v-if="!podPlaying && !shouldPlay" src="~/assets/img/icons/play.svg" />
+              <button
+                type="button"
+                class="sticky-play-pause"
+                @click="playClicked"
+              >
+                <img
+                  v-if="podPlaying || shouldPlay"
+                  src="~/assets/img/icons/pause.svg"
+                >
+                <img
+                  v-if="!podPlaying && !shouldPlay"
+                  src="~/assets/img/icons/play.svg"
+                >
               </button>
-              <div class="sticky-episode-title">{{ currentPod.title }}</div>
+              <div class="sticky-episode-title">
+                {{ currentPod.title }}
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="sticky-podcast__player-controls">
-        <button type="button" v-on:click="skipBack">
-          <img src="~/assets/img/icons/skip-back.svg" alt="Skip Back" />
+        <button
+          type="button"
+          @click="skipBack"
+        >
+          <img
+            src="~/assets/img/icons/skip-back.svg"
+            alt="Skip Back"
+          >
         </button>
-        <div class="sticky-podcast__player-controls-progress" v-on:click="progressClick">
+        <div
+          class="sticky-podcast__player-controls-progress"
+          @click="progressClick"
+        >
           <div class="sticky-podcast__player-controls-progress-inner">
-            <div class="sticky-podcast__player-controls-progress-bar" :style="{ maxWidth: progress + '%' }"></div>
+            <div
+              class="sticky-podcast__player-controls-progress-bar"
+              :style="{ maxWidth: progress + '%' }"
+            />
           </div>
         </div>
-        <button type="button" v-on:click="skipForward">
-          <img src="~/assets/img/icons/skip-forward.svg" alt="Skip Forward" />
+        <button
+          type="button"
+          @click="skipForward"
+        >
+          <img
+            src="~/assets/img/icons/skip-forward.svg"
+            alt="Skip Forward"
+          >
         </button>
       </div>
-              <div class="mini-controls-progress" :style="{'max-width': progress + '%'}" />
-
+      <div
+        class="mini-controls-progress"
+        :style="{'max-width': progress + '%'}"
+      />
     </div>
-    <audio preload="auto" ref="audioPlayer" v-on:canplay="audioCanPlay" v-on:timeupdate="watchTime" v-on:ended="podcastEnded"  data-not-lazy>
-      <source :src="activePodcast && activePodcast.spotify_episodeMP3" type="audio/mpeg">
+    <audio
+      ref="audioPlayer"
+      preload="auto"
+      data-not-lazy
+      @canplay="audioCanPlay"
+      @timeupdate="watchTime"
+      @ended="podcastEnded"
+    >
+      <source
+        :src="activePodcast && activePodcast.spotify_episodeMP3"
+        type="audio/mpeg"
+      >
     </audio>
   </div>
 </template>
@@ -69,17 +150,8 @@ import _ from 'lodash'
 import Topper from '~/components/Podcast/Topper.vue';
 
 export default {
+  name: "StickyPodcast",
   components: { Topper },
-  mounted() {
-    this.handleScroll();
-    window.addEventListener('scroll', this.handleScroll);
-    if(!this.activePodcast && this.pods && this.currentPod) {
-      this.activePodcast = this.pods[this.currentPod.id];
-    }
-  },
-  destroyed() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
   data() {
     return {
       activePodcast: null,
@@ -93,10 +165,13 @@ export default {
       readyToPlay: false,
       shouldPlay: false,
       duration: 0,
-      podUpdate: false
+      podUpdate: false,
     }
   },
   computed: {
+    podClicked() {
+      return this.$store.getters['page/podClicked']
+    },
     activeMP3() {
       return this.$store.getters['podcast/activeMP3']
     },
@@ -126,87 +201,6 @@ export default {
     },
     defaultPod() {
       return this.$store.getters['page/defaultPod']
-    },
-  },
-  methods: {
-    ...mapActions({
-      'storePlayingState': 'podcast/setPlayingState',
-      'resetPodcast': 'podcast/resetPodcast',
-      'setCompletionPercentage' : 'podcast/setCompletionPercentage',
-      'setRemainingTime': 'podcast/setRemaining',
-      'setPlaying': 'page/setPlaying',
-      'setCurrentPod': 'page/setCurrentPod',
-      'setPodTime': 'page/setPodTime',
-    }),
-    audioCanPlay() {
-      this.readyToPlay = true;
-
-    },
-    toggleOpen() {
-      this.isOpen = !this.isOpen
-    },
-    watchTime() {
-      this.currentTime = this.$refs.audioPlayer ? this.$refs.audioPlayer.currentTime : 0;
-    },
-    podcastEnded() {
-      this.setPlaying(false);
-      this.ended = true;
-    },
-    skipForward() {
-      const max = this.currentPod.end ? this.currentPod.end : this.duration;
-      this.$refs.audioPlayer.currentTime = Math.min(max, this.currentTime + 15);
-      this.setPlaying(true);
-    },
-    skipBack() {
-      const min = this.currentPod.start ? this.currentPod.start : 0;
-      this.$refs.audioPlayer.currentTime = Math.max(min, this.currentTime - 15);
-      this.setPlaying(true);
-    },
-    stopAudio() {
-      this.resetPodcast();
-    },
-    progressClick(e) {
-      var rect = e.target.getBoundingClientRect();
-      var x = e.clientX - rect.left; 
-      const percentage = x / rect.width;
-      this.$refs.audioPlayer.currentTime = this.currentPod.start ? this.currentPod.start + (this.duration * percentage) : (this.duration * percentage);
-      this.setPlaying(true);
-    },
-    handleScroll() {
-      if(window.scrollY > document.querySelector('.main-section__inner').offsetParent.offsetTop) {
-        this.showMobile = true
-      } else {
-        this.showMobile = false
-      }
-    },
-    handlePlayPause() {
-      if(this.podPlaying) {
-        if(this.readyToPlay) {
-          this.$ga.event({
-            eventCategory: this.currentPod.type === "clip" ? 'poddcast-clip' : 'podcast-episode',
-            eventAction: 'played',
-            eventLabel: this.currentPod.show + ' - ' + this.currentPod.title,
-          });
-          this.$refs.audioPlayer.play();
-          this.shouldPlay = false;
-        } else {
-          this.shouldPlay = true;
-        }
-        if(this.ended) {
-          this.$refs.audioPlayer.currentTime = this.currentPod.start ? this.currentPod.start : 0;
-          this.ended = false;
-        }
-      } else {
-        if(this.readyToPlay && this.shouldPlay) {
-          this.setPlaying(true);
-        } else if(this.$refs.audioPlayer) {
-          this.$refs.audioPlayer.pause();
-        }
-      }
-    },
-    togglePlay() {
-      
-      this.setPlaying(!this.podPlaying);
     },
   },
   watch : {
@@ -282,6 +276,103 @@ export default {
          }
       }
     }
+  },
+  mounted() {
+    this.handleScroll();
+    window.addEventListener('scroll', this.handleScroll);
+    if(!this.activePodcast && this.pods && this.currentPod) {
+      this.activePodcast = this.pods[this.currentPod.id];
+    }
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  methods: {
+    ...mapActions({
+      'storePlayingState': 'podcast/setPlayingState',
+      'resetPodcast': 'podcast/resetPodcast',
+      'setCompletionPercentage' : 'podcast/setCompletionPercentage',
+      'setRemainingTime': 'podcast/setRemaining',
+      'setPlaying': 'page/setPlaying',
+      'setCurrentPod': 'page/setCurrentPod',
+      'setPodTime': 'page/setPodTime',
+      'setPodClicked': 'page/setPodClicked',
+    }),
+    playClicked() {
+      this.setPodClicked(true);
+      this.togglePlay();
+    },
+    audioCanPlay() {
+      this.readyToPlay = true;
+    },
+    toggleOpen() {
+      this.isOpen = !this.isOpen
+    },
+    watchTime() {
+      this.currentTime = this.$refs.audioPlayer ? this.$refs.audioPlayer.currentTime : 0;
+    },
+    podcastEnded() {
+      this.setPlaying(false);
+      this.ended = true;
+    },
+    skipForward() {
+      const max = this.currentPod.end ? this.currentPod.end : this.duration;
+      this.$refs.audioPlayer.currentTime = Math.min(max, this.currentTime + 15);
+      this.setPlaying(true);
+    },
+    skipBack() {
+      const min = this.currentPod.start ? this.currentPod.start : 0;
+      this.$refs.audioPlayer.currentTime = Math.max(min, this.currentTime - 15);
+      this.setPlaying(true);
+    },
+    stopAudio() {
+      this.resetPodcast();
+    },
+    progressClick(e) {
+      var rect = e.target.getBoundingClientRect();
+      var x = e.clientX - rect.left; 
+      const percentage = x / rect.width;
+      this.$refs.audioPlayer.currentTime = this.currentPod.start ? this.currentPod.start + (this.duration * percentage) : (this.duration * percentage);
+      this.setPlaying(true);
+    },
+    handleScroll() {
+      if(!this.activePodcast || !document.querySelector('.main-section__inner') || !document.querySelector('.main-section__inner').offsetParent) return;
+      if(window.scrollY > document.querySelector('.main-section__inner').offsetParent.offsetTop) {
+        this.showMobile = true
+      } else {
+        this.showMobile = false
+      }
+    },
+    handlePlayPause() {
+      if(!this.podClicked) return;
+      if(this.podPlaying) {
+        if(this.readyToPlay) {
+          this.$ga.event({
+            eventCategory: this.currentPod.type === "clip" ? 'poddcast-clip' : 'podcast-episode',
+            eventAction: 'played',
+            eventLabel: this.currentPod.show + ' - ' + this.currentPod.title,
+          });
+          this.$refs.audioPlayer.play();
+          this.shouldPlay = false;
+        } else {
+          this.shouldPlay = true;
+        }
+        if(this.ended) {
+          this.$refs.audioPlayer.currentTime = this.currentPod.start ? this.currentPod.start : 0;
+          this.ended = false;
+        }
+      } else {
+        if(this.readyToPlay && this.shouldPlay) {
+          this.setPlaying(true);
+        } else if(this.$refs.audioPlayer) {
+          this.$refs.audioPlayer.pause();
+        }
+      }
+    },
+    togglePlay() {
+      this.setPodClicked(true);
+      this.setPlaying(!this.podPlaying);
+    },
   },
 }
 </script>
@@ -551,6 +642,7 @@ export default {
               position:absolute;
               right:16px;
               max-width:calc(100% - 90px);
+              width:100%;
               transition:all 0.25s ease-in-out;
             }
 
@@ -634,11 +726,13 @@ export default {
         display:flex;
         position:relative;
         width:100%;
-        @media(min-width:1200px)  and (max-height:580px){
-          display:none;
-        }
-        @include single-column{
-          display:none;
+        .sticky-podcast & {
+          @media(min-width:1200px)  and (max-height:580px){
+            display:none;
+          }
+          @include single-column{
+            display:none;
+          }
         }
 
         .album-art{
@@ -651,12 +745,14 @@ export default {
           .card-item & {
             width:80px;
           }
-          @media(min-width:1201px) and (max-width:1400px) {
+          .sticky-podcast & {
+            @media(min-width:1201px) and (max-width:1400px) {
               display:none;
             }
             @media(min-width:1200px)  and (max-height:650px){
               display:none;
             }
+          }
           &:after{
             content:'';
             display:block;
@@ -693,8 +789,10 @@ export default {
               margin-top:-3px;
             }
           }
-          @media(min-width:1200px)  and (max-height:650px){
-            margin-bottom:8px;
+          .sticky-podcast & {
+            @media(min-width:1200px)  and (max-height:650px){
+              margin-bottom:8px;
+            }
           }
         }
           .sticky-show-name{
@@ -715,8 +813,10 @@ export default {
             padding-bottom:3px;
             margin-bottom:4px;
             margin-top:-4px;
-            @media(min-width:1200px)  and (max-height:650px){
-              margin-bottom:5px;
+            .sticky-podcast & {
+              @media(min-width:1200px)  and (max-height:650px){
+                margin-bottom:5px;
+              }
             }
 
           }
@@ -724,8 +824,10 @@ export default {
             display:flex;
             align-items:center;
             margin-top:2px;
-            @media(min-width:1200px)  and (max-height:650px){
-              display:none;
+            .sticky-podcast & {
+              @media(min-width:1200px)  and (max-height:650px){
+                display:none;
+              }
             }
 
             .sticky-play-pause{

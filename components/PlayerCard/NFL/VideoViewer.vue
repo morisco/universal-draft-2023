@@ -1,28 +1,61 @@
 <template>
-<transition name="player-card__video-viewer" v-on:enter="enter" appear :duration="1000" >
-  <figure class="player-card__video-viewer" v-if="displayVideo" v-on:click="closeVideo">
-    <div class="player-card__video-viewer-viewable" ref="viewable">
-      <div class="player-card__video-viewer-actions">
-        <button class="player-card__video-viewer-close player-card__video-viewer-close--collapse" v-on:click="collapseVideo"></button>
-        <button class="player-card__video-viewer-close" v-on:click="manualClose"></button>
+  <transition
+    name="player-card__video-viewer"
+    appear
+    :duration="1000"
+    @enter="enter"
+  >
+    <figure
+      v-if="displayVideo"
+      class="player-card__video-viewer"
+      @click="closeVideo"
+    >
+      <div
+        ref="viewable"
+        class="player-card__video-viewer-viewable"
+      >
+        <div class="player-card__video-viewer-actions">
+          <button
+            class="player-card__video-viewer-close player-card__video-viewer-close--collapse"
+            @click="collapseVideo"
+          />
+          <button
+            class="player-card__video-viewer-close"
+            @click="manualClose"
+          />
+        </div>
+        <VideoPlayer
+          :video-width="videoWidth"
+          :close-video="closeVideo"
+          :player-video="playerVideo"
+          :video-type="'playerCard'"
+          :track-time="trackTime"
+        />
       </div>
-      <VideoPlayer :videoWidth="videoWidth" :closeVideo="closeVideo" :playerVideo="playerVideo" :videoType="'playerCard'" :trackTime="trackTime" />
-    </div>
-  </figure>
-</transition>
+    </figure>
+  </transition>
 </template>
 
 <script>
 import VideoPlayer from '~/components/Video/Player'
 import { scrollIt } from '~/plugins/scroller'
 export default {
-  props: ['videoParams', 'displayVideo', 'closeVideo', 'playerVideo', 'expanded'],
+  name: "NFLVideoViewer",
   components: { VideoPlayer },
+  props: ['videoParams', 'displayVideo', 'closeVideo', 'playerVideo', 'expanded'],
+  emits: ['collapse-video'],
   data() {
     return {
       isMounted: false,
       videoWidth: null,
       currenTime: null
+    }
+  },
+  watch: {
+    expanded(){
+      if(!this.expanded){
+        this.closeVideo();
+      }
     }
   },
   methods: {
@@ -49,17 +82,10 @@ export default {
       })
       this.closeVideo();
       this.$store.commit('viewOptions/setViewCollapsed');
-      setTimeout(() => this.$emit('collapseVideo', this.currentTime), 500);
+      setTimeout(() => this.$emit('collapse-video', this.currentTime), 500);
     },
     trackTime(currentTime){
       this.currentTime = currentTime;
-    }
-  },
-  watch: {
-    expanded(){
-      if(!this.expanded){
-        this.closeVideo();
-      }
     }
   }
 }

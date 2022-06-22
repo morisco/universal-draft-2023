@@ -1,60 +1,78 @@
 <template>
-  <article class="player-card" :data-player="player.id_string" :class="{
-    'player-card--offense': player.offenseDefense === 'offense', 
-    'player-card--defense': player.offenseDefense === 'defense', 
-    'player-card--expanded': expanded, 
-    'player-card--expanding': expanding, 
-    'player-card--collapsed': collapsed,
-    'player-card--collapsing': collapsing,
-    'player-card--animated': animateHeight,
-    'player-card--loaded': maxHeight > 0,
-    'player-card--active': activeCard,
-    'player-card--all-cards-set': this.infoHeight
-  }" 
-  v-bind:style="
-    [maxHeight] ? {
-      maxHeight: maxHeight + 'px', 
-      zIndex: zIndex
-    } : { zIndex: zIndex }"
-  v-on:click="openCard"
-  ref="card">
-    <MetaBar :player="player" :rankKey="rankKey" ref="metaBar" :collapsed="collapsed" v-if="$mq !== 'mobile'" />
+  <article
+    ref="card"
+    class="player-card"
+    :data-player="player.id_string" 
+    :class="{
+      'player-card--offense': player.offenseDefense === 'offense', 
+      'player-card--defense': player.offenseDefense === 'defense', 
+      'player-card--expanded': expanded, 
+      'player-card--expanding': expanding, 
+      'player-card--collapsed': collapsed,
+      'player-card--collapsing': collapsing,
+      'player-card--animated': animateHeight,
+      'player-card--loaded': maxHeight > 0,
+      'player-card--active': activeCard,
+      'player-card--all-cards-set': infoHeight
+    }"
+    :style="
+      [maxHeight] ? {
+        maxHeight: maxHeight + 'px', 
+        zIndex: zIndex
+      } : { zIndex: zIndex }"
+    @click="openCard"
+  >
+    <MetaBar
+      v-if="$mq !== 'mobile'"
+      ref="metaBar"
+      :player="player"
+      :rank-key="rankKey"
+      :collapsed="collapsed"
+    />
     <div class="player-card__image-info">
       <ImageColumn 
-        :playerId="playerId" 
+        :player-id="playerId" 
         :expanded="expanded"
         :collapsed="collapsed" 
         :rank="rank"
-        :infoHeight="infoHeight"
-        :topHeight="topHeight"
-        :rankKey="rankKey"
-        :playVideo="playVideo"
-        :setImageColHeight="setImageColHeight"
-        :videoSettings="videoSettings"
-        :activeCard="activeCard"
-        v-on:resetVideoSettings="resetVideoSettings"
+        :info-height="infoHeight"
+        :top-height="topHeight"
+        :rank-key="rankKey"
+        :play-video="playVideo"
+        :set-image-col-height="setImageColHeight"
+        :video-settings="videoSettings"
+        :active-card="activeCard"
+        @reset-video-settings="resetVideoSettings"
       />
       <InfoColumn 
-        :playerId="playerId" 
+        :player-id="playerId" 
         :expanded="expanded" 
         :collapsed="collapsed" 
-        :rankKey="rankKey"
-        :setMaxHeight="setMaxHeight"
-        :setAnimateHeight="setAnimateHeight"
-        :playVideo="playVideo"
-        :activeCard="activeCard"
-        v-on:set-info-height="setInfoHeight"
-        v-on:set-top-height="setTopHeight"
-        v-on:setMetaHeight="setMetaHeight"
+        :rank-key="rankKey"
+        :set-max-height="setMaxHeight"
+        :set-animate-height="setAnimateHeight"
+        :play-video="playVideo"
+        :active-card="activeCard"
+        @set-info-height="setInfoHeight"
+        @set-top-height="setTopHeight"
+        @set-meta-height="setMetaHeight"
       />
     </div>
-      <ToggleCard 
-        :offenseDefense="player.offenseDefense" 
-        :expanded="expanded" 
-        :cardExpanded="cardExpanded"
-        v-on:toggle-card="toggleCard"
-      />
-    <VideoViewer :displayVideo="displayVideo" :closeVideo="closeVideo" :player="player" :playerVideo="playerVideo" :expanded="expanded" v-if="playerVideo" v-on:collapseVideo="collapseVideo" />
+    <ToggleCard 
+      :offense-defense="player.offenseDefense" 
+      :expanded="expanded" 
+      :card-expanded="cardExpanded"
+      @toggle-card="toggleCard"
+    />
+    <VideoViewer
+      v-if="playerVideo"
+      :display-video="displayVideo"
+      :close-video="closeVideo"
+      :player="player"
+      :player-video="playerVideo"
+      :expanded="expanded"
+      @collapse-video="collapseVideo"
+    />
   </article>
 </template>
 
@@ -67,8 +85,10 @@ import ToggleCard  from './ToggleCard.vue'
 import { scrollIt } from '~/plugins/scroller'
 
 export default {
-  props: ['playerId', 'rankKey', 'cardExpanded', 'playerId'],
+  name: "NFLPlayerCard",
   components: { ImageColumn, InfoColumn, ToggleCard, MetaBar, VideoViewer },
+  props: ['playerId', 'rankKey', 'cardExpanded'],
+  emits: ['card-expanded'],
   data() {
     return {
       openTimeout:          null,
@@ -90,10 +110,6 @@ export default {
       videoSettings:        null,
       metaHeight:           null
     }
-  },
-  created () {
-    this.expanded   = this.viewDepth === 'detailed'
-    this.collapsed  = this.viewDepth === 'compact'
   },
   computed: {
     rank () {
@@ -124,12 +140,6 @@ export default {
           return 200 - this.rank;
       }
     },
-  },
-  destroyed() {
-    window.clearTimeout(this.transitioningTimeout);
-    window.clearTimeout(this.openTimeout);
-    window.clearTimeout(this.scrollTimeout);
-    window.removeEventListener('scroll', this.watchScroll);
   },
   watch: {
     infoHeight() {
@@ -204,6 +214,16 @@ export default {
       }
     }
   },
+  created () {
+    this.expanded   = this.viewDepth === 'detailed'
+    this.collapsed  = this.viewDepth === 'compact'
+  },
+  unmounted() {
+    window.clearTimeout(this.transitioningTimeout);
+    window.clearTimeout(this.openTimeout);
+    window.clearTimeout(this.scrollTimeout);
+    window.removeEventListener('scroll', this.watchScroll);
+  },
   mounted() {
     window.addEventListener('scroll', this.watchScroll, {passive: true});
     this.watchScroll();
@@ -229,6 +249,7 @@ export default {
       this.imageHeight = height;
     },
     watchScroll() {
+      if (!this.$refs.card) return;
       const cardOffset = this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop;
       const cardHeight = this.$refs.card.offsetHeight;
       const scrollTop = window.scrollY;
@@ -320,6 +341,87 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  @import './nfl-card.scss'
+<style lang="scss" scoped>
+  .player-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  background:$lightgray;
+  border-radius: .625rem;
+  margin-bottom:45px;
+  overflow-x:visible;
+  opacity:0;
+  transition:all 0.25s linear, max-height 0.375s ease-in-out, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
+  
+  &--all-cards-set{
+    opacity:1;
+  }
+  
+  // @include single-column{
+  //   margin-bottom:15px;
+  // }
+  @include mobile{
+    border:0px;
+    margin-bottom:55px;
+    border-radius: 0 0 .625rem .625rem;
+  }
+  &__image-info{
+    position:relative;
+    display:flex;
+    overflow:hidden;
+    @include mobile {
+      flex-direction:column;
+    }
+    
+  }
+  .app__content--collapsed & {
+    margin-bottom:15px;
+    &.player-card--expanded{
+      margin-bottom:30px;
+    }
+    @include mobile {
+      margin-bottom:20px;
+    }
+  }
+  
+  &--animated{
+    transition:max-height 0.375s ease-in-out, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
+    @include mobile{
+      transition:max-height 0.5s linear, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
+    }
+  }
+  &--transitioning{
+    transition:max-height 0.5s ease-in-out 0.25s, margin-bottom 0.25s linear 0.125s, opacity 0.25s linear;
+  }
+  &-enter{
+    max-height:0 !important;
+    opacity:0;
+    margin-bottom:0;
+  }
+  &-enter-to{
+    opacity:1;
+    margin-bottom:30px;
+    &.player-card--collapsed{
+      margin-bottom:15px;
+    }
+  }
+  &-leave{
+    opacity:1;
+    margin-bottom:30px;
+    &.player-card--collapsed{
+      margin-bottom:15px;
+    }
+  }
+  &-leave-to{
+    max-height:0 !important;
+    opacity:0;
+    margin-bottom:0;
+  }
+  &-leave-active{
+    transition:opacity 0.25s linear, max-height 0.35s ease-in 0.125s, margin-bottom 0.35s ease-in 0.125s;
+  }
+  &-enter-active{
+    transition:opacity 0.25s linear 0.35s, max-height 0.35s linear, margin-bottom 0.35s ease-in-out;
+  }
+}
 </style>

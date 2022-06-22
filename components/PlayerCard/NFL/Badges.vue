@@ -1,11 +1,17 @@
 <template>
   <ul class="player-card__badges">
-    <li v-for="badge in badgeArray" :key="player.title + badge.id">
+    <li
+      v-for="badge in badgeArray"
+      :key="player.title + badge.id"
+    >
       <div class="player-card__badge-image">
-        <img :src="badge.image" :alt="badge.label + 'badge'" />
+        <img
+          :src="badge.image"
+          :alt="badge.label + 'badge'"
+        >
       </div>
       <span class="player-card__badge-label">
-        <span>{{badge.label}}</span>
+        <span>{{ badge.label }}</span>
         <!-- <img src="@/assets/img/state-farm-red.svg" alt="State Farm Logo" data-not-lazy v-if="badge.id === 'instinctual_playmaking' || badge.id === 'infinite_upside'" /> -->
       </span>
     </li>
@@ -14,6 +20,7 @@
 
 <script>
 export default {
+  name: 'NFLBadges',
   props: ['player'],
   computed: {
     badgeArray() {
@@ -28,7 +35,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .player-card{
   &__badges{
     display:flex;

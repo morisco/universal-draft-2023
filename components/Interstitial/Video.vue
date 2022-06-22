@@ -1,29 +1,53 @@
 <template>
   <div 
-    class="player-card video-inter"
     ref="videoCard"
+    class="player-card video-inter"
     :class="{
       'video-inter--open': open
     }"
-    v-on:click="openVideo"
     :style="{
       height: openHeight + 'px'
     }"
+    @click="openVideo"
   >
     <div class="video-inter__content">
-      <div class="video-inter__slug">Video</div>
-      <div class="video-inter__title" v-html="interstitial.title"></div>
+      <div class="video-inter__slug">
+        Video
+      </div>
+      <div
+        class="video-inter__title"
+        v-html="interstitial.title"
+      />
       <div class="video-inter__link">
-        <img src="@/assets/img/icons/inter-play.svg" class="video-inter__play-button" alt="Play button" data-not-lazy />
+        <img
+          src="@/assets/img/icons/inter-play.svg"
+          class="video-inter__play-button"
+          alt="Play button"
+          data-not-lazy
+        >
         <span>Play the video</span>
       </div>
-      
     </div>
     <div class="video-inter__video">
-      <img :src="interstitial.image.medium" alt="Video thumbnail"  /> 
-      <transition name="video-inter__iframe-wrapper" appear>
-        <div class="video-inter__iframe-wrapper" v-if="open || ($device.isMobile || $device.isTablet)">
-          <VideoPlayer :playerVideo="videoConfig" :triggerPlay="open" :videoWidth="videoWidth" :closeVideo="closeVideo" :videoType="'interstitial'" />
+      <img
+        :src="interstitial.image.medium"
+        alt="Video thumbnail"
+      > 
+      <transition
+        name="video-inter__iframe-wrapper"
+        appear
+      >
+        <div
+          v-if="true"
+          class="video-inter__iframe-wrapper"
+        >
+          <VideoPlayer
+            :player-video="videoConfig"
+            :trigger-play="open"
+            :video-width="videoWidth"
+            :close-video="closeVideo"
+            :video-type="'interstitial'"
+          />
         </div>
       </transition>
     </div>
@@ -33,6 +57,7 @@
 <script>
 import VideoPlayer from '~/components/Video/Player'
 export default {
+  name: "InterstitialVideo",
   components: { VideoPlayer },
   props: ['interstitial'],
   data() {
@@ -78,6 +103,13 @@ export default {
     border-radius:0.625rem;
     padding-top:56.25%;
     cursor:pointer;
+    @include mobile {
+      .app--nba & {
+        max-width: calc(100% - 30px);
+        margin-left: 15px;
+        padding-top: 51.75%;
+      }
+    }
     &.player-card{
       opacity:1;
       flex-direction:row;
@@ -133,6 +165,11 @@ export default {
       animation-fill-mode: forwards;
       @include mobile{
         padding:15px 0;
+        .app--nba & {
+          font-size: 29px;
+          line-height: 1.2;
+          max-width: 100%;
+        }
       }
       // @include tablet {
       //   font-size:32px;
