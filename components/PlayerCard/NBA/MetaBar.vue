@@ -37,7 +37,7 @@
       </div>
     </div>
     <div
-      v-if="$mq !== 'mobile'"
+      v-if="$mq !== 'mobile' && playerMeta.shadesOf"
       ref="detailDiv"
       class="player-card__meta-bar-details"
     >

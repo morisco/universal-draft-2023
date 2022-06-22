@@ -59,7 +59,8 @@
         @set-meta-height="setMetaHeight"
       />
     </div>
-    <ToggleCard 
+    <ToggleCard
+      v-if="!player.no_expand"
       :offense-defense="player.offenseDefense" 
       :expanded="expanded" 
       :card-expanded="cardExpanded"
@@ -338,7 +339,7 @@ export default {
       }
     },
     openCard () {
-      if(!this.expanded){
+      if(!this.expanded && !this.player.no_expand){
         const self = this
         this.cardAction(() => {
           self.expanded = true
