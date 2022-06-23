@@ -51,7 +51,6 @@ export default {
     @include mobile{
       background:$lightgray;
       padding:15px 20px 30px;
-      margin-top:-20px;
       .player-card--expanded{
         padding:15px 20px 20px;
       }
