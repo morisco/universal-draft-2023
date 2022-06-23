@@ -1,19 +1,23 @@
 <template>
   <div class="draft-info">
-    <span class="draft-info__name">{{ teamNameLogo.teamName }}</span>
+    <span class="draft-info__name">{{ teamNameLogo.teamName }} <span
+      v-if="grade"
+      class="grade"
+    > {{ grade }}</span></span>
     <div
       class="draft-info__content"
-      v-html="infoText || 'PLACEHOLDER There’s still a possibility that the Timberwolves trade down with the Hornets, who would likely take James Wiseman with the first pick. If they did, the Wolves could still possibly select Edwards third. Regardless, Edwards is the top prospect who makes the most sense in Minnesota, as he’s the best positional fit next to D’Angelo Russell and Karl-Anthony Towns.'"
+      v-html="infoText"
     />
   </div>
 </template>
 
 <script>
 export default {
-  name: "NBADraftInfo",
-  props: ['teamNameLogo', 'infoText'],
+  name: "NFLDraftInfo",
+  props: ['teamNameLogo', 'infoText', 'grade'],
 }
 </script>
+
 <style lang="scss">
   .app--nba {
     .draft-info {
@@ -29,7 +33,6 @@ export default {
   }
 </style>
 
-
 <style lang="scss" scoped>
   .draft-info{
     // position:absolute;
@@ -42,13 +45,15 @@ export default {
     z-index:0;
     color:$black;
     // visibility:hidden;
+
+    
     
     @include mobile{
-      background:transparent;
-      padding:15px 10px 30px;
-      .player-card--expanded &{
-        padding:15px 10px 20px;
-        border-bottom:1px solid $darkmediumgray;
+      background:$lightgray;
+      padding:15px 20px 30px;
+      margin-top:-20px;
+      .player-card--expanded{
+        padding:15px 20px 20px;
       }
     }
     &__name{
@@ -57,11 +62,32 @@ export default {
       margin-bottom:12px;
       display:block;
       @include expanded-label;
+      display:flex;
+      align-items:center;
+      .grade{
+        padding:5px 8px 6px;
+        margin-left:10px;
+        margin-bottom:2px;
+        border-radius: 4px;
+        background:$nbaorange;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        color:white;
+      }
     }
     &__content{
       @include player-card-body;
       margin-bottom:0;
-     
+      p{
+        @include player-card-body;
+        strong{
+          font-weight:500;
+        }
+        &:last-of-type{
+          margin-bottom:0;
+        }
+      }
       @include non-mobile{
         max-width:85%;
       }

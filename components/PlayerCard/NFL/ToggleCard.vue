@@ -159,7 +159,7 @@ export default {
       .player-card--expanded & {
         transition:bottom 0.25s linear 0.125s;
         @include mobile{
-          bottom:0px;
+          bottom:-20px;
         }
       }
       @include non-mobile{

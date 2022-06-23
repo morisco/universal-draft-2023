@@ -37,7 +37,7 @@
       </div>
     </div>
     <div
-      v-if="$mq !== 'mobile'"
+      v-if="$mq !== 'mobile' && playerMeta.shadesOf"
       ref="detailDiv"
       class="player-card__meta-bar-details"
     >
@@ -485,8 +485,8 @@ export default {
           display:flex;
           flex-direction:column;
           justify-content:center;
-          .player-card--collapsed & {
-            padding-right:100px;
+          .player-card--collapsed:not(.player-card--expanded) & {
+            padding-right:25px;
             @include tablet-portrait-only{
               padding-right:70px;
             }

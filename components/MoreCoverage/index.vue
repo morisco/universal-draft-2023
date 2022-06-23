@@ -49,9 +49,9 @@ export default {
     margin-top:60px;
   }
   @include mobile{
-    margin-top:70px;
+    margin-top:100px;
     .app--nba & {
-      padding: 0 50px;
+      padding: 0 50px 50px;
       margin-top:100px;
     }
   }
@@ -64,6 +64,7 @@ export default {
     @include mobile{
       right:auto;
       left:0;
+      top:-50px;
       .app--nba & {
         position:relative;
         // left:50px;

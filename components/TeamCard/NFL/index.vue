@@ -487,7 +487,7 @@ export default {
           }
         }
         @include non-mobile{
-          padding:0 30px;
+          padding:0 70px 0 30px;
         }
         @include tablet-portrait-only{
           padding:0 20px;

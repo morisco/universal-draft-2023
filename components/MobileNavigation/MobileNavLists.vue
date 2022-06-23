@@ -106,7 +106,7 @@ export default {
             subtitle: this.pageSettings.danny_updated
           },
           teamNeeds: {
-            title: 'Team Needs',
+            title: 'Team Needs by Kevin O\'Connor',
             subtitle: this.pageSettings.breakdown_updated
           },
           draftGrades: {

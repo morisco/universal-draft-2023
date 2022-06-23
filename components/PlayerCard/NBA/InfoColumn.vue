@@ -28,6 +28,7 @@
             v-if="teamNameLogo"
             :team-name-logo="teamNameLogo"
             :info-text="['mock-draft', 'mock_draft_player_share'].indexOf($route.name) >= 0 ? player.mock_insight : player.results_insight"
+            :grade="['draft-grades', 'draft_grades_player_share'].indexOf($route.name) >= 0 ? player.results_grade : null"
           />
         </div>
       </template>
@@ -264,10 +265,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .player-card{
+<style lang="scss" >
+.app--nba {
+
     // max-height:313px;
-    &__info-rule{
+    .player-card__info-rule{
       height:100%;
       position:absolute;
       left:0;
@@ -276,7 +278,7 @@ export default {
       background-color:$darkmediumgray;
       transition:max-height 0.375s ease-in-out;
     }
-    &__info-column{
+    .player-card__info-column{
       position:relative;
       flex:1;
       opacity:1;
@@ -361,12 +363,12 @@ export default {
         }
       }
     }
-    &__meta-column{
+    .player-card__meta-column{
       display:flex;
       flex-direction:column;
       flex:1;
     }
-    &__top-data{
+    .player-card__top-data{
       position:relative;
       z-index:0;
       display:flex;
@@ -388,7 +390,7 @@ export default {
         overflow:visible;
       }
     }
-    &__meta-stats{
+    .player-card__meta-stats{
       display:flex;
       justify-content:space-between;
       width:100%;
@@ -396,7 +398,7 @@ export default {
         flex-direction:column;
       }
     }
-    &__bottom-data{
+    .player-card__bottom-data{
       position:relative;
       z-index:1;
       overflow-x:hidden;
@@ -404,13 +406,13 @@ export default {
         opacity:0;
         transition:opacity 0.25s linear 0s;
       }
-      .player-card--expanded & {
-        margin-top:0;
-        > *{
-          opacity:1;
-          transition:opacity 0.25s linear 0.5s;
-        }
-      }
+      // .player-card--expanded & {
+      //   margin-top:0;
+      //   > *{
+      //     opacity:1;
+      //     transition:opacity 0.25s linear 0.5s;
+      //   }
+      // }
       @include non-mobile{
         padding:0 30px 30px;
       }
@@ -423,9 +425,9 @@ export default {
         padding: 0 0 60px;
         margin:0 auto;
         // border-radius:0 0 0.625rem 0.625rem;
-        .player-card--expanded & {
-          margin-top:0;
-        }
+        // .player-card--expanded & {
+        //   margin-top:0;
+        // }
         // padding-top:0.625rem;
         // .mock-draft & {
         //   padding-top:0;
@@ -440,6 +442,20 @@ export default {
             height:1px;
             background:$black;
             margin-bottom:20px;
+          }
+        }
+      }
+    }
+    .player-card--expanded {
+      .player-card{
+        &__bottom-data{
+          margin-top:0;
+          > *{
+            opacity:1;
+            transition:opacity 0.25s linear 0.5s;
+          }
+          @include mobile{
+            margin-top:0;
           }
         }
       }

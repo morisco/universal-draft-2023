@@ -1,7 +1,7 @@
 export default {
   // mode: 'universal',
   head: {
-    title: 'The Ringer\'s 2022 NFL Draft Guide',
+    title: 'The Ringer\'s 2022 NBA Draft Guide',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1.0, viewport-fit=cover' },
@@ -28,6 +28,7 @@ export default {
   plugins: [
     {src: '~/plugins/VueYoutube', mode: 'client'},
     {src: '~/plugins/analytics', mode: 'client'},
+    {src: '~/plugins/donut', mode: 'client'},
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -78,7 +79,9 @@ export default {
   //     sendHitTask: true
   //   }
   // },
-
+  // server: {
+  //   host: '0.0.0.0' // default: localhost
+  // },
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     '@nuxtjs/style-resources',

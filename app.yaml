@@ -15,7 +15,7 @@ default_expiration: "15m"
 handlers:
   - url: /_nuxt
     static_dir: .nuxt/dist/client
-    expiration: 4d 5h
+    expiration: 15m
     secure: always
 
   - url: /(.*\.(gif|png|jpg|ico|txt))$
