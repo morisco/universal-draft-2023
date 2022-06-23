@@ -194,6 +194,10 @@ export default {
       // flex: 1;
       // max-width: 70px;
       width:calc(25% - 15px);
+      @include tablet{
+        flex-direction:column;
+        align-items:space-between;
+      }
       @include mobile {
         width:calc(25% - 15px);
         align-items:space-between;

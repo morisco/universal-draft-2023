@@ -422,7 +422,7 @@ export default {
 
       @include mobile{
         background:transparent;
-        padding: 0 0 60px;
+        padding: 0 0 15px;
         margin:0 auto;
         // border-radius:0 0 0.625rem 0.625rem;
         // .player-card--expanded & {

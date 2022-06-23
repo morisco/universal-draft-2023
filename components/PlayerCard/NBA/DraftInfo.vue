@@ -50,10 +50,11 @@ export default {
     
     @include mobile{
       background:$lightgray;
-      padding:15px 20px 30px;
-      margin-top:-20px;
-      .player-card--expanded{
-        padding:15px 20px 20px;
+      padding:15px 20px 8px;
+      .player-card--expanded & {
+        padding:15px 20px 5px;
+        background:transparent;
+        border-bottom:1px solid $darkmediumgray;
       }
     }
     &__name{
@@ -106,7 +107,7 @@ export default {
       // visibility:visible;
       // opacity:1;
       // margin-top:-25px;
-      transition: opacity 0.125s linear 0.375s, margin-top 0.5s ease-in-out;
+      transition: all 0.25s linear 0s, opacity 0.125s linear 0.375s, margin-top 0.5s ease-in-out;
     }
 
     .player-card--expanded.player-card--collapsed & {
