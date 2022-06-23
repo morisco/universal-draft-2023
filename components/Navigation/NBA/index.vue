@@ -38,7 +38,10 @@
             :class="{'navigation__button--active': active === option.to}"
             @click="changeActive"
           >
-            <span class="navigation__button-title">{{ option.title }} <span class="navigation__button-subtitle">{{ option.subtitle }}</span></span>
+            <span class="navigation__button-title">{{ option.title }} <span
+              v-if="['tablet'].indexOf($mq) === -1"
+              class="navigation__button-subtitle"
+            >{{ option.subtitle }}</span></span>
             <span class="navigation__button-updated">{{ option.updated }}</span>
           </NuxtLink>
           <NuxtLink
@@ -51,7 +54,10 @@
             class="navigation__button navigation__button--duplicate"
             @click="changeActive"
           >
-            <span class="navigation__button-title">{{ option.title }} <span class="navigation__button-subtitle">{{ option.subtitle }}</span></span>
+            <span class="navigation__button-title">{{ option.title }} <span
+              v-if="['tablet', 'small_desktop'].indexOf($mq) === -1"
+              class="navigation__button-subtitle"
+            >{{ option.subtitle }}</span></span>
             <span class="navigation__button-updated">{{ option.updated }}</span>
           </NuxtLink>
         </div>
