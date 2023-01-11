@@ -209,7 +209,6 @@ export function processInterstitials(contents) {
   const articleInters = contents.article_inter ? contents.article_inter.content : [];
   const podcastInters = contents.podcast_inter ? contents.podcast_inter.content : [];
   const writeupInters = contents.writeup_inter ? contents.writeup_inter.content : [];
-  console.log('wi', contents);
   const toutInters = contents.tout ? contents.tout.content : [];
 
   toutInters.forEach((tout_inter) => {

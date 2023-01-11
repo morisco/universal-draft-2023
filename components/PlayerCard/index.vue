@@ -41,7 +41,6 @@ export default {
   emits: ['card-expanded'],
   computed: {
     interstitials() {
-      console.log('allinters', this.$store.getters['content/interstitials'](this.list));
       return this.$store.getters['content/interstitials'](this.list)
     },
     league() {

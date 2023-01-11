@@ -61,7 +61,6 @@ export default {
     },
   },
   mounted() {
-    console.log('pod', this.interstitial);
     this.podIds = this.interstitial.podcasts.map((pod) => pod.pod_id);
     if(this.pods) {
       this.setPods();

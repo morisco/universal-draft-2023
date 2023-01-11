@@ -41,9 +41,6 @@
 export default {
   name: "InterstitialWriteup",
   props: ['interstitial'],
-  mounted() {
-    console.log(this.interstitial);
-  },
   methods: {
     trackArticleOpen() {
       this.$ga.event({
