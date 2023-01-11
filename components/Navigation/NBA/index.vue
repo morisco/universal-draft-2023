@@ -3,7 +3,7 @@
     id="navigation"
     ref="navigation"
     class="navigation"
-    :class="[advanceClass, ...{'navigation--fixed': fixed}]"
+    :class="[advanceClass, {'navigation--fixed': fixed}]"
   >
     <div
       class="navigation__sticky"
@@ -149,7 +149,7 @@ export default {
     },
     handleScroll () {
       var distanceFromTopWhenSticky = -2;
-      if(window.scrollY > this.$refs.navigation.offsetTop - distanceFromTopWhenSticky){
+      if(this.$refs.navigation && window.scrollY > this.$refs.navigation.offsetTop - distanceFromTopWhenSticky){
         this.fixed = true;
         this.width = window.innerWidth + 4;
         this.maxWidth = window.innerWidth + 4;

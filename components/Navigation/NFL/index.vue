@@ -3,7 +3,7 @@
     id="navigation"
     ref="navigation"
     class="navigation"
-    :class="[advanceClass, ...{'navigation--fixed': fixed}]"
+    :class="[advanceClass, {'navigation--fixed': fixed}]"
   >
     <div
       class="navigation__sticky"

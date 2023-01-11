@@ -1,26 +1,30 @@
 <template>
-  <div class="podcast-inter__item card-item">
-    <div class="podcast-inter__item-top">
-      <span class="date">
-        {{ $moment(pod.spotify_episodeReleaseDate).format('MMM. DD') }}        
-      </span>
-      <div class="title-player">
-        <span class="title">
-          {{ pod.title }}
-        </span>
-        <Chicklet :pod="pod" />
-      </div>
-    </div>
+  <div class="podcast-inter__chicklet">
+    <button
+      type="button"
+      class="sticky-play-pause"
+      @click="handlePlayClick"
+    >
+      <img
+        v-if=" (currentPod && (currentPod.id === pod.id && currentPod.type === 'full' && podPlaying) || shouldPlay)"
+        src="~/assets/img/icons/pause-white.svg"
+      >
+      <img
+        v-if="!currentPod || (currentPod.id !== pod.id || currentPod.type !== 'full' || !podPlaying) && !shouldPlay"
+        src="~/assets/img/icons/play-white.svg"
+      >
+    </button>
+    <span>
+      {{ format(pod.spotify_episodeDuration - currentTime) }}
+    </span>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import Chicklet from './Chicklet'
 
 export default {
   name: "PodcastCard",
-  components: { Chicklet },
   props: ['pod'],
   data() {
     return {
@@ -113,94 +117,19 @@ export default {
 
 <style lang="scss">
   .podcast-inter{
-     &__item{
-      width:100%;
-      display:flex;
-      flex-direction:column;
-      margin-bottom:20px;
-      &-top{
-        .date{
-          @include pod-date;
-          color:$highlight1;
-        }
-        .title{
-          @include pod-title;
-        }
-      }
-      .sticky-podcast__player-top{
-        display:flex;
-      }
-      @include single-column{
-        width:calc(33.33% - 10px);
-        .sticky-podcast__player-top{
-          // flex-direction:column;
-        }
-
-        .album-art{
-          // display:none;
-          // margin-bottom:20px;
-        }
-      }
-      @include tablet-only {
-        .album-art{
-          display:none;
-        }
-      }
-      @include mobile{
-        width:100%;
-      }
-    }
-  }
-  .card-item{
-    &__description{
-      line-clamp:4;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;  
-      overflow: hidden;
-      margin:10px 0 10px;
-      flex:1;
-      p{
-        display: -webkit-box;
-        @include player-card-body;
-        line-clamp:4;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;  
-        overflow: hidden;
-        line-height:1.3;
-        margin-bottom:10px;
-        &:last-of-type{
-          margin-bottom:0;
-        }
-      } 
-    }
-    &__controls{
-      display:flex;
+     &__chicklet{
+      vertical-align:text-bottom;
+      height:21px;
+      display:inline-flex;
       align-items:center;
-      button{
-        display:flex;
-        align-items:center;
-        img{
-          width:10px;
-        }
-      }
-      &-duration{
-        flex:1;
-        margin-left:5px;
-        @include podcast-duration;
-        span{
-          color:$gray;
-          display:inline-block;
-          margin-left:2px;
-        }
-      }
-      &-link{
-        width:22px;
-        height:22px;
-        img{
-          width:100%;
-          vertical-align:bottom;
-        }
+      padding:0 5px;
+      @include pod-duration;
+      background:$highlight1;
 
+  
+      color:white;
+      .sticky-play-pause{
+        margin-right:5px;
       }
     }
   }

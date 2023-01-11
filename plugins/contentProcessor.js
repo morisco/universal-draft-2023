@@ -208,6 +208,50 @@ export function processInterstitials(contents) {
   const videoInters = contents.video_inter ? contents.video_inter.content : [];
   const articleInters = contents.article_inter ? contents.article_inter.content : [];
   const podcastInters = contents.podcast_inter ? contents.podcast_inter.content : [];
+  const writeupInters = contents.writeup_inter ? contents.writeup_inter.content : [];
+  console.log('wi', contents);
+  const toutInters = contents.tout ? contents.tout.content : [];
+
+  toutInters.forEach((tout_inter) => {
+    tout_inter = decodeContent(tout_inter);
+    tout_inter.image = processImages(tout_inter.image);
+    tout_inter.image_mobile = processImages(tout_inter.image_mobile);
+    const listPositions = tout_inter.list_positions;
+    if(listPositions){
+      if(listPositions.big_board_position) {
+        processedInterstitials.bigBoard[listPositions.big_board_position] = tout_inter;
+      }
+      if(listPositions.mock_draft_position) {
+        processedInterstitials.mockDraft[listPositions.mock_draft_position] = tout_inter;
+      }
+      if(listPositions.team_needs_position) {
+        processedInterstitials.teamNeeds[listPositions.team_needs_position] = tout_inter;
+      }
+      if(listPositions.draft_results_position) {
+        processedInterstitials.draftResults[listPositions.draft_results_position] = tout_inter;
+      }
+    }
+  });
+
+  writeupInters.forEach((writeup_inter) => {
+    writeup_inter = decodeContent(writeup_inter);
+    writeup_inter.image = processImages(writeup_inter.image);
+    const listPositions = writeup_inter.list_positions;
+    if(listPositions){
+      if(listPositions.big_board_position) {
+        processedInterstitials.bigBoard[listPositions.big_board_position] = writeup_inter;
+      }
+      if(listPositions.mock_draft_position) {
+        processedInterstitials.mockDraft[listPositions.mock_draft_position] = writeup_inter;
+      }
+      if(listPositions.team_needs_position) {
+        processedInterstitials.teamNeeds[listPositions.team_needs_position] = writeup_inter;
+      }
+      if(listPositions.draft_results_position) {
+        processedInterstitials.draftResults[listPositions.draft_results_position] = writeup_inter;
+      }
+    }
+  });
 
   articleInters.forEach((article_inter) => {
     article_inter = decodeContent(article_inter);
@@ -251,6 +295,7 @@ export function processInterstitials(contents) {
   });
   podcastInters.forEach((podcast_inter) => {
     podcast_inter = decodeContent(podcast_inter);
+    podcast_inter.image = processImages(podcast_inter.image);
     const listPositions = podcast_inter.list_positions;
     if(listPositions){
       if(listPositions.big_board_position) {
@@ -287,7 +332,9 @@ export function processInterstitials(contents) {
     }
   })
   return {
-    podcastInters: podcastInters,
+    toutInters,
+    writeupInters,
+    podcastInters,
     listInters: processedInterstitials
   }
 }
