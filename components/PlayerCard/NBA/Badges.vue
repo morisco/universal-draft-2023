@@ -2,7 +2,7 @@
   <ul class="player-card__badges">
     <li
       v-for="badge in badgeArray"
-      :key="player.title + badge.id"
+      :key="title + badge.id"
     >
       <div class="player-card__badge-image">
         <img
@@ -20,14 +20,14 @@
 <script>
 export default {
   name: 'NBABadges',
-  props: ['player'],
+  props: ['title', 'badges', 'sponsored_badge'],
   computed: {
     badgeArray() {
       const badgeSettings = this.$store.getters['page/badges'];
       let badgeArray;
-      if(this.player.badges){
-        badgeArray = this.player.badges.map((badge) => { 
-          return {...badgeSettings[badge.badge], sponsored: badge.badge === this.player.sponsored_badge}
+      if(this.badges){
+        badgeArray = this.badges.map((badge) => { 
+          return {...badgeSettings[badge.badge], sponsored: badge.badge === this.sponsored_badge}
         });
       } 
       return badgeArray
@@ -49,8 +49,13 @@ export default {
     list-style:none;
     transform:translateX(0);
     transition: transform 0s linear 0.125s, filter 0.375s linear 0.5s;
-    margin-top:30px;
+    margin-top:20px;
     padding-top:5px;
+    .team-card & {
+      flex-direction:column;
+      margin-top:10px;
+      padding-top:0;
+    }
     .draft-grades & {
       margin-bottom:30px;
     }
@@ -88,6 +93,9 @@ export default {
       flex-wrap:wrap;
       margin-top:30px;
       margin-bottom:30px;
+      .team-card & {
+        margin-bottom:0;
+      }
       padding-bottom:0;
       width:calc(100% + 15px);
       .player-card--collapsed & {
@@ -106,6 +114,9 @@ export default {
         right:0;
         height:1px;
         background:$darkmediumgray;
+        @include mobile {
+        display:none;
+        }
       }
       
     }
@@ -123,6 +134,9 @@ export default {
         margin-bottom:0;
         font-size:14px;
         line-height:1.1;
+        .team-card & {
+          max-width:90px;
+        }
         span{
           flex:1;
           @include mobile{
@@ -172,7 +186,10 @@ export default {
         @include mobile{
           width:100%;
           height:auto;
-          margin-bottom:5px;
+        margin-bottom:5px;
+          .team-card & {
+            width:50px;
+          }
         }
         img{
           width:100%;
@@ -194,9 +211,20 @@ export default {
       // flex: 1;
       // max-width: 70px;
       width:calc(25% - 15px);
+      .team-card & {
+        margin-bottom:15px;
+        width:100%;
+        &:last-of-type{
+          margin-bottom:0;
+        }
+      }
       @include tablet{
         flex-direction:column;
         align-items:space-between;
+        .team-card & {
+          flex-direction: row;
+          align-items:flex-start;
+        }
       }
       @include mobile {
         width:calc(25% - 15px);
@@ -209,6 +237,7 @@ export default {
 
       img{
         width:50px;
+        
       }
       @include medium-desktop {
         margin:0 2px 0;

@@ -22,6 +22,9 @@
             class="hover-image"
             :alt="player.imageAlt"
           >
+          <div class="position">
+            {{ player.position_label }}
+          </div>
         </div>
         <NBAMeta
           v-if="$mq !== 'mobile'"
@@ -91,7 +94,9 @@ export default {
     },
     player () {
       const playerData = this.$store.getters['content/player'](this.playerId);
+      console.log('pd', playerData);
       return {
+        position_label: playerData.position_label,
         offenseDefense: playerData.offenseDefense,
         image: playerData.image_data.image.medium,
         imageHover: playerData.image_data.imageHover && playerData.image_data.imageHover.medium,
@@ -334,6 +339,24 @@ export default {
         box-sizing:content-box;
         border-bottom:1px solid $darkmediumgray;
         transition:max-height 0.125s linear 0.175s;
+        .position{
+          position:absolute;
+          bottom:0;
+          left:0;
+          padding:0 10px;
+          color:white;
+          background:black;
+          display:flex;
+          align-items:center;
+          height:28px;
+          font-family: 'GT America';
+          font-size:14px;
+          font-weight:500;
+          letter-spacing:0.5px;
+          text-transform:uppercase;
+          padding-top:3px;
+
+        }
         &-inner{
           position:absolute;
           top:0;

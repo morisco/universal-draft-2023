@@ -30,13 +30,12 @@
         </transition>
         <span>{{ playerMeta.firstName }}</span>
         <span>{{ playerMeta.lastName }}</span>
-      </h3>
-      <div class="player-card__meta-bar-position-school">
-        <span class="position">{{ playerMeta.position }}</span>
-        <span class="school">{{ playerMeta.school }}<span v-if="false && $mq !== 'mobile'">{{ playerMeta.year && ', ' + playerMeta.year }}</span></span>
-      </div>
+      </h3>&nbsp;&nbsp;
+      <h4 class="h4">
+        {{ playerMeta.school }}, {{ playerMeta.year }}
+      </h4>
     </div>
-    <div
+    <!-- <div
       v-if="$mq !== 'mobile' && playerMeta.shadesOf"
       ref="detailDiv"
       class="player-card__meta-bar-details"
@@ -62,8 +61,8 @@
         <div class="player-card__meta-bar-details-row player-card__meta-bar-details-row--shade-value">
           {{ playerMeta.shadesOf }}
         </div>
-      </div>
-    </div>
+      </div> -->
+  <!-- </div> -->
   </div>  
 </template>
 
@@ -130,7 +129,7 @@ export default {
       display: flex;
       transition:all 0.25s linear 0.5s, border-radius 0.25s linear 0s;
       flex: 0 0 auto;
-      align-items:center;
+      // align-items:center;
       @include mobile{
         .player-card--expanded{
           padding-left:15px;
@@ -171,10 +170,18 @@ export default {
       }
       .h3{
         text-transform:uppercase;
-        margin-top:-4px;
-        margin-bottom:4px;
         font-family: "GT America Condensed";
         font-weight: 500;
+        font-size: 32px;
+        @include mobile{
+          margin-bottom:4px;
+          
+        }
+      }
+      .h4{
+        text-transform:uppercase;
+        font-family: "GT America Condensed";
+        font-weight: 300;
         font-size: 32px;
         @include mobile{
           margin-bottom:4px;
@@ -379,6 +386,8 @@ export default {
       }
       &-name-school{
         flex: 0 0 auto;
+        display:flex;
+        align-items:center;
         &.player-card__image-column{
           padding:0 0 0 40px;
           width:auto;

@@ -7,7 +7,7 @@
       </div>
       <div class="image-column__meta-column">
         <span class="image-column__meta-row"><strong>Age</strong> {{ playerMeta.age }}</span>
-        <span class="image-column__meta-row"><strong>Year</strong> {{ playerMeta.year }}</span>
+        <span class="image-column__meta-row"><strong>Wingspan</strong> {{ playerMeta.wingspan }}</span>
       </div>
     </div>
   </div>

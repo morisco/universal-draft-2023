@@ -51,9 +51,9 @@ export default {
   overflow:hidden;
   border-radius:0.625rem;
   @include mobile {
-    padding:20px 30px 25px;
-    max-width:calc(100% - 40px);
-    margin:0 auto;
+    padding:60px 45px 65px;
+    margin:60px auto 0;
+    border-radius:0;
   }
   &.player-card{
     opacity:1;

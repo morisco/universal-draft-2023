@@ -86,6 +86,7 @@ export default {
     overflow:hidden;
     @include mobile{
       flex-direction:column;
+      border-radius:0;
     }
     &__image{
       flex-basis: 50%;
@@ -101,7 +102,7 @@ export default {
       padding:30px 30px 15px;
       @include mobile{
         flex-basis:unset;
-        padding:20px;
+        padding:30px;
       }
     }
     &__spotify{
@@ -116,9 +117,9 @@ export default {
     @include mobile{
       margin-bottom:45px;
       .app--nba & {
-        max-width: calc(100% - 30px);
-        margin-left: 15px;
-        margin-top:40px;
+        // max-width: calc(100% - 30px);
+        // margin-left: 15px;
+        margin-top:60px;
       }
     }
     &.player-card{

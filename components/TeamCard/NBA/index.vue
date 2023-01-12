@@ -14,7 +14,8 @@
         class="player-card__image-column team-card__image-column team-card__image-column"
       >
         <div class="player-card__image-column-inner team-card__image-column-inner">
-          <TeamPicks :team="team" />
+          <TeamBadges :team="team" />
+          <!-- <TeamPicks :team="team" /> -->
         </div>
       </div>
       <div class="player-card__info-column team-card__info-column">
@@ -27,11 +28,18 @@
             v-if="['mobile', 'tablet'].indexOf($mq) >= 0"
             :team="team"
           />
-          <TeamPlayers
+
+          <TeamBadges 
+            v-if="['mobile', 'tablet'].indexOf($mq) >= 0"
+            :team="team" 
+          />
+
+
+          <!-- <TeamPlayers
             v-if="['mobile', 'tablet'].indexOf($mq) >= 0"
             :team-id="teamId"
             :max-players="4"
-          />
+          /> -->
         </div>
       </div>
     </div>
@@ -40,11 +48,11 @@
 
 <script>
 import TeamMetaBar from './TeamMetaBar.vue'
-import TeamPlayers from './TeamPlayers.vue'
 import TeamPicks from './TeamPicks.vue'
+import TeamBadges from './TeamBadges.vue'
 export default {
   name:"NBATeamCard",
-  components: { TeamMetaBar, TeamPlayers, TeamPicks },
+  components: { TeamMetaBar, TeamPicks, TeamBadges },
   props: {
     teamId: {
       type: String,
@@ -153,7 +161,7 @@ export default {
           position:absolute;
           top:30px;
           bottom:30px;
-          left:315px;
+          left:250px;
           background:$darkmediumgray;
           z-index:5;
           @include tablet{
@@ -226,8 +234,8 @@ export default {
         position:relative;
         padding:0 0 0;  
         // max-width: calc(100% - 800px);
-        width:300px;
-        min-width:300px;
+        width:250px;
+        min-width:250px;
         flex:0 0 auto;
         transition:opacity 0.25s linear 0.25s, max-width 0.625s ease-in-out 0s, max-height 0.25s ease-in-out 0.25s, min-height 0.5s linear 0s;
         z-index:2;
@@ -549,6 +557,7 @@ export default {
         }
       }
     }
+    
   
     @keyframes infoColumn-collapse {
       0% {

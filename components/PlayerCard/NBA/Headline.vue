@@ -5,7 +5,6 @@
       v-html="headline"
     />
     <div
-      v-if="$mq === 'mobile'"
       class="player-card__headline-shades"
     >
       <div class="shades-lockup">
@@ -36,7 +35,13 @@ export default {
 <style lang="scss">
 .app--nba {
   .player-card{
-    // &__headline-selling{
+    &__headline-selling{
+      display:flex;
+      flex-direction:column-reverse;
+      @include mobile{
+        flex-direction:column;
+      }
+    }
       &__headline{
         p{
           margin-bottom:15px;
@@ -79,7 +84,14 @@ export default {
       margin:0  0;
       max-width:800px;
       .player-card__headline-shades{
-        margin-top:30px;
+        margin-bottom:15px;
+        display:flex;
+        align-items:center;
+        @include mobile{
+          display:block;
+          margin-top:30px;
+          margin-bottom:0;
+        }
         .player-card__meta-bar-details-row {
           @include player-card-body;
           font-family: 'GT America';
@@ -94,6 +106,10 @@ export default {
         align-items:center;
         @include expanded-label;
         text-transform:uppercase;
+        @include non-mobile{
+          margin-bottom:0;
+          margin-right:10px;
+        }
         
         img{
           margin-right:5px;

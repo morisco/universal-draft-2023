@@ -18,7 +18,6 @@
         />
       </div>
       <div
-        v-if="$mq !== 'mobile'"
         class="writeup-inter__image"
       >
         <img
@@ -66,15 +65,17 @@ export default {
   overflow:hidden;
   border-radius:0.625rem;
   @include mobile {
-    padding:30px 30px 45px;
-    max-width:calc(100% - 40px);
-    margin:0 auto;
+    padding:45px 30px 45px;
+    margin:60px auto 0;
   }
   &__header{
     width:100%;
     display:flex;
     align-items:center;
     justify-content:space-between;
+    @include mobile{
+      flex-direction:column-reverse;
+    }
   }
   &__title{
     @include writeup-title;
@@ -92,10 +93,16 @@ export default {
     border-radius:100%;
     overflow:hidden;
     z-index:0;
+    background:#CCCACA;
+    @include mobile {
+      background:#CCCACA;
+      margin-bottom:20px;
+    }
     img{
       width:100%;
       height:100%;
       object-fit:cover;
+      vertical-align:bottom;
     }
   }
   &__content{
@@ -133,10 +140,15 @@ export default {
   &__squiggle{
     width:100px;
     height:4px;
-    margin-top:30px;
+    margin-top:20px;
     background-image:url('~@/assets/img/squiggle.svg');
     background-size:auto 100%;
     background-position:left center;
+    @include mobile{
+      margin:30px auto 0;
+      width:90%;
+      height:6px;
+    }
 
   }
   &__content{

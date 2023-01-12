@@ -57,7 +57,9 @@
           />
           <Badges
             v-if="player.badges && player.badges.length > 0 && $mq !== 'mobile'"
-            :player="player"
+            :title="player.title"
+            :badges="player.badges"
+            :sponsored_badge="player.sponsored_badge"
           />
         </div>
       </template>
@@ -84,7 +86,9 @@
         />
         <Badges
           v-if="player.badges && player.badges.length > 0 && $mq !== 'mobile'"
-          :player="player"
+          :title="player.title"
+          :badges="player.badges"
+          :sponsored_badge="player.sponsored_badge"
         />
         <Headline
           v-if="$mq === 'mobile'"
@@ -96,7 +100,9 @@
       </template>
       <Badges
         v-if="player.badges && player.badges.length > 0 && $mq === 'mobile'"
-        :player="player"
+        :title="player.title"
+        :badges="player.badges"
+        :sponsored_badge="player.sponsored_badge"
       />
       <ExpandedMeta
         v-if="player.pluses_minuses"

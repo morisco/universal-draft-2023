@@ -36,7 +36,9 @@
         />
         <Badges
           v-if="player.badges && player.badges.length > 0"
-          :player="player"
+          :title="player.title"
+          :badges="player.badges"
+          :sponsored_badge="player.sponsored_badge"
         />
         <Headline
           v-if="$mq === 'mobile'"
@@ -57,7 +59,9 @@
         />
         <Badges
           v-if="player.badges && player.badges.length > 0"
-          :player="player"
+          :title="player.title"
+          :badges="player.badges"
+          :sponsored_badge="player.sponsored_badge"
         />
         <Headline
           v-if="$mq === 'mobile'"

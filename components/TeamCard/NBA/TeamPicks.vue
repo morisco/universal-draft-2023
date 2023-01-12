@@ -1,18 +1,20 @@
 <template>
   <div class="team-card__picks">
-    <h5>Draft Picks</h5>
-    <div
-      v-for="(pick, index) in team.picks"
-      :key="team.title + 'pick' + index"
-      class="team-card__pick"
-    >
-      <div class="team-card__pick-number">
-        <span>{{ pick.number }}</span>
-      </div>
+    <h5>Top Picks</h5>
+    <div class="team-card__picks-grid">
       <div
-        class="team-card__pick-label"
-        v-html="pick.how"
-      />
+        v-for="(pick, index) in team.picks"
+        :key="team.title + 'pick' + index"
+        class="team-card__pick"
+      >
+        <div class="team-card__pick-number">
+          <span>{{ pick.number }}</span>
+        </div>
+        <div
+          class="team-card__pick-label"
+          v-html="pick.how"
+        />
+      </div>
     </div>
   </div>  
 </template>
@@ -24,40 +26,51 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .team-card{
     &__picks{
-      margin-bottom:30px;
+      width:100%;
+      // height:100%;
+      padding:30px 0;
+      @include mobile{
+        margin-top:30px;
+      }
       h5{
-        margin:30px 0 10px !important;
+        margin:0 0 5px !important;
         text-transform:uppercase;
+        @include mobile{
+          margin:0 0 10px !important;
+        }
       }
       @include mobile{
         padding:10px 0 0;
         margin-bottom:15px;
       }
+      &-grid{
+        display:grid;
+        grid-gap: 15px;
+        grid-template-columns: 1fr 1fr;
+        flex-wrap:wrap;
+        @include mobile{
+          grid-template-columns: 1fr;
+          flex-direction:column;
+        }
+      }
     }
     &__pick{
       display:flex;
       align-items:center;
-      margin-bottom:15px;
-      &:last-of-type{
-        margin-bottom:0;
-      }
+      flex-basis:50%;
       &-label{
-        p{
-          font-size:14px;
-          line-height:16px;
-          margin:0;
-        }
-        max-width:175px;
+        padding-right:30px;
+        // max-width:175px;
         @include tablet{
           max-width:100%;
         }
       }
       &-number{
-        height:45px;
-        width:45px;
+        height:50px;
+        width:50px;
         flex: 0 0 auto;
         position: relative;
         display: inline-block;
@@ -68,7 +81,7 @@ export default {
         @include stat-value;
         background: #FFF;
         border-radius: 4px;
-        margin-right:10px;
+        margin-right:15px;
         span{
           position: absolute;
           padding-bottom: 2px;
@@ -79,4 +92,18 @@ export default {
       }
     }
   }
+</style>
+
+<style lang="scss">
+.team-card{
+  &__pick{
+    &-label{
+      p{
+        font-size:14px;
+        line-height:16px;
+        margin:0;
+      }    
+    }
+  }
+}
 </style>

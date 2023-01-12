@@ -13,10 +13,9 @@
       v-if="['mobile', 'tablet'].indexOf($mq) < 0"
       class="player-card__meta-bar-details team-card__meta-bar-details"
     >
-      <NBATeamPlayers
+      <TeamPicks
         v-if="['mobile', 'tablet'].indexOf($mq) < 0"
-        :team-id="teamId"
-        :max-players="3"
+        :team="team"
       />
     <!-- <div class="player-card__meta-bar-details-column" v-if="$mq !== 'tablet'">
       <div class="player-card__meta-bar-details-row">
@@ -29,10 +28,10 @@
 </template>
 
 <script>
-import NBATeamPlayers from './TeamPlayers.vue';
+import TeamPicks from './TeamPicks.vue';
 export default {
   name: 'NBATeamMetaBar',
-  components: { NBATeamPlayers },
+  components: { TeamPicks },
   props: ['team', 'teamId'],
   emits: ['set-height'],
   computed: {
@@ -68,10 +67,10 @@ export default {
     .team-card{
       &__meta-bar{
         display:flex;
-        align-items:center;
+        align-items:stretch;
         padding:0 !important;
         background-color:$mediumgray !important;
-        min-height:200px;
+        min-height:182px;
         @include tablet{
           min-height:175px;
         }
@@ -85,9 +84,10 @@ export default {
           transform:translate(-50%, -50%);
         }
         &-details{
-          padding:0 15px 0 45px;
+          padding:0 30px;
           flex:1;
           margin-bottom:0;
+          height:unset;
 
         }
         h3{
@@ -95,7 +95,7 @@ export default {
         }
         .team-card{
           &__image-column{
-            min-height:200px;
+            min-height:182px;
           }
         }
         .player-card__meta-bar-name-school{
@@ -109,8 +109,12 @@ export default {
         }
         .player-card__meta-bar-details{
           position:relative;
-          margin-left:15px;
+          // margin-left:15px;
           overflow:hidden;
+          width:100%;
+          // height:100%;
+          display:flex;
+          align-items:center;
           &:before{
             content:'';
             display:block;
