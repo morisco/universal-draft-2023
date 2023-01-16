@@ -29,6 +29,8 @@
       :player="player"
       :rank-key="rankKey"
       :collapsed="collapsed"
+      :expanded="expanded"
+      @show-letter="showLetter"
     />
     <div class="player-card__image-info">
       <ImageColumn 
@@ -46,6 +48,7 @@
         @reset-video-settings="resetVideoSettings"
       />
       <InfoColumn 
+        :show-letter="letterShown"
         :player-id="playerId" 
         :expanded="expanded" 
         :collapsed="collapsed" 
@@ -94,6 +97,7 @@ export default {
   emits: ['card-expanded'],
   data() {
     return {
+      letterShown: false,
       openTimeout:          null,
       expanded:             false,
       collapsed:            false,
@@ -232,6 +236,9 @@ export default {
     this.watchScroll();
   },
   methods: {
+    showLetter(letterShown){
+      this.letterShown = letterShown;
+    },
     setMetaHeight(height){
       this.metaHeight = height
     },

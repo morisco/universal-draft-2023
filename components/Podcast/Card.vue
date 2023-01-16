@@ -4,7 +4,10 @@
       <span class="date">
         {{ $moment(pod.spotify_episodeReleaseDate).format('MMM. DD') }}        
       </span>
-      <div class="title-player">
+      <div
+        class="title-player"
+        @click="handlePlayClick"
+      >
         <span class="title">
           {{ pod.title }}
         </span>
@@ -118,6 +121,9 @@ export default {
       display:flex;
       flex-direction:column;
       margin-bottom:20px;
+      .title-player{
+        cursor:pointer;
+      }
       &-top{
         .date{
           @include pod-date;

@@ -88,6 +88,9 @@ export default {
         filter:grayscale(0);
       }
     }
+    .team-card & {
+      background:blue;
+    }
     .player-card__badge{
       &-label{
         line-height:1.1;
@@ -118,6 +121,11 @@ export default {
             // margin-top:3px;
             width:80%;
       
+          }
+        }
+        .team-card & {
+          @include mobile{
+            font-size:16px;
           }
         }
         @include medium-desktop {

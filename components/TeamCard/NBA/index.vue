@@ -20,10 +20,6 @@
       </div>
       <div class="player-card__info-column team-card__info-column">
         <div class="player-card__top-data team-card__top-data">
-          <div
-            class="team-card__headline"
-            v-html="team.history"
-          />
           <TeamPicks
             v-if="['mobile', 'tablet'].indexOf($mq) >= 0"
             :team="team"
@@ -33,6 +29,11 @@
             v-if="['mobile', 'tablet'].indexOf($mq) >= 0"
             :team="team" 
           />
+          <div
+            class="team-card__headline"
+            v-html="team.history"
+          />
+          
 
 
           <!-- <TeamPlayers
@@ -140,6 +141,8 @@ export default {
       }
       h5{
         @include expanded-label;
+        font-family: 'GT America Condensed';
+        font-weight:300;
         line-height:15px;
         text-transform:uppercase;
         margin-bottom:5px;

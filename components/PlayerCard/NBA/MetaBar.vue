@@ -35,6 +35,12 @@
         {{ playerMeta.school }}, {{ playerMeta.year }}
       </h4>
     </div>
+    <LetterTrigger
+      v-if="playerMeta.fanLetter"
+      :expanded="expanded"
+      @show-letter="showLetter"
+    />
+
     <!-- <div
       v-if="$mq !== 'mobile' && playerMeta.shadesOf"
       ref="detailDiv"
@@ -69,12 +75,27 @@
 <script>
 import DraftTeam from './DraftTeam'
 import Trend from './Trend'
+import LetterTrigger from './LetterTrigger';
+import * as animationData from '~/assets/json/letter.json';
 
 export default {
   name: 'NBAMetaBar',
-  components: {DraftTeam, Trend},
+  components: {DraftTeam, Trend, LetterTrigger},
   props: ['player', 'rankKey', 'collapsed', 'expanded'],
   emits: ['set-height'],
+  data() {
+    return {
+      lottie: null,
+        src: JSON.stringify(animationData),
+        options: {
+            minimizable: false,
+            playerSize: "standard",
+            backgroundColor: '#fff',
+            backgroundStyle: 'color',
+            
+        }
+    }
+  },
   computed: {
     rank() {
       return this.rankKey ? this.player[this.rankKey] + 1 : null;
@@ -86,7 +107,7 @@ export default {
       return this.rank < 10 ? '0' + this.rank : this.rank
     },
     playerMeta() {
-      let playerData = this.player
+      let playerData = this.player;
       return {
         firstName: playerData.first_name,
         lastName: playerData.last_name,
@@ -96,7 +117,9 @@ export default {
         age: playerData.player_meta.age,
         height: playerData.player_meta.height,
         weight: playerData.player_meta.weight,
-        shadesOf: playerData.player_meta.shades_of
+        shadesOf: playerData.player_meta.shades_of,
+        fanLetter: playerData.fan_letter,
+        letterImage: playerData.image_data && playerData.image_data.letter_image
       };
     },
     viewDepth () {
@@ -104,6 +127,9 @@ export default {
     },
   },
   watch: {
+    expanded() {
+      console.log('mbe', this.expanded);
+    },
     viewDepth() {
       this.$emit('set-height',this.$refs.metaBar.offsetHeight)
     },
@@ -113,6 +139,14 @@ export default {
   },
   mounted() {
     this.$emit('set-height',this.$refs.metaBar.offsetHeight);
+  },
+  methods: {
+    showLetter(showLetter) {
+      this.$emit('show-letter', showLetter);
+    },
+    initAnim(anim) {
+      this.lottie = anim;
+    }
   }
 }
 </script>
@@ -169,7 +203,7 @@ export default {
         background:transparent;
       }
       .h3{
-        text-transform:uppercase;
+        text-transform:capitalize;
         font-family: "GT America Condensed";
         font-weight: 500;
         font-size: 32px;
@@ -179,7 +213,7 @@ export default {
         }
       }
       .h4{
-        text-transform:uppercase;
+        text-transform:capitalize;
         font-family: "GT America Condensed";
         font-weight: 300;
         font-size: 32px;

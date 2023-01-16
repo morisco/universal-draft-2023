@@ -49,6 +49,12 @@
           ref="peruseContent"
           class="player-card__peruse-content"
         >
+          <FanLetter
+            v-if="playerMeta.fanLetter"
+            :fan-letter="playerMeta.fanLetter"
+            :show-letter="showLetter"
+            :expanded="expanded"
+          />
           <Headline
             :headline="player.player_description"
             :selling="player.player_meta.main_selling_point"
@@ -147,11 +153,12 @@ import DraftInfo from './DraftInfo'
 import RelatedArticles from './RelatedArticles'
 import NBAMeta from './NBAMeta'
 import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
+import FanLetter from './FanLetter';
 
 export default {
   name: "NBAInfoColumn",
-  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, NBAMeta },
-  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
+  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, NBAMeta, FanLetter },
+  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard', 'showLetter'],
   emits: ['set-top-height','set-info-height','set-meta-height'],
   data () {
     return {
@@ -180,6 +187,7 @@ export default {
     playerMeta() {
       const playerData = this.$store.getters['content/player'](this.playerId);
       return {
+        fanLetter: playerData.fan_letter,
         firstName: playerData.first_name,
         lastName: playerData.last_name,
         school: playerData.player_meta.school,

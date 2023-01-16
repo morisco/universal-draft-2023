@@ -86,7 +86,7 @@ export default {
       .player-card__headline-shades{
         margin-bottom:15px;
         display:flex;
-        align-items:center;
+        align-items:flex-start;
         @include mobile{
           display:block;
           margin-top:30px;
@@ -95,20 +95,25 @@ export default {
         .player-card__meta-bar-details-row {
           @include player-card-body;
           font-family: 'GT America';
-          color:$headlinegray;
-          font-size:22px;
+          color:black;
+          font-size:18px;
           line-height:1.2;
           margin-bottom:0 !important;
+          margin-top:-2px;
         }
       }
       .shades-lockup{
         display:flex;
         align-items:center;
         @include expanded-label;
+        font-size:16px;
         text-transform:uppercase;
         @include non-mobile{
           margin-bottom:0;
-          margin-right:10px;
+          margin-right:2px;
+        }
+        .label{
+          white-space:nowrap;
         }
         
         img{

@@ -22,7 +22,7 @@
       >
         Listen on
         <img
-          src="~/assets/img/spotify-logo-black.svg"
+          src="~/assets/img/spotify-logo-black.png"
           alt="Spotify Logo"
         >
       </a>

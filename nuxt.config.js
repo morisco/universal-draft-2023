@@ -29,6 +29,10 @@ export default {
     {src: '~/plugins/VueYoutube', mode: 'client'},
     {src: '~/plugins/analytics', mode: 'client'},
     {src: '~/plugins/donut', mode: 'client'},
+    {src: "~/plugins/lottie.js", mode: 'client'},
+    
+
+    
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

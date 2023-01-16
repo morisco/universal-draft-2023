@@ -85,6 +85,7 @@ export default {
     flex:1;
     color:white;
     width:100%;
+    font-style:normal;
     p{
       line-height:1.1;
     }

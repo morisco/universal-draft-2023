@@ -94,7 +94,6 @@ export default {
     },
     player () {
       const playerData = this.$store.getters['content/player'](this.playerId);
-      console.log('pd', playerData);
       return {
         position_label: playerData.position_label,
         offenseDefense: playerData.offenseDefense,

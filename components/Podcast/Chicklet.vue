@@ -3,7 +3,6 @@
     <button
       type="button"
       class="sticky-play-pause"
-      @click="handlePlayClick"
     >
       <img
         v-if=" (currentPod && (currentPod.id === pod.id && currentPod.type === 'full' && podPlaying) || shouldPlay)"
@@ -125,6 +124,7 @@ export default {
       padding:0 5px;
       @include pod-duration;
       background:$highlight1;
+      border-radius:2px;
 
   
       color:white;

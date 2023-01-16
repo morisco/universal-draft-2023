@@ -13,10 +13,7 @@ import Badges from '../../PlayerCard/NBA/Badges.vue';
 export default {
   name: "NBATeamBadges",
   components: {Badges},
-  props: ['team'],
-  mounted() {
-    console.log('tt', this.team);
-  }
+  props: ['team']
 }
 </script>
 <style lang="scss">

@@ -33,7 +33,7 @@ export default {
       // height:100%;
       padding:30px 0;
       @include mobile{
-        margin-top:30px;
+        margin-top:0;
       }
       h5{
         margin:0 0 5px !important;

@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@lottiefiles/vue-lottie-player": "^1.1.0",
     "@nuxt/ufo": "0.5.4",
     "@nuxtjs/axios": "5.12.4",
     "@nuxtjs/device": "1.2.7",
@@ -32,6 +33,8 @@
     "vue-chartjs": "4.1.1",
     "vue-css-donut-chart": "^1.3.2",
     "vue-dropdowns": "^1.1.2",
+    "vue-lottie": "^0.2.1",
+    "vue-lottie-player": "^0.1.9",
     "vue-range-slider": "^0.6.0",
     "vue-youtube": "1.4.0"
   },

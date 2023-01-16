@@ -55,6 +55,16 @@ export default {
       flex-direction:column;
       margin-top:10px;
       padding-top:0;
+      li{
+        width:100%;
+      }
+      .player-card__badge-label{
+        span{
+          @include mobile{
+            font-size:16px;
+          }
+        }
+      }
     }
     .draft-grades & {
       margin-bottom:30px;
@@ -136,6 +146,9 @@ export default {
         line-height:1.1;
         .team-card & {
           max-width:90px;
+          @include mobile {
+            max-width:100%;
+          }
         }
         span{
           flex:1;
@@ -189,6 +202,7 @@ export default {
         margin-bottom:5px;
           .team-card & {
             width:50px;
+            margin-right:15px;
           }
         }
         img{

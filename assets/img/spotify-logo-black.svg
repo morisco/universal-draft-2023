@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 26.5.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 60 18" style="enable-background:new 0 0 60 18;" xml:space="preserve">
+	 viewBox="0 0 60 18.3" style="enable-background:new 0 0 60 18.3;" xml:space="preserve">
 <g>
 	<defs>
-		<rect id="SVGID_1_" x="-764.8" y="-6280.6" width="1440" height="6999"/>
+		<rect id="SVGID_1_" x="-764.8" y="-6280.3" width="1440" height="6999"/>
 	</defs>
-	<clipPath id="SVGID_00000178917883317549879900000003838160740948558470_">
+	<clipPath id="SVGID_00000005244175426611001880000005987190856463735974_">
 		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
 	</clipPath>
 </g>
 <g>
 	<defs>
-		<rect id="SVGID_00000132786946898370511130000016094192398929031085_" x="-0.1" width="60" height="18"/>
+		<rect id="SVGID_00000001657891945670287720000012746050716082961816_" x="-0.1" y="0.3" width="60" height="18"/>
 	</defs>
-	<clipPath id="SVGID_00000178174401813702728750000015993218277483432872_">
-		<use xlink:href="#SVGID_00000132786946898370511130000016094192398929031085_"  style="overflow:visible;"/>
+	<clipPath id="SVGID_00000094592621106502850570000012648694763488759973_">
+		<use xlink:href="#SVGID_00000001657891945670287720000012746050716082961816_"  style="overflow:visible;"/>
 	</clipPath>
-	<g transform="matrix(1 0 0 1 0 0)" style="clip-path:url(#SVGID_00000178174401813702728750000015993218277483432872_);">
+	<g transform="matrix(1 0 0 1 0 0)" style="clip-path:url(#SVGID_00000094592621106502850570000012648694763488759973_);">
 		
 			<image style="overflow:visible;" width="2362" height="709" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACS8AAAKqCAYAAADRiDlrAAAACXBIWXMAAbQlAAG0JQE3jAhCAAAg
 AElEQVR4nOzdsXIc15ot6EUoI7auRchrj5DXHiHrtseSdccTZM1ci5DXYwnnCYRjjSmcJxBo3fYE
@@ -872,7 +872,7 @@ TtO2h0kO8qHQdBClpn12k+Q6/TSl6yTXXSkX9eIAAAAAAAAAMBbKS8DeGEpNz9OvnltNbTqI9XNj
 lZsOhq/kQ8Hpeea9lm611i35UExalZOinAQAAAAAAADAtigvAaxp2vYgH8pNq9V0K+v/28qYJjut
 JiOt/FpAGlznQ0npXVfK+v8GAAAAAAAAADunvASwBWuTnjbOJCQAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNr+D5D92Tnl2xSEAAAA
-AElFTkSuQmCC" transform="matrix(2.538787e-02 0 0 2.538787e-02 -9.411746e-02 0)">
+AElFTkSuQmCC" transform="matrix(2.538787e-02 0 0 2.538787e-02 -9.411746e-02 0.2529)">
 		</image>
 	</g>
 </g>
