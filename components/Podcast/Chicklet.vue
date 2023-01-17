@@ -13,7 +13,7 @@
         src="~/assets/img/icons/play-white.svg"
       >
     </button>
-    <span>
+    <span class="time">
       {{ format(pod.spotify_episodeDuration - currentTime) }}
     </span>
   </div>
@@ -131,6 +131,10 @@ export default {
       .sticky-play-pause{
         margin-right:5px;
       }
+    }
+    .time{
+      display:block;
+      padding-bottom:1px;
     }
   }
 </style>

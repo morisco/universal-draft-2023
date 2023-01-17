@@ -142,7 +142,7 @@ export default {
       h5{
         @include expanded-label;
         font-family: 'GT America Condensed';
-        font-weight:300;
+        font-size:16px;
         line-height:15px;
         text-transform:uppercase;
         margin-bottom:5px;

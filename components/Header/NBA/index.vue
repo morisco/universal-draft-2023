@@ -106,9 +106,9 @@ export default {
       height:calc(100% + 85px);
       position:absolute;
       right:-30px;
-      top:-100px;
+      top:-71px;
       @include tablet{
-        top:-16vw;
+        top:-14.2vw;
         height:calc(100% + 16vw);
         right:-3%;
       }
