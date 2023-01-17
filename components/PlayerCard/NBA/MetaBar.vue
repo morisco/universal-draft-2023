@@ -43,35 +43,6 @@
       :expanded="expanded"
       @show-letter="showLetter"
     />
-
-    <!-- <div
-      v-if="$mq !== 'mobile' && playerMeta.shadesOf"
-      ref="detailDiv"
-      class="player-card__meta-bar-details"
-    >
-      <div class="player-card__meta-bar-details-column player-card__meta-bar-details-column--shades">
-        <div class="player-card__meta-bar-details-row">
-          <div class="shades-of-icon">
-            <img
-              src="@/assets/img/icons/shades-of.svg"
-              alt="Venn Diagaram Icon"
-              data-not-lazy
-              class="hover"
-            >
-            <img
-              src="@/assets/img/icons/shades-of-icon-black.svg"
-              alt="Venn Diagaram Icon"
-              data-not-lazy
-              class="non-hover"
-            >
-          </div>
-          <span class="label">Shades Of</span>
-        </div>
-        <div class="player-card__meta-bar-details-row player-card__meta-bar-details-row--shade-value">
-          {{ playerMeta.shadesOf }}
-        </div>
-      </div> -->
-  <!-- </div> -->
   </div>  
 </template>
 
@@ -86,19 +57,6 @@ export default {
   components: {DraftTeam, Trend, LetterTrigger},
   props: ['player', 'rankKey', 'collapsed', 'expanded'],
   emits: ['set-height'],
-  data() {
-    return {
-      lottie: null,
-        src: JSON.stringify(animationData),
-        options: {
-            minimizable: false,
-            playerSize: "standard",
-            backgroundColor: '#fff',
-            backgroundStyle: 'color',
-            
-        }
-    }
-  },
   computed: {
     rank() {
       return this.rankKey ? this.player[this.rankKey] + 1 : null;
@@ -144,9 +102,6 @@ export default {
     showLetter(showLetter) {
       this.$emit('show-letter', showLetter);
     },
-    initAnim(anim) {
-      this.lottie = anim;
-    }
   }
 }
 </script>
