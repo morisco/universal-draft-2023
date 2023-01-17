@@ -50,23 +50,29 @@
           class="player-card__peruse-content"
         >
           <FanLetter
-            v-if="playerMeta.fanLetter"
+            v-if="playerMeta.fanLetter && $mq !== 'mobile'"
             :fan-letter="playerMeta.fanLetter"
             :show-letter="showLetter"
             :expanded="expanded"
+            :top-height="topHeight"
+            @set-letter-height="setLetterHeight"
           />
-          <Headline
-            :headline="player.player_description"
-            :selling="player.player_meta.main_selling_point"
-            :player="player"
-            :player-meta="playerMeta"
-          />
-          <Badges
-            v-if="player.badges && player.badges.length > 0 && $mq !== 'mobile'"
-            :title="player.title"
-            :badges="player.badges"
-            :sponsored_badge="player.sponsored_badge"
-          />
+          <template
+            v-if="$mq === 'mobile' || (!expanded || (expanded && !playerMeta.fanLetter))"
+          >
+            <Headline
+              :headline="player.player_description"
+              :selling="player.player_meta.main_selling_point"
+              :player="player"
+              :player-meta="playerMeta"
+            />
+            <Badges
+              v-if="player.badges && player.badges.length > 0 && $mq !== 'mobile'"
+              :title="player.title"
+              :badges="player.badges"
+              :sponsored_badge="player.sponsored_badge"
+            />
+          </template>
         </div>
       </template>
     </div>
@@ -102,6 +108,30 @@
           :selling="player.player_meta.main_selling_point"
           :player-meta="playerMeta"
           :player="player"
+        />
+      </template>
+      <template v-else-if="playerMeta.fan_letter && $mq !== 'mobile'">
+        <Headline
+          :headline="player.player_description"
+          :selling="player.player_meta.main_selling_point"
+          :player="player"
+          :player-meta="playerMeta"
+        />
+        <Badges
+          :title="player.title"
+          :badges="player.badges"
+          :sponsored_badge="player.sponsored_badge"
+        />
+        <div class="letter-bottom-spacer" />
+      </template>
+      <template v-if="playerMeta.fanLetter && $mq === 'mobile'">
+        <LetterTrigger />
+        <FanLetter
+          :fan-letter="playerMeta.fanLetter"
+          :show-letter="showLetter"
+          :expanded="expanded"
+          :top-height="topHeight"
+          @set-letter-height="setLetterHeight"
         />
       </template>
       <Badges
@@ -154,12 +184,13 @@ import RelatedArticles from './RelatedArticles'
 import NBAMeta from './NBAMeta'
 import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import FanLetter from './FanLetter';
+import LetterTrigger from './LetterTrigger';
 
 export default {
   name: "NBAInfoColumn",
-  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, NBAMeta, FanLetter },
+  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, NBAMeta, FanLetter, LetterTrigger },
   props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard', 'showLetter'],
-  emits: ['set-top-height','set-info-height','set-meta-height'],
+  emits: ['set-top-height','set-info-height','set-meta-height', 'set-letter-height'],
   data () {
     return {
       mounted: false,
@@ -168,7 +199,9 @@ export default {
       maxHeight: null,
       animateHeight: false,
       ruleHeight: null,
-      ruleTop: null
+      ruleTop: null,
+      letterHeight: null,
+      metaHeight: null
     }
   },
   computed: {
@@ -198,10 +231,20 @@ export default {
         weight: playerData.player_meta.weight,
         shadesOf: playerData.player_meta.shades_of,
         player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false,
+        fan_letter: playerData.fan_letter,
       };
     },
   },
   watch : {
+    showLetter() {
+      if(this.showLetter && this.letterHeight) {
+        const htu = Math.max(this.letterHeight, this.topheight);
+        this.setMaxHeight(htu);
+        this.maxHeight = htu;
+      } else {
+        this.setHeights();
+      }
+    },
     viewDepth(newDepth) {
       this.setHeights();
     },
@@ -244,10 +287,14 @@ export default {
     window.removeEventListener('resize', this.windowResized);
   },
   methods: {
+    setLetterHeight(letterHeight) {
+      this.letterHeight = letterHeight + 110;
+    },
     windowResized () {
       this.setHeights();
     },
     setMetaHeight(height) {
+      this.metaHeight = height;
       this.$emit('set-meta-height', height);
     },
     setHeights() {
@@ -436,8 +483,9 @@ export default {
 
       @include mobile{
         background:transparent;
-        padding: 0 0 15px;
-        margin:0 auto;
+        padding: 30px 0 15px;
+        margin:0 auto 0;
+        border-top: 1px solid #D8D8D8;
         // border-radius:0 0 0.625rem 0.625rem;
         // .player-card--expanded & {
         //   margin-top:0;
@@ -469,11 +517,15 @@ export default {
             transition:opacity 0.25s linear 0.5s;
           }
           @include mobile{
-            margin-top:0;
+            margin-top:30px;
           }
         }
       }
     }
+  }
+  .letter-bottom-spacer{
+    width:100%;
+    margin-bottom:30px;
   }
   
   @keyframes infoColumn-collapse {

@@ -89,7 +89,7 @@ export default {
         align-items:flex-start;
         @include mobile{
           display:block;
-          margin-top:30px;
+          margin-top:15px;
           margin-bottom:0;
         }
         .player-card__meta-bar-details-row {

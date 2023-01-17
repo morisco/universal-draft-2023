@@ -18,6 +18,7 @@
     }"
     :style="
       [maxHeight] ? {
+        height: height + 'px', 
         maxHeight: maxHeight + 'px', 
         zIndex: zIndex
       } : { zIndex: zIndex }"
@@ -115,7 +116,9 @@ export default {
       collapsing:           false,
       heightCount:          0,
       videoSettings:        null,
-      metaHeight:           null
+      metaHeight:           null,
+      letterHeight: 0,
+      height: null
     }
   },
   computed: {
@@ -297,7 +300,12 @@ export default {
           easing = 'linear';
           cb();
           // setTimeout(( )=> {
-            scrollIt(scrollDestination, timing, easing);
+            if(this.$mq === 'mobile') {
+              // scrollDestination = scrollDestination - 200;
+              scrollTo({top: this.$refs.card.offsetParent.offsetTop + this.$refs.card.offsetTop - 40, behavior: 'smooth'})
+            } else {
+              scrollIt(scrollDestination, timing, easing);
+            }
           // }, 125);
 
         } else if(this.$mq !== 'mobile' || this.expanded || currentScroll < scrollDestination){
@@ -334,13 +342,17 @@ export default {
       if(this.collapsed && !this.expanded) {
         if(this.$mq === 'mobile'){
           this.maxHeight = this.metaHeight
+          this.height = this.metaHeight
         } else {
           this.maxHeight = this.$refs.metaBar.$el.offsetHeight
+          this.height = this.$refs.metaBar.$el.offsetHeight
         }
       } else {
         if(this.$mq === 'mobile'){
           this.maxHeight = maxHeight + 265
+          this.height = maxHeight + 265;
         } else {
+          this.maxHeight = heightToUse + this.$refs.metaBar.$el.offsetHeight;
           this.maxHeight = heightToUse + this.$refs.metaBar.$el.offsetHeight;
         }
       }

@@ -30,13 +30,16 @@
         </transition>
         <span>{{ playerMeta.firstName }}</span>
         <span>{{ playerMeta.lastName }}</span>
-      </h3>&nbsp;&nbsp;
+      </h3>
+      <template v-if="$mq !== 'mobile'">
+        &nbsp;&nbsp;
+      </template>
       <h4 class="h4">
         {{ playerMeta.school }}, {{ playerMeta.year }}
       </h4>
     </div>
     <LetterTrigger
-      v-if="playerMeta.fanLetter"
+      v-if="playerMeta.fanLetter && $mq !== 'mobile'"
       :expanded="expanded"
       @show-letter="showLetter"
     />
@@ -127,9 +130,6 @@ export default {
     },
   },
   watch: {
-    expanded() {
-      console.log('mbe', this.expanded);
-    },
     viewDepth() {
       this.$emit('set-height',this.$refs.metaBar.offsetHeight)
     },
@@ -219,6 +219,7 @@ export default {
         font-size: 32px;
         @include mobile{
           margin-bottom:4px;
+          font-size:20px;
           
         }
       }
@@ -422,6 +423,9 @@ export default {
         flex: 0 0 auto;
         display:flex;
         align-items:center;
+        @include mobile{
+          flex-direction:column;
+        }
         &.player-card__image-column{
           padding:0 0 0 40px;
           width:auto;

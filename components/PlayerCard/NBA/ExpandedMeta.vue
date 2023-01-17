@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .player-card{
     &__expanded-meta{
       position:relative;
@@ -88,7 +88,7 @@ export default {
           li{
             &:last-of-type{
               p{
-                margin-bottom:0;
+                margin-bottom:0 !important;
               }
             }
           }

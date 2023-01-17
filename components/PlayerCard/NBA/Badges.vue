@@ -101,8 +101,8 @@ export default {
       margin-left:0;
       margin-right:0;
       flex-wrap:wrap;
-      margin-top:30px;
-      margin-bottom:30px;
+      margin-top:0;
+      margin-bottom:5px;
       .team-card & {
         margin-bottom:0;
       }
@@ -199,7 +199,7 @@ export default {
         @include mobile{
           width:100%;
           height:auto;
-        margin-bottom:5px;
+          margin-bottom:5px;
           .team-card & {
             width:50px;
             margin-right:15px;
