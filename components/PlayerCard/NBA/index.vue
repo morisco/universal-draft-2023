@@ -353,7 +353,7 @@ export default {
           this.height = maxHeight + 265;
         } else {
           this.maxHeight = heightToUse + this.$refs.metaBar.$el.offsetHeight;
-          this.maxHeight = heightToUse + this.$refs.metaBar.$el.offsetHeight;
+          this.height = heightToUse + this.$refs.metaBar.$el.offsetHeight;
         }
       }
     },

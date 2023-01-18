@@ -22,7 +22,10 @@
             class="hover-image"
             :alt="player.imageAlt"
           >
-          <div class="position">
+          <div
+            v-if="player.position_label"
+            class="position"
+          >
             {{ player.position_label }}
           </div>
         </div>
@@ -340,7 +343,7 @@ export default {
         transition:max-height 0.125s linear 0.175s;
         .position{
           position:absolute;
-          bottom:0;
+          bottom:60px;
           left:0;
           padding:0 10px;
           color:white;
@@ -353,7 +356,10 @@ export default {
           font-weight:500;
           text-transform:uppercase;
           padding-top:3px;
-
+          transition: bottom 0.125s linear 0.175s;
+          .player-card--expanded & {
+            bottom:0;
+          }
         }
         &-inner{
           position:absolute;

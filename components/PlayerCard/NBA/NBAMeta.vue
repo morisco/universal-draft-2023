@@ -31,6 +31,7 @@ export default {
     transform:translateY(0);
     transition:transform 0.175s linear .125s, border-color 0.25s linear;
     font-size:14px;
+    z-index:5;
     @include mobile{
       bottom:0;
       border-top:0;
