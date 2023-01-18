@@ -48,7 +48,13 @@ export function processPlayers(players) {
   let processedPlayers = {};
   const playerPositions = [];
   let teamPlayers = {};
+  const bigBoardZeroBase = players.sort((a,b) => a.order < b.order ? -1 : 1)[0].order === 0;
+  const mockDraftZeroBase = players.sort((a,b) => a.order_mockdraft < b.order_mockdraft ? -1 : 1)[0].order_mockdraft === 0;
+  const draftResultsZeroBase = players.sort((a,b) => a.order_draftresults < b.order_draftresults ? -1 : 1)[0].order_draftresults === 0;
   players.forEach((player) => {
+    player.order = bigBoardZeroBase ? player.order : player.order - 1;
+    player.order_mockdraft = mockDraftZeroBase ? player.order_mockdraft : player.order_mockdraft - 1;
+    player.order_draftresults = draftResultsZeroBase ? player.order_draftresults : player.order_draftresults - 1;
     player = decodeContent(player);
     // if(process.env.PROJECT_LEAGUE === 'NBA'){
     //   player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
@@ -89,7 +95,8 @@ export function processPlayers(players) {
   return {
     playerData: processedPlayers,
     teamPlayers,
-    ...orderedIds
+    ...orderedIds,
+
   }
 }
 
