@@ -348,10 +348,9 @@ export default {
           display:flex;
           align-items:center;
           height:28px;
-          font-family: 'GT America';
+          font-family: 'GT America Condensed';
           font-size:14px;
           font-weight:500;
-          letter-spacing:0.5px;
           text-transform:uppercase;
           padding-top:3px;
 
