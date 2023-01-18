@@ -360,7 +360,10 @@ export default {
           transition: bottom 0.125s linear 0.175s;
           .player-card--expanded & {
             bottom:0;
-        }
+          }
+          @include mobile{
+            bottom:0;
+          }
         }
         &-inner{
           position:absolute;
