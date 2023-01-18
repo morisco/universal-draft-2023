@@ -233,6 +233,7 @@ export default {
         shadesOf: playerData.player_meta.shades_of,
         player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false,
         fan_letter: playerData.fan_letter,
+        wingspan: playerData.player_meta.wingspan
       };
     },
   },

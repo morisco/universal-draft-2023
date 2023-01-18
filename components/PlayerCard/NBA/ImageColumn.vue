@@ -120,7 +120,8 @@ export default {
         age: playerData.player_meta.age,
         height: playerData.player_meta.height,
         weight: playerData.player_meta.weight,
-        shadesOf: playerData.player_meta.shades_of
+        shadesOf: playerData.player_meta.shades_of,
+        wingspan: playerData.player_meta.wingsapn
       };
     },
     teamNameLogo () {
@@ -359,7 +360,7 @@ export default {
           transition: bottom 0.125s linear 0.175s;
           .player-card--expanded & {
             bottom:0;
-          }
+        }
         }
         &-inner{
           position:absolute;
