@@ -44,7 +44,7 @@ export default {
   right:30px;
   opacity:0;
   pointer-events:none;
-  transition:opacity 0.25s linear;
+  transition:opacity 0.25s linear 0.25s;
   background:#FFF;
   display:flex;
   flex-direction:column;
@@ -67,6 +67,7 @@ export default {
   &--expanded{
     position:relative;
     margin-top:0;
+    transition:opacity 0.25s linear 0s;
     // margin-bottom:30px;
     opacity:1;
     top:auto;
@@ -75,6 +76,7 @@ export default {
   
   &--show{
     opacity:1;
+    transition:opacity 0.25s linear 0s;
     pointer-events:auto;
   }
   .fan-letter-headling{
@@ -89,7 +91,11 @@ export default {
     &-content p {
       @include player-card-body;
       strong{
-        font-weight:700;
+        font-size:16px;
+        text-transform:uppercase;
+        font-weight:normal;
+        font-family: "GT America Condensed";
+        letter-spacing: 0.025em;
       }
       &:last-of-type{
         margin-bottom:0;

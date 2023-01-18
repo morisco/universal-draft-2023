@@ -65,10 +65,12 @@ export default {
   .letter-trigger{
     position:absolute;
     right:20px;
-    top:60%;
+    top:calc(60% + 11px);
     transform:translateY(-50%);
     z-index:3;
     color:white;
+    padding-bottom:22px;
+    overflow:hidden;
     @include mobile{
       position:relative;
       display:flex;
@@ -76,6 +78,8 @@ export default {
       top:auto;
       transform:none;
       margin-bottom:-10px;
+      margin-top:15px;
+      padding-bottom:0;
     }
     .circle{
       background:#F4731D;
@@ -90,11 +94,10 @@ export default {
       z-index:1;
     }
     img{
-      opacity:0;
-      transition: opacity 0.25s linear 0s;
+      transition: transform 0.25s ease-in-out 0s;
       position:absolute;
       left:50%;
-      transform:translateX(-50%);
+      transform:translate(-50%, 100%);
       top:22px;
       z-index:2;
       @include mobile{
@@ -105,6 +108,7 @@ export default {
         top:auto;
         height:66px;
         margin-left:-10px;
+        transform:none;
       }
     }
     span{
@@ -130,8 +134,8 @@ export default {
         transition: opacity 0.25s linear 0s;
       }
       img{
-        opacity:1;
-        transition: opacity 0.25s linear 0.25s;
+        transform:translate(-50%, 0);
+        transition: transform 0.25s ease-in-out 0.25s;
       }
     }
     

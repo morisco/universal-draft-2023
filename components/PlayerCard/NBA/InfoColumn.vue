@@ -124,6 +124,12 @@
         />
         <div class="letter-bottom-spacer" />
       </template>
+      <Badges
+        v-if="player.badges && player.badges.length > 0 && $mq === 'mobile'"
+        :title="player.title"
+        :badges="player.badges"
+        :sponsored_badge="player.sponsored_badge"
+      />
       <template v-if="playerMeta.fanLetter && $mq === 'mobile'">
         <LetterTrigger />
         <FanLetter
@@ -134,12 +140,7 @@
           @set-letter-height="setLetterHeight"
         />
       </template>
-      <Badges
-        v-if="player.badges && player.badges.length > 0 && $mq === 'mobile'"
-        :title="player.title"
-        :badges="player.badges"
-        :sponsored_badge="player.sponsored_badge"
-      />
+      
       <ExpandedMeta
         v-if="player.pluses_minuses"
         :player="player"

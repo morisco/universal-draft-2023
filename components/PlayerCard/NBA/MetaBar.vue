@@ -163,7 +163,7 @@ export default {
         font-weight: 500;
         font-size: 32px;
         @include mobile{
-          margin-bottom:4px;
+          margin-bottom:0px;
           
         }
       }
@@ -173,8 +173,8 @@ export default {
         font-weight: 300;
         font-size: 32px;
         @include mobile{
-          margin-bottom:4px;
-          font-size:20px;
+          margin-bottom:0px;
+          font-size:22px;
           
         }
       }
@@ -380,6 +380,7 @@ export default {
         align-items:center;
         @include mobile{
           flex-direction:column;
+          align-items:flex-start;
         }
         &.player-card__image-column{
           padding:0 0 0 40px;
