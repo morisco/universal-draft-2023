@@ -483,10 +483,20 @@ export default {
       }
 
       @include mobile{
+        position:relative;
         background:transparent;
-        padding: 30px 0 15px;
+        padding: 60px 0 15px;
         margin:0 auto 0;
-        border-top: 1px solid #D8D8D8;
+        &:after{
+          content:'';
+          display:block;
+          position:absolute;
+          top:30px;
+          left:0;
+          right:0;
+          background:#D8D8D8;
+          height:1px;
+        }
         // border-radius:0 0 0.625rem 0.625rem;
         // .player-card--expanded & {
         //   margin-top:0;
@@ -516,9 +526,6 @@ export default {
           > *{
             opacity:1;
             transition:opacity 0.25s linear 0.5s;
-          }
-          @include mobile{
-            margin-top:30px;
           }
         }
       }
