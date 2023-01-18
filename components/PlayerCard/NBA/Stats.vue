@@ -1,5 +1,8 @@
 <template>
-  <div class="player-card__stats">
+  <div
+    v-if="statsToShow"
+    class="player-card__stats"
+  >
     <div
       v-if="player.stat_details"
       class="player-card__stats-detail"
@@ -11,11 +14,11 @@
       :class="{'player-card__stats-list--full' : statArray.length === 5}"
     >
       <li
-        v-for="stat in player.player_position_stats.stats"
-        :key="stat.key"
+        v-for="stat in statsToShow"
+        :key="stat.label"
       >
         <div class="player-card__stat-tooltip">
-          {{ stat.tooltip }}
+          {{ stat === 'custom' ? players.stats.custom.tooltip : tooltips[stat.id] }}
         </div>
         <div class="player-card__stat">
           <span class="player-card__stat-title">{{ stat.label }}</span>
@@ -35,9 +38,42 @@
 export default {
   name:'NBAStats',
   props: ['player'],
+  data() {
+    return {
+      statLabelOverrides: {
+        'threes': '3P%',
+        'ftp': 'FT%'
+      },
+      tooltips: {
+        'threes': '3-point percentage', 
+        'ftp': 'Free-throw percentage',
+        'pts': "Points", 
+        'blk': "Blocks",
+        'reb': "Rebounds",
+        'ast': "Assists",
+        'stl': "Steals"
+      },
+      statsToShow: null
+
+    }
+  },
   computed: {
     statArray() {
       return [];
+    }
+  },
+  mounted() {
+    const self = this;
+    if(this.player.stats?.stats_to_show) {
+
+      this.statsToShow = this.player.stats.stats_to_show.map((sts) => {
+        return {
+          id: sts.stat,
+          label: self.statLabelOverrides[sts.stat] || sts.stat,
+          value: this.player.stats[sts.stat].value,
+          detail: this.player.stats[sts.stat].detail
+        }
+      })
     }
   }  
 }
