@@ -143,7 +143,7 @@
           key="tn"
           class="filters__section filters__section--team-needs"
         >
-          <div class="filters__section-title filters__section-title--team-needs">
+          <!-- <div class="filters__section-title filters__section-title--team-needs">
             Order By
           </div>
           <div class="filters__section-list">
@@ -157,19 +157,19 @@
             </mq-layout>
             <button
               class="filters__option"
-              :class="{active: teamSort === 'order'}"
-              @click="setTeamSort('order')"
-            >
-              Draft Order
-            </button>
-            <button
-              class="filters__option"
               :class="{active: teamSort === 'alpha'}"
               @click="setTeamSort('alpha')"
             >
               Alphabetical
             </button>
-          </div>
+            <button
+              class="filters__option"
+              :class="{active: teamSort === 'order'}"
+              @click="setTeamSort('order')"
+            >
+              Draft Order
+            </button>
+          </div> -->
         </div>
       </TransitionGroup>
       <BadgeSelector
@@ -230,7 +230,7 @@ export default {
     },
     teamArrowTop() {
       const teamSort = this.$store.getters['viewOptions/teamSort'];
-      return teamSort === 'order' ? window.innerWidth < 768 ? 3 : 1 : window.innerWidth < 768 ? 25 : 19;
+      return teamSort === 'alpha' ? window.innerWidth < 768 ? 3 : 1 : window.innerWidth < 768 ? 25 : 19;
     },
     positionMap() {
       return PositionMap;

@@ -1,6 +1,6 @@
 <template>
   <div class="team-card__picks">
-    <h5>Top Picks</h5>
+    <h5>Draft Picks</h5>
     <div class="team-card__picks-grid">
       <div
         v-for="(pick, index) in team.picks"
@@ -36,7 +36,7 @@ export default {
         margin-top:0;
       }
       h5{
-        margin:0 0 5px !important;
+        margin:0 0 10px !important;
         text-transform:uppercase;
         @include mobile{
           margin:0 0 10px !important;
@@ -84,7 +84,7 @@ export default {
         margin-right:15px;
         span{
           position: absolute;
-          padding-bottom: 2px;
+          padding-top: 2px;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
