@@ -76,7 +76,7 @@ export default {
         case 'team_needs_team_share':          
           return process.env.PROJECT_LEAGUE === 'NFL' 
             ? 'Team Needs by Danny Heifetz'
-            : 'Team Needs by Kevin O\'Connor'
+            : 'Team Needs by Michael Pina'
         case 'draft-grades':
         case 'draft_grades_player_share':
           return process.env.PROJECT_LEAGUE === 'NFL' 

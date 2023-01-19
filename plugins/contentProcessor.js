@@ -63,6 +63,8 @@ export function processPlayers(players) {
     player.order_mockdraft = mockDraftZeroBase ? parseInt(player.order_mockdraft,10) : parseInt(player.order_mockdraft,10) - 1;
     player.order_draftresults = draftResultsZeroBase ? player.order_draftresults : player.order_draftresults - 1;
     player = decodeContent(player);
+
+    player.fan_letter = !player.fan_letter ? false : player.fan_letter === '<p><br></p>' ? false : player.fan_letter;
     // if(process.env.PROJECT_LEAGUE === 'NBA'){
     //   player.id_string = player.title.replace(/\s/g,'-').replace(/[^A-Za-z-]/g, '').toLowerCase();
     // } else {

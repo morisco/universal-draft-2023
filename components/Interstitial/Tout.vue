@@ -10,7 +10,7 @@
       class="tout-inter__image"
     >
       <img
-        :src="$mq === 'mobile' ? interstitial.image_mobile.small ? interstitial.image_mobile.small : interstitial.image.small : interstitial.image.medium"
+        :src="$mq === 'mobile' ? interstitial.image_mobile.small ? interstitial.image_mobile.small : interstitial.image.medium : interstitial.image.large"
         :alt="interstitial.title"
       >
     </div>
