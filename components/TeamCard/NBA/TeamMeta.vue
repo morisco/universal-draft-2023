@@ -11,7 +11,7 @@
       <div class="team-card__team-meta-picks-needs">
         <div class="team-card__team-picks">
           <div class="team-card__team-pick team-card__team-pick--headline">
-            <span class="team-card__team-pick-left">Top Picks</span>
+            <span class="team-card__team-pick-left">Draft Picks</span>
             <span class="team-card__team-pick-right">How they acquired it</span>
           </div>
           <div

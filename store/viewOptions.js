@@ -4,7 +4,7 @@ const state = () => ({
   viewPosition: 'all',
   viewCollapsed: false,
   viewStrength: [],
-  teamSort: 'order'
+  teamSort: 'alpha'
 })
 
 // getters
