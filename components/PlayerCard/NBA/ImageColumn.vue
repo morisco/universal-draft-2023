@@ -121,7 +121,7 @@ export default {
         height: playerData.player_meta.height,
         weight: playerData.player_meta.weight,
         shadesOf: playerData.player_meta.shades_of,
-        wingspan: playerData.player_meta.wingsapn
+        wingspan: playerData.player_meta.wingspan
       };
     },
     teamNameLogo () {
