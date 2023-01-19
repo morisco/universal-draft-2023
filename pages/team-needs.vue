@@ -12,7 +12,7 @@
       @leave="onLeave"
     >
       <TeamCard 
-        v-for="(teamId, index) in sortedTeams"
+        v-for="(teamId, index) in teamsToShow"
         :key="teamId + '-' + index" 
         :team-id="teamId"
         :index="index" 
@@ -55,6 +55,9 @@ export default {
     return headeBuilder(this);
   },
   computed: {
+    teamsToShow() {
+      return this.showAll ? this.sortedTeams : this.sortedTeams.slice(0,4)
+    },
     league() {
       return process.env.PROJECT_LEAGUE.toLowerCase()
     },
@@ -63,7 +66,7 @@ export default {
     },
     teamNeedsIds () {
       const itemCount = 4;
-      return this.showAll ? this.$store.getters['content/teamNeeds'] : this.$store.getters['content/teamNeeds'].slice(0,itemCount)
+      return this.$store.getters['content/teamNeeds']
     },
     relatedArticles () {
       return this.$store.getters['content/relatedArticles'];
