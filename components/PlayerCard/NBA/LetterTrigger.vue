@@ -100,6 +100,7 @@ export default {
       transform:translate(-50%, 100%);
       top:22px;
       z-index:2;
+      max-width:100%;
       @include mobile{
         position:relative;
         left:auto;

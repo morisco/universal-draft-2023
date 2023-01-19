@@ -51,6 +51,13 @@ export default {
     transition: transform 0s linear 0.125s, filter 0.375s linear 0.5s;
     margin-top:20px;
     padding-top:5px;
+
+    .mock-draft &,
+    .draft-results & {
+      @include mobile {
+        margin-top:30px;
+      }
+    }
     .team-card & {
       flex-direction:column;
       margin-top:10px;

@@ -32,9 +32,16 @@ function processImages(image) {
 }
 
 function processOrders(players) {
+  const mockDraftZeroBase = players.sort((a,b) => a.order_mockdraft < b.order_mockdraft ? -1 : 1)[0].order_mockdraft === 0;
   const orderIds = players.map((player) => { return {id: player.id, bigBoard: parseInt(player.order,10), mockDraft: parseInt(player.order_mockdraft,10), draftResults: parseInt(player.order_draftresults,10) } });
   const bigBoardSorted = orderIds.sort((playerA, playerB) => (playerA.bigBoard > playerB.bigBoard) ? 1 : -1);
-  const mockIds = orderIds.filter(player => player.mockDraft <= 31);
+  const mockIds = orderIds.filter(player => {
+    if(mockDraftZeroBase){
+      return player.mockDraft <= 31
+    } else {
+      return player.mockDraft <= 32
+    }
+  });
   const draftResultIds = players.filter(player => player.drafted_team);
   const mockDraftSorted = mockIds.sort((playerA, playerB) => (playerA.mockDraft > playerB.mockDraft) ? 1 : -1);
   const draftResultsSorted = draftResultIds.sort((playerA, playerB) => (playerA.order_draftresults > playerB.order_draftresults) ? 1 : -1);
@@ -53,7 +60,7 @@ export function processPlayers(players) {
   const draftResultsZeroBase = players.sort((a,b) => a.order_draftresults < b.order_draftresults ? -1 : 1)[0].order_draftresults === 0;
   players.forEach((player) => {
     player.order = bigBoardZeroBase ? player.order : player.order - 1;
-    player.order_mockdraft = mockDraftZeroBase ? player.order_mockdraft : player.order_mockdraft - 1;
+    player.order_mockdraft = mockDraftZeroBase ? parseInt(player.order_mockdraft,10) : parseInt(player.order_mockdraft,10) - 1;
     player.order_draftresults = draftResultsZeroBase ? player.order_draftresults : player.order_draftresults - 1;
     player = decodeContent(player);
     // if(process.env.PROJECT_LEAGUE === 'NBA'){

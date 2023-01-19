@@ -49,14 +49,16 @@
           ref="peruseContent"
           class="player-card__peruse-content"
         >
-          <FanLetter
-            v-if="playerMeta.fanLetter && $mq !== 'mobile'"
-            :fan-letter="playerMeta.fanLetter"
-            :show-letter="showLetter"
-            :expanded="expanded"
-            :top-height="topHeight"
-            @set-letter-height="setLetterHeight"
-          />
+          <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) === -1">
+            <FanLetter
+              v-if="playerMeta.fanLetter && $mq !== 'mobile'"
+              :fan-letter="playerMeta.fanLetter"
+              :show-letter="showLetter"
+              :expanded="expanded"
+              :top-height="topHeight"
+              @set-letter-height="setLetterHeight"
+            />
+          </template>
           <template
             v-if="$mq === 'mobile' || (!expanded || (expanded && !playerMeta.fanLetter))"
           >
@@ -130,7 +132,7 @@
         :badges="player.badges"
         :sponsored_badge="player.sponsored_badge"
       />
-      <template v-if="playerMeta.fanLetter && $mq === 'mobile'">
+      <template v-if="playerMeta.fanLetter && $mq === 'mobile' && ['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) === -1">
         <LetterTrigger />
         <FanLetter
           :fan-letter="playerMeta.fanLetter"
@@ -484,19 +486,21 @@ export default {
       }
 
       @include mobile{
-        position:relative;
         background:transparent;
-        padding: 60px 0 15px;
-        margin:0 auto 0;
-        &:after{
-          content:'';
-          display:block;
-          position:absolute;
-          top:30px;
-          left:0;
-          right:0;
-          background:#D8D8D8;
-          height:1px;
+        .big-board & {
+          position:relative;
+          padding: 60px 0 15px;
+          margin:0 auto 0;
+          &:after{
+            content:'';
+            display:block;
+            position:absolute;
+            top:30px;
+            left:0;
+            right:0;
+            background:#D8D8D8;
+            height:1px;
+          }
         }
         // border-radius:0 0 0.625rem 0.625rem;
         // .player-card--expanded & {

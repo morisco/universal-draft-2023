@@ -44,6 +44,10 @@ export default {
     // opacity:0;
     z-index:0;
     color:$black;
+    .player-card__bottom-data & {
+      margin-top:15px;
+      margin-bottom:30px;
+    }
     // visibility:hidden;
 
     

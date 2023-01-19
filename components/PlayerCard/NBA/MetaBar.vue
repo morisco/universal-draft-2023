@@ -38,11 +38,13 @@
         {{ playerMeta.school }}, {{ playerMeta.year }}
       </h4>
     </div>
-    <LetterTrigger
-      v-if="playerMeta.fanLetter && $mq !== 'mobile'"
-      :expanded="expanded"
-      @show-letter="showLetter"
-    />
+    <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) === -1">
+      <LetterTrigger
+        v-if="playerMeta.fanLetter && $mq !== 'mobile'"
+        :expanded="expanded"
+        @show-letter="showLetter"
+      />
+    </template>
   </div>  
 </template>
 
