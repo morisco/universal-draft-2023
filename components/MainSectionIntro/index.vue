@@ -15,14 +15,20 @@
         {{ introData.linkText }}
       </NuxtLink>
     </p>
-     <TransitionGroup
-        tag="div"
-        @before-enter="onBeforeMainEnter"
-        @enter="onMainEnter"
-        @leave="onMainLeave"
-      >
-        <div class="qb-intro" key="qb-intro" v-if="activePosition === 'qb'" ref="qbIntro" v-html="qbNote" />
-      </TransitionGroup>
+    <TransitionGroup
+      tag="div"
+      @before-enter="onBeforeMainEnter"
+      @enter="onMainEnter"
+      @leave="onMainLeave"
+    >
+      <div
+        v-if="activePosition === 'qb'"
+        key="qb-intro"
+        ref="qbIntro"
+        class="qb-intro"
+        v-html="qbNote"
+      />
+    </TransitionGroup>
   </div>
 </template>
 
@@ -55,7 +61,7 @@ export default {
           }
         case 'team_needs':
           return {
-            headline: `<strong>Team Needs</strong> ${this.league === 'nfl' ? "" : ""}`,
+            headline: `<strong>Team Needs</strong> By ${this.league === 'nfl' ? "" : "Michael Pina"}`,
             content: this.$store.getters['page/settings'].team_needs_intro,
             link: '/mock-draft',
             linkText: this.$store.getters['page/settings'].team_needs_link,
