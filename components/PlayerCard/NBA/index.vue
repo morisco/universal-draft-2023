@@ -350,7 +350,7 @@ export default {
       } else {
         if(this.$mq === 'mobile'){
           this.maxHeight = maxHeight + 265
-          this.height = maxHeight + 265;
+          this.height = null;
         } else {
           this.maxHeight = heightToUse + this.$refs.metaBar.$el.offsetHeight;
           this.height = heightToUse + this.$refs.metaBar.$el.offsetHeight;
@@ -414,7 +414,7 @@ export default {
         }
         .player-card--expanded & {
           transition:padding 0.5s ease-in-out 0s;
-          padding: 15px 50px 15px;
+          padding: 15px 50px 0;
         }
       }
       &:after{

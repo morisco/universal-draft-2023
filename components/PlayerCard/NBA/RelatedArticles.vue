@@ -19,7 +19,7 @@ export default {
 <style lang="scss" scoped>
 .player-card{
   &__related-articles{
-    margin-top:20px;
+    // margin-top:20px;
     a{
       display:block;
       @include player-card-body;

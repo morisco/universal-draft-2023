@@ -389,7 +389,6 @@ export default {
         width:100%;
         max-width:100%;
         background:transparent;
-        padding-bottom:30px;
         .player-card--collapsed &{
           overflow:visible;
           padding-bottom:30px;
@@ -467,6 +466,7 @@ export default {
       position:relative;
       z-index:1;
       overflow-x:hidden;
+      padding: 0 0 60px;
       > *{
         opacity:0;
         transition:opacity 0.25s linear 0s;
@@ -513,13 +513,15 @@ export default {
         &-extended{
           padding:0 0;
           margin-top:30px;
+          display:grid;
+          gap:20px;
           &:before{
             content:'';
             display:block;
             width:100%;
             height:1px;
             background:$black;
-            margin-bottom:20px;
+            // margin-bottom:20px;
           }
         }
       }
