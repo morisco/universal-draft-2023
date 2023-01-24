@@ -26,7 +26,7 @@ export default {
     badgeArray() {
       const badgeSettings = this.$store.getters['page/badges'];
       let badgeArray;
-      if(this.player.badges){
+      if(this.player && this.player.badges){
         badgeArray = this.player.badges.map((badge) => { return badgeSettings[badge.badge]});
       } 
       return badgeArray

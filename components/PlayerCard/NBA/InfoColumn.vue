@@ -144,8 +144,8 @@ import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 export default {
   name: "NBAInfoColumn",
   components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, NBAMeta },
-  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
-  emits: ['set-top-height','set-info-height','set-meta-height'],
+  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard', 'showLetter'],
+  emits: ['set-top-height','set-info-height','set-meta-height', 'set-letter-height'],
   data () {
     return {
       mounted: false,
@@ -154,7 +154,8 @@ export default {
       maxHeight: null,
       animateHeight: false,
       ruleHeight: null,
-      ruleTop: null
+      ruleTop: null,
+      letterHeight: null
     }
   },
   computed: {
@@ -187,6 +188,15 @@ export default {
     },
   },
   watch : {
+    showLetter() {
+      if(this.showLetter && this.letterHeight) {
+        const htu = Math.max(this.letterHeight, this.topheight);
+        this.setMaxHeight(htu);
+        this.maxHeight = htu;
+      } else {
+        this.setHeights();
+      }
+    },
     viewDepth(newDepth) {
       this.setHeights();
     },
@@ -229,6 +239,9 @@ export default {
     window.removeEventListener('resize', this.windowResized);
   },
   methods: {
+    setLetterHeight(letterHeight) {
+      this.letterHeight = letterHeight + 110;
+    },
     windowResized () {
       this.setHeights();
     },

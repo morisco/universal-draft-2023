@@ -1,26 +1,5 @@
 <template>
-  <ul class="player-card__badges">
-    <li
-      v-for="badge in badgeArray"
-      :key="player.title + badge.id"
-    >
-      <div class="player-card__badge-image">
-        <img
-          :src="badge.image"
-          :alt="badge.label + 'badge'"
-        >
-      </div>
-      <span class="player-card__badge-label">
-        <span>{{ badge.label }}</span>
-        <img
-          v-if="badge.sponsored"
-          src="@/assets/img/state-farm-red.svg"
-          alt="State Farm Logo"
-          data-not-lazy
-        >
-      </span>
-    </li>
-  </ul>
+  <ul class="player-card__badges" />
 </template>
 
 <script>
@@ -28,16 +7,7 @@ export default {
   name: 'NBABadges',
   props: ['player'],
   computed: {
-    badgeArray() {
-      const badgeSettings = this.$store.getters['page/badges'];
-      let badgeArray;
-      if(this.player.badges){
-        badgeArray = this.player.badges.map((badge) => { 
-          return {...badgeSettings[badge.badge], sponsored: badge.badge === this.player.sponsored_badge}
-        });
-      } 
-      return badgeArray
-    }
+   
   }  
 }
 </script>

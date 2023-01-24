@@ -80,18 +80,25 @@
         </div>
       </div>
     </div>
+    <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) === -1">
+      <LetterTrigger
+        v-if="playerMeta.fanLetter && $mq !== 'mobile'"
+        :expanded="expanded"
+        @show-letter="showLetter"
+      />
+    </template>
   </div>  
 </template>
 
 <script>
 import DraftTeam from '~/components/PlayerCard/NFL/DraftTeam'
 import Trend from '~/components/PlayerCard/NFL/Trend'
-
+import LetterTrigger from '../LetterTrigger';
 export default {
   name: 'NFLMetaBar',
-  components: {DraftTeam, Trend},
-  props: ['player', 'rankKey', 'collapsed'],
-  emits: ['set-height'],
+  components: {DraftTeam, Trend, LetterTrigger},
+  props: ['player', 'rankKey', 'collapsed', 'expanded'],
+  emits: ['set-height', 'show-letter'],
   computed: {
     rank() {
       return this.rankKey ? this.player[this.rankKey] + 1 : null;
@@ -100,7 +107,7 @@ export default {
       return this.$store.getters['content/teamNameLogo'](this.player[this.rankKey]);
     },
     playerMeta() {
-      let playerData = this.player
+      let playerData = this.player;
       return {
         firstName: playerData.first_name,
         lastName: playerData.last_name,
@@ -110,7 +117,8 @@ export default {
         age: playerData.player_meta.age,
         height: playerData.player_meta.height,
         weight: playerData.player_meta.weight,
-        shadesOf: playerData.player_meta.shades_of
+        shadesOf: playerData.player_meta.shades_of,
+        fanLetter: playerData.fan_letter
       };
     },
     viewDepth () {
@@ -124,6 +132,11 @@ export default {
   },
   mounted() {
     this.$emit('set-height',this.$refs.metaBar.offsetHeight);
+  },
+  methods: {
+    showLetter(showLetter) {
+      this.$emit('show-letter', showLetter);
+    },
   }
 }
 </script>

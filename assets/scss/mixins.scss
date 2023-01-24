@@ -386,3 +386,56 @@
     @content
   }
 }
+
+
+@mixin pod-date{
+  font-family: 'GT America Condensed';
+  font-size:14px;
+  font-weight:700;
+  text-transform:uppercase;
+}
+@mixin pod-title{
+  font-family: 'GT America';
+  font-size:24px;
+  font-weight:300;
+  line-height:1.1;
+  letter-spacing:-0.025em;
+}
+
+@mixin pod-duration{
+  font-family: 'GT America';
+  font-size:14px;
+  color:white;
+}
+
+@mixin pod-listen{
+  font-family: 'GT America';
+  font-size:10px;
+  color:black;
+  font-weight:500;
+}
+
+@mixin writeup-title{
+  font-family: 'GT America Condensed';
+  font-weight:500;
+  font-size:48px;
+  line-height:1.04;
+  @include mobile{
+    font-size:32px;
+    text-align:center;
+    br{
+      display:none;
+    }
+  }
+}
+
+@mixin writeup-byline{
+  font-family: 'GT America';
+  font-weight:500;
+  font-size:18px;
+  line-height:1;
+  @include mobile {
+    text-align:center;
+    font-size:16px;
+  }
+}

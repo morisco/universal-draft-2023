@@ -25,9 +25,11 @@
     <MetaBar
       v-if="$mq !== 'mobile'"
       ref="metaBar"
+      :expanded="expanded"
       :player="player"
       :rank-key="rankKey"
       :collapsed="collapsed"
+      @show-letter="showLetter"
     />
     <div class="player-card__image-info">
       <ImageColumn 
@@ -45,6 +47,7 @@
         @reset-video-settings="resetVideoSettings"
       />
       <InfoColumn 
+        :show-letter="letterShown"
         :player-id="playerId" 
         :expanded="expanded" 
         :collapsed="collapsed" 
@@ -56,6 +59,7 @@
         @set-info-height="setInfoHeight"
         @set-top-height="setTopHeight"
         @set-meta-height="setMetaHeight"
+        @show-letter="showLetter"
       />
     </div>
     <ToggleCard 
@@ -108,7 +112,8 @@ export default {
       collapsing:           false,
       heightCount:          0,
       videoSettings:        null,
-      metaHeight:           null
+      metaHeight:           null,
+      letterShown: false,
     }
   },
   computed: {
@@ -161,6 +166,7 @@ export default {
           self.expanding = false;
         }, 1000);
       } else {
+        self.letterShown = false;
         this.collapsing = true;
         setTimeout(() => {
           self.collapsing = false;
@@ -231,6 +237,10 @@ export default {
   methods: {
     setMetaHeight(height){
       this.metaHeight = height
+    },
+    showLetter(letterShown){
+      console.log('here, letterShown)', letterShown);
+      this.letterShown = letterShown;
     },
     playVideo() {
       this.displayVideo = true;

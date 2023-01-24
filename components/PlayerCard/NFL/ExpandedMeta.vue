@@ -86,7 +86,7 @@ export default {
       display:flex;
       flex-direction:column;
       margin: 0;
-      padding:3px 0 60px;
+      padding:3px 0 15px;
       &--qb{
         padding:3px 0 30px;
       }

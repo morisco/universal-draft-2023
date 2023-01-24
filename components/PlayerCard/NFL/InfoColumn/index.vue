@@ -6,7 +6,7 @@
       'player-card__info-column--mounted': mounted,
       'player-card__info-column--animate': animateHeight
     }"
-    :style="[maxHeight] ? {maxHeight: maxHeight + 'px'}: []"
+    :style="[maxHeight] ? {maxHeight: maxHeight + 'px', height: height ? height + 'px' : null}: []"
   >
     <div
       ref="topData"
@@ -20,6 +20,16 @@
         :collapsed="collapsed"
         @set-height="setMetaHeight"
       />
+      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) === -1">
+        <FanLetter
+          v-if="player.fan_letter && $mq !== 'mobile'"
+          :fan-letter="player.fan_letter"
+          :show-letter="showLetter"
+          :expanded="expanded"
+          :top-height="topHeight"
+          @set-letter-height="setLetterHeight"
+        />
+      </template>
       <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) >= 0">
         <DraftInfo
           v-if="teamNameLogo"
@@ -28,7 +38,12 @@
           :grade="['draft-grades', 'draft_grades_player_share'].indexOf($route.name) >= 0 ? player.results_grade : null"
         />
       </template>
-      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) === -1">
+      <template
+        v-if="
+          ['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) === -1
+            && (!player.fan_letter || (player.fan_letter && !expanded) )
+        "
+      >
         <Headline
           v-if="$mq !== 'mobile'"
           :headline="player.player_description"
@@ -38,8 +53,9 @@
           v-if="player.badges && player.badges.length > 0"
           :player="player"
         />
+      </template>
+      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) === -1 && $mq === 'mobile'">
         <Headline
-          v-if="$mq === 'mobile'"
           :headline="player.player_description"
           :selling="player.player_meta.main_selling_point"
         />
@@ -63,6 +79,29 @@
           v-if="$mq === 'mobile'"
           :headline="player.player_description"
           :selling="player.player_meta.main_selling_point"
+        />
+      </template>
+      <template v-else-if="player.fan_letter && $mq !== 'mobile'">
+        <Headline
+          :headline="player.player_description"
+          :selling="player.player_meta.main_selling_point"
+          :player="player"
+          :player-meta="player"
+        />
+        <Badges
+          v-if="player.badges && player.badges.length > 0"
+          :player="player"
+        />
+        <div class="letter-bottom-spacer" />
+      </template>
+      <template v-if="player.fan_letter && $mq === 'mobile' && ['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) === -1">
+        <LetterTrigger />
+        <FanLetter
+          :fan-letter="player.fan_letter"
+          :show-letter="showLetter"
+          :expanded="expanded"
+          :top-height="topHeight"
+          @set-letter-height="setLetterHeight"
         />
       </template>
       <Stats
@@ -132,18 +171,22 @@ import PodcastCardPlayer from '~/components/Podcast/NewCardPlayer'
 import DraftInfo from '../DraftInfo';
 import CombineResults from '../CombineResults.vue'
 import AdvancedQBStats from '../AdvancedQBStats/index.vue';
+import FanLetter from '../FanLetter.vue';
+import LetterTrigger from '../LetterTrigger.vue';
 export default {
   name: "NFLInfoColumn",
-  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, CombineResults, AdvancedQBStats },
-  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard'],
-  emits: ['set-meta-height', 'set-top-height', 'set-info-height'],
+  components: { Stats, Headline, ExpandedMeta, Badges, MetaBar, PodcastCardPlayer, VideoThumb, RelatedArticles, DraftInfo, CombineResults, AdvancedQBStats, FanLetter, LetterTrigger },
+  props: ['playerId', 'expanded', 'collapsed', 'setMaxHeight', 'setAnimateHeight', 'rankKey', 'playVideo', 'activeCard', 'showLetter'],
+  emits: ['set-meta-height', 'set-top-height', 'set-info-height', 'show-letter'],
   data () {
     return {
       mounted: false,
       windowSize: null,
       topHeight: null,
       maxHeight: null,
-      animateHeight: false
+      animateHeight: false,
+      letterHeight: null,
+      height: null
     }
   },
   computed: {
@@ -161,6 +204,24 @@ export default {
     }
   },
   watch : {
+    showLetter() {
+      console.log(this.showLetter);
+      if(this.showLetter && this.letterHeight && !this.expanded) {
+        const htu = Math.max(this.letterHeight, this.topHeight);
+        this.setMaxHeight(htu);
+        this.maxHeight = htu;
+        if(!this.expanded) {
+          console.log('now here');
+          this.height = htu;
+        } else {
+          this.height = null
+        }
+      } else {
+        console.log('right here');
+        this.height = null;
+        this.setHeights();
+      }
+    },
     viewDepth(newDepth) {
       this.setHeights();
     },
@@ -171,6 +232,11 @@ export default {
       this.setHeights();
     },
     expanded(newExpanded) {
+      if(this.expanded) {
+        this.height = null;
+        this.$emit('show-letter', true);
+      } else {
+      }
       this.setHeights();
     },
     topHeight(newTopHeight, oldTopHeight) {
@@ -201,6 +267,9 @@ export default {
     window.removeEventListener('resize', this.windowResized);
   },
   methods: {
+    setLetterHeight(letterHeight) {
+      this.letterHeight = letterHeight + 110;
+    },
     windowResized () {
       this.setHeights();
     },
@@ -212,7 +281,8 @@ export default {
       if(!this.mounted) return
 
       if(this.expanded || this.viewDepth === 'deep'){
-        this.maxHeight = this.topHeight + this.$refs.bottomData.offsetHeight
+        const htu = this.player.fan_letter ? this.letterHeight : this.topHeight;
+        this.maxHeight = htu + this.$refs.bottomData.offsetHeight
       } else if(this.collapsed){
         this.maxHeight = this.$mq === 'mobile' ? this.topHeight : 125
       } else {
@@ -221,6 +291,13 @@ export default {
       this.setMaxHeight(this.maxHeight);
       this.$emit('set-top-height', this.topHeight)
       this.$emit('set-info-height', this.maxHeight);
+      setTimeout(() => {
+        if(!self.expanded) {
+          self.height = self.maxHeight
+        } else {
+          self.height = null
+        }
+      }, this.showLetter ? 0 : 500)
       setTimeout(() => {
         this.setAnimateHeight(true);
         self.animateHeight = true;

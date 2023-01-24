@@ -1,24 +1,32 @@
 <template>
   <div class="podcast-inter player-card">
-    <mq-layout
-      mq="tablet+"
-      class="podcast-inter__inner"
+    <div
+      class="podcast-inter__image"
+      :style="{backgroundColor: interstitial.bg_color}"
     >
+      <img
+        :src="interstitial.image.small"
+        :alt="interstitial.title"
+      >
+    </div>
+    <div class="podcast-inter__list">
       <PodcastCard
         v-for="pod in podItems"
         :key="interstitial.id + '-' + pod.id"
         :pod="pod"
       />
-    </mq-layout>
-    <mq-layout
-      mq="mobile"
-      class="podcast-inter__inner"
-    >
-      <PodcastCard
-        v-if="mobilePod"
-        :pod="mobilePod"
-      />
-    </mq-layout>
+      <a
+        :href="interstitial.spotify_link"
+        target="_blank"
+        class="podcast-inter__spotify"
+      >
+        Listen on
+        <img
+          src="~/assets/img/spotify-logo-black.png"
+          alt="Spotify Logo"
+        >
+      </a>
+    </div>
   </div>
 </template>
 
@@ -53,11 +61,7 @@ export default {
     },
   },
   mounted() {
-    this.podIds = [
-      this.interstitial.desktop_pod_1,
-      this.interstitial.desktop_pod_2,
-      this.interstitial.desktop_pod_3
-    ]
+    this.podIds = this.interstitial.podcasts.map((pod) => pod.pod_id);
     if(this.pods) {
       this.setPods();
     }
@@ -76,16 +80,50 @@ export default {
 
 <style lang="scss">
   .podcast-inter{
+    display:flex;
+    background:$cardback;
+    border-radius:10px;
+    overflow:hidden;
+    @include mobile{
+      flex-direction:column;
+      border-radius:0;
+    }
+    &__image{
+      flex-basis: 50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      @include mobile{
+        flex-basis:unset;
+      }
+    }
+    &__list{
+      flex-basis:50%;
+      padding:30px 30px 15px;
+      @include mobile{
+        flex-basis:unset;
+        padding:30px;
+      }
+    }
+    &__spotify{
+      display:flex;
+      align-items:center;
+      @include pod-listen;
+      img{
+        margin-left:5px;
+        height:18px;
+      }
+    }
     @include mobile{
       margin-bottom:45px;
       .app--nba & {
-        max-width: calc(100% - 30px);
-        margin-left: 15px;
-        margin-top:40px;
+        // max-width: calc(100% - 30px);
+        // margin-left: 15px;
+        margin-top:60px;
       }
     }
     &.player-card{
-      background:transparent;
+      // background:transparent;
       opacity:1;
     }
     &__inner{

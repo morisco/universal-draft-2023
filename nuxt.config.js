@@ -63,7 +63,7 @@ export default {
   buildModules: [
     '@nuxtjs/moment',
     ['@nuxtjs/dotenv', { 
-      filename: '.env' 
+      filename: '.env.staging' 
     }],
     // '@nuxtjs/google-analytics',
   ],
