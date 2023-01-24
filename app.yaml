@@ -1,5 +1,5 @@
 runtime: nodejs12
-
+service: dev
 instance_class: F4
 
 automatic_scaling:
@@ -22,10 +22,10 @@ handlers:
     static_files: static/\1
     upload: static/.*\.(gif|png|jpg|ico|txt)$
     secure: always
-    
+
   - url: /.*
     script: auto
     secure: always
 
 env_variables:
-  HOST: '0.0.0.0'
+  HOST: "0.0.0.0"
