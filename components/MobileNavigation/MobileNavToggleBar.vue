@@ -20,7 +20,7 @@
     >
       <span class="mobile-navigation__toggle-label-current">
         <span class="mobile-navigation__toggle-label-current-closed">{{ currentLabel }}</span>
-        <span class="mobile-navigation__toggle-label-current-open">{{ league === 'nfl' ? "The Ringer's 2022 NFL Draft Guide" : "The Ringer's 2022 NBA Draft Guide" }}</span>
+        <span class="mobile-navigation__toggle-label-current-open">{{ league === 'nfl' ? "The Ringer's 2023 NFL Draft Guide" : "The Ringer's 2022 NBA Draft Guide" }}</span>
       </span>
       <span class="mobile-navigation__toggle-label-new">{{ newLabel }}</span>
     </div>

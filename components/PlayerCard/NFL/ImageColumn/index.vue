@@ -27,6 +27,25 @@
           class="player-x-o"
           data-not-lazy
         >
+        <div class="image-column-meta">
+          <div class="image-column-meta-column">
+            <div>
+              <strong>HEIGHT</strong>&nbsp;{{ player.player_meta.height }}
+            </div>
+            <div>
+              <strong>WEIGHT</strong>&nbsp;{{ player.player_meta.weight }}
+            </div>
+          </div>
+          <div class="separator" />
+          <div class="image-column-meta-column">
+            <div>
+              <strong>YEAR</strong>&nbsp;{{ player.player_meta.year }}
+            </div>
+            <div>
+              <strong>AGE</strong>&nbsp;{{ player.player_meta.age }}
+            </div>
+          </div>
+        </div>
       </div>
       <div class="player-card__image-column-content">
         <DraftTeam
@@ -99,6 +118,7 @@ export default {
         imageAlt: playerData.title,
         results_via: playerData.results_via,
         title: playerData.title,
+        player_meta: playerData.player_meta,
         player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false,
         combine_results: playerData.combine_results
       }

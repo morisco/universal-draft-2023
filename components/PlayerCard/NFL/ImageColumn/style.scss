@@ -11,6 +11,49 @@
     transition:opacity 0.25s linear 0.25s, max-width 0.625s ease-in-out 0s, max-height 0.25s ease-in-out 0.25s, min-height 0.5s linear 0s;
     z-index:2;
     opacity:1;
+    .image-column-meta{
+      position:absolute;
+      bottom:30px;
+      left:50%;
+      transform:translateX(-50%);
+      background:white;
+      border:1px solid #858282;
+      border-radius:5px;
+      padding: 10px 10px 8px; 
+      font-family: 'Decima';
+      font-size:15px;
+      font-weight:300;
+      line-height:13px;
+      display:flex;
+      max-width:230px;
+      width:100%;
+      .separator{
+        height:auto;
+        flex: 0 0 auto;
+        padding:0 10px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        &:before{
+          content: '';
+          display:block;
+          width:1px;
+          height:110%;
+          background-color:black;
+        }
+      }
+      &-column{
+        flex:1;
+        display:grid;
+        gap: 5px;
+        > div{
+        }
+
+      }
+      strong{
+        font-weight:400;
+      }
+    }
    
     // @include tablet-portrait-only{
     //   max-width:17.5%;

@@ -9,7 +9,7 @@
           <div class="header__inner-text">
             <h1 class="headline">
               The Ringer's
-              <strong>2022 NBA Draft Guide</strong>
+              <strong>2023 NBA Draft Guide</strong>
             </h1>
           </div>
           <div class="header__graphic">

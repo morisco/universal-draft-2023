@@ -22,72 +22,33 @@
         <span>{{ playerMeta.firstName }}</span>
         <span>{{ playerMeta.lastName }}</span>
       </h3>
-      <div class="player-card__meta-bar-position-school">
+      <div
+        v-if="$mq === 'mobile'"
+        class="player-card__meta-bar-position-school"
+      >
         <span class="position">{{ playerMeta.position }}</span>
+        <span class="separator" />
         <span class="school">{{ playerMeta.school }}</span>
       </div>
     </div>
     <div class="player-card__meta-bar-details">
-      <div class="player-card__meta-bar-details-column player-card__meta-bar-details-column--shades">
-        <div class="player-card__meta-bar-details-row">
-          <span class="label">Shades Of</span>
-        </div>
-        <div class="player-card__meta-bar-details-row player-card__meta-bar-details-row--shade-value">
-          {{ playerMeta.shadesOf }}
-        </div>
-      </div>
       <div
-        v-if="$mq !== 'tablet'"
-        class="player-card__meta-bar-details-column"
+        v-if="$mq !== 'mobile'"
+        class="player-card__meta-bar-position-school"
       >
-        <div class="player-card__meta-bar-details-row">
-          <span class="label">Year</span> {{ playerMeta.year }}
-        </div>
-        <div class="player-card__meta-bar-details-row">
-          <span class="label">Age</span> {{ playerMeta.age || "--" }}
-        </div>
+        <span class="position">{{ playerMeta.position }}</span>
+        <span class="separator" />
+        <span class="school">{{ playerMeta.school }}</span>
       </div>
-      <div
-        v-if="$mq !== 'tablet'"
-        class="player-card__meta-bar-details-column"
-      >
-        <div class="player-card__meta-bar-details-row">
-          <span class="label">Height</span> {{ playerMeta.height }}
-        </div>
-        <div class="player-card__meta-bar-details-row">
-          <span class="label">Weight</span> {{ playerMeta.weight }}
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="$mq === 'tablet'"
-      class="player-card__meta-bar-tablet"
-    >
-      <div class="player-card__meta-bar-details-column">
-        <div class="player-card__meta-bar-details-row">
-          <span class="label">Year</span> {{ playerMeta.year }}
-        </div>
-        <div class="player-card__meta-bar-details-row">
-          <span class="label">Age</span> {{ playerMeta.age }}
-        </div>
-      </div>
-      <div class="player-card__meta-bar-details-column">
-        <div class="player-card__meta-bar-details-row">
-          <span class="label">Height</span> {{ playerMeta.height }}
-        </div>
-        <div class="player-card__meta-bar-details-row">
-          <span class="label">Weight</span> {{ playerMeta.weight }}
-        </div>
-      </div>
-    </div>
-    <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) === -1">
-      <LetterTrigger
-        v-if="playerMeta.fanLetter && $mq !== 'mobile'"
-        :expanded="expanded"
-        @show-letter="showLetter"
-      />
-    </template>
-  </div>  
+      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) === -1">
+        <LetterTrigger
+          v-if="playerMeta.fanLetter && $mq !== 'mobile'"
+          :expanded="expanded"
+          @show-letter="showLetter"
+        />
+      </template>
+    </div>  
+  </div>
 </template>
 
 <script>
@@ -175,7 +136,7 @@ export default {
         }
         &:last-of-type{
           .player-card__meta-bar-details-row{
-            padding: 0 15px;
+            // padding: 0 15px;
           }
         }
         &:last-of-type{
@@ -315,7 +276,12 @@ export default {
       }
     }
     &-name-school{
-      
+      min-width:300px;
+      margin-right:30px;
+      @include mobile{
+        min-width:0;
+        margin-right:0;
+      }
       &.player-card__image-column{
         padding:0 0 0 40px;
         @include tablet-portrait-only{
@@ -347,6 +313,24 @@ export default {
     &-position-school{
       @include meta-bar-detail;
       margin-top:-3px;
+      display:flex;
+      align-items:center;
+
+      .separator{
+        height:20px;
+        width:1px;
+        background-color:black;
+        margin:0 5px;
+        transition: background-color 0.25s linear 0.5s;
+        transform:translateY(-1px);
+        @include mobile{
+          background-color: white;
+        }
+        .player-card:hover &,
+        .player-card--expanded & {
+          background-color:white;
+        }
+      }
       @include mobile{
         margin-top:-2px;
       }
@@ -360,14 +344,14 @@ export default {
     }
     &-details{
       flex:1;
-      padding: 0 15px;
+      padding: 0 0 !important;
       display:flex;
       align-items:center;
       font-size:15px;
       .player-card--collapsed & {
         .mock-draft &,
         .draft-grades & {
-          padding-right:40px;
+          // padding-right:40px;
         }
       }
       @include non-mobile{
@@ -396,7 +380,7 @@ export default {
       &-column{
         position:relative;
         min-width:160px;
-        padding:0 15px;
+        // padding:0 15px;
         display:flex;
         flex-direction:column;
         justify-content:center;

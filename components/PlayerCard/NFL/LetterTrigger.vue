@@ -69,7 +69,7 @@ export default {
       top:auto;
       transform:none;
       margin-bottom:-10px;
-      margin-top:15px;
+      margin-top:30px;
       padding-bottom:0;
       max-width:calc(100% - 60px);
       margin-left:auto;

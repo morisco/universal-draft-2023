@@ -20,9 +20,8 @@
         :collapsed="collapsed"
         @set-height="setMetaHeight"
       />
-      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) === -1">
+      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_results_player_share'].indexOf($route.name) === -1 && player.fan_letter && $mq !== 'mobile'">
         <FanLetter
-          v-if="player.fan_letter && $mq !== 'mobile'"
           :fan-letter="player.fan_letter"
           :show-letter="showLetter"
           :expanded="expanded"
@@ -41,23 +40,36 @@
       <template
         v-if="
           ['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) === -1
-            && (!player.fan_letter || (player.fan_letter && !expanded) )
+            && ($mq === 'mobile' || !player.fan_letter || (player.fan_letter && !expanded) )
         "
       >
+        <div class="shades-of">
+          <div class="shades-of-icon-wrapper">
+            <div class="shades-of-icon">
+              <img
+                src="@/assets/img/icons/shades-of-icon-black.svg"
+                alt="Venn Diagaram Icon"
+                data-not-lazy
+                class="non-hover"
+              >
+            </div>
+            <span class="label">Shades Of&nbsp;</span>
+          </div>
+          <div class="shades-of-value">
+            {{ player.player_meta.shades_of }}
+          </div>
+        </div>
+        <Badges
+          v-if="player.badges && player.badges.length > 0 && $mq === 'mobile'"
+          :player="player"
+        />
         <Headline
-          v-if="$mq !== 'mobile'"
           :headline="player.player_description"
           :selling="player.player_meta.main_selling_point"
         />
         <Badges
-          v-if="player.badges && player.badges.length > 0"
+          v-if="player.badges && player.badges.length > 0 && $mq !== 'mobile'"
           :player="player"
-        />
-      </template>
-      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) === -1 && $mq === 'mobile'">
-        <Headline
-          :headline="player.player_description"
-          :selling="player.player_meta.main_selling_point"
         />
       </template>
     </div>
@@ -65,7 +77,16 @@
       ref="bottomData"
       class="player-card__bottom-data"
     >
-      <template v-if="['mock-draft', 'mock_draft_player_share', 'draft-grades', 'draft_grades_player_share'].indexOf($route.name) >= 0">
+      <template 
+        v-if="
+          [
+            'mock-draft',
+            'mock_draft_player_share',
+            'draft-grades',
+            'draft_grades_player_share'
+          ].indexOf($route.name) >= 0
+        "
+      >
         <Headline
           v-if="$mq !== 'mobile'"
           :headline="player.player_description"
@@ -82,6 +103,22 @@
         />
       </template>
       <template v-else-if="player.fan_letter && $mq !== 'mobile'">
+        <div class="shades-of">
+          <div class="shades-of-icon-wrapper">
+            <div class="shades-of-icon">
+              <img
+                src="@/assets/img/icons/shades-of-icon-black.svg"
+                alt="Venn Diagaram Icon"
+                data-not-lazy
+                class="non-hover"
+              >
+            </div>
+            <span class="label">Shades Of&nbsp;</span>
+          </div>
+          <div class="shades-of-value">
+            {{ player.player_meta.shades_of }}
+          </div>
+        </div>
         <Headline
           :headline="player.player_description"
           :selling="player.player_meta.main_selling_point"

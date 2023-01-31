@@ -1,7 +1,7 @@
 export default {
   // mode: 'universal',
   head: {
-    title: 'The Ringer\'s 2022 NFL Draft Guide',
+    title: 'The Ringer\'s 2023 NFL Draft Guide',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1.0, viewport-fit=cover' },

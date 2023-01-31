@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["http://localhost:3333", "http://v2.heddek.com", "http://heddek.com", "http://localhost/ringer/ringernfl2018",  "https://draft-nuxt.ue.r.appspot.com/", "https://ringer-nfl2022-staging.uc.r.appspot.com/", "https://nfldraft-theringer-com.uc.r.appspot.com/", "https://nfldraft.theringer.com", "https://universal-draft-nba.uc.r.appspot.com/", "https://universal-draft-nfl.uc.r.appspot.com/", "https://nbadraft.theringer.com/"],
+    "origin": ["http://localhost:3333", "http://v2.heddek.com", "http://heddek.com", "http://localhost/ringer/ringernfl2018",  "https://draft-nuxt.ue.r.appspot.com/", "https://ringer-nfl2022-staging.uc.r.appspot.com/", "https://nfldraft-theringer-com.uc.r.appspot.com/", "https://nfldraft.theringer.com", "https://universal-draft-nba.uc.r.appspot.com/", "https://universal-draft-nfl.uc.r.appspot.com/", "https://nbadraft.theringer.com/", "https://dev-dot-nfldraft-theringer-com.uc.r.appspot.com/"],
     "method": ["GET", "OPTIONS"],
     "responseHeader": ["Content-Type", "Content-Encoding", "Access-Control-Allow-Origin"],
     "maxAgeSeconds": 900

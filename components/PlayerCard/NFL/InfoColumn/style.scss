@@ -135,6 +135,37 @@
       }
     }
   }
+  .shades-of{
+    display:flex;
+    align-items:center;
+    font-family: 'Decima';
+    font-size:18px;
+    text-transform:uppercase;
+    margin-bottom:15px;
+    @include mobile{
+      flex-direction:column;
+      align-items:flex-start;
+      background:$lightgray;
+      padding:0 20px 15px;
+      margin-bottom:0;
+    }
+    .shades-of-icon-wrapper{
+      display:flex;
+      align-items:center;
+      padding-right:0;
+      font-weight:400;
+      line-height:1;
+      img{
+        margin-right:5px;
+        vertical-align: middle;
+        margin-bottom:2px;
+      }
+      
+    }
+    .shades-of-value{
+        font-weight:300;
+      }
+  }
 }
 
 @keyframes infoColumn-collapse {
