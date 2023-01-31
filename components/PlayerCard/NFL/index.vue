@@ -239,7 +239,6 @@ export default {
       this.metaHeight = height
     },
     showLetter(letterShown){
-      console.log('here, letterShown)', letterShown);
       this.letterShown = letterShown;
     },
     playVideo() {

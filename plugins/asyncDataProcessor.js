@@ -45,6 +45,7 @@ const asyncDataProcessor = async function asyncData({$axios, store, route}) {
     })
     .then(response => {
       const contents = response.data.contents;
+
       const processedPlayers = processPlayers(contents.players.content);
       const processedInters = processInterstitials(contents);
       const processedTeams = processTeams(contents.teams.content, processedPlayers.teamPlayers, pageSettings.teams);

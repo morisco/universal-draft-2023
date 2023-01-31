@@ -839,13 +839,13 @@ export default {
             }
             .sticky-meta-duration{
               @include podcast-duration;
-              margin-top:-3px;
+              // margin-top:-3px;
               margin-left:3px;
               margin-right:10px;
             }
             .sticky-meta-release {
               @include podcast-duration;
-              margin-top:-3px;
+              // margin-top:-3px;
               color:$headlinegray;
             }
           }

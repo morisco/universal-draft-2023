@@ -66,7 +66,7 @@
 }
 
 @mixin podcast-duration{
-  font-family: 'GT America';
+  font-family: 'Decima';
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -389,10 +389,11 @@
 
 
 @mixin pod-date{
-  font-family: 'GT America Condensed';
+  font-family: 'Decima';
   font-size:14px;
-  font-weight:700;
+  font-weight:400;
   text-transform:uppercase;
+  letter-spacing: 0.5px;
 }
 @mixin pod-title{
   font-family: 'GT America';
@@ -416,8 +417,8 @@
 }
 
 @mixin writeup-title{
-  font-family: 'GT America Condensed';
-  font-weight:500;
+  font-family: 'Decima';
+  font-weight:400;
   font-size:48px;
   line-height:1.04;
   @include mobile{
@@ -430,8 +431,9 @@
 }
 
 @mixin writeup-byline{
-  font-family: 'GT America';
-  font-weight:500;
+  font-family: 'Decima';
+  text-transform:uppercase;
+  font-weight:400;
   font-size:18px;
   line-height:1;
   @include mobile {

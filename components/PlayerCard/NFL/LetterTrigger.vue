@@ -26,7 +26,6 @@ export default {
   },
   watch: {
     expanded() {
-      console.log('watch expanded here', this.expanded);
       if(this.expanded){
         this.mouseEnter();
       } else {

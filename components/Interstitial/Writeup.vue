@@ -138,12 +138,11 @@ export default {
     }
   }
   &__squiggle{
-    width:100px;
+    width:283px;
     height:4px;
     margin-top:20px;
-    background-image:url('~@/assets/img/squiggle.svg');
-    background-size:auto 100%;
-    background-position:left center;
+    border-bottom:1px solid black;
+    
     @include mobile{
       margin:30px auto 0;
       width:90%;

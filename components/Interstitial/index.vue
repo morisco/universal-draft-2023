@@ -21,6 +21,10 @@
         v-if="interstitial.category === 'podcast_inter'"
         :interstitial="interstitial"
       />
+      <PodcastLegacyInter
+        v-if="interstitial.category === 'podcast_inter_legacy'"
+        :interstitial="interstitial"
+      />
       <ToutInter
         v-if="interstitial.category === 'tout'"
         :interstitial="interstitial"
@@ -41,10 +45,11 @@ import ArticleInter from './Article.vue';
 import PodcastInter from './Podcast.vue';
 import ToutInter from './Tout.vue';
 import WriteupInter from './Writeup.vue';
+import PodcastLegacyInter from './PodcastLegacy.vue';
 
 export default {
   name: "InterstitialWrapper",
-  components: { ArticleInter, NFLListInter, NBAListInter, VideoInter, PodcastInter, ToutInter, WriteupInter },
+  components: { ArticleInter, NFLListInter, NBAListInter, VideoInter, PodcastInter, ToutInter, WriteupInter, PodcastLegacyInter },
   props: ['list', 'interKey'],
   data() {
     return {

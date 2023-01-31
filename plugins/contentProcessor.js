@@ -100,8 +100,8 @@ export function parseStats(stats) {
     if(stats[stat.key]){
       positionArray.push({...stat, value: stats[stat.key], highlight: stat.key === stats.highlight});
     }
-  })
-  if(stats.position === 'qb'){
+  });
+  if(stats.position === 'qb' && positionArray.length > 0){
     Array.prototype.move = function (from, to) {
       this.splice(to, 0, this.splice(from, 1)[0]);
     };
@@ -212,6 +212,7 @@ export function processInterstitials(contents) {
   const videoInters = contents.video_inter ? contents.video_inter.content : [];
   const articleInters = contents.article_inter ? contents.article_inter.content : [];
   const podcastInters = contents.podcast_inter ? contents.podcast_inter.content : [];
+  const podcastLegacyInters = contents.podcast_inter_legacy ? contents.podcast_inter_legacy.content : [];
   const writeupInters = contents.writeup_inter ? contents.writeup_inter.content : [];
   const toutInters = contents.tout ? contents.tout.content : [];
 
@@ -296,6 +297,26 @@ export function processInterstitials(contents) {
       }
     }
   });
+
+  podcastLegacyInters.forEach((podcast_inter_legacy) => {
+    podcast_inter_legacy = decodeContent(podcast_inter_legacy);
+    podcast_inter_legacy.image = processImages(podcast_inter_legacy.image);
+    const listPositions = podcast_inter_legacy.list_positions;
+    if(listPositions){
+      if(listPositions.big_board_position) {
+        processedInterstitials.bigBoard[listPositions.big_board_position] = podcast_inter_legacy;
+      }
+      if(listPositions.mock_draft_position) {
+        processedInterstitials.mockDraft[listPositions.mock_draft_position] = podcast_inter_legacy;
+      }
+      if(listPositions.team_needs_position) {
+        processedInterstitials.teamNeeds[listPositions.team_needs_position] = podcast_inter_legacy;
+      }
+      if(listPositions.draft_results_position) {
+        processedInterstitials.draftResults[listPositions.draft_results_position] = podcast_inter_legacy;
+      }
+    }
+  })
   podcastInters.forEach((podcast_inter) => {
     podcast_inter = decodeContent(podcast_inter);
     podcast_inter.image = processImages(podcast_inter.image);
@@ -338,6 +359,7 @@ export function processInterstitials(contents) {
     toutInters,
     writeupInters,
     podcastInters,
+    podcastLegacyInters,
     listInters: processedInterstitials
   }
 }

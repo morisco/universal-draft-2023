@@ -52,6 +52,7 @@ const filterPlayers = (state, allIds, selectedPosition, selectedStrengths) => {
 // getters
 const getters = {
   podcastInters: (state => state.podcast_inters),
+  podcastLegacyInters: (state => state.podcast_inters_legacy),
   contentLoaded: (state => state.contentLoaded),
   allCardsSet: (state) => state.allCardsSet,
   teamPlayer: (state) => (playerId) => {

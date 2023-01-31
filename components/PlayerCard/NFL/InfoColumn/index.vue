@@ -242,19 +242,16 @@ export default {
   },
   watch : {
     showLetter() {
-      console.log(this.showLetter);
       if(this.showLetter && this.letterHeight && !this.expanded) {
         const htu = Math.max(this.letterHeight, this.topHeight);
         this.setMaxHeight(htu);
         this.maxHeight = htu;
         if(!this.expanded) {
-          console.log('now here');
           this.height = htu;
         } else {
           this.height = null
         }
       } else {
-        console.log('right here');
         this.height = null;
         this.setHeights();
       }
