@@ -79,7 +79,7 @@ export default {
         margin-bottom:0;
       }
       @include non-mobile{
-        max-width:85%;
+        max-width:90%;
       }
       @include tablet-portrait-only{
         max-width:100%;
