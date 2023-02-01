@@ -112,9 +112,10 @@ export default {
         // }
       }
       &-section{
-        
+        margin-bottom:30px;
         @include mobile{
           margin-bottom:30px;
+          margin-top:10px;
           &:last-of-type{
             margin-bottom:0;
           }

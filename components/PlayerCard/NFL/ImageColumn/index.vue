@@ -27,7 +27,10 @@
           class="player-x-o"
           data-not-lazy
         >
-        <div class="image-column-meta">
+        <div
+          v-if="$mq !== 'mobile'"
+          class="image-column-meta"
+        >
           <div class="image-column-meta-column">
             <div>
               <strong>HEIGHT</strong>&nbsp;{{ player.player_meta.height }}
@@ -55,7 +58,10 @@
         />
         <div v-if="$mq !== 'mobile'">
           <Stats :player="fullPlayer" />
-          <CombineResults :results="player.combine_results" />
+          <CombineResults
+            v-if="player.combine"
+            :results="player.combine_results"
+          />
           <VideoThumb
             v-if="playerVideo"
             :play-video="playVideo"

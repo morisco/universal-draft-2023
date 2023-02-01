@@ -323,10 +323,11 @@ export default {
         margin:0 5px;
         transition: background-color 0.25s linear 0.5s;
         transform:translateY(-1px);
-        @include mobile{
-          background-color: white;
-        }
+        // @include mobile{
+        //   background-color: white;
+        // }
         .player-card:hover &,
+        .player-card--active &,
         .player-card--expanded & {
           background-color:white;
         }

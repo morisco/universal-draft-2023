@@ -43,6 +43,28 @@
             && ($mq === 'mobile' || !player.fan_letter || (player.fan_letter && !expanded) )
         "
       >
+        <div
+          v-if="$mq === 'mobile'"
+          class="image-column-meta"
+        >
+          <div class="image-column-meta-column">
+            <div>
+              <strong>HEIGHT</strong>&nbsp;{{ player.player_meta.height }}
+            </div>
+            <div>
+              <strong>WEIGHT</strong>&nbsp;{{ player.player_meta.weight }}
+            </div>
+          </div>
+          <div class="separator" />
+          <div class="image-column-meta-column">
+            <div>
+              <strong>YEAR</strong>&nbsp;{{ player.player_meta.year }}
+            </div>
+            <div>
+              <strong>AGE</strong>&nbsp;{{ player.player_meta.age }}
+            </div>
+          </div>
+        </div>
         <div class="shades-of">
           <div class="shades-of-icon-wrapper">
             <div class="shades-of-icon">
@@ -157,7 +179,7 @@
       />
         
       <CombineResults
-        v-if="$mq === 'mobile'"
+        v-if="$mq === 'mobile' && player.combine"
         :results="player.combine_results"
         :is-qb="player.position === 'qb'"
       />

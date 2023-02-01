@@ -6,6 +6,45 @@
     opacity:1;
     overflow-x:visible;
     overflow-y:hidden;
+
+    .image-column-meta{
+      padding:10px 20px 20px;
+      background:$lightgray;
+      font-family: 'Decima';
+      font-size:18px;
+      font-weight:300;
+      line-height:13px;
+      display:flex;
+      width: 100%;
+      width:100%;
+      text-transform:uppercase;
+      .separator{
+        height:auto;
+        flex: 0 0 auto;
+        padding:0 20px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        &:before{
+          content: '';
+          display:block;
+          width:1px;
+          height:110%;
+          background-color:black;
+        }
+      }
+      &-column{
+        flex:1;
+        display:grid;
+        gap: 5px;
+        > div{
+        }
+
+      }
+      strong{
+        font-weight:400;
+      }
+    }
     &--animate{
       transition:max-height 0.5s ease-out, max-width 0s linear 0.125s;
       @include mobile { 
@@ -143,7 +182,8 @@
     text-transform:uppercase;
     margin-bottom:15px;
     @include mobile{
-      flex-direction:column;
+      display:block;
+      // flex-direction:column;
       align-items:flex-start;
       background:$lightgray;
       padding:0 20px 15px;
@@ -155,16 +195,29 @@
       padding-right:0;
       font-weight:400;
       line-height:1;
+      @include mobile{
+        display:inline-flex;
+      }
+      .label{
+        transform:translateY(-0.5px)
+      }
       img{
         margin-right:5px;
         vertical-align: middle;
         margin-bottom:2px;
+        @include mobile{
+          margin-bottom:4px;
+        }
       }
       
     }
     .shades-of-value{
         font-weight:300;
-      }
+        @include mobile{
+          display:inline;
+        }
+    }
+    
   }
 }
 

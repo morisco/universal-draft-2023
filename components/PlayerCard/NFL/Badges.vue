@@ -1,5 +1,8 @@
 <template>
-  <ul class="player-card__badges">
+  <ul
+    class="player-card__badges"
+    :class="{'player-card__badges--3': badgeArray.length < 4 }"
+  >
     <li
       v-for="badge in badgeArray"
       :key="player.title + badge.id"
@@ -152,6 +155,12 @@ export default {
         }
       }
     }
+    &.player-card__badges--3{
+      li {
+        width: 25%;
+        margin-right:15px;
+      }
+    }
     li{
       position:relative;
       display: flex;
@@ -161,6 +170,7 @@ export default {
       // flex: 1;
       // max-width: 70px;
       width:calc(25% - 15px);
+
       @include mobile {
         min-width:calc(50% - 15px);
       }

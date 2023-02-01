@@ -331,7 +331,8 @@ export default {
           opacity:0;
           transition:opacity 0.25s linear 0.1s;
           &:not(.player-x-o){
-            top:20px;
+            bottom:0;
+            top:auto;
             @include mobile{
               max-width:300px;
               top:0;

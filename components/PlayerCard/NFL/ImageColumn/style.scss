@@ -27,6 +27,7 @@
       display:flex;
       max-width:230px;
       width:100%;
+      text-transform:uppercase;
       .separator{
         height:auto;
         flex: 0 0 auto;
@@ -204,7 +205,8 @@
       opacity:0;
       transition:opacity 0.25s linear 0.1s;
       &:not(.player-x-o){
-        top:20px;
+        top:auto;
+        bottom:0;
         @include mobile{
           max-width:300px;
           top:0;
