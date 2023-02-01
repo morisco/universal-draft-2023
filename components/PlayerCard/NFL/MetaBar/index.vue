@@ -164,21 +164,18 @@ export default {
     .draft-team{
       box-shadow:none;
       right:20px;
-      top:15px;
       left:auto;
-      width:80px;
-      height:80px;
+      width:75px;
+      height:75px;
       opacity: 1;
-      transform:none;
-      background:$lightgray;
-      .player-card--collapsed & {
-        top:50%;
+      top:50%;
       transform:translateY(-50%);
-
-        background: transparent !important;
-        transition:all 0.25s linear 0s;
-      }
+      background: transparent !important;
       transition:all 0.25s linear 0s;
+      transition:all 0.25s linear 0s;
+      img {
+        max-height:90%;
+      }
       .player-card--expanded &{
         opacity:0;
         transition:opacity 0.25s linear;
