@@ -137,7 +137,7 @@ export default {
         display:flex;
       }
       @include single-column{
-        width:calc(33.33% - 10px);
+        // width:calc(33.33% - 10px);
         .sticky-podcast__player-top{
           // flex-direction:column;
         }

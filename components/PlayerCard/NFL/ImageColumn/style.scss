@@ -48,6 +48,7 @@
         display:grid;
         gap: 5px;
         > div{
+          white-space:nowrap;
         }
 
       }

@@ -87,6 +87,8 @@ export default {
     @include mobile{
       flex-direction:column;
       border-radius:0;
+      width:calc(100% + 40px);
+      margin-left:-20px;
     }
     &__image{
       flex-basis: 50%;
@@ -102,6 +104,13 @@ export default {
         width: 100%;
         height: 100%;
         object-fit:contain;
+        @include mobile{
+          position:relative;
+          top:auto;
+          left:auto;
+          transform:none;
+          max-height:200px;
+        }
       }
       @include mobile{
         flex-basis:unset;

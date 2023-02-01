@@ -1,5 +1,6 @@
 <template>
   <a
+    ref="writeupRef"
     :href="interstitial.link"
     target="_blank"
     class="writeup-inter player-card"
@@ -18,6 +19,7 @@
         />
       </div>
       <div
+        v-if="interstitial.image.small"
         class="writeup-inter__image"
       >
         <img
@@ -40,6 +42,17 @@
 export default {
   name: "InterstitialWriteup",
   props: ['interstitial'],
+  mounted() {
+    const self = this;
+    if(this.$route.params.player_id === this.interstitial.slug){
+      setTimeout(() => {
+        window.scrollTo({
+          top: self.$refs.writeupRef.offsetTop + self.$refs.writeupRef.offsetParent.offsetTop - (self.$mq === 'mobile' ? 55 : 90),
+          behavior: 'smooth'
+        });
+      }, 500);
+    }
+  },
   methods: {
     trackArticleOpen() {
       this.$ga.event({
@@ -79,6 +92,7 @@ export default {
   }
   &__title{
     @include writeup-title;
+    max-width:calc(100% - 162px);
   }
   &__byline{
     @include writeup-byline;
