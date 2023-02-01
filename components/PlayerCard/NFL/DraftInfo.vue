@@ -27,6 +27,9 @@ export default {
           &:last-of-type{
             margin-bottom:0;
           }
+          a{
+            text-decoration:underline;
+          }
         }
       }
     }
