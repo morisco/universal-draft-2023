@@ -162,6 +162,12 @@ export default {
       li {
         width: 25%;
         margin-right:15px;
+        @include mobile{
+          margin-right:0;
+          &:last-of-type{
+            margin-bottom:10px;
+          }
+        }
       }
     }
     li{

@@ -8,7 +8,7 @@
     overflow-y:hidden;
 
     .image-column-meta{
-      padding:10px 20px 20px;
+      padding:20px 20px 20px;
       background:$lightgray;
       font-family: 'Decima';
       font-size:18px;
@@ -21,7 +21,7 @@
       .separator{
         height:auto;
         flex: 0 0 auto;
-        padding:0 20px;
+        padding:0 0 0 20px;
         display:flex;
         justify-content:center;
         align-items:center;
@@ -30,7 +30,7 @@
           display:block;
           width:1px;
           height:110%;
-          background-color:black;
+          // background-color:black;
         }
       }
       &-column{

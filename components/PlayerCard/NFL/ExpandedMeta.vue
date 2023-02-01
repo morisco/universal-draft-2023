@@ -132,6 +132,9 @@ export default {
       > p {
         @include player-card-body;
         margin-bottom:15px;
+        @include mobile{
+          font-size:16px;
+        }
         a{
           text-decoration:underline;
         }

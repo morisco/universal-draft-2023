@@ -93,6 +93,9 @@ export default {
   &__title{
     @include writeup-title;
     max-width:calc(100% - 162px);
+    @include mobile{
+      max-width:100%;
+    }
   }
   &__byline{
     @include writeup-byline;
