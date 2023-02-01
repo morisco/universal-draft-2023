@@ -207,6 +207,10 @@
       &:not(.player-x-o){
         top:auto;
         bottom:0;
+        .mock-draft & {
+          top:20px;
+          bottom:auto;
+        }
         @include mobile{
           max-width:300px;
           top:0;

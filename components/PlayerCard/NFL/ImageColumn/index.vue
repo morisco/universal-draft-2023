@@ -52,7 +52,7 @@
       </div>
       <div class="player-card__image-column-content">
         <DraftTeam
-          v-if="teamNameLogo && ['order_mockdraft', 'order_draftresults'].indexOf(rankKey) >= 0"
+          v-if="teamNameLogo && ['order_mockdraft', 'order_draftresults'].indexOf(rankKey) >= 0 && $mq === 'mobile'"
           :team-name-logo="teamNameLogo"
           :info-height="infoHeight"
         />

@@ -256,9 +256,9 @@ export default {
           id: this.defaultPod,
           start: 0,
           end:null,
-          title: this.pods[this.defaultPod].title,
-          image: this.pods[this.defaultPod].spotify_showImage,
-          show: this.pods[this.defaultPod].spotify_showName,
+          title: this.pods[this.defaultPod]?.title,
+          image: this.pods[this.defaultPod]?.spotify_showImage,
+          show: this.pods[this.defaultPod]?.spotify_showName,
           type: "full"
         })
       }

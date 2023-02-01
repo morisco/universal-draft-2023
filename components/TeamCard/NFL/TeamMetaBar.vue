@@ -57,7 +57,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .app--nfl {
     @import '~/components/PlayerCard/NFL/MetaBar/style.scss';
     .team-card{

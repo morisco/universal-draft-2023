@@ -65,8 +65,10 @@
       height:80px;
       transform:translateY(-50%);
       opacity: 1;
-      background: transparent !important;
       transition:opacity 0.25s linear 0.5s;
+      .player-card--collapsed & {
+        background: transparent !important;
+      }
       .player-card--expanded &{
         opacity:0;
         transition:opacity 0.25s linear;

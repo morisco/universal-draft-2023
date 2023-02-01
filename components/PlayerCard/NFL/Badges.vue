@@ -173,6 +173,9 @@ export default {
 
       @include mobile {
         min-width:calc(50% - 15px);
+        &:last-of-type{
+          margin-bottom:0;
+        }
       }
 
       img{

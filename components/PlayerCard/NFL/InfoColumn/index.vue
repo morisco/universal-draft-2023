@@ -109,6 +109,22 @@
           ].indexOf($route.name) >= 0
         "
       >
+        <div class="shades-of">
+          <div class="shades-of-icon-wrapper">
+            <div class="shades-of-icon">
+              <img
+                src="@/assets/img/icons/shades-of-icon-black.svg"
+                alt="Venn Diagaram Icon"
+                data-not-lazy
+                class="non-hover"
+              >
+            </div>
+            <span class="label">Shades Of&nbsp;</span>
+          </div>
+          <div class="shades-of-value">
+            {{ player.player_meta.shades_of }}
+          </div>
+        </div>
         <Headline
           v-if="$mq !== 'mobile'"
           :headline="player.player_description"

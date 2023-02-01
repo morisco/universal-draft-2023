@@ -10,7 +10,7 @@
       <span>{{ rank }}</span>
     </div>
     <DraftTeam
-      v-if="['mock-draft', 'draft-grades'].indexOf($route.name) >= 0 && teamNameLogo && collapsed"
+      v-if="['mock-draft', 'draft-grades'].indexOf($route.name) >= 0 && teamNameLogo && (collapsed || $mq !== 'mobile')"
       :team-name-logo="teamNameLogo"
     />
     <Trend
@@ -164,14 +164,21 @@ export default {
     .draft-team{
       box-shadow:none;
       right:20px;
-      top:50%;
+      top:15px;
       left:auto;
       width:80px;
       height:80px;
-      transform:translateY(-50%);
       opacity: 1;
-      background: transparent !important;
-      transition:opacity 0.25s linear 0.5s;
+      transform:none;
+      background:$lightgray;
+      .player-card--collapsed & {
+        top:50%;
+      transform:translateY(-50%);
+
+        background: transparent !important;
+        transition:all 0.25s linear 0s;
+      }
+      transition:all 0.25s linear 0s;
       .player-card--expanded &{
         opacity:0;
         transition:opacity 0.25s linear;
@@ -298,6 +305,7 @@ export default {
             padding:15px 0 15px 40px;
           }
           min-height:0;
+          .player-card:hover
           .player-card--active &{
             color:$white;
             background-color:$darkgray;
@@ -327,7 +335,6 @@ export default {
         //   background-color: white;
         // }
         .player-card:hover &,
-        .player-card--active &,
         .player-card--expanded & {
           background-color:white;
         }
