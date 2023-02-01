@@ -331,7 +331,7 @@ export default {
       const heightToUse = this.expanded ? Math.max(this.imageHeight, maxHeight) : maxHeight;
       this.maxHeight = this.collapsed && !this.expanded ?
         this.$mq === 'mobile' ?
-        this.metaHeight - 20
+        80
         :
         this.$refs.metaBar.$el.offsetHeight 
       : this.$mq === 'mobile' ? 

@@ -41,6 +41,8 @@ export default {
     // left:0;
     transition: all 0.375s linear 0.125s, opacity 0.25s linear 0s, visibility 0s linear 0.25s, margin-top 0.5s ease-in-out 0.25s;
     margin-top:0;
+    position:relative;
+    z-index:0;
     // opacity:0;
     z-index:0;
     color:$black;
@@ -51,7 +53,7 @@ export default {
     @include mobile{
       background:$lightgray;
       padding:30px 20px 30px;
-      margin-top:-20px;
+      // margin-top:-20px;
       .player-card--expanded{
         padding:30px 20px 20px;
       }

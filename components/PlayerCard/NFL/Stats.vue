@@ -153,7 +153,7 @@ export default {
         &:last-of-type{
           margin-right:0;
         }
-        .player-card--collapsed & {
+        .player-card--collapsed:not(.player-card--expanded) & {
           margin:0 5px 20px;
           &:nth-child(n+5) {
             opacity:0;
@@ -178,6 +178,9 @@ export default {
     background-clip: padding-box;
     width:100%;
     margin-bottom:15px;
+    @include mobile{
+      margin-bottom:0;
+    }
     .player-card__image-column &{
       background:transparent !important;
     }

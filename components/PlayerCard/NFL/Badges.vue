@@ -62,6 +62,9 @@ export default {
     }
     .player-card__bottom-data & {
       margin-bottom:30px;
+      @include mobile{
+        margin-bottom:0;
+      }
     }
     @include tablet-portrait-only{
       width:calc(100% + 4px);
@@ -211,6 +214,7 @@ export default {
         }
         
       }
+      
       &:hover{
         .player-card__stat-tooltip{
           transform: translateX(-50%) scale(1);

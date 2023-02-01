@@ -31,7 +31,10 @@
         <span class="school">{{ playerMeta.school }}</span>
       </div>
     </div>
-    <div class="player-card__meta-bar-details">
+    <div
+      v-if="$mq !== 'mobile'"
+      class="player-card__meta-bar-details"
+    >
       <div
         v-if="$mq !== 'mobile'"
         class="player-card__meta-bar-position-school"
@@ -115,6 +118,7 @@ export default {
     text-transform:uppercase;
     transition:all 0.25s linear 0.5s, border-radius 0.25s linear 0s;
     flex: 0 0 auto;
+    z-index:2;
     @include tablet{
       flex-wrap:wrap;
     }
@@ -187,10 +191,10 @@ export default {
       @include mobile{
         transform: translate(0);
         right:auto;
-        top: 46px !important;
-        left:10px;
-        width: 26px;
-        height: 26px;
+        top: 40px !important;
+        left:8px;
+        width: 30px;
+        height: 30px;
         background: $mediumgray !important;
       }
     }
