@@ -5,7 +5,7 @@
       :style="{backgroundColor: interstitial.bg_color}"
     >
       <img
-        :src="interstitial.image.small"
+        :src="interstitial.image.medium"
         :alt="interstitial.title"
       >
     </div>
@@ -93,6 +93,16 @@ export default {
       display:flex;
       align-items:center;
       justify-content:center;
+      position:relative;
+      img{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        object-fit:contain;
+      }
       @include mobile{
         flex-basis:unset;
       }
