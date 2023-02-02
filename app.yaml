@@ -1,5 +1,4 @@
 runtime: nodejs12
-service: dev
 instance_class: F4
 
 automatic_scaling:
