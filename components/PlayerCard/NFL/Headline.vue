@@ -28,6 +28,9 @@ export default {
           // line-height:22px;
           &:last-of-type{
             margin-bottom:5px;
+            @include mobile{
+              margin-bottom:10px;
+            }
           }
           strong{
             display:inline;

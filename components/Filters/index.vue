@@ -226,7 +226,7 @@ export default {
     positionArrowTop () {
       const positions = this.positionMap.map(position => position.positionKey);
       const positionIndex = positions.indexOf(this.$store.getters['viewOptions/position']);
-      return 18 * positionIndex;
+      return Math.floor((this.$mq === 'mobile' ? 22.25 : 18) * positionIndex);
     },
     teamArrowTop() {
       const teamSort = this.$store.getters['viewOptions/teamSort'];
