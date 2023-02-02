@@ -180,10 +180,7 @@ export default {
       img {
         max-height:90%;
       }
-      .player-card--expanded &{
-        opacity:0;
-        transition:opacity 0.25s linear;
-      }
+      
       @include tablet-portrait-only{
         top:3px;
         transform:none;
@@ -196,6 +193,10 @@ export default {
         width: 30px;
         height: 30px;
         background: $mediumgray !important;
+        .player-card--expanded &{
+          opacity:0;
+          transition:opacity 0.25s linear;
+        }
       }
     }
     .player-card--collapsed & {
