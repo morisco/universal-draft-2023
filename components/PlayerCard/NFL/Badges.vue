@@ -90,6 +90,7 @@ export default {
       flex-wrap:wrap;
       background:$lightgray;
       margin-top:0;
+      padding-bottom:5px;
       .player-card--active & {
         filter:grayscale(0);
       }
