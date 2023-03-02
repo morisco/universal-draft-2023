@@ -32,22 +32,14 @@ function processImages(image) {
 }
 
 function processOrders(players) {
-  const mockDraftZeroBase = players.sort((a,b) => a.order_mockdraft < b.order_mockdraft ? -1 : 1)[0].order_mockdraft === 0;
   const orderIds = players.map((player) => { return {id: player.id, bigBoard: parseInt(player.order,10), mockDraft: parseInt(player.order_mockdraft,10), draftResults: parseInt(player.order_draftresults,10) } });
-  const bigBoardSorted = orderIds.sort((playerA, playerB) => (playerA.bigBoard > playerB.bigBoard) ? 1 : -1);
-  const mockIds = orderIds.filter(player => {
-    if(mockDraftZeroBase){
-      return player.mockDraft <= 31
-    } else {
-      return player.mockDraft <= 32
-    }
-  });
+  const bigBoardSorted = [...orderIds].sort((playerA, playerB) => (playerA.bigBoard > playerB.bigBoard) ? 1 : -1);
   const draftResultIds = players.filter(player => player.drafted_team);
-  const mockDraftSorted = mockIds.sort((playerA, playerB) => (playerA.mockDraft > playerB.mockDraft) ? 1 : -1);
+  const mockDraftSorted = [...orderIds].sort((playerA, playerB) => (playerA.mockDraft > playerB.mockDraft) ? 1 : -1);
   const draftResultsSorted = draftResultIds.sort((playerA, playerB) => (playerA.order_draftresults > playerB.order_draftresults) ? 1 : -1);
   return {
     bigBoard: bigBoardSorted.map(player => player.id),
-    mockDraft: mockDraftSorted.map(player => player.id),
+    mockDraft: mockDraftSorted.slice(0,30).map(player => player.id),
     draftResults: draftResultsSorted.map(player => player.id)
   };
 }
