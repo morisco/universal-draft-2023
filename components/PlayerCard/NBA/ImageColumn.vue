@@ -70,7 +70,7 @@
       v-if="$mq === 'mobile'"
       class="player-card__rank"
     >
-      <span>{{ rank+1 }}</span>
+      <span>{{ rank }}</span>
     </div>
   </div>
 </template>

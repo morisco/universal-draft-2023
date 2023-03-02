@@ -122,8 +122,14 @@ export default {
     }
   },
   computed: {
-    rank () {
-      return this.player && this.player[this.rankKey]
+    rank() {
+      const map = {
+        order: 'bigBoard',
+        order_mockdraft: 'mockDraft',
+        order_draftresults: 'draftResults'
+      };
+      const baseZero = this.$store.getters['content/baseZeroSettings'][map[this.rankKey]];
+      return this.rankKey ? this.player[this.rankKey] + (baseZero ? 1 : 0) : null;
     },
     player () {
       return this.$store.getters['content/player'](this.playerId)
