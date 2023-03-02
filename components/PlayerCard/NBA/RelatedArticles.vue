@@ -1,5 +1,8 @@
 <template>
-  <div class="player-card__related-articles">
+  <div
+    v-if="articles && articles.length > 0"
+    class="player-card__related-articles"
+  >
     <a
       v-for="article in articles"
       :key="article.title"
@@ -19,7 +22,7 @@ export default {
 <style lang="scss" scoped>
 .player-card{
   &__related-articles{
-    margin-top:20px;
+    // margin-top:20px;
     a{
       display:block;
       @include player-card-body;

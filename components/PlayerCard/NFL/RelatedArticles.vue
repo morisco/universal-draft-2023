@@ -1,5 +1,8 @@
 <template>
-  <div class="player-card__related-articles">
+  <div
+    v-if="articles && articles.length > 0"
+    class="player-card__related-articles"
+  >
     <a
       v-for="article in articles"
       :key="article.title"

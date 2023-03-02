@@ -37,26 +37,28 @@
       <div class="player-card__image-column-content">
         <div v-if="$mq !== 'mobile'">
           <Stats :player="fullPlayer" />
-          <VideoThumb
-            v-if="playerVideo"
-            :play-video="playVideo"
-            :video-settings="videoSettings"
-            :player-video="playerVideo"
-            :active-card="activeCard"
-            @reset-video-settings="$emit('reset-video-settings')"
-          />
-          <PodcastCardPlayer
-            v-if="player.player_podcast && $mq !== 'mobile'"
-            :player-id="playerId"
-            :player-podcast="player.player_podcast"
-            :player="player"
-            :info-height="topHeight"
-            :podcast="player.player_podcast"
-          />
-          <RelatedArticles
-            v-if="fullPlayer.player_articles"
-            :articles="fullPlayer.player_articles"
-          />
+          <div class="player-card__image-column-extend">
+            <VideoThumb
+              v-if="playerVideo"
+              :play-video="playVideo"
+              :video-settings="videoSettings"
+              :player-video="playerVideo"
+              :active-card="activeCard"
+              @reset-video-settings="$emit('reset-video-settings')"
+            />
+            <PodcastCardPlayer
+              v-if="player.player_podcast && $mq !== 'mobile'"
+              :player-id="playerId"
+              :player-podcast="player.player_podcast"
+              :player="player"
+              :info-height="topHeight"
+              :podcast="player.player_podcast"
+            />
+            <RelatedArticles
+              v-if="fullPlayer.player_articles"
+              :articles="fullPlayer.player_articles"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -68,7 +70,7 @@
       v-if="$mq === 'mobile'"
       class="player-card__rank"
     >
-      <span>{{ rank+1 }}</span>
+      <span>{{ rank }}</span>
     </div>
   </div>
 </template>
@@ -177,6 +179,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.player-card__image-column-extend{
+margin-top:20px;
+        display:grid;
+        gap:20px;
+}
   .player-card{   
     &__image-column{
       display:flex;
@@ -244,6 +251,7 @@ export default {
           background-color:$mediumgray;
         }
       }
+     
       &-content{
         // display:none;
         // .player-card--expanded & {

@@ -122,8 +122,14 @@ export default {
     }
   },
   computed: {
-    rank () {
-      return this.player && this.player[this.rankKey]
+    rank() {
+      const map = {
+        order: 'bigBoard',
+        order_mockdraft: 'mockDraft',
+        order_draftresults: 'draftResults'
+      };
+      const baseZero = this.$store.getters['content/baseZeroSettings'][map[this.rankKey]];
+      return this.rankKey ? this.player[this.rankKey] + (baseZero ? 1 : 0) : null;
     },
     player () {
       return this.$store.getters['content/player'](this.playerId)
@@ -350,7 +356,7 @@ export default {
       } else {
         if(this.$mq === 'mobile'){
           this.maxHeight = maxHeight + 265
-          this.height = maxHeight + 265;
+          this.height = null;
         } else {
           this.maxHeight = heightToUse + this.$refs.metaBar.$el.offsetHeight;
           this.height = heightToUse + this.$refs.metaBar.$el.offsetHeight;
@@ -414,7 +420,7 @@ export default {
         }
         .player-card--expanded & {
           transition:padding 0.5s ease-in-out 0s;
-          padding: 15px 50px 15px;
+          padding: 15px 50px 0;
         }
       }
       &:after{
