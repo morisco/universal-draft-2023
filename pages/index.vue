@@ -52,7 +52,6 @@ export default {
     return asyncDataProcessor({$axios, store, route});
   },
   data() {
-    console.log(this.$route.params);
     return {
       initTimeout: null,
       scrollDelay: null,
