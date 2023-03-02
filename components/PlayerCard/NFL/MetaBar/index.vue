@@ -65,7 +65,13 @@ export default {
   emits: ['set-height', 'show-letter'],
   computed: {
     rank() {
-      return this.rankKey ? this.player[this.rankKey] + 1 : null;
+      const map = {
+        order: 'bigBoard',
+        order_mockdraft: 'mockDraft',
+        order_draftresults: 'draftResults'
+      };
+      const baseZero = this.$store.getters['content/baseZeroSettings'][map[this.rankKey]];
+      return this.rankKey ? this.player[this.rankKey] + (baseZero ? 1 : 0) : null;
     },
     teamNameLogo () {
       return this.$store.getters['content/teamNameLogo'](this.player[this.rankKey]);

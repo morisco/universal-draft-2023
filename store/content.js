@@ -105,7 +105,8 @@ const getters = {
   relatedArticles: (state) => state.relatedData,
   interstitials: (state) => (list)  => state.interstitials[list],
   interstitial: (state) => (list, interKey)  => state.interstitials[list] ? state.interstitials[list][interKey] : false,
-  pods: (state) => state.pods
+  pods: (state) => state.pods,
+  baseZeroSettings: (state) => state.baseZeroSettings
 }
 
 // actions
@@ -126,6 +127,11 @@ const actions = {
       const processedInters = processInterstitials(contents);
       const processedTeams = processTeams(contents.teams.content, processedPlayers.teamPlayers, teams);
       const processedRelated = processRelated(contents.coverage.content);
+      commit('setBaseZeros', {
+        bigBoard: processedPlayers.playerData[processedPlayers.bigBoard[0]].order === 0,
+        mockDraft: processedPlayers.playerData[processedPlayers.mockDraft[0]].order_mockdraft === 0,
+        draftResults: processedPlayers.draftResults.length > 0 ? processedPlayers.playerData[processedPlayers.draftResults[0]].order_draftresults === 0 : false,
+      })
       commit('setPodcastsData', contents.podcast ? contents.podcast.content : [])
       commit('setInterstitialData', processedInters);
       commit('setPlayerData', processedPlayers)
@@ -134,6 +140,9 @@ const actions = {
     })
     .catch(err => console.log(err));
    
+  },
+  setBaseZeros ({commit}, baseZeroSettings) {
+    commit('set', baseZeroSettings);
   }
 }
 
@@ -188,6 +197,10 @@ const mutations = {
   
   resetReady(state) {
     state.cardsReady = 0;
+  },
+
+  setBaseZeros(state, baseZeroSettings) {
+    state.baseZeroSettings = baseZeroSettings;
   }
 }
 
