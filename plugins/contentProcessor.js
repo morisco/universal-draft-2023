@@ -33,10 +33,10 @@ function processImages(image) {
 
 function processOrders(players) {
   const orderIds = players.map((player) => { return {id: player.id, bigBoard: parseInt(player.order,10), mockDraft: parseInt(player.order_mockdraft,10), draftResults: parseInt(player.order_draftresults,10) } });
-  const bigBoardSorted = orderIds.sort((playerA, playerB) => (playerA.bigBoard > playerB.bigBoard) ? 1 : -1);
+  const bigBoardSorted = [...orderIds].sort((playerA, playerB) => (playerA.bigBoard > playerB.bigBoard) ? 1 : -1);
   const draftResultIds = players.filter(player => player.drafted_team);
-  const mockDraftSorted = orderIds.sort((playerA, playerB) => (playerA.mockDraft > playerB.mockDraft) ? 1 : -1);
-  const draftResultsSorted = draftResultIds.sort((playerA, playerB) => (playerA.order_draftresults > playerB.order_draftresults) ? 1 : -1);
+  const mockDraftSorted = [...orderIds].sort((playerA, playerB) => (playerA.mockDraft > playerB.mockDraft) ? 1 : -1);
+  const draftResultsSorted = [...draftResultIds].sort((playerA, playerB) => (playerA.order_draftresults > playerB.order_draftresults) ? 1 : -1);
   return {
     bigBoard: bigBoardSorted.map(player => player.id),
     mockDraft: mockDraftSorted.slice(0,31).map(player => player.id),
