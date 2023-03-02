@@ -109,6 +109,7 @@ export default {
         drafted_team: playerData.drafted_team, 
         results_via: playerData.results_via,
         player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false,
+        order_mockdraft: playerData.order_mockdraft
       }
     },
     playerMeta() {
@@ -123,11 +124,18 @@ export default {
         height: playerData.player_meta.height,
         weight: playerData.player_meta.weight,
         shadesOf: playerData.player_meta.shades_of,
-        wingspan: playerData.player_meta.wingspan
+        wingspan: playerData.player_meta.wingspan,
+        
       };
     },
     teamNameLogo () {
-      return this.rankKey  === 'order_mockdraft' ?  this.$store.getters['content/teamNameLogo'](this.rank) : this.rankKey === 'order_draftresults' ? this.$store.getters['content/teamNameLogoResults'](this.player.drafted_team, this.player.results_via) : this.$store.getters['content/resultsTeamNameLogo'](this.rank);    
+      const map = {
+        order: 'bigBoard',
+        order_mockdraft: 'mockDraft',
+        order_draftresults: 'draftResults'
+      };
+      const baseZero = this.$store.getters['content/baseZeroSettings'][map[this.rankKey]];
+      return this.$store.getters['content/teamNameLogo'](baseZero ? this.player[this.rankKey] : this.player[this.rankKey] - 1);
     },
     playerVideo() {
       return this.fullPlayer.player_video && this.fullPlayer.player_video.video_id ? this.fullPlayer.player_video : false
