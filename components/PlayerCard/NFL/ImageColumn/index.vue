@@ -60,7 +60,7 @@
           <Stats :player="fullPlayer" />
           <CombineResults
             v-if="player.combine"
-            :results="player.combine_results"
+            :results="player.combine"
           />
           <VideoThumb
             v-if="playerVideo"
@@ -127,7 +127,7 @@ export default {
         title: playerData.title,
         player_meta: playerData.player_meta,
         player_podcast: playerData.player_podcast !== '' ? playerData.player_podcast : false,
-        combine_results: playerData.combine_results
+        combine: playerData.combine
       }
     },
     teamNameLogo () {

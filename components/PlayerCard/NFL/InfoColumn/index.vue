@@ -196,7 +196,7 @@
         
       <CombineResults
         v-if="$mq === 'mobile' && player.combine"
-        :results="player.combine_results"
+        :results="player.combine"
         :is-qb="player.position === 'qb'"
       />
       <!-- <Headline :headline="player.player_description" :selling="player.player_meta.main_selling_point" v-if="this.collapsed" /> -->
