@@ -215,7 +215,13 @@ export default {
       return this.player.player_video && this.player.player_video.video_id ? this.player.player_video : false
     },
     teamNameLogo () {
-      return this.rankKey  === 'order_mockdraft' ?  this.$store.getters['content/teamNameLogo'](this.player[this.rankKey]) : this.rankKey === 'order_draftresults' ? this.$store.getters['content/teamNameLogoResults'](this.player.drafted_team, this.player.results_via) : this.$store.getters['content/resultsTeamNameLogo'](this.rank);    
+      const map = {
+        order: 'bigBoard',
+        order_mockdraft: 'mockDraft',
+        order_draftresults: 'draftResults'
+      };
+      const baseZero = this.$store.getters['content/baseZeroSettings'][map[this.rankKey]];
+      return this.$store.getters['content/teamNameLogo'](baseZero ? this.player[this.rankKey] : this.player[this.rankKey] - 1);
     },
     viewDepth () {
       return this.$store.getters['viewOptions/depth'];
