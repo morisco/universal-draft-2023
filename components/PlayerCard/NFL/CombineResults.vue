@@ -7,13 +7,15 @@
       Combine Results
     </div>
     <ul class="player-card__combine-results-list">
-      <li
-        v-for="result in results"
-        :key="result.combine_label + result.combine_value"
-      >
-        <span class="player-card__combine__results-label">{{ result.combine_label }}</span>
-        <span class="player-card__combine__results-value">{{ result.combine_value }}</span>
-      </li>
+      <template v-for="field in fields">
+        <li
+          v-if="results[field]"
+          :key="field"
+        >
+          <span class="player-card__combine__results-label">{{ labels[field] }}</span>
+          <span class="player-card__combine__results-value">{{ getResult(field) }}</span>
+        </li>
+      </template>
     </ul>
   </div>
 </template>
@@ -22,6 +24,47 @@
 export default {
   name: "NFLCombineResults",
   props: ['results', 'topHeight', 'isQb'],
+  data: () => (
+    {
+      fields: ['40_yard', 'vertical', 'bench', 'broad', '3_cone', '20_yard_shuffle', 'arm_length', 'hand_size'],
+      labels: {
+        '40_yard': '40-Yard Dash',
+        'vertical': 'Vertical',
+        'bench': 'Bench Press',
+        'broad': 'Broad Jump',
+        '3_cone': '3-Cone',
+        '20_yard_shuffle': '20-Yard Shuttle',
+        'arm_length': 'Arm Length',
+        'hand_size': 'Hand Size',
+      },
+    }
+  ),
+  methods: {
+    getResult(field) {
+      switch(field) {
+        case '40_yard':
+          return `${this.results[field]}s`;
+        case 'vertical':
+          return `${this.results[field]}"`;
+        case 'bench':
+          return `${this.results[field]} Reps`;
+        case 'broad':
+          const feet = Math.floor(this.results[field]/12);
+          const inches = Math.floor(this.results[field] - (feet * 12));
+          return `${feet}'${inches}"`;
+        case '3_cone': 
+          return `${this.results[field]}s`;
+        case '20_yard_shuffle':
+          return `${this.results[field]}s`;
+        case 'arm_length':
+          return `${this.results[field]}"`
+        case 'hand_size':
+          return `${this.results[field]}"`
+      }
+      console.log(field);
+      console.log(this.results);
+    }
+  }
 }
 </script>
 
