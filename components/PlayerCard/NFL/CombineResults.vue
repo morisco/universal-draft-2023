@@ -50,14 +50,14 @@ export default {
     {
       fields: ['40_yard', 'vertical', 'bench', 'broad', '3_cone', '20_yard_shuffle', 'arm_length', 'hand_size'],
       labels: {
-        '40_yard': '40-Yard Dash',
+        '40_yard': '40-yard Dash',
         'vertical': 'Vertical',
-        'bench': 'Bench Press',
-        'broad': 'Broad Jump',
-        '3_cone': '3-Cone',
-        '20_yard_shuffle': '20-Yard Shuttle',
-        'arm_length': 'Arm Length',
-        'hand_size': 'Hand Size',
+        'bench': 'Bench press',
+        'broad': 'Broad jump',
+        '3_cone': '3-cone',
+        '20_yard_shuffle': '20-yard shuttle',
+        'arm_length': 'Arm length',
+        'hand_size': 'Hand size',
       },
     }
   ),
@@ -65,7 +65,7 @@ export default {
     notTracked() {
       const self = this;
       const keys = Object.keys(this.labels).filter((key) => {
-        if(this.results[key]){
+        if(!this.results[key]){
           return self.labels[key]
         }
       })
@@ -94,11 +94,8 @@ export default {
         case 'hand_size':
           return `${this.results[field]}"`
       }
-      console.log(field);
-      console.log(this.results);
     },
     getPercent(field) {
-      console.log(this.results[`${field}_per`]);
       return `${parseInt(this.results[`${field}_per`], 10)}%`;
     },
     ordinal_suffix_of(i) {
