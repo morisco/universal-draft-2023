@@ -18,6 +18,7 @@ const state = () => ({
   cardsReady: 0,
   allCardsSet: false,
   pods: [],
+  baseZeroSettings: {},
 })
 
 const filterPlayers = (state, allIds, selectedPosition, selectedStrengths) => {
