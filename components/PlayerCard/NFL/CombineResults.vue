@@ -12,11 +12,33 @@
           v-if="results[field]"
           :key="field"
         >
-          <span class="player-card__combine__results-label">{{ labels[field] }}</span>
-          <span class="player-card__combine__results-value">{{ getResult(field) }}</span>
+          <div class="result">
+            <span class="player-card__combine__results-label">{{ labels[field] }}</span>
+            <span class="player-card__combine__results-value">{{ getResult(field) }}</span>
+          </div>
+          <div
+            v-if="!['arm_length', 'hand_size'].includes(field)"
+            class="percentile"
+          >
+            <div class="percentile-slider">
+              <div
+                class="percentile-knob"
+                :style="{left: getPercent(field)}"
+              />
+            </div>
+            <div class="percentile-label">
+              {{ getPercentile(field) }}
+            </div>
+          </div>
         </li>
       </template>
     </ul>
+    <div class="not-tested">
+      Not tested: {{ notTracked.join(', ') }}
+      <i>
+        Percentiles are calculated based on how a player performed compared to his position group across the past 10 combines.
+      </i>
+    </div>
   </div>
 </template>
 
@@ -39,6 +61,17 @@ export default {
       },
     }
   ),
+  computed: {
+    notTracked() {
+      const self = this;
+      const keys = Object.keys(this.labels).filter((key) => {
+        if(this.results[key]){
+          return self.labels[key]
+        }
+      })
+      return keys.map(key => this.labels[key]);
+    }
+  },
   methods: {
     getResult(field) {
       switch(field) {
@@ -63,6 +96,28 @@ export default {
       }
       console.log(field);
       console.log(this.results);
+    },
+    getPercent(field) {
+      console.log(this.results[`${field}_per`]);
+      return `${parseInt(this.results[`${field}_per`], 10)}%`;
+    },
+    ordinal_suffix_of(i) {
+      var j = i % 10,
+          k = i % 100;
+      if (j == 1 && k != 11) {
+          return i + "st";
+      }
+      if (j == 2 && k != 12) {
+          return i + "nd";
+      }
+      if (j == 3 && k != 13) {
+          return i + "rd";
+      }
+      return i + "th";
+    },
+    getPercentile(field) {
+      const parsed = parseInt(this.results[`${field}_per`], 10);
+      return `${this.ordinal_suffix_of(parsed)} Percentile`;
     }
   }
 }
@@ -102,12 +157,40 @@ export default {
       &-list{
         list-style:none;
         color:$black;
-        margin-top:15px;
+        margin-top:10px;
         li{
           position:relative;
-          display:flex;
-          justify-content:space-between;
-          background-color:$lightgray;
+          .result{
+            display:flex;
+            justify-content:space-between;
+            font-size: 14px;
+          }
+          .percentile{
+            display:flex;
+            flex-direction:column;
+            align-items: flex-end;
+            margin-top: 8px;
+            .percentile-slider{
+              position: relative;
+              height:3px;
+              width: 100%;
+              background:$highlight2-lighter;
+            }
+            .percentile-knob{
+              background:$highlight2;
+              height: 7px;
+              width: 7px;
+              border-radius: 100%;
+              position:absolute;
+              top:50%;
+              transform:translateY(-50%);
+            }
+            .percentile-label{
+              font-size:11px;
+              font-weight: 300;
+              line-height: 22px; 
+            }
+          }
           margin: 8px 0;
           span{
             display:block;
@@ -119,27 +202,17 @@ export default {
             &:first-of-type{
               padding-right:3px;
               @include player-card-body;
-              color:$headlinegray;
+              font-size:14px;
+              // color:$headlinegray;
               margin-bottom: 0 !important;
             }
             &:last-of-type{
               padding-left:4px;
               @include player-card-body;
-              color:$headlinegray;
+              font-size:14px;
+              // color:$headlinegray;
               margin-bottom: 0 !important;
             }
-          }
-          &:before{
-            content:'..........................................................................................................................................................................................................................................................................................................................................';
-            font-family: 'Decima';
-            display:block;
-            position:absolute;
-            bottom:-0.11em;
-            color:$headlinegray;
-            left:0;
-            right:0;
-            overflow:hidden;
-            z-index:0;
           }
         }
       }
@@ -156,8 +229,8 @@ export default {
         transition:opacity 0.25s linear;
         @include mobile {
           margin:-30px 0 0;
-          padding:15px 20px;
-          background:$lightgray;
+          padding:15px 20px 0;
+          // background:$lightgray;
           &:before{
             content:'';
             display:block;
@@ -201,6 +274,17 @@ export default {
             }
           }
         }
+      }
+    }
+    .not-tested{
+      border-top:1px solid $darkmediumgray;
+      padding-top:11px;
+      font-size:11px;
+      line-height:1.3;
+      font-weight: 300;
+      i {
+        display:block;
+        margin-top:11px;
       }
     }
   }
