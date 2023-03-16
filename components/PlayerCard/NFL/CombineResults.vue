@@ -34,10 +34,11 @@
       </template>
     </ul>
     <div
-      v-if="notTracked.length > 0"
       class="not-tested"
     >
-      Not tested: {{ notTracked.join(', ') }}
+      <span v-if="notTracked.length > 0">
+        Not tested: {{ notTracked.join(', ') }}
+      </span>
       <i>
         Percentiles are calculated based on how a player performed compared to his position group across the past 10 combines.
       </i>
