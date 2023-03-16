@@ -33,7 +33,10 @@
         </li>
       </template>
     </ul>
-    <div class="not-tested">
+    <div
+      v-if="notTracked.length > 0"
+      class="not-tested"
+    >
       Not tested: {{ notTracked.join(', ') }}
       <i>
         Percentiles are calculated based on how a player performed compared to his position group across the past 10 combines.
@@ -48,13 +51,13 @@ export default {
   props: ['results', 'topHeight', 'isQb'],
   data: () => (
     {
-      fields: ['40_yard', 'vertical', 'bench', 'broad', '3_cone', '20_yard_shuffle', 'arm_length', 'hand_size'],
+      fields: ['40_yard', 'vertical', 'broad', 'bench', '3_cone', '20_yard_shuffle', 'arm_length', 'hand_size'],
       labels: {
-        '40_yard': '40-yard Dash',
-        'vertical': 'Vertical',
+        '40_yard': '40-yard dash',
+        'vertical': 'Vertical jump',
         'bench': 'Bench press',
         'broad': 'Broad jump',
-        '3_cone': '3-cone',
+        '3_cone': '3-cone drill',
         '20_yard_shuffle': '20-yard shuttle',
         'arm_length': 'Arm length',
         'hand_size': 'Hand size',
@@ -80,7 +83,7 @@ export default {
         case 'vertical':
           return `${this.results[field]}"`;
         case 'bench':
-          return `${this.results[field]} Reps`;
+          return `${this.results[field]} reps`;
         case 'broad':
           const feet = Math.floor(this.results[field]/12);
           const inches = Math.floor(this.results[field] - (feet * 12));
@@ -90,9 +93,9 @@ export default {
         case '20_yard_shuffle':
           return `${this.results[field]}s`;
         case 'arm_length':
-          return `${this.results[field]}"`
+          return `${this.results[field]}`
         case 'hand_size':
-          return `${this.results[field]}"`
+          return `${this.results[field]}`
       }
     },
     getPercent(field) {
