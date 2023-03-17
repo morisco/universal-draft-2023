@@ -12,7 +12,10 @@
           v-if="results[field]"
           :key="field"
         >
-          <div class="result">
+          <div
+            class="result"
+            :class="`result-${field}`"
+          >
             <span class="player-card__combine__results-label">{{ labels[field] }}</span>
             <span class="player-card__combine__results-value">{{ getResult(field) }}</span>
           </div>
@@ -165,12 +168,16 @@ export default {
             display:flex;
             justify-content:space-between;
             font-size: 14px;
+            margin: 8px 0;
+            &.result-no{
+              margin:4px 0;
+            }
           }
           .percentile{
             display:flex;
             flex-direction:column;
             align-items: flex-end;
-            margin-top: 8px;
+            margin-top: 3px;
             .percentile-slider{
               position: relative;
               height:3px;
@@ -192,7 +199,7 @@ export default {
               line-height: 22px; 
             }
           }
-          margin: 8px 0;
+          
           span{
             display:block;
             position:relative;
