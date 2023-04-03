@@ -150,6 +150,10 @@ export default {
       }
       &__image-column{
         padding-bottom:30px;
+        &--meta{
+          min-width:150px;
+          width:150px;
+        }
         @include tablet{
           min-height:0;
           min-width:100%;

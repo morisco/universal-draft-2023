@@ -82,6 +82,9 @@ export default {
 
 <style lang="scss" scoped>
   .team-card{
+    .team-card__players-label{
+      margin-left:0;
+    }
     &__player-picks{
       display:flex;
       min-width:100%;
