@@ -169,7 +169,9 @@ export default {
       this.bigBoardIds.forEach((playerId, index) => {
         dataObj.push({type:'player', id: playerId});
       })
-      this.idsToDisplay = [...dataObj];
+      this.idsToDisplay = [...dataObj].filter((player) => {
+        return !this.$store.getters['content/player'](player.id).hide_big_board;
+      });;
     }
   },
 }
