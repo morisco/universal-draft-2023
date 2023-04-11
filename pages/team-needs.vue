@@ -112,10 +112,17 @@ export default {
   methods: {
     setTeams() {
       if(this.teamSort && this.teamNeedsIds){
+        const teamsToSort = [...this.teamNeedsIds];
+        
         if(this.teamSort === 'order') {
-          this.sortedTeams = this.teamNeedsIds;
+          this.sortedTeams = teamsToSort.sort((a, b) => {
+            const teamA = this.$store.getters['content/team'](a)
+            const teamB = this.$store.getters['content/team'](b)
+            if(teamA && teamB){
+              return parseInt(teamA.picks[0].number) < parseInt(teamB.picks[0].number) ? -1 : 1;
+            }
+          });
         } else {
-          const teamsToSort = [...this.teamNeedsIds];
           this.sortedTeams = teamsToSort.sort((a, b) => {
             const teamA = this.$store.getters['content/team'](a)
             const teamB = this.$store.getters['content/team'](b)

@@ -3,7 +3,7 @@
     ref="metaBar"
     class="player-card__meta-bar team-card__meta-bar"
   >
-    <div class="player-card__meta-bar-name-school player-card__image-column team-card__meta-bar-name-school team-card__image-column">
+    <div class="player-card__meta-bar-name-school player-card__image-column team-card__meta-bar-name-school team-card__image-column--meta team-card__image-column">
       <img
         :src="team.image.medium"
         class="team-card__meta-bar-logo"
@@ -61,6 +61,9 @@ export default {
   .app--nfl {
     @import '~/components/PlayerCard/NFL/MetaBar/style.scss';
     .team-card{
+      .team-card__players-label{
+        margin-left:0;
+      }
       &__meta-bar{
         padding:0 !important;
         background-color:$mediumgray !important;
@@ -78,7 +81,8 @@ export default {
           transform:translate(-50%, -50%);
         }
         &-details{
-          padding-left:45px;
+          padding-left:20px;
+          .team-card__players-label{}
         }
         h3{
           margin-top:3px;
