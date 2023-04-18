@@ -2,26 +2,22 @@
   <div class="pie">
     <h5>Pressure Response</h5>
     <div class="chart">
-      <Corral v-if="id === 'wSSW42lccAtnhFAzI5vn'" />
-      <Howell v-if="id === 'HDAIckNJeVkRS8ZWMQDp'" />
-      <Pickett v-if="id === 'qHI9DULJMn0Mf6nC44mj'" />
-      <Ridder v-if="id === 'ejhLbbMT9hLm793sadby'" />
-      <Willis v-if="id === 'CEYkkD3GiPUuumJB3T4S'" />
-      <Strong v-if="id === 'Y0mcXCeo7tuyIegANu6c'" />
+      <Richardson v-if="id === 'Q4fv0QVejNfm7VJ7Rn6k'" />
+      <Young v-if="id === 'p8bx2K6m4uTsMhYhLUKo'" />
+      <Stroud v-if="id === 'JTZuNgBitbZI5cS2k2Bc'" />
+      <Levis v-if="id === '7ltjLZZaa5MDclg5M4IB'" />
     </div>
   </div>
 </template>
 
 <script>
-import Ridder from './svgs/Ridder.vue';
-import Corral from './svgs/Corral.vue';
-import Howell from './svgs/Howell.vue';
-import Pickett from './svgs/Pickett.vue';
-import Willis from './svgs/Willis.vue';
-import Strong from './svgs/Strong.vue';
+import Richardson from './svgs/Richardson.vue';
+import Young from './svgs/Young.vue';
+import Stroud from './svgs/Stroud.vue';
+import Levis from './svgs/Levis.vue';
 export default {
   name: "PieChart",
-  components: {Ridder, Corral, Howell, Pickett, Willis, Strong},
+  components: { Richardson, Young, Stroud, Levis },
   props: {
     id: {
       type: String,
