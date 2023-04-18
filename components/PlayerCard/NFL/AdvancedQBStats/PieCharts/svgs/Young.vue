@@ -25,55 +25,55 @@
     <text transform="matrix(1 0 0 1 122.1771 177.5391)"><tspan
       x="0"
       y="0"
-      style="fill:#E4E4E4; fontFamily:'GTAmerica-Light'; fontSize: 12px"
+      style="fill:#E4E4E4;fontSize: 12px"
     >Stand &amp; Deliver</tspan><tspan
       x="26.11"
       y="14.4"
-      style="fill:#E4E4E4; fontFamily:'GTAmerica-Light'; fontSize: 12px"
+      style="fill:#E4E4E4;fontSize: 12px"
     >36.7%</tspan></text>
     <text transform="matrix(1 0 0 1 41.9762 57.7199)"><tspan
       x="0"
       y="0"
-      style="fill:#E4E4E4; fontFamily:'GTAmerica-Light'; fontSize: 12px"
+      style="fill:#E4E4E4;fontSize: 12px"
     >Take a</tspan><tspan
       x="4.49"
       y="14.4"
-      style="fill:#E4E4E4; fontFamily:'GTAmerica-Light'; fontSize: 12px"
+      style="fill:#E4E4E4;fontSize: 12px"
     >Sack</tspan><tspan
       x="3.91"
       y="28.8"
-      style="fill:#E4E4E4; fontFamily:'GTAmerica-Light'; fontSize: 12px"
+      style="fill:#E4E4E4;fontSize: 12px"
     >11.2%</tspan></text>
     <text transform="matrix(1 0 0 1 32.6983 136.7493)"><tspan
       x="0"
       y="0"
-      style="fill:#E4E4E4; fontFamily:'GTAmerica-Light'; fontSize: 12px"
+      style="fill:#E4E4E4;fontSize: 12px"
     >Escape</tspan><tspan
       x="-3.97"
       y="14.4"
-      style="fill:#E4E4E4; fontFamily:'GTAmerica-Light'; fontSize: 12px"
+      style="fill:#E4E4E4;fontSize: 12px"
     >Pressure</tspan><tspan
       x="3.33"
       y="28.8"
-      style="fill:#E4E4E4; fontFamily:'GTAmerica-Light'; fontSize: 12px"
+      style="fill:#E4E4E4;fontSize: 12px"
     >20.4%</tspan></text>
     <text transform="matrix(1 0 0 1 91.0364 34.4166)"><tspan
       x="0"
       y="0"
-      style="fill:#FFFFFF; fontFamily:'GTAmerica-Light'; fontSize: 12px"
+      style="fill:#FFFFFF;fontSize: 12px"
     >Scramble</tspan><tspan
       x="10.78"
       y="14.4"
-      style="fill:#FFFFFF; fontFamily:'GTAmerica-Light'; fontSize: 12px"
+      style="fill:#FFFFFF;fontSize: 12px"
     >12.2%</tspan></text>
     <text transform="matrix(1 0 0 1 156.7437 73.543)"><tspan
       x="0"
       y="0"
-      style="fill:#FFFFFF; fontFamily:'GTAmerica-Light'; fontSize: 12px"
+      style="fill:#FFFFFF;fontSize: 12px"
     >Unchartable</tspan><tspan
       x="18.73"
       y="14.4"
-      style="fill:#FFFFFF; fontFamily:'GTAmerica-Light'; fontSize: 12px"
+      style="fill:#FFFFFF;fontSize: 12px"
     >17.3%</tspan></text>
   </svg>
 </template>
