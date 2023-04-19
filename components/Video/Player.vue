@@ -63,7 +63,6 @@ export default {
     triggerPlay() {
       if(this.triggerPlay && !this.isPlaying){
         this.player.unMute();
-        this.player.seekTo(300);
         this.player.playVideo();
       }
     },
