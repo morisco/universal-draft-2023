@@ -80,6 +80,9 @@ export default {
         order_draftresults: 'draftResults'
       };
       const baseZero = this.$store.getters['content/baseZeroSettings'][map[this.rankKey]];
+      if(this.rankKey === 'order_draftresults') {
+        return this.$store.getters['content/teamNameLogoResults'](this.player.drafted_team, this.player.results_via);
+      }
       return this.$store.getters['content/teamNameLogo'](baseZero ? this.player[this.rankKey] : this.player[this.rankKey] - 1);
     },
     playerMeta() {
