@@ -22,6 +22,7 @@
         :key="card.id + '-' + index" 
         :player-id="card.id" 
         rank-key="order_draftresults" 
+        :rank-override="index + 1"
         :card-expanded="cardExpanded" 
         :index="index" 
         list="draftResults"

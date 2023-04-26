@@ -5,6 +5,7 @@
       :player-id="playerId"
       :rank-key="rankKey"
       :card-expanded="cardExpanded"
+      :rank-override="rankOverride"
       @card-expanded="$emit('card-expanded')"
     />
     <NBAPlayerCard
@@ -37,7 +38,7 @@ import gsap from 'gsap';
 export default {
   name: "PlayerCard",
   components: { NFLPlayerCard, NBAPlayerCard, Interstitial },
-  props: ['playerId', 'rankKey', 'cardExpanded', 'setCardExpanded', 'index', 'list'],
+  props: ['playerId', 'rankKey', 'rankOverride', 'cardExpanded', 'setCardExpanded', 'index', 'list'],
   emits: ['card-expanded'],
   computed: {
     interstitials() {
