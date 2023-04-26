@@ -61,7 +61,7 @@ import LetterTrigger from '../LetterTrigger';
 export default {
   name: 'NFLMetaBar',
   components: {DraftTeam, Trend, LetterTrigger},
-  props: ['player', 'rankKey', 'collapsed', 'expanded'],
+  props: ['player', 'rankKey', 'collapsed', 'expanded', 'rankOverride'],
   emits: ['set-height', 'show-letter'],
   computed: {
     rank() {
@@ -71,7 +71,7 @@ export default {
         order_draftresults: 'draftResults'
       };
       const baseZero = this.$store.getters['content/baseZeroSettings'][map[this.rankKey]];
-      return this.rankKey ? this.player[this.rankKey] + (baseZero ? 1 : 0) : null;
+      return this.rankOverride ? this.rankOverride : this.rankKey ? this.player[this.rankKey] + (baseZero ? 1 : 0) : null;
     },
     teamNameLogo () {
       const map = {

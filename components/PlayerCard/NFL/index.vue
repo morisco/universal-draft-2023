@@ -29,6 +29,7 @@
       :player="player"
       :rank-key="rankKey"
       :collapsed="collapsed"
+      :rank-override="rankOverride"
       @show-letter="showLetter"
     />
     <div class="player-card__image-info">
@@ -36,7 +37,7 @@
         :player-id="playerId" 
         :expanded="expanded"
         :collapsed="collapsed" 
-        :rank="rank"
+        :rank="rankOverride || rank"
         :info-height="infoHeight"
         :top-height="topHeight"
         :rank-key="rankKey"
@@ -91,7 +92,7 @@ import { scrollIt } from '~/plugins/scroller'
 export default {
   name: "NFLPlayerCard",
   components: { ImageColumn, InfoColumn, ToggleCard, MetaBar, VideoViewer },
-  props: ['playerId', 'rankKey', 'cardExpanded'],
+  props: ['playerId', 'rankKey', 'cardExpanded', 'rankOverride'],
   emits: ['card-expanded'],
   data() {
     return {
