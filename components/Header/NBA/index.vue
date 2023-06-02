@@ -20,14 +20,12 @@
           </div>
           <div class="header__sponsor-byline">
             <div class="header__footer-sponsor">
-              <template v-if="false">
-                <span>Presented By</span>
-                <img
-                  src="@/assets/img/nba-statefarm.svg"
-                  alt="State Farm Logo"
-                  data-not-lazy
-                >
-              </template>
+              <span>Presented By</span>
+              <img
+                src="@/assets/img/nba-statefarm.svg"
+                alt="State Farm Logo"
+                data-not-lazy
+              >
             </div>
             <h2 class="subheadline">
               BY KEVIN O'CONNOR
