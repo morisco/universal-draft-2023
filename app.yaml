@@ -15,7 +15,7 @@ service: dev
 
 handlers:
   - url: /_nuxt
-    static_dir: .nuxt/dist/client
+    static_dir: /_nuxt
     expiration: 15m
     secure: always
 

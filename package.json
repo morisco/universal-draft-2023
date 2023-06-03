@@ -9,20 +9,20 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@lottiefiles/vue-lottie-player": "^1.1.0",
+    "@lottiefiles/vue-lottie-player": "1.1.0",
     "@nuxt/ufo": "0.5.4",
     "@nuxtjs/axios": "5.12.4",
     "@nuxtjs/device": "1.2.7",
     "@nuxtjs/google-analytics": "2.4.0",
-    "@nuxtjs/moment": "^1.6.1",
+    "@nuxtjs/moment": "1.6.1",
     "@nuxtjs/style-resources": "1.0.0",
     "@segment/in-eu": "0.3.0",
     "@segment/in-regions": "1.2.2",
-    "babel": "^6.23.0",
+    "babel": "6.23.0",
     "chart.js": "3.8.0",
     "cookie-universal-nuxt": "2.1.4",
     "core-js": "3.6.5",
-    "gsap": "^3.10.3",
+    "gsap": "3.10.3",
     "lodash": "4.17.20",
     "nuxt": "2.15.2",
     "nuxt-lazy-load": "1.2.5",
@@ -31,16 +31,16 @@
     "sass-loader": "10.1.0",
     "vue-analytics": "5.22.1",
     "vue-chartjs": "4.1.1",
-    "vue-css-donut-chart": "^1.3.2",
-    "vue-dropdowns": "^1.1.2",
-    "vue-lottie": "^0.2.1",
-    "vue-lottie-player": "^0.1.9",
-    "vue-range-slider": "^0.6.0",
+    "vue-css-donut-chart": "1.3.2",
+    "vue-dropdowns": "1.1.2",
+    "vue-lottie": "0.2.1",
+    "vue-lottie-player": "0.1.9",
+    "vue-range-slider": "0.6.0",
     "vue-youtube": "1.4.0"
   },
   "devDependencies": {
     "@nuxtjs/dotenv": "1.4.1",
-    "eslint": "^8.9.0",
-    "eslint-plugin-vue": "^8.5.0"
+    "eslint": "8.9.0",
+    "eslint-plugin-vue": "8.5.0"
   }
 }
