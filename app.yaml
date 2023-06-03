@@ -1,4 +1,4 @@
-runtime: nodejs12
+runtime: nodejs16
 
 instance_class: F4
 
@@ -13,7 +13,7 @@ automatic_scaling:
 default_expiration: "15m"
 
 handlers:
-  - url: /_nuxt
+  - url: /.nuxt
     static_dir: .nuxt/dist/client
     expiration: 15m
     secure: always
