@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "nuxt --port 3333",
     "build": "nuxt build",
+    "gcp-build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
