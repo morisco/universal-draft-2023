@@ -37,7 +37,7 @@
     "vue-lottie": "0.2.1",
     "vue-lottie-player": "0.1.9",
     "vue-range-slider": "0.6.0",
-    "vue-youtube": "1.4.0",
+    "vue-youtube": "1.4.0"
     
   },
   "devDependencies": {
