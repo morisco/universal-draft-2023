@@ -161,7 +161,8 @@ export function processTeams(teams, teamPlayers, pageTeams) {
     return {teamName: teamToUse.title, logo: teamToUse.image, via: via}
   });
   
-  const teamNameLogo = teamsInOrder.map((team, index) => {
+
+  const handleTeam = (team, index) => {
     let teamToUse = team;
     let via = '';
     const tradeToUse = Math.floor(index/29);
@@ -173,7 +174,18 @@ export function processTeams(teams, teamPlayers, pageTeams) {
       }
     }
     return {teamName: teamToUse.title, logo: teamToUse.image, via: via}
+  };
+  
+  const teamNameLogo = teamsInOrder.map(handleTeam);
+
+  
+  const round2TeamNames = ["Detroit Pistons","Indiana Pacers","San Antonio Spurs","Charlotte Hornets","Boston Celtics","Orlando Magic","Oklahoma City Thunder","Sacramento Kings","Charlotte Hornets","Denver Nuggets","Charlotte Hornets","Washington Wizards","Portland Trail Blazers","San Antonio Spurs","Memphis Grizzlies","Atlanta Hawks","Los Angeles Lakers","Los Angeles Clippers","Cleveland Cavaliers","Oklahoma City Thunder","Brooklyn Nets","Phoenix Suns","Minnesota Timberwolves","Sacramento Kings","Indiana Pacers","Memphis Grizzlies","Washington Wizards","Milwaukee Bucks"];
+  
+  const round2Teams = round2TeamNames.map((teamName) => {
+    const team = teams.find(team => team.title === teamName);
+    return team;
   });
+  const teamNameLogo2 = round2Teams.map(handleTeam);
 
   let teamNameLogoResults = {};
   teams.forEach((team) => {
@@ -189,7 +201,7 @@ export function processTeams(teams, teamPlayers, pageTeams) {
     teamData: processedTeams,
     teamNeeds: teamIds,
     draftResults: resultsIds,
-    teamNameLogo: [...teamNameLogo, ...teamNameLogo],
+    teamNameLogo: [...teamNameLogo, ...teamNameLogo2],
     resultsTeamNameLogo: [...resultsTeamNameLogo, ...resultsTeamNameLogo],
     teamNameLogoResults: teamNameLogoResults,
     alphabeticTeams: alphabeticTeams

@@ -1,6 +1,6 @@
 <template>
   <div class="draft-info">
-    <span class="draft-info__name">{{ teamNameLogo.teamName }} <span
+    <span class="draft-info__name">{{ teamNameLogo.teamName || teamNameLogo.title }} <span
       v-if="grade"
       class="grade"
     > {{ grade }}</span></span>
