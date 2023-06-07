@@ -220,8 +220,12 @@ export default {
         order_mockdraft: 'mockDraft',
         order_draftresults: 'draftResults'
       };
+      const resultTeam = this.$store.getters['content/team'](this.player.drafted_team);
+      const resultTeamFormatted = resultTeam ? {
+        teamName: resultTeam.title,
+      } : null
       const baseZero = this.$store.getters['content/baseZeroSettings'][map[this.rankKey]];
-      return this.$store.getters['content/teamNameLogo'](baseZero ? this.player[this.rankKey] : this.player[this.rankKey] - 1);
+      return this.rankKey === 'order_draftresults' && resultTeamFormatted ? resultTeamFormatted : this.$store.getters['content/teamNameLogo'](baseZero ? this.player[this.rankKey] : this.player[this.rankKey] - 1);
     },
     viewDepth () {
       return this.$store.getters['viewOptions/depth'];

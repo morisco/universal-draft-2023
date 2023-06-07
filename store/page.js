@@ -15,6 +15,9 @@ const getters = {
   settings: (state) => state.settings,
   configuration: (state) => state.configuration,
   cardExpanded: (state) => state.cardExpanded,
+  draftRounds: (state) => {
+    return parseInt(state.settings.show_rounds,10);
+  },
   badges: (state) => state.settings.badges,
   defaultPod: (state) => state.settings.default_podcast,
   currentPod: (state) => state.currentPod,

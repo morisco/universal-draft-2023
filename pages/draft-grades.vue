@@ -193,7 +193,7 @@ export default {
    .placeholder{
      @include inter-title;
      background:$mediumgray;
-     max-width:100%;
+     max-width:100% !important;
      width: 100%;
      height:500px;
      border-radius:20px;
