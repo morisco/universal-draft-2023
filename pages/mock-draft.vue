@@ -70,6 +70,9 @@ export default {
     cardExpanded () {
       return this.$store.getters['page/cardExpanded']
     },
+    draftRounds() {
+      return this.$store.getters['page/draftRounds']
+    },
     viewDepth () {
       return this.$store.getters['viewOptions/depth']
     },
@@ -81,7 +84,7 @@ export default {
     },
     mockDraftIds () {
       const itemCount = this.viewDepth === 'compact' ? 10 : 4;
-      const mockLength = process.env.PROJECT_LEAGUE === 'NBA' ? 30 : 32;
+      const mockLength = (process.env.PROJECT_LEAGUE === 'NBA' ? 30 : 32) * this.draftRounds;
       return this.showAll ? this.$store.getters['content/mockDraft'](this.viewPosition, this.viewStrength).slice(0,mockLength) : this.$store.getters['content/mockDraft'](this.viewPosition, this.viewStrength).slice(0,itemCount)
     },
     viewStrength() {

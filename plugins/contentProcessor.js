@@ -31,7 +31,7 @@ function processImages(image) {
   return imageSizes;
 }
 
-function processOrders(players) {
+function processOrders(players, draftRounds) {
   const orderIds = players.map((player) => { return {id: player.id, bigBoard: parseInt(player.order,10), mockDraft: parseInt(player.order_mockdraft,10), draftResults: parseInt(player.order_draftresults,10) } });
   const bigBoardSorted = [...orderIds].sort((playerA, playerB) => (playerA.bigBoard > playerB.bigBoard) ? 1 : -1);
   const draftResultIds = players.filter(player => player.drafted_team);
@@ -39,11 +39,11 @@ function processOrders(players) {
   const draftResultsSorted = draftResultIds.sort((playerA, playerB) => (playerA.order_draftresults > playerB.order_draftresults) ? 1 : -1);
   return {
     bigBoard: bigBoardSorted.map(player => player.id),
-    mockDraft: mockDraftSorted.slice(0,30).map(player => player.id),
+    mockDraft: mockDraftSorted.slice(0,(30 * draftRounds)).map(player => player.id),
     draftResults: draftResultsSorted.map(player => player.id)
   };
 }
-export function processPlayers(players) {
+export function processPlayers(players, draftRounds) {
   let processedPlayers = {};
   const playerPositions = [];
   let teamPlayers = {};
@@ -92,7 +92,7 @@ export function processPlayers(players) {
       processedPlayers[player.id] = player;
     // }
   });
-  const orderedIds = processOrders(players);
+  const orderedIds = processOrders(players, draftRounds);
   return {
     playerData: processedPlayers,
     teamPlayers,

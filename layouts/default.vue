@@ -98,7 +98,8 @@ export default {
       this.$ga.page(this.$route.path);
     }
     this.$store.dispatch('content/getContents', {
-      teams: this.$store.getters['page/settings'].teams
+      teams: this.$store.getters['page/settings'].teams,
+      draftRounds: this.$store.getters['page/draftRounds']
     })
   },
   mounted() {

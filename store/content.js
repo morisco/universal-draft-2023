@@ -111,7 +111,7 @@ const getters = {
 
 // actions
 const actions = {
-  getContents ({commit}, { teams }) {
+  getContents ({commit}, { teams, draftRounds }) {
     var d = new Date();
     var t = d.getTime();
     axios.get("https://storage.googleapis.com/" + process.env.GCS_BUCKET + "/hardrefresh/data/" + process.env.HEDDEK_PROJECT_ID + "/content." + process.env.HEDDEK_LOCATION + ".json.gz?ignoreCache=" + t,  {
@@ -123,7 +123,7 @@ const actions = {
     })
     .then(response => {
       const contents = response.data.contents;
-      const processedPlayers = processPlayers(contents.players.content);
+      const processedPlayers = processPlayers(contents.players.content, draftRounds);
       const processedInters = processInterstitials(contents);
       const processedTeams = processTeams(contents.teams.content, processedPlayers.teamPlayers, teams);
       const processedRelated = processRelated(contents.coverage.content);
