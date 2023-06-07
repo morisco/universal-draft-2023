@@ -84,7 +84,7 @@ export default {
     },
     mockDraftIds () {
       const itemCount = this.viewDepth === 'compact' ? 10 : 4;
-      const mockLength = (process.env.PROJECT_LEAGUE === 'NBA' ? 30 : 32) * this.draftRounds;
+      const mockLength = ((process.env.PROJECT_LEAGUE === 'NBA' ? 30 : 32) * this.draftRounds) - (this.draftRounds > 1 ? 2 : 0);
       return this.showAll ? this.$store.getters['content/mockDraft'](this.viewPosition, this.viewStrength).slice(0,mockLength) : this.$store.getters['content/mockDraft'](this.viewPosition, this.viewStrength).slice(0,itemCount)
     },
     viewStrength() {

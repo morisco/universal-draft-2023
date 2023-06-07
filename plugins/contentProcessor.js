@@ -37,9 +37,10 @@ function processOrders(players, draftRounds) {
   const draftResultIds = players.filter(player => player.drafted_team);
   const mockDraftSorted = [...orderIds].sort((playerA, playerB) => (playerA.mockDraft > playerB.mockDraft) ? 1 : -1);
   const draftResultsSorted = draftResultIds.sort((playerA, playerB) => (playerA.order_draftresults > playerB.order_draftresults) ? 1 : -1);
+  const mockSlice = draftRounds > 1 ? (30 * draftRounds) - 2 : 30
   return {
     bigBoard: bigBoardSorted.map(player => player.id),
-    mockDraft: mockDraftSorted.slice(0,(30 * draftRounds)).map(player => player.id),
+    mockDraft: mockDraftSorted.slice(0, mockSlice).map(player => player.id),
     draftResults: draftResultsSorted.map(player => player.id)
   };
 }
