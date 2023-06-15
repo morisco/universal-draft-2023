@@ -179,7 +179,7 @@ export function processTeams(teams, teamPlayers, pageTeams) {
   const teamNameLogo = teamsInOrder.map(handleTeam);
 
   
-  const round2TeamNames = ["Detroit Pistons","Indiana Pacers","San Antonio Spurs","Charlotte Hornets","Boston Celtics","Orlando Magic","Denver Nuggets","Sacramento Kings","Charlotte Hornets","Oklahoma City Thunder","Charlotte Hornets","Washington Wizards","Portland Trail Blazers","San Antonio Spurs","Memphis Grizzlies","Atlanta Hawks","Los Angeles Lakers","Los Angeles Clippers","Cleveland Cavaliers","Oklahoma City Thunder","Brooklyn Nets","Phoenix Suns","Minnesota Timberwolves","Sacramento Kings","Indiana Pacers","Memphis Grizzlies","Washington Wizards","Milwaukee Bucks"];
+  const round2TeamNames = ["Detroit Pistons","Indiana Pacers","San Antonio Spurs","Charlotte Hornets","Boston Celtics","Orlando Magic","Denver Nuggets","Sacramento Kings","Charlotte Hornets","Denver Nuggets","Charlotte Hornets","Washington Wizards","Portland Trail Blazers","San Antonio Spurs","Memphis Grizzlies","Atlanta Hawks","Los Angeles Lakers","Los Angeles Clippers","Cleveland Cavaliers","Oklahoma City Thunder","Brooklyn Nets","Phoenix Suns","Minnesota Timberwolves","Sacramento Kings","Indiana Pacers","Memphis Grizzlies","Washington Wizards","Milwaukee Bucks"];
   
   const round2Teams = round2TeamNames.map((teamName) => {
     const team = teams.find(team => team.title === teamName);
