@@ -81,7 +81,7 @@ export default {
         case 'draft_grades_player_share':
           return process.env.PROJECT_LEAGUE === 'NFL' 
             ? 'Draft Grades by Danny Kelly'
-            : "Draft Grades by Kevin O'Connor"
+            : "Draft Grades by Danny Chau"
       }
     }
   }

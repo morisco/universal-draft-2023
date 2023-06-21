@@ -68,7 +68,7 @@ export default {
           }
         case 'draft_grades':
           return {
-            headline: `<strong>Draft Grades</strong> ${this.league === 'nfl' ? "By Danny Kelly" : "By Kevin O'Connor"}`,
+            headline: `<strong>Draft Grades</strong> ${this.league === 'nfl' ? "By Danny Kelly" : "By Danny Chau"}`,
             content: this.$store.getters['page/settings'].draft_results_intro,
             link: '/big-board',
             linkText: this.$store.getters['page/settings'].draft_results_link,
