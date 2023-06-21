@@ -2,7 +2,6 @@
   <div class="main-section__intro">
     <h3 v-html="introData.headline" />
     <div
-      v-if="type !== 'team_needs'"
       class="main-section__intro-content"
       v-html="introData.content"
     />
