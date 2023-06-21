@@ -110,7 +110,7 @@ export default {
             subtitle: this.pageSettings.breakdown_updated
           },
           draftGrades: {
-            title: "Draft Grades by Kevin O'Connor",
+            title: "Draft Grades by Danny Chau",
             subtitle: this.pageSettings.draft_results_updated
           }
         }
