@@ -2,6 +2,7 @@
   <div class="main-section__intro">
     <h3 v-html="introData.headline" />
     <div
+      v-if="introData.content"
       class="main-section__intro-content"
       v-html="introData.content"
     />
@@ -61,7 +62,7 @@ export default {
         case 'team_needs':
           return {
             headline: `<strong>Team Needs</strong> By ${this.league === 'nfl' ? "" : "Michael Pina"}`,
-            content: this.$store.getters['page/settings'].team_needs_intro,
+            content: this.$store.getters['page/settings'].team_needs_intro !== '<p><br></p>' ? this.$store.getters['page/settings'].team_needs_intro : false,
             link: '/mock-draft',
             linkText: this.$store.getters['page/settings'].team_needs_link,
           }
