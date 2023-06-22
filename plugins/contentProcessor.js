@@ -179,7 +179,36 @@ export function processTeams(teams, teamPlayers, pageTeams) {
   const teamNameLogo = teamsInOrder.map(handleTeam);
 
   
-  const round2TeamNames = ["Detroit Pistons","Denver Nuggets","San Antonio Spurs","Charlotte Hornets","Washington Wizards","Orlando Magic","Denver Nuggets","Sacramento Kings","Charlotte Hornets","Indiana Pacers","Charlotte Hornets","Washington Wizards","Portland Trail Blazers","San Antonio Spurs","Memphis Grizzlies","Atlanta Hawks","Los Angeles Lakers","Los Angeles Clippers","Cleveland Cavaliers","Oklahoma City Thunder","Brooklyn Nets","Phoenix Suns","Minnesota Timberwolves","Sacramento Kings","Indiana Pacers","Memphis Grizzlies","Washington Wizards","Milwaukee Bucks"];
+  const round2TeamNames = [
+    "Detroit Pistons", //31
+    "Denver Nuggets", //32
+    "San Antonio Spurs", //33
+    "Charlotte Hornets", //34
+    "Washington Wizards", //35
+    "Orlando Magic", //36
+    "Denver Nuggets", //37
+    "Sacramento Kings", //38
+    "Charlotte Hornets", //39
+    "Los Angeles Lakers", //40
+    "Charlotte Hornets", //41
+    "Washington Wizards", //42
+    "Portland Trail Blazers", //43
+    "San Antonio Spurs", //44
+    "Memphis Grizzlies", //45
+    "Atlanta Hawks", //46
+    "Indiana Pacers", //47
+    "Los Angeles Clippers" , //48
+    "Cleveland Cavaliers", //49
+    "Oklahoma City Thunder", //50
+    "Brooklyn Nets", //51
+    "Phoenix Suns", //52
+    "Minnesota Timberwolves", //53
+    "Sacramento Kings", //54
+    "Indiana Pacers", //55
+    "Memphis Grizzlies", //56
+    "Washington Wizards", //57
+    "Milwaukee Bucks" //58
+  ];
   
   const round2Teams = round2TeamNames.map((teamName) => {
     const team = teams.find(team => team.title === teamName);
