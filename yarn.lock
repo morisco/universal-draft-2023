@@ -8678,6 +8678,11 @@
     "lodash" "^4.17.21"
     "semver" "^7.3.5"
 
+"vue-gtag@^1.16.1":
+  "integrity" "sha512-5vs0pSGxdqrfXqN1Qwt0ZFXG0iTYjRMu/saddc7QIC5yp+DKgjWQRpGYVa7Pq+KbThxwzzMfo0sGi7ISa6NowA=="
+  "resolved" "https://registry.npmjs.org/vue-gtag/-/vue-gtag-1.16.1.tgz"
+  "version" "1.16.1"
+
 "vue-hot-reload-api@^2.3.0":
   "integrity" "sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog=="
   "resolved" "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz"

@@ -89,16 +89,16 @@ export default {
         }
         if(self.end && currentTime >= self.end){
           if(this.videoType === 'playerCard'){
-            this.$ga.event({
-              eventCategory: 'video',
-              eventAction: 'completed',
-              eventLabel: 'Completed player video'
+            this.$gtag.event('video_complete', {
+              event_category: 'video',
+              event_action: 'completed',
+              event_label: 'Completed player video'
             });
           } else if(this.videoType === 'interstitial'){
-            this.$ga.event({
-              eventCategory: 'video-interstitial',
-              eventAction: 'completed',
-              eventLabel: 'Completed interstitial video'
+            this.$gtag.event('video_interstitial_complete',  {
+              event_category: 'video-interstitial',
+              event_action: 'completed',
+              event_label: 'Completed interstitial video'
             });
           }
           self.player.mute();
@@ -123,16 +123,16 @@ export default {
         this.ready = false;
       }
       if(this.videoType === 'playerCard'){
-          this.$ga.event({
-            eventCategory: 'video',
-            eventAction: 'completed',
-            eventLabel: 'Completed player video'
+          this.$gtag.event('video_complete', {
+            event_category: 'video',
+            event_action: 'completed',
+            event_label: 'Completed player video'
           });
         } else if(this.videoType === 'interstitial'){
-          this.$ga.event({
-            eventCategory: 'video-interstitial',
-            eventAction: 'completed',
-            eventLabel: 'Completed interstitial video'
+          this.$gtag.event('video_interstitial_complete', {
+            event_category: 'video-interstitial',
+            event_action: 'completed',
+            event_label: 'Completed interstitial video'
           });
         }
       this.closeVideo();

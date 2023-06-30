@@ -83,10 +83,10 @@ export default {
     },
     openVideo() {
       this.open = true;
-      this.$ga.event({
-        eventCategory: 'video-interstitial',
-        eventAction: 'play',
-        eventLabel: this.interstitial.title
+      this.$gtag.event('video-interstitial',{
+        event_category: 'video-interstitial',
+        event_action: 'play',
+        event_label: this.interstitial.title
       });
     }
   }

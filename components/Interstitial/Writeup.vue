@@ -55,10 +55,10 @@ export default {
   },
   methods: {
     trackArticleOpen() {
-      this.$ga.event({
-        eventCategory: 'writeup-interstitial',
-        eventAction: 'opened',
-        eventLabel: this.interstitial.title
+      this.$gtag.event('writeup-interstitial',{
+        event_category: 'writeup-interstitial',
+        event_action: 'opened',
+        event_label: this.interstitial.title
       });
     }
   }

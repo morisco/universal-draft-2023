@@ -29,10 +29,10 @@ export default {
   props: ['interstitial'],
   methods: {
     trackArticleOpen() {
-      this.$ga.event({
-        eventCategory: 'tout-interstitial',
-        eventAction: 'opened',
-        eventLabel: this.interstitial.title
+      this.$gtag.event('tout-interstitial', {
+        event_category: 'tout-interstitial',
+        event_action: 'opened',
+        event_label: this.interstitial.title
       });
     }
   }

@@ -1,14 +1,13 @@
 import Vue from 'vue'
-import VueAnalytics from 'vue-analytics'
 import inEU from '@segment/in-eu';
+import VueGtag from 'vue-gtag';
 
-const ineu = inEU();
-const consented = window.localStorage.getItem(`ringer-${process.env.PROJECT_LEAGUE}draft-gdpr`);
-Vue.use(VueAnalytics, {
-  id: process.env.ANALYTICS_ID,
-  disabled: ineu && !consented,
-  debug: {
-    enabled: true,
-    sendHitTask: true,
-  },
-})
+const ineu = true; //inEU();
+const consented = false;// window.localStorage.getItem(`ringer-${process.env.PROJECT_LEAGUE}draft-gdpr`);
+console.log("HIIIIIII");
+if(!ineu || consented) {
+  console.log("HEYYYYYYYYY");
+  Vue.use(VueGtag, {
+    config: { id: "G-3ZG4W67K51" }
+  })
+}

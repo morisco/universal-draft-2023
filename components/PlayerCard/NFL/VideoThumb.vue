@@ -77,10 +77,10 @@ export default {
   methods: {
     triggerVideo() {
       
-      this.$ga.event({
-        eventCategory: 'video',
-        eventAction: 'play',
-        eventLabel: 'Play player video'
+      this.$gtag.event('video_play', {
+        event_category: 'video',
+        event_action: 'play',
+        event_label: 'Play player video'
       })
       if(this.$mq === 'mobile'){
         this.mobilePlay = true;
