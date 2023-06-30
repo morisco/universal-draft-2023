@@ -77,7 +77,7 @@ export default {
   methods: {
     triggerVideo() {
       
-      this.$gtag.event('video_play', {
+      this.$gtag && this.$gtag.event('video_play', {
         event_category: 'video',
         event_action: 'play',
         event_label: 'Play player video'

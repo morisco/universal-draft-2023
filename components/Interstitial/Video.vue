@@ -83,7 +83,7 @@ export default {
     },
     openVideo() {
       this.open = true;
-      this.$gtag.event('video-interstitial',{
+      this.$gtag && this.$gtag.event('video-interstitial',{
         event_category: 'video-interstitial',
         event_action: 'play',
         event_label: this.interstitial.title

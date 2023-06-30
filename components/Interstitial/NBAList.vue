@@ -109,7 +109,7 @@ export default {
   methods: {
     toggleCard() {
       if(!this.expanded){
-        this.$gtag.event('list-interstitial', {
+        this.$gtag && this.$gtag.event('list-interstitial', {
           event_category: 'list-interstitial',
           event_action: 'expanded',
           event_label: this.interstitial.title_html

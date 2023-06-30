@@ -29,7 +29,7 @@ export default {
   props: ['interstitial'],
   methods: {
     trackArticleOpen() {
-      this.$gtag.event('tout-interstitial', {
+      this.$gtag && this.$gtag.event('tout-interstitial', {
         event_category: 'tout-interstitial',
         event_action: 'opened',
         event_label: this.interstitial.title

@@ -340,8 +340,7 @@ export default {
       scrollIt(destinationOffset, duration, 'easeOutQuad', () => {
         self.setViewPosition(position);
       });
-      console.log(this.$gtag);
-      this.$gtag.event('filter-position', {
+      this.$gtag && this.$gtag.event('filter-position', {
         event_category: 'filter-position',
         event_action: 'click',
         event_label: position
@@ -350,7 +349,7 @@ export default {
     setViewDepth($event, depth) {
       $event.stopPropagation();
       this.storeViewDepth(depth);
-      this.$gtag.event('filter-depth', {
+      this.$gtag && this.$gtag.event('filter-depth', {
         event_category: 'filter-depth',
         event_action: 'click',
         event_label: depth

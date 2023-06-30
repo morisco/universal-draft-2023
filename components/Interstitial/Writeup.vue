@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     trackArticleOpen() {
-      this.$gtag.event('writeup-interstitial',{
+      this.$gtag && this.$gtag.event('writeup-interstitial',{
         event_category: 'writeup-interstitial',
         event_action: 'opened',
         event_label: this.interstitial.title

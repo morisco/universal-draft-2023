@@ -64,7 +64,7 @@ export default {
       scrollIt(this.$refs.viewable.offsetParent.offsetParent.offsetParent.offsetTop + this.$refs.viewable.offsetParent.offsetParent.offsetTop + this.$refs.viewable.offsetParent.offsetTop+ this.$refs.viewable.offsetTop + (this.$refs.viewable.offsetHeight/2) - (window.innerHeight/2), 1000, 'easeInOutQuad');
     },
     manualClose() {
-      this.$gtag.event('video_manual_close',{
+      this.$gtag && this.$gtag.event('video_manual_close',{
         event_category: 'video',
         event_action: 'manual_close',
         event_label: 'Manual close player video',
@@ -74,7 +74,7 @@ export default {
     },
     collapseVideo(e) {
       e.stopPropagation();
-      this.$gtag.event('video_collapsed', {
+      this.$gtag && this.$gtag.event('video_collapsed', {
         event_category: 'video',
         event_action: 'collapsed',
         event_label: 'Collapse player video',
