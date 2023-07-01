@@ -34,6 +34,7 @@
     "vue-chartjs": "4.1.1",
     "vue-css-donut-chart": "1.3.2",
     "vue-dropdowns": "1.1.2",
+    "vue-gtag": "^1.16.1",
     "vue-lottie": "0.2.1",
     "vue-lottie-player": "0.1.9",
     "vue-range-slider": "0.6.0",
