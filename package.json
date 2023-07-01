@@ -6,6 +6,7 @@
     "dev": "nuxt --port 3333",
     "build": "nuxt build",
     "start": "nuxt start",
+    "gcp-build": "",
     "generate": "nuxt generate"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "vue-chartjs": "^4.0.5",
     "vue-css-donut-chart": "^1.3.2",
     "vue-dropdowns": "^1.1.2",
+    "vue-gtag": "^1.16.1",
     "vue-youtube": "1.4.0"
   },
   "devDependencies": {

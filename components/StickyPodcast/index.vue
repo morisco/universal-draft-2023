@@ -347,10 +347,10 @@ export default {
       if(!this.podClicked) return;
       if(this.podPlaying) {
         if(this.readyToPlay) {
-          this.$ga.event({
-            eventCategory: this.currentPod.type === "clip" ? 'poddcast-clip' : 'podcast-episode',
-            eventAction: 'played',
-            eventLabel: this.currentPod.show + ' - ' + this.currentPod.title,
+          this.$gtag && this.$gtag.event(`${this.currentPod.type === "clip" ? 'poddcast-clip' : 'podcast-episode'}-played`, {
+            event_category: this.currentPod.type === "clip" ? 'poddcast-clip' : 'podcast-episode',
+            event_action: 'played',
+            event_label: this.currentPod.show + ' - ' + this.currentPod.title,
           });
           this.$refs.audioPlayer.play();
           this.shouldPlay = false;

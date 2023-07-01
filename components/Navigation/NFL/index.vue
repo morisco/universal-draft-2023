@@ -90,7 +90,7 @@ export default {
     $route(to, from) {
       this.$store.commit('content/resetReady');
       if(to.path !== from.path){
-        this.$ga.page(to.path);
+        this.$gtag && this.$gtag.pageview(to.path);
         let toPath = to.path;
         if(to.name === 'big_board_player_share'){
           toPath = '/';
