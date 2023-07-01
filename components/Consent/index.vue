@@ -51,7 +51,7 @@ export default {
     giveConsent() {
       this.dismissed = true;
       this.$ga.enable();
-      this.$ga.page(this.$route.path);
+      this.$gtag && this.$gtag.pageview(this.$route.path);
       window.localStorage.setItem('ringer-nfldraft-gdpr', 1);
     },
   }

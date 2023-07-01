@@ -95,7 +95,7 @@ export default {
   },
   created () {
     if(process.client){
-      this.$ga.page(this.$route.path);
+      this.$gtag && this.$gtag.pageview(this.$route.path);
     }
     this.$store.dispatch('content/getContents', {
       teams: this.$store.getters['page/settings'].teams,

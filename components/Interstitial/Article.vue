@@ -25,92 +25,93 @@
 <script>
 export default {
   name: "InterstitialArticle",
-  props: ['interstitial'],
+  props: ["interstitial"],
   methods: {
     trackArticleOpen() {
-      this.$ga.event({
-        eventCategory: 'article-interstitial',
-        eventAction: 'opened',
-        eventLabel: this.interstitial.title
-      });
-    }
-  }
-}
+      this.$gtag &&
+        this.$gtag.event("article-interstitial",{
+          event_category: "article-interstitial",
+          event_action: "opened",
+          event_label: this.interstitial.title,
+        });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-.article-inter{
-  color:$highlight2;
-  background:transparent;
-  border:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:40px 0;
-  overflow:hidden;
-  border-radius:0.625rem;
+.article-inter {
+  color: $highlight2;
+  background: transparent;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+  overflow: hidden;
+  border-radius: 0.625rem;
   @include mobile {
-    padding:20px 20px 25px;
+    padding: 20px 20px 25px;
   }
-  &.player-card{
-    opacity:1;
+  &.player-card {
+    opacity: 1;
   }
-  &__image{
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    z-index:0;
-    img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
+  &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
-    &:after{
-      content:'';
-      display:block;
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:0;
-      top:0;
-      z-index:1;
-      background-color:rgba(255,255,255,0.75);
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      z-index: 1;
+      background-color: rgba(255, 255, 255, 0.75);
     }
   }
-  &__content{
-    position:relative;
-    z-index:1;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     @include mobile {
-      min-height:0;
+      min-height: 0;
     }
   }
-  &__slug{
+  &__slug {
     @include slug;
-    font-size:19px;
-    color:$highlight2;
+    font-size: 19px;
+    color: $highlight2;
   }
-  &__headline{
+  &__headline {
     @include inter-title;
-    text-align:center;
-    padding:25px 0 40px;
-    flex:1;
-    @include mobile{
-      font-size:20px;
-      line-height:20px;
-      padding:10px 0 20px;
+    text-align: center;
+    padding: 25px 0 40px;
+    flex: 1;
+    @include mobile {
+      font-size: 20px;
+      line-height: 20px;
+      padding: 10px 0 20px;
     }
   }
-  &__link{
+  &__link {
     @include expanded-label;
-    font-size:19px;
-    text-decoration:underline;
-    @include mobile{
-      font-size:15px;
+    font-size: 19px;
+    text-decoration: underline;
+    @include mobile {
+      font-size: 15px;
     }
   }
 }
